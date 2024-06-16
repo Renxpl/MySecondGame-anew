@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Sun
+    uniqueID: 4181715545
+    locked: 0
+  - name: Sea
+    uniqueID: 2208064979
+    locked: 0
+  - name: Sky
+    uniqueID: 3046397541
+    locked: 0
+  - name: Ground
+    uniqueID: 3526842783
+    locked: 0
+  - name: Player
+    uniqueID: 722697965
+    locked: 0
