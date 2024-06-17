@@ -941,7 +941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f22994803897c49b69a23c30fb7f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionHandle: 0
+  transitionHandle: 1
   Panel: {fileID: 979996008}
 --- !u!4 &1098711562
 Transform:
