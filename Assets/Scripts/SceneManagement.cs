@@ -5,11 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
+    [SerializeField] bool transitionHandle;
+
     public GameObject Panel;
+    
 
     void Start()
     {
-       StartCoroutine(Waiting());
+
+       if(transitionHandle) StartCoroutine(Waiting());
+
+
+
     }
 
     void Update()
