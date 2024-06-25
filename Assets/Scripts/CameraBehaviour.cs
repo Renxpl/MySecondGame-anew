@@ -17,6 +17,6 @@ public class CameraBehaviour : MonoBehaviour
     void Update()
     {
 
-        this.transform.position = new Vector3(toFollow.transform.position.x+2, toFollow.transform.position.y+2, this.transform.position.z);
+        this.transform.position = new Vector3(toFollow.transform.position.x+2, toFollow.transform.position.y+1, this.transform.position.z);
     }
 }
