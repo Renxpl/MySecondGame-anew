@@ -46,7 +46,16 @@ public class PlayerMovement : MonoBehaviour
         AnimationHandle();
     }
 
-
+    void OnFire(InputValue input)
+    {
+        StartCoroutine(LightAttacking());
+    }
+    IEnumerator LightAttacking()
+    {
+        isLightAttacking= true;
+        yield return new WaitForSecondsRealtime(0.5f);
+        isLightAttacking= false;
+    }
 
     void ChangeAnimationState(string newAnimation)
     {
