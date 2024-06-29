@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        
+        if(moveInput.x >0 || moveInput.x < 0)
         myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * walkingSpeed, myRb.velocity.y);
     }
 
