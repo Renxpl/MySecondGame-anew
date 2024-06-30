@@ -38,10 +38,10 @@ public class ParallaxTest : MonoBehaviour
         for (int i = 0; i < 3; i += 2)
         {
             groundsTransforms[i] = Instantiate(groundsTransforms[1]);
-            groundsTransforms[i].position = new Vector2(groundsTransforms[1].position.x - 16f + (i * 16f), groundsTransforms[1].position.y);
+            groundsTransforms[i].position = new Vector2(groundsTransforms[1].position.x - 24f + (i * 24f), groundsTransforms[1].position.y);
 
             cloudTransforms[i] = Instantiate(cloudTransforms[1]);
-            cloudTransforms[i].position = new Vector2(cloudTransforms[1].position.x - 16f + (i * 16f), cloudTransforms[1].position.y);
+            cloudTransforms[i].position = new Vector2(cloudTransforms[1].position.x - 24f + (i * 24f), cloudTransforms[1].position.y);
 
             // backMountainTransforms[i] = Instantiate(backMountainTransforms[1]);
             // backMountainTransforms[i].position = new Vector2(backMountainTransforms[1].position.x - 16f + (i * 16f), backMountainTransforms[1].position.y);
@@ -63,13 +63,13 @@ public class ParallaxTest : MonoBehaviour
     {
         cameraTotalDisplacement = (Vector2)transform.position - cameraStartingPosition;
 
-        ReproductionOfParallax(cloudTransforms, parallaxStartingPositionsForSky, targetsForSky, 16f, ref counterForSky, 9 / 10f, cameraTotalDisplacement);
-        ReproductionOfParallax(groundsTransforms, parallaxStartingPositions, targetsForGround, 16f, ref counter, 1 / 2f, cameraTotalDisplacement);
+        ReproductionOfParallax(cloudTransforms, parallaxStartingPositionsForSky, targetsForSky, 24f, ref counterForSky, 9 / 10f, cameraTotalDisplacement);
+        ReproductionOfParallax(groundsTransforms, parallaxStartingPositions, targetsForGround, 24f, ref counter, 1 / 2f, cameraTotalDisplacement);
         // ReproductionOfParallax(backMountainTransforms, parallaxStartingPositionsForBM, targetsForBM, 16f, ref counterForBM, 7f / 10f, cameraTotalDisplacement);
 
-        ParallaxTransform(sunTransform, sunStartingPosition, ref targetForSun, cameraTotalDisplacement, 1f, 1 / 128f, 14f);
-        ParallaxTransform(cloudTransforms, parallaxStartingPositionsForSky, ref targetsForSky, cameraTotalDisplacement, 9f / 10f, 1 / 64f, 12f);
-        ParallaxTransform(groundsTransforms, parallaxStartingPositions, ref targetsForGround, cameraTotalDisplacement, 7f / 10f, 1 / 64f, 20f, true);
+        ParallaxTransform(sunTransform, sunStartingPosition, ref targetForSun, cameraTotalDisplacement, 1f, 1/32f, 20f);
+        ParallaxTransform(cloudTransforms, parallaxStartingPositionsForSky, ref targetsForSky, cameraTotalDisplacement, 9f / 10f, 0f, 12f);
+        ParallaxTransform(groundsTransforms, parallaxStartingPositions, ref targetsForGround, cameraTotalDisplacement, 7f / 10f, 0f, 20f, true);
         //ParallaxTransform(groundsTransforms, parallaxStartingPositions,ref targetsForGround, cameraTotalDisplacement, 1f / 2f, 1 / 128f, 25f, true);
         //ParallaxTransform(backMountainTransforms, parallaxStartingPositionsForBM,ref targetsForBM, cameraTotalDisplacement, 7f / 10f, 1 / 64f, 20f, true);
         Debug.Log(targetForSun);
@@ -150,8 +150,8 @@ public class ParallaxTest : MonoBehaviour
             Vector2 lerpResult = Vector2.Lerp(parallax.position, target, Time.deltaTime * lerpFactor);
             Vector2 lerpResult2 = Vector2.Lerp(parallax.position, target, 1);
             lerpResult = new Vector2(lerpResult.x, lerpResult2.y);
-            //parallax.position = lerpResult;
-            parallax.position = new Vector2((float)Rounding(lerpResult.x, target.x - parallax.position.x), (float)Rounding(lerpResult.y, target.y - parallax.position.y));
+            parallax.position = lerpResult;
+            //parallax.position = new Vector2((float)Rounding(lerpResult.x, target.x - parallax.position.x), (float)Rounding(lerpResult.y, target.y - parallax.position.y));
 
         }
 
