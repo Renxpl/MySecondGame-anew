@@ -131,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf9312d728a676e43b2c9835bb8e9644
-      internalID: -1257017670
+      spriteID: 9839093a9ecebd24cacd0666df43261a
+      internalID: 435382205
       vertices: []
       indices: 
       edges: []
@@ -152,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8f4298e2993a2143bcfb65ee623d4d6
-      internalID: 547029298
+      spriteID: 7105f4856375bb243a7aa99de9a22388
+      internalID: 1976129676
       vertices: []
       indices: 
       edges: []
@@ -173,8 +173,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe6c84a97af744646ae2c26f7a70acb0
-      internalID: 476105421
+      spriteID: 8223357d0229d2148907638bcd0b224d
+      internalID: -197898356
       vertices: []
       indices: 
       edges: []
@@ -194,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2786d48bf6ed9cc4398474b69a8ac1ab
-      internalID: 456997219
+      spriteID: cef18d6d0add2444fa60ab52facd752b
+      internalID: 1257999624
       vertices: []
       indices: 
       edges: []
@@ -215,8 +215,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe47c4e3c40f3cf4283ad2b788ae6893
-      internalID: 1685319845
+      spriteID: 16abf70d9ffffc841a8c3a1c689b0d81
+      internalID: 1872799975
       vertices: []
       indices: 
       edges: []
@@ -236,8 +236,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed51697e8f218474184aea643c1c00cc
-      internalID: -1059174216
+      spriteID: 3083236e8e78df84687e5eefcdd60d1f
+      internalID: 2107244573
       vertices: []
       indices: 
       edges: []
@@ -253,12 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      new samurai x walking _2: 476105421
-      new samurai x walking _4: 1685319845
-      new samurai x walking _5: -1059174216
-      new samurai x walking _3: 456997219
-      new samurai x walking _1: 547029298
-      new samurai x walking _0: -1257017670
+      new samurai x walking _2: -197898356
+      new samurai x walking _4: 1872799975
+      new samurai x walking _5: 2107244573
+      new samurai x walking _3: 1257999624
+      new samurai x walking _1: 1976129676
+      new samurai x walking _0: 435382205
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -38,6 +38,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if(moveInput.x >0 || moveInput.x < 0)
         myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * walkingSpeed, myRb.velocity.y);
+        else
+        {
+            myRb.velocity = new Vector2(0, myRb.velocity.y);
+        }
     }
 
 
