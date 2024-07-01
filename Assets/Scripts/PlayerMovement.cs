@@ -10,14 +10,29 @@ public class PlayerMovement : MonoBehaviour
     Animator playerAnimator;
     bool isLightAttacking = false;
     bool isWalking= false;
+    bool isHForm = false;
     Vector2 moveInput;
+
+    
 
     string lightAttackAnim = "LightAttackTest3";
     string idle = "Idle";
     string walkingAnim = "WalkingTest";
+    string hForm = "HForm";
+    string hFormStance = "HFormStance";
+
+
+
+
+    [Header("Animation and Movement variables")]
+    [SerializeField] Sprite idleStanceSprite;
+    [SerializeField] Sprite hFormStanceSprite;
 
     [Header("Animation and Movement variables")]
     [SerializeField] float walkingSpeed;
+
+
+    float hFormInput;
 
     void Start()
     {
@@ -72,7 +87,12 @@ public class PlayerMovement : MonoBehaviour
     }
     void AnimationHandle()
     {
-        if (isLightAttacking)
+        if (isHForm)
+        {
+            
+            ChangeAnimationState(hForm);
+        }
+        else if (isLightAttacking)
         {
             ChangeAnimationState(lightAttackAnim);
             
@@ -91,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
     void OnMove(InputValue input)
     {
         moveInput = input.Get<Vector2>();
-        Debug.Log("MoveInput Debug Display " + moveInput);
+        //Debug.Log("MoveInput Debug Display " + moveInput);
     }
 
     void SpriteChangesInAction()
@@ -109,11 +129,27 @@ public class PlayerMovement : MonoBehaviour
                 transform.localScale = new Vector2(-1f, 1f);
         }
         else { isWalking = false; }
-       
 
-        
+
+
+        if (hFormInput > 0.1)
+        {
+            isHForm = true;
+            
+
+        }
+        else
+        {
+            isHForm = false;
+        }
     }
     
+    void OnHForm(InputValue input)
+    {
 
-
+        hFormInput= input.Get<float>();
+        Debug.Log(hFormInput);
+        
+    }
+   
 }

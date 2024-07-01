@@ -72,7 +72,7 @@ public class ParallaxTest : MonoBehaviour
         ParallaxTransform(groundsTransforms, parallaxStartingPositions, ref targetsForGround, cameraTotalDisplacement, 7f / 10f, 0f, 20f, true);
         //ParallaxTransform(groundsTransforms, parallaxStartingPositions,ref targetsForGround, cameraTotalDisplacement, 1f / 2f, 1 / 128f, 25f, true);
         //ParallaxTransform(backMountainTransforms, parallaxStartingPositionsForBM,ref targetsForBM, cameraTotalDisplacement, 7f / 10f, 1 / 64f, 20f, true);
-        Debug.Log(targetForSun);
+       
 
     }
 
