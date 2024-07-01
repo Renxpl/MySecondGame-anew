@@ -96,15 +96,17 @@ public class PlayerMovement : MonoBehaviour
 
     void SpriteChangesInAction()
     {
-        if (myRb.velocity.x > 0)
+        if (myRb.velocity.x > 0f)
         {
             isWalking = true;
+            if(myRb.velocity.x > 0.5f)
             transform.localScale = new Vector2(1f, 1f);
         }
-        else if (myRb.velocity.x < 0)
+        else if (myRb.velocity.x < 0f)
         {
             isWalking = true;
-            transform.localScale = new Vector2(-1f, 1f);
+            if (myRb.velocity.x < 0.5f)
+                transform.localScale = new Vector2(-1f, 1f);
         }
         else { isWalking = false; }
        
