@@ -974,6 +974,7 @@ MonoBehaviour:
   idleStanceSprite: {fileID: 0}
   hFormStanceSprite: {fileID: 0}
   walkingSpeed: 3.5
+  hFormTransitionSeconds: 0.3
 --- !u!1 &979996008
 GameObject:
   m_ObjectHideFlags: 0

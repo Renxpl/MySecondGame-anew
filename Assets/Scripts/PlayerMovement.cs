@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     bool isLightAttacking = false;
     bool isWalking= false;
     bool isHForm = false;
+    bool hFormLayer = true;
     Vector2 moveInput;
 
     
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     string walkingAnim = "WalkingTest";
     string hForm = "HForm";
     string hFormStance = "HFormStance";
+    string hFormAttack = "HFormAttack";
+    string hToL = "HtoL";
 
 
 
@@ -30,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Animation and Movement variables")]
     [SerializeField] float walkingSpeed;
+    [SerializeField] float hFormTransitionSeconds=0.3f;
 
 
     float hFormInput;
@@ -51,8 +55,14 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if(moveInput.x >0 || moveInput.x < 0)
-        myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * walkingSpeed, myRb.velocity.y);
+        if(moveInput.x >0.15f || moveInput.x < -0.15f)
+        {
+            if(!isHForm)
+                myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * walkingSpeed, myRb.velocity.y);
+            else
+                myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * walkingSpeed/2f, myRb.velocity.y);
+        }
+        
         else
         {
             myRb.velocity = new Vector2(0, myRb.velocity.y);
@@ -72,8 +82,11 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator LightAttacking()
     {
         isLightAttacking= true;
-        yield return new WaitForSecondsRealtime(0.5f);
-        isLightAttacking= false;
+        if(isHForm)
+            yield return new WaitForSecondsRealtime(0.82f);
+        else
+            yield return new WaitForSecondsRealtime(0.5f);
+        isLightAttacking = false;
     }
 
     void ChangeAnimationState(string newAnimation)
@@ -89,29 +102,52 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isHForm)
         {
+            if (!hFormLayer) { StartCoroutine(HFormTransition(hForm));  return;}
+            if (isLightAttacking)
+            {
+                ChangeAnimationState(hFormAttack);
+
+            }
             
-            ChangeAnimationState(hForm);
+            else
+            {
+                ChangeAnimationState(hFormStance);
+
+            }
+
         }
-        else if (isLightAttacking)
+        else
         {
-            ChangeAnimationState(lightAttackAnim);
-            
-        }
-        else if(isWalking)
-        {
-            ChangeAnimationState(walkingAnim);
-        }
-        else 
-        {
-            ChangeAnimationState(idle);
+            if (!hFormLayer) return;
+            playerAnimator.SetLayerWeight(1, 0f);
+            if (isLightAttacking)
+            {
+                ChangeAnimationState(lightAttackAnim);
+
+            }
+            else if (isWalking)
+            {
+                ChangeAnimationState(walkingAnim);
+            }
+            else
+            {
+                ChangeAnimationState(idle);
+            }
         }
         
     }
+    IEnumerator HFormTransition(string a)
+    {
+        ChangeAnimationState(a);
+        yield return new WaitForSecondsRealtime(hFormTransitionSeconds);
+        hFormLayer = true;
 
+
+    }
     void OnMove(InputValue input)
     {
         moveInput = input.Get<Vector2>();
-        //Debug.Log("MoveInput Debug Display " + moveInput);
+        Debug.Log("MoveInput Debug Display " + moveInput);
     }
 
     void SpriteChangesInAction()
@@ -120,12 +156,12 @@ public class PlayerMovement : MonoBehaviour
         {
             isWalking = true;
             if(myRb.velocity.x > 0.5f)
-            transform.localScale = new Vector2(1f, 1f);
+                transform.localScale = new Vector2(1f, 1f);
         }
         else if (myRb.velocity.x < 0f)
         {
             isWalking = true;
-            if (myRb.velocity.x < 0.5f)
+            if (myRb.velocity.x < -0.5f)
                 transform.localScale = new Vector2(-1f, 1f);
         }
         else { isWalking = false; }
@@ -134,13 +170,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (hFormInput > 0.1)
         {
-            isHForm = true;
-            
+            if (!isHForm) { isHForm = true; hFormLayer = false; }
+            playerAnimator.SetLayerWeight(1, 1f);
 
         }
         else
         {
-            isHForm = false;
+            if (isHForm) { StartCoroutine(HFormTransition(hToL)); isHForm = false; hFormLayer = false; }
+            
         }
     }
     
@@ -149,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
 
         hFormInput= input.Get<float>();
         Debug.Log(hFormInput);
-        
+
     }
    
 }
