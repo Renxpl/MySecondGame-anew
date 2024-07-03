@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     bool isWalking= false;
     bool isHForm = false;
     bool hFormLayer = true;
+    bool isRolling = false;
     Vector2 moveInput;
 
     
@@ -19,11 +20,15 @@ public class PlayerMovement : MonoBehaviour
     string lightAttackAnim = "LightAttackTest3";
     string idle = "Idle";
     string walkingAnim = "WalkingTest";
+    string rollingAnim = "RollingTest1";
+
+
     string hForm = "HForm";
     string hFormStance = "HFormStance";
     string hFormAttack = "HFormAttack";
     string hToL = "HtoL";
 
+    
 
 
 
@@ -66,6 +71,14 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             myRb.velocity = new Vector2(0, myRb.velocity.y);
+        }
+
+        if (isRolling && !isHForm)
+        {
+            
+            //myRb.velocity = new Vector2( Mathf.Sign(moveInput.x) * 48f, myRb.velocity.y);
+            myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(1.5f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
+            Debug.Log(transform.localScale.x);
         }
     }
 
@@ -125,6 +138,10 @@ public class PlayerMovement : MonoBehaviour
                 ChangeAnimationState(lightAttackAnim);
 
             }
+            else if (isRolling)
+            {
+                ChangeAnimationState(rollingAnim);
+            }
             else if (isWalking)
             {
                 ChangeAnimationState(walkingAnim);
@@ -155,14 +172,15 @@ public class PlayerMovement : MonoBehaviour
         if (myRb.velocity.x > 0f)
         {
             isWalking = true;
-            if(myRb.velocity.x > 0.5f)
-                transform.localScale = new Vector2(1f, 1f);
+            if (myRb.velocity.x > 0.5f)
+                transform.localScale = new Vector2(1f, 1f); 
+
         }
         else if (myRb.velocity.x < 0f)
         {
             isWalking = true;
             if (myRb.velocity.x < -0.5f)
-                transform.localScale = new Vector2(-1f, 1f);
+                 transform.localScale = new Vector2(-1f, 1f);  
         }
         else { isWalking = false; }
 
@@ -186,6 +204,23 @@ public class PlayerMovement : MonoBehaviour
 
         hFormInput= input.Get<float>();
         Debug.Log(hFormInput);
+
+    }
+    void OnRolling()
+    {
+        StartCoroutine(RollingCoroutine());
+
+
+    }
+
+
+    IEnumerator RollingCoroutine()
+    {
+        isRolling = true;
+        //myRb.velocity = new Vector2(48f, myRb.velocity.y);
+        //myRb.AddForce(new Vector2(10,0) , ForceMode2D.Impulse);
+        yield return new WaitForSecondsRealtime(0.25f);
+        isRolling = false;
 
     }
    
