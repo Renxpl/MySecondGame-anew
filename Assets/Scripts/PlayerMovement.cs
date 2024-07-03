@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     bool isHForm = false;
     bool hFormLayer = true;
     bool isRolling = false;
+    bool isParrying = false;
     Vector2 moveInput;
 
     
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     string hFormStance = "HFormStance";
     string hFormAttack = "HFormAttack";
     string hToL = "HtoL";
+    string parry = "Parry";
 
     
 
@@ -42,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     float hFormInput;
+    float parryInput;
 
     void Start()
     {
@@ -57,6 +60,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         SpriteChangesInAction();
+        if (parryInput > 0)
+        {
+            isParrying= true;
+        }
+        else { isParrying = false; }
     }
     void FixedUpdate()
     {
@@ -87,6 +95,10 @@ public class PlayerMovement : MonoBehaviour
            
 
         }
+
+
+
+
     }
 
 
@@ -123,7 +135,12 @@ public class PlayerMovement : MonoBehaviour
         if (isHForm)
         {
             if (!hFormLayer) { StartCoroutine(HFormTransition(hForm));  return;}
-            if (isLightAttacking)
+            if (isParrying)
+            {
+                ChangeAnimationState(parry);
+            }
+
+            else if (isLightAttacking)
             {
                 ChangeAnimationState(hFormAttack);
 
@@ -231,4 +248,12 @@ public class PlayerMovement : MonoBehaviour
 
     }
    
+
+    void OnParry(InputValue input)
+    {
+        parryInput= input.Get<float>();
+
+
+    }
+
 }
