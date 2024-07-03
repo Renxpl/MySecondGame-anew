@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RollingTest1
-  m_Speed: 2.25
+  m_Speed: 1.4
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e3a24819be2e43147aadfed8736a8245, type: 2}
+  m_Motion: {fileID: 7400000, guid: 08f593c3f0da2384f8c0eaf3943d1ca3, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

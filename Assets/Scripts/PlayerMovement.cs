@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         {
             
             //myRb.velocity = new Vector2( Mathf.Sign(moveInput.x) * 48f, myRb.velocity.y);
-            myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(1.5f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
+            myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(2.5f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
             Debug.Log(transform.localScale.x);
         }
     }
