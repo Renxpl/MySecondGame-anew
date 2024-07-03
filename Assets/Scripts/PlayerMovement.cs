@@ -80,6 +80,13 @@ public class PlayerMovement : MonoBehaviour
             myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(1.75f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
             Debug.Log(transform.localScale.x);
         }
+        if (isLightAttacking)
+        {
+            
+            myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(2f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
+           
+
+        }
     }
 
 
@@ -98,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         if(isHForm)
             yield return new WaitForSecondsRealtime(0.82f);
         else
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(1f);
         isLightAttacking = false;
     }
 
