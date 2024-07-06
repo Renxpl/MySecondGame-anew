@@ -15,8 +15,9 @@ public class PlayerMovement : MonoBehaviour
     bool isRolling = false;
     bool isParrying = false;
     Vector2 moveInput;
-
-    
+    Coroutine Attack1 = null;
+    Coroutine Attack2 = null;
+    Coroutine Attack3 = null;
 
     string lightAttackAnim = "LightAttackTest3";
     string idle = "Idle";
@@ -24,6 +25,18 @@ public class PlayerMovement : MonoBehaviour
     string rollingAnim = "RollingTest1";
 
 
+    //for Light Attacks
+    string lightAttack1Anim = "LightAttack1";
+    string lightAttack2Anim = "LightAttack2";
+    string lightAttack3Anim = "LightAttack3";
+    
+    bool isAttacking2 = false;
+    bool isAttacking3 = false;
+    bool isNextAttackUnlocked = false;
+  
+
+
+    //hForm
     string hForm = "HForm";
     string hFormStance = "HFormStance";
     string hFormAttack = "HFormAttack";
@@ -50,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerAnimator = GetComponent<Animator>();
         myRb = GetComponent<Rigidbody2D>();
-
+        
 
 
     }
@@ -68,7 +81,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if(moveInput.x >0.15f || moveInput.x < -0.15f)
+        bool notAttacking = !isLightAttacking && !isAttacking2 && !isAttacking3;
+        if ((moveInput.x >0.15f || moveInput.x < -0.15f)&& notAttacking)
         {
             if(!isHForm)
                 myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * walkingSpeed, myRb.velocity.y);
@@ -81,18 +95,19 @@ public class PlayerMovement : MonoBehaviour
             myRb.velocity = new Vector2(0, myRb.velocity.y);
         }
 
-        if (isRolling && !isHForm)
+        if (isRolling && !isHForm && notAttacking)
         {
             
             //myRb.velocity = new Vector2( Mathf.Sign(moveInput.x) * 48f, myRb.velocity.y);
             myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(1.75f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
             Debug.Log(transform.localScale.x);
         }
-        if (isLightAttacking && !isHForm)
+        if ((isLightAttacking && !isHForm) || (isAttacking3 && !isHForm))
         {
             
-            myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(2f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
-           
+            
+                myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(2f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
+            
 
         }
 
@@ -109,16 +124,95 @@ public class PlayerMovement : MonoBehaviour
 
     void OnFire(InputValue input)
     {
-        StartCoroutine(LightAttacking());
+        if (!isLightAttacking && !isAttacking2 && !isAttacking3)
+        {
+            isLightAttacking = true;
+            Attack1 = StartCoroutine(LightAttacking());
+
+        }
+        if(isNextAttackUnlocked && isLightAttacking && !isAttacking3)
+        {
+            isAttacking2 = true;
+        }
+        if (isNextAttackUnlocked && !isLightAttacking && isAttacking2)
+        {
+            isAttacking3 = true;
+        }
+
     }
     IEnumerator LightAttacking()
     {
-        isLightAttacking= true;
-        if(isHForm)
-            yield return new WaitForSecondsRealtime(0.82f);
+        
+        if (isHForm)
+        { 
+            yield return new WaitForSecondsRealtime(0.82f); 
+        }
         else
-            yield return new WaitForSecondsRealtime(1f);
+        {
+            
+            yield return new WaitForSecondsRealtime(0.067f);
+            isNextAttackUnlocked = true;
+            yield return new WaitForSecondsRealtime(0.1f);
+            
+            if (isAttacking2)
+            {
+                Attack2 = StartCoroutine(Attacking2());
+            }
+           
+
+        }
+        isNextAttackUnlocked = false;
         isLightAttacking = false;
+        Attack1 = null;
+    }
+    IEnumerator Attacking2()
+    {
+       
+        if (isHForm)
+        {
+            yield return new WaitForSecondsRealtime(0.82f);
+        }
+        else
+        {
+            yield return new WaitForSecondsRealtime(0.383f);
+
+
+            isNextAttackUnlocked = true;
+            yield return new WaitForSecondsRealtime(0.2f);
+        
+            if (isAttacking3)
+            {
+                Attack3 = StartCoroutine(Attacking3());
+            }
+
+
+        }
+        isNextAttackUnlocked = false;
+        isAttacking2 = false;
+        Attack2 = null;
+    }
+    IEnumerator Attacking3()
+    {
+      
+
+        if (isHForm)
+        {
+            yield return new WaitForSecondsRealtime(0.82f);
+        }
+        else
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+
+
+            isNextAttackUnlocked = false;
+            yield return new WaitForSecondsRealtime(0.15f);
+         
+
+
+        }
+        isNextAttackUnlocked = false;
+        isAttacking3 = false;
+        Attack3 = null;
     }
 
     void ChangeAnimationState(string newAnimation)
@@ -143,6 +237,7 @@ public class PlayerMovement : MonoBehaviour
             else if (isLightAttacking)
             {
                 ChangeAnimationState(hFormAttack);
+                
 
             }
             
@@ -160,7 +255,19 @@ public class PlayerMovement : MonoBehaviour
             if (isLightAttacking)
             {
                 ChangeAnimationState(lightAttackAnim);
+                if(Attack1==null)
+                Attack1 = StartCoroutine(LightAttacking());
 
+            }
+            else if (isAttacking2)
+            {
+                ChangeAnimationState(lightAttack2Anim);
+               
+            }
+            else if (isAttacking3)
+            {
+                ChangeAnimationState(lightAttack3Anim);
+                
             }
             else if (isRolling)
             {
