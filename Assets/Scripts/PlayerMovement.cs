@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D myRb;
     string currentAnimation = "";
     Animator playerAnimator;
-    bool isLightAttacking = false;
+    
     bool isWalking= false;
     bool isHForm = false;
     bool hFormLayer = true;
@@ -29,7 +29,9 @@ public class PlayerMovement : MonoBehaviour
     string lightAttack1Anim = "LightAttack1";
     string lightAttack2Anim = "LightAttack2";
     string lightAttack3Anim = "LightAttack3";
-    
+
+    public bool IsLightAttacking { get; private set; }
+    bool isAttacking1 = false;
     bool isAttacking2 = false;
     bool isAttacking3 = false;
     bool isNextAttackUnlocked = false;
@@ -74,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-
+    
 
     void Update()
     {
@@ -87,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        bool notAttacking = !isLightAttacking && !isAttacking2 && !isAttacking3;
+        bool notAttacking = !isAttacking1 && !isAttacking2 && !isAttacking3;
         if ((moveInput.x >0.15f || moveInput.x < -0.15f)&& notAttacking)
         {
             if(!isHForm)
@@ -108,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
             myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(1.75f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
             Debug.Log(transform.localScale.x);
         }
-        if ((isLightAttacking && !isHForm) || (isAttacking3 && !isHForm))
+        if ((isAttacking1 && !isHForm) || (isAttacking3 && !isHForm))
         {
             
             
@@ -140,17 +142,17 @@ public class PlayerMovement : MonoBehaviour
 
     void OnFire(InputValue input)
     {
-        if (!isLightAttacking && !isAttacking2 && !isAttacking3)
+        if (!isAttacking1 && !isAttacking2 && !isAttacking3)
         {
-            isLightAttacking = true;
+            isAttacking1 = true;
             Attack1 = StartCoroutine(LightAttacking());
 
         }
-        if(isNextAttackUnlocked && isLightAttacking && !isAttacking3)
+        if(isNextAttackUnlocked && isAttacking1 && !isAttacking3)
         {
             isAttacking2 = true;
         }
-        if (isNextAttackUnlocked && !isLightAttacking && isAttacking2)
+        if (isNextAttackUnlocked && !isAttacking1 && isAttacking2)
         {
             isAttacking3 = true;
         }
@@ -165,11 +167,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            
+            IsLightAttacking= true;
             yield return new WaitForSecondsRealtime(0.067f);
             isNextAttackUnlocked = true;
             yield return new WaitForSecondsRealtime(0.1f);
-            
+            IsLightAttacking = false;
             if (isAttacking2)
             {
                 Attack2 = StartCoroutine(Attacking2());
@@ -178,24 +180,25 @@ public class PlayerMovement : MonoBehaviour
 
         }
         isNextAttackUnlocked = false;
-        isLightAttacking = false;
+        isAttacking1 = false;
         Attack1 = null;
     }
     IEnumerator Attacking2()
     {
-       
+        
         if (isHForm)
         {
             yield return new WaitForSecondsRealtime(0.82f);
         }
         else
         {
+            IsLightAttacking = true;
             yield return new WaitForSecondsRealtime(0.383f);
 
 
             isNextAttackUnlocked = true;
             yield return new WaitForSecondsRealtime(0.2f);
-        
+            IsLightAttacking = false;
             if (isAttacking3)
             {
                 Attack3 = StartCoroutine(Attacking3());
@@ -217,12 +220,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            IsLightAttacking = true;
             yield return new WaitForSecondsRealtime(0.1f);
 
 
             isNextAttackUnlocked = false;
             yield return new WaitForSecondsRealtime(0.15f);
-         
+            IsLightAttacking = false;
 
 
         }
@@ -250,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
                 ChangeAnimationState(parry);
             }
 
-            else if (isLightAttacking)
+            else if (isAttacking1)
             {
                 ChangeAnimationState(hFormAttack);
                 
@@ -268,7 +272,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!hFormLayer) return;
             playerAnimator.SetLayerWeight(1, 0f);
-            if (isLightAttacking)
+            if (isAttacking1)
             {
                 ChangeAnimationState(lightAttackAnim);
                 if(Attack1==null)
