@@ -1089,6 +1089,7 @@ GameObject:
   - component: {fileID: 1058171113}
   - component: {fileID: 1058171114}
   - component: {fileID: 1058171115}
+  - component: {fileID: 1058171116}
   m_Layer: 7
   m_Name: Enemy Soldier
   m_TagString: Untagged
@@ -1230,6 +1231,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1058171116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058171110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f2b27902455244da7cdbe8153d37f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 938682213}
+  finisher: 0
 --- !u!1 &1098711560
 GameObject:
   m_ObjectHideFlags: 0
