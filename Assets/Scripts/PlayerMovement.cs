@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     bool isAttacking2 = false;
     bool isAttacking3 = false;
     bool isNextAttackUnlocked = false;
-  
+    
 
 
     //hForm
@@ -43,7 +43,13 @@ public class PlayerMovement : MonoBehaviour
     string hToL = "HtoL";
     string parry = "Parry";
 
-    
+
+    //Hitboxes
+    [Header("Hitboxes")]
+    PolygonCollider2D swordCollider;
+    [SerializeField]BoxCollider2D bodyHitbox;
+    [SerializeField] BoxCollider2D rollingHitbox;
+
 
 
 
@@ -63,9 +69,9 @@ public class PlayerMovement : MonoBehaviour
     {
         playerAnimator = GetComponent<Animator>();
         myRb = GetComponent<Rigidbody2D>();
+        swordCollider = GetComponentInChildren<PolygonCollider2D>();
         
-
-
+        
     }
 
 
@@ -111,7 +117,17 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        if (isRolling)
+        {
+            bodyHitbox.enabled= false;
+            rollingHitbox.enabled = true;
 
+        }
+        else
+        {
+            bodyHitbox.enabled = true;
+            rollingHitbox.enabled = false;
+        }
 
 
     }
