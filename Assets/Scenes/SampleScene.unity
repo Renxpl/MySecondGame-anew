@@ -1622,7 +1622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   script: {fileID: 1058171116}
   isGetMoved: 0
-  health: 3
+  health: 15
 --- !u!1 &1693003340
 GameObject:
   m_ObjectHideFlags: 0
