@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -67,19 +68,75 @@ public class PlayerMovement : MonoBehaviour
     float hFormInput;
     float parryInput;
 
+
+    [Header("Slowing Time")]
+    //slowing time
+    public float slowMotionTimeScale = 0.5f;
+
+    float startTimeScale;
+    float startFixedDeltaTime;
+    [SerializeField] EnemyBehaviour enemyBehaviour;
+    [SerializeField] GettingDMG enemyGettingDmg;
+    bool isCoroutineFinished = true;
+
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
         myRb = GetComponent<Rigidbody2D>();
         swordCollider = GetComponentInChildren<PolygonCollider2D>();
-        
+        startTimeScale= Time.timeScale;
+        startFixedDeltaTime= Time.fixedDeltaTime;
         
     }
 
-    
+    IEnumerator TimeSlow()
+    {
+        isCoroutineFinished= false;
+        Time.timeScale = slowMotionTimeScale;
+        Time.fixedDeltaTime = startFixedDeltaTime * slowMotionTimeScale;
+        enemyGettingDmg.dmg = 3;
+        yield return new WaitForSecondsRealtime(5f);
+        Time.timeScale = startTimeScale;
+        Time.fixedDeltaTime = startFixedDeltaTime;
+        enemyGettingDmg.dmg = 1;
+        isCoroutineFinished = true;
+
+
+    }
 
     void Update()
     {
+       
+        if(enemyBehaviour.IsAttacking && isRolling && enemyBehaviour.distance < 2.5f && enemyBehaviour != null)
+        {
+            StartCoroutine(TimeSlow());
+            
+
+        }
+
+        if(Time.timeScale < 1f)
+        {
+
+            playerAnimator.speed = 1f / (Time.timeScale*2f);
+            walkingSpeed = 3.5f / (Time.timeScale *2f);
+
+        }
+        else
+        {
+            playerAnimator.speed = 1f;
+            walkingSpeed = 3.5f;
+        }
+
+
+       /* else if(isCoroutineFinished)
+        {
+            Time.timeScale = startTimeScale;
+            Time.fixedDeltaTime= startFixedDeltaTime;
+            enemyGettingDmg.dmg = 1;
+            Debug.Log("Time is not Slow");
+        }*/
+
+
         SpriteChangesInAction();
         if (parryInput > 0)
         {
@@ -108,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
             
             //myRb.velocity = new Vector2( Mathf.Sign(moveInput.x) * 48f, myRb.velocity.y);
             myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(1.75f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
-            Debug.Log(transform.localScale.x);
+            //Debug.Log(transform.localScale.x);
         }
         if ((isAttacking1 && !isHForm) || (isAttacking3 && !isHForm))
         {
@@ -130,6 +187,11 @@ public class PlayerMovement : MonoBehaviour
             bodyHitbox.enabled = true;
             rollingHitbox.enabled = false;
         }
+
+
+
+
+
 
 
     }
@@ -315,7 +377,7 @@ public class PlayerMovement : MonoBehaviour
     void OnMove(InputValue input)
     {
         moveInput = input.Get<Vector2>();
-        Debug.Log("MoveInput Debug Display " + moveInput);
+        //Debug.Log("MoveInput Debug Display " + moveInput);
     }
 
     void SpriteChangesInAction()
@@ -354,7 +416,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         hFormInput= input.Get<float>();
-        Debug.Log(hFormInput);
+        //Debug.Log(hFormInput);
 
     }
     void OnRolling()

@@ -1,22 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
-public class GettingDMG : MonoBehaviour
+public class PlayerGettingDmg : MonoBehaviour
 {
     // Start is called before the first frame update
-    //here will implement event or interface system here
-    [SerializeField] PlayerMovement script;
+    [SerializeField] EnemyBehaviour script;
     public bool isGetMoved = false;
-    [SerializeField] int health = 3;
+    [SerializeField] int health = 15;
     float timer;
-    public int dmg = 1;
 
 
     void Start()
     {
-        
 
 
     }
@@ -25,25 +21,25 @@ public class GettingDMG : MonoBehaviour
     void Update()
     {
 
-        timer += Time.deltaTime; 
+        timer += Time.deltaTime;
 
 
     }
 
 
-   
+
 
     private void OnTriggerStay2D(Collider2D collider)
     {
 
-        if (collider.gameObject.CompareTag("LightAttack") && script.IsLightAttacking && timer > 0.15f)
+        if (collider.gameObject.CompareTag("EnemyDodgeableAttack") && script.IsAttacking && timer > 1.5f)
         {
             timer = 0;
             //Destroy(transform.parent.gameObject);
             StartCoroutine(GetMoved());
-            health-= dmg;
-            Debug.Log("Enemy Health" + health);
-            if(health <= 0)
+            health--;
+            Debug.Log("Player Health" + health);
+            if (health <= 0)
             {
                 Destroy(transform.parent.gameObject);
             }
@@ -51,12 +47,14 @@ public class GettingDMG : MonoBehaviour
         }
 
     }
-    
+
     IEnumerator GetMoved()
     {
-        isGetMoved =true;
+        isGetMoved = true;
+        transform.parent.gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 141, 141, 255);
         yield return new WaitForSecondsRealtime(0.15f);
-        isGetMoved=false;
+        transform.parent.gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+        isGetMoved = false;
 
 
     }

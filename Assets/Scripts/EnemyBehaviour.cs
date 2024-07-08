@@ -9,8 +9,9 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] bool finisher;
     int direction;
     Rigidbody2D soldierRb;
-    float distance;
+    public float distance;
     GettingDMG dmgScript;
+    public bool IsAttacking { get; private set; }
 
 
     bool isInRange = false;
@@ -72,11 +73,13 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 soldierRb.velocity = new Vector2(direction * 1f, soldierRb.velocity.y);
                 enemyAnimator.Play("Idle");
+                IsAttacking = false;
             }
 
 
             else 
             {
+                IsAttacking = true;
                 soldierRb.velocity = new Vector2(direction * 0f, soldierRb.velocity.y);
                 enemyAnimator.Play("EnemyDodgeableAttackTest");
 
@@ -99,6 +102,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             soldierRb.velocity = new Vector2(direction * 0f, soldierRb.velocity.y);
             enemyAnimator.Play("Idle");
+            IsAttacking = false;
         }
 
 

@@ -846,6 +846,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   script: {fileID: 938682220}
   isGetMoved: 0
+  health: 3
+  dmg: 1
 --- !u!1 &938682213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,6 +1054,9 @@ MonoBehaviour:
   hFormStanceSprite: {fileID: 0}
   walkingSpeed: 3.5
   hFormTransitionSeconds: 0.3
+  slowMotionTimeScale: 0.25
+  enemyBehaviour: {fileID: 1058171116}
+  enemyGettingDmg: {fileID: 898680663}
 --- !u!1 &979996008
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,6 +1329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 938682213}
   finisher: 0
+  distance: 0
 --- !u!1 &1098711560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,7 +1472,7 @@ GameObject:
   - component: {fileID: 1464371383}
   m_Layer: 0
   m_Name: Sword Hitboxes
-  m_TagString: Untagged
+  m_TagString: EnemyDodgeableAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1527,6 +1533,7 @@ GameObject:
   - component: {fileID: 1644540066}
   - component: {fileID: 1644540068}
   - component: {fileID: 1644540067}
+  - component: {fileID: 1644540069}
   m_Layer: 0
   m_Name: Get Dmg Hitbox
   m_TagString: Untagged
@@ -1601,6 +1608,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53715706, y: 1.5603793}
   m_EdgeRadius: 0
+--- !u!114 &1644540069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644540065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff8d509262fb25249b6de7d6584a2c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  script: {fileID: 1058171116}
+  isGetMoved: 0
+  health: 3
 --- !u!1 &1693003340
 GameObject:
   m_ObjectHideFlags: 0
