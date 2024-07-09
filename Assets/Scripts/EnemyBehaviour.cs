@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,15 @@ public class EnemyBehaviour : MonoBehaviour
     public float distance;
     GettingDMG dmgScript;
     public bool IsAttacking { get; private set; }
+
+
+    //Animation variables
+    string currentAnimation = "";
+    string idleAnim = "Idle";
+    string finisher1Anim = "Finisher1";
+    string enemyDodgeableAttackAnim = "EnemyDodgeableAttackTest";
+    bool isFinisher1 = false;
+  
 
 
     bool isInRange = false;
@@ -40,21 +50,15 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 player.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 0);
                 if (!enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Finisher1"))
-                    enemyAnimator.Play("Finisher1");
+                    isFinisher1 = true;
 
 
             }
             else
             {
                 player.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
-                enemyAnimator.Play("Idle");
+                isFinisher1 = false;
             }
-
-
-
-
-
-
 
 
         }
@@ -72,7 +76,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (distance > 2)
             {
                 soldierRb.velocity = new Vector2(direction * 1f, soldierRb.velocity.y);
-                enemyAnimator.Play("Idle");
+                
                 IsAttacking = false;
             }
 
@@ -80,19 +84,11 @@ public class EnemyBehaviour : MonoBehaviour
             else 
             {
                 IsAttacking = true;
+             
                 soldierRb.velocity = new Vector2(direction * 0f, soldierRb.velocity.y);
-                enemyAnimator.Play("EnemyDodgeableAttackTest");
+         
 
             }
-
-
-
-
-
-
-
-
-
 
 
         }
@@ -101,14 +97,49 @@ public class EnemyBehaviour : MonoBehaviour
         else
         {
             soldierRb.velocity = new Vector2(direction * 0f, soldierRb.velocity.y);
-            enemyAnimator.Play("Idle");
+         
             IsAttacking = false;
         }
 
 
     }
+    void LateUpdate()
+    {
+        AnimationHandle();
+    }
 
 
+    void ChangeAnimationState(string newAnimation)
+    {
+        if (currentAnimation == newAnimation) return;
+
+        currentAnimation = newAnimation;
+
+        enemyAnimator.Play(currentAnimation);
+
+    }
+    void AnimationHandle()
+    {
+        if (isFinisher1)
+        {
+            ChangeAnimationState(finisher1Anim);
+        }
+
+
+        else if (IsAttacking)
+        {
+            ChangeAnimationState(enemyDodgeableAttackAnim);
+           
+
+        }
+
+
+        else
+        {
+            ChangeAnimationState(idleAnim);
+        }
+
+    }
     void SpriteChanges()
     {
 

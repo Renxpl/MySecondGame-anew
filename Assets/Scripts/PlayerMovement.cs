@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Animation and Movement variables")]
     [SerializeField] float walkingSpeed;
     [SerializeField] float hFormTransitionSeconds=0.3f;
-
+    [SerializeField] float timeSlowDuration = 1.5f;
 
     float hFormInput;
     float parryInput;
@@ -86,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
         swordCollider = GetComponentInChildren<PolygonCollider2D>();
         startTimeScale= Time.timeScale;
         startFixedDeltaTime= Time.fixedDeltaTime;
+        if(GameEvents.gameEvents !=null)GameEvents.gameEvents.onDepleted += HandleDead;
         
     }
 
@@ -95,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = slowMotionTimeScale;
         Time.fixedDeltaTime = startFixedDeltaTime * slowMotionTimeScale;
         enemyGettingDmg.dmg = 3;
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(timeSlowDuration);
         Time.timeScale = startTimeScale;
         Time.fixedDeltaTime = startFixedDeltaTime;
         enemyGettingDmg.dmg = 1;
@@ -202,6 +203,14 @@ public class PlayerMovement : MonoBehaviour
         AnimationHandle();
     }
 
+
+    void HandleDead()
+    {
+        Destroy(gameObject);
+
+    }
+
+
     void OnFire(InputValue input)
     {
         if (!isAttacking1 && !isAttacking2 && !isAttacking3)
@@ -254,10 +263,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            IsLightAttacking = true;
+           
             yield return new WaitForSecondsRealtime(0.383f);
 
-
+            IsLightAttacking = true;
             isNextAttackUnlocked = true;
             yield return new WaitForSecondsRealtime(0.2f);
             IsLightAttacking = false;
@@ -282,10 +291,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            IsLightAttacking = true;
+            
             yield return new WaitForSecondsRealtime(0.1f);
 
-
+            IsLightAttacking = true;
             isNextAttackUnlocked = false;
             yield return new WaitForSecondsRealtime(0.15f);
             IsLightAttacking = false;

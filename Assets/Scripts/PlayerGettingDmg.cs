@@ -36,12 +36,12 @@ public class PlayerGettingDmg : MonoBehaviour
         {
             timer = 0;
             //Destroy(transform.parent.gameObject);
-            StartCoroutine(GetMoved());
+            //StartCoroutine(GetMoved());
             health--;
             Debug.Log("Player Health" + health);
             if (health <= 0)
             {
-                Destroy(transform.parent.gameObject);
+                GameEvents.gameEvents.OnPlayerHealthDepleted();
             }
 
         }
