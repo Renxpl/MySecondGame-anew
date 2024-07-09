@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     float startTimeScale;
     float startFixedDeltaTime;
     [SerializeField] EnemyBehaviour enemyBehaviour;
-    [SerializeField] GettingDMG enemyGettingDmg;
+    [SerializeField] PlayerDMG dmg;
     bool isCoroutineFinished = true;
 
     void Start()
@@ -95,11 +95,11 @@ public class PlayerMovement : MonoBehaviour
         isCoroutineFinished= false;
         Time.timeScale = slowMotionTimeScale;
         Time.fixedDeltaTime = startFixedDeltaTime * slowMotionTimeScale;
-        enemyGettingDmg.dmg = 3;
+        dmg.playerDmg = 3;
         yield return new WaitForSecondsRealtime(timeSlowDuration);
         Time.timeScale = startTimeScale;
         Time.fixedDeltaTime = startFixedDeltaTime;
-        enemyGettingDmg.dmg = 1;
+        dmg.playerDmg = 1;
         isCoroutineFinished = true;
 
 

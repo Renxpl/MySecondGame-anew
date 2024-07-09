@@ -11,7 +11,7 @@ public class GettingDMG : MonoBehaviour
     public bool isGetMoved = false;
     [SerializeField] int health = 3;
     float timer;
-    public int dmg = 1;
+    public PlayerDMG dmg;
 
 
     void Start()
@@ -41,12 +41,10 @@ public class GettingDMG : MonoBehaviour
             timer = 0;
             //Destroy(transform.parent.gameObject);
             StartCoroutine(GetMoved());
-            health-= dmg;
+            health-= dmg.playerDmg;
             Debug.Log("Enemy Health" + health);
-            if(health <= 0)
-            {
-                Destroy(transform.parent.gameObject);
-            }
+            GameEvents.gameEvents.onEnemyHealthDepleted(transform.parent.gameObject,health);
+            
 
         }
 

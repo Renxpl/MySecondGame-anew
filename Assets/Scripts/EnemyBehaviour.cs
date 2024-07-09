@@ -30,11 +30,12 @@ public class EnemyBehaviour : MonoBehaviour
         enemyAnimator= GetComponent<Animator>();    
         soldierRb= GetComponent<Rigidbody2D>();
         dmgScript = GetComponentInChildren<GettingDMG>();
-    
-    
+
+        if (GameEvents.gameEvents != null) GameEvents.gameEvents.onEHDepleted += HandleDead;
     }
 
     // Update is called once per frame
+    
     void Update()
     {
         direction = (int)Mathf.Sign(player.transform.position.x-transform.position.x);
@@ -108,7 +109,16 @@ public class EnemyBehaviour : MonoBehaviour
         AnimationHandle();
     }
 
+    void HandleDead(GameObject sender, HealthCount health)
+    {
+        if (sender.GetInstanceID() == gameObject.GetInstanceID()) 
+        {
+            IsAttacking= false;
+            if(health.Health <= 0)
+            gameObject.SetActive(false); 
+        }
 
+    }
     void ChangeAnimationState(string newAnimation)
     {
         if (currentAnimation == newAnimation) return;
