@@ -21,9 +21,9 @@ public class EnemyBehaviour : MonoBehaviour
     string finisher1Anim = "Finisher1";
     string enemyDodgeableAttackAnim = "EnemyDodgeableAttackTest";
     bool isFinisher1 = false;
-  
 
 
+    bool isDead = false;
     bool isInRange = false;
     void Start()
     {
@@ -38,10 +38,11 @@ public class EnemyBehaviour : MonoBehaviour
     
     void Update()
     {
+        
         direction = (int)Mathf.Sign(player.transform.position.x-transform.position.x);
         distance = Mathf.Abs(transform.position.x - player.transform.position.x);
         SpriteChanges();
-
+        GameEvents.gameEvents.OnTimeSlow(gameObject, distance, IsAttacking);
 
 
 
@@ -84,6 +85,7 @@ public class EnemyBehaviour : MonoBehaviour
 
             else 
             {
+                if(!isDead)
                 IsAttacking = true;
              
                 soldierRb.velocity = new Vector2(direction * 0f, soldierRb.velocity.y);
@@ -109,12 +111,17 @@ public class EnemyBehaviour : MonoBehaviour
         AnimationHandle();
     }
 
+
+
+
     void HandleDead(GameObject sender, HealthCount health)
     {
         if (sender.GetInstanceID() == gameObject.GetInstanceID()) 
         {
+            isDead = true;
             IsAttacking= false;
-            if(health.Health <= 0)
+            GameEvents.gameEvents.OnTimeSlow(gameObject, distance, IsAttacking);
+            if (health.Health <= 0)
             gameObject.SetActive(false); 
         }
 

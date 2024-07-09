@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     Coroutine Attack1 = null;
     Coroutine Attack2 = null;
     Coroutine Attack3 = null;
+    Coroutine timeSlow = null;
 
     string lightAttackAnim = "LightAttackTest3";
     string idle = "Idle";
@@ -75,9 +77,15 @@ public class PlayerMovement : MonoBehaviour
 
     float startTimeScale;
     float startFixedDeltaTime;
-    [SerializeField] EnemyBehaviour enemyBehaviour;
+
+    List<string> enemyIDs = new List<string>();
+    List<bool> enemyIsAttackingList = new List<bool>();
+    List<float> distancesToEnemy = new List<float>();
+
+   
     [SerializeField] PlayerDMG dmg;
     bool isCoroutineFinished = true;
+
 
     void Start()
     {
@@ -87,12 +95,13 @@ public class PlayerMovement : MonoBehaviour
         startTimeScale= Time.timeScale;
         startFixedDeltaTime= Time.fixedDeltaTime;
         if(GameEvents.gameEvents !=null)GameEvents.gameEvents.onDepleted += HandleDead;
-        
+        if (GameEvents.gameEvents != null) GameEvents.gameEvents.onEnemyInteraction += EnemyInteraction;
     }
 
     IEnumerator TimeSlow()
     {
-        isCoroutineFinished= false;
+      
+        isCoroutineFinished = false;
         Time.timeScale = slowMotionTimeScale;
         Time.fixedDeltaTime = startFixedDeltaTime * slowMotionTimeScale;
         dmg.playerDmg = 3;
@@ -101,6 +110,35 @@ public class PlayerMovement : MonoBehaviour
         Time.fixedDeltaTime = startFixedDeltaTime;
         dmg.playerDmg = 1;
         isCoroutineFinished = true;
+        timeSlow = null;
+
+    }
+
+    
+    void EnemyInteraction(GameObject sender, EnemySoldierInfos info)
+    {
+        bool isEnemyID = false;
+        int enemyIDNumber = 0;
+        for(int i = 0; i < enemyIDs.Count; i++)
+        {
+            if (enemyIDs[i] == sender.GetInstanceID().ToString())
+            {
+                isEnemyID = true;
+                enemyIDNumber = i;
+            }
+        }
+
+        if (!isEnemyID)
+        {
+            enemyIDs.Add(sender.GetInstanceID().ToString());
+            enemyIsAttackingList.Add(info.IsAttacking);
+            distancesToEnemy.Add(info.Distance);
+        }
+        else
+        {
+            enemyIsAttackingList[enemyIDNumber] = info.IsAttacking;
+            distancesToEnemy[enemyIDNumber] = info.Distance;
+        }
 
 
     }
@@ -108,14 +146,25 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
        
-        if(enemyBehaviour.IsAttacking && isRolling && enemyBehaviour.distance < 2.5f && enemyBehaviour != null)
+       
+        if (isRolling)
         {
-            StartCoroutine(TimeSlow());
+            for(int i = 0; i < enemyIDs.Count; i++)
+            {
+                if (enemyIsAttackingList[i] && distancesToEnemy[i] < 2.5f)
+                {
+                    if (timeSlow != null) { StopCoroutine(timeSlow); }
+                    timeSlow=StartCoroutine(TimeSlow());
+
+                }
+
+            }
             
+
 
         }
 
-        if(Time.timeScale < 1f)
+        if (Time.timeScale < 1f)
         {
 
             playerAnimator.speed = 1f / (Time.timeScale*2f);

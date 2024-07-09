@@ -43,7 +43,7 @@ public class GettingDMG : MonoBehaviour
             StartCoroutine(GetMoved());
             health-= dmg.playerDmg;
             Debug.Log("Enemy Health" + health);
-            GameEvents.gameEvents.onEnemyHealthDepleted(transform.parent.gameObject,health);
+            GameEvents.gameEvents.OnEnemyHealthDepleted(transform.parent.gameObject,health);
             
 
         }

@@ -10,6 +10,8 @@ public class GameEvents : MonoBehaviour
     public  event PlayerHealthDepleted onDepleted;
     public delegate void EnemyHealthDepleted(GameObject sender,HealthCount e);
     public event EnemyHealthDepleted onEHDepleted;
+    public delegate void EnemySoldier(GameObject sender, EnemySoldierInfos e);
+    public event EnemySoldier onEnemyInteraction;
 
     void Awake()
     {
@@ -33,16 +35,35 @@ public class GameEvents : MonoBehaviour
 
     }
 
-    public void onEnemyHealthDepleted(GameObject sender,int health)
+    public void OnEnemyHealthDepleted(GameObject sender,int health)
     {
         if (onEHDepleted != null) onEHDepleted?.Invoke(sender, new HealthCount(health));
     }
 
 
+    public void OnTimeSlow(GameObject sender, float distance, bool isAttacking)
+    {
 
+        if(onEnemyInteraction != null)
+        {
+            onEnemyInteraction?.Invoke(sender, new EnemySoldierInfos(distance, isAttacking));
+        }
+
+    }
 
 }
 
+
+
+
+
+
+
+
+
+
+
+//EventArgs
 public class HealthCount : EventArgs
 {
     public int Health { get; private set; }
@@ -50,5 +71,18 @@ public class HealthCount : EventArgs
     public HealthCount(int health)
     {
         Health = health;
+    }
+}
+
+
+public class EnemySoldierInfos : EventArgs
+{
+    public float Distance { get; private set; }
+    public bool IsAttacking { get; private set; }
+
+    public EnemySoldierInfos(float distance, bool isAttacking)
+    {
+        Distance = distance;
+        IsAttacking = isAttacking;
     }
 }
