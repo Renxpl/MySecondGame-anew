@@ -13,7 +13,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float distance;
     GettingDMG dmgScript;
     public bool IsAttacking { get; private set; }
-
+    [SerializeField] float speed = 1f;
 
     //Animation variables
     string currentAnimation = "";
@@ -77,7 +77,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (distance > 2)
             {
-                soldierRb.velocity = new Vector2(direction * 1f, soldierRb.velocity.y);
+                soldierRb.velocity = new Vector2(direction * speed, soldierRb.velocity.y);
                 
                 IsAttacking = false;
             }

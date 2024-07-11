@@ -381,6 +381,7 @@ MonoBehaviour:
   player: {fileID: 938682213}
   finisher: 0
   distance: 0
+  speed: 1
 --- !u!95 &224374368
 Animator:
   serializedVersion: 5
@@ -1290,7 +1291,6 @@ MonoBehaviour:
   hFormTransitionSeconds: 0.3
   timeSlowDuration: 2
   slowMotionTimeScale: 0.25
-  enemyBehaviour: {fileID: 1058171116}
   dmg: {fileID: 11400000, guid: af48e9dede756714bb54fd731247de47, type: 2}
 --- !u!1 &979996008
 GameObject:
@@ -1565,6 +1565,7 @@ MonoBehaviour:
   player: {fileID: 938682213}
   finisher: 0
   distance: 0
+  speed: 1
 --- !u!1 &1098711560
 GameObject:
   m_ObjectHideFlags: 0
