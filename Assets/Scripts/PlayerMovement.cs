@@ -67,11 +67,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkingSpeed;
     [SerializeField] float hFormTransitionSeconds=0.3f;
     [SerializeField] float timeSlowDuration = 1.5f;
-
+    [SerializeField] float animationTimeVector = 2f;
     float hFormInput;
     float parryInput;
-
-
+    float animatorTimeVector = 2f;
     [Header("Slowing Time")]
     //slowing time
     public float slowMotionTimeScale = 0.5f;
@@ -150,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
        
         if (isRolling)
         {
+            if (isAnticipation1) { isAttacking1= false; StopCoroutine(Attack1); Attack1 = null; isAnticipation1 = false; IsLightAttacking = false; isNextAttackUnlocked = false; }
             for(int i = 0; i < enemyIDs.Count; i++)
             {
                 if (enemyIsAttackingList[i] && distancesToEnemy[i] < 2.5f)
@@ -167,13 +167,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (Time.timeScale < 1f)
         {
-
-            playerAnimator.speed = 1f / (Time.timeScale*2f);
+            animatorTimeVector = animationTimeVector;
+            playerAnimator.speed = 1f / (Time.timeScale*animatorTimeVector);
             walkingSpeed = 3.5f / (Time.timeScale *2f);
 
         }
         else
         {
+            animatorTimeVector = 1f;
             playerAnimator.speed = 1f;
             walkingSpeed = 3.5f;
         }
@@ -222,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
         {
             
             
-                myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(2f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
+                myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(2f, 0) / (Time.fixedDeltaTime * animatorTimeVector), ForceMode2D.Impulse);
             
 
         }
@@ -265,10 +266,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAttacking1 && !isAttacking2 && !isAttacking3)
         {
+
             isAttacking1 = true;
             Attack1 = StartCoroutine(LightAttacking());
 
         }
+
+
+
         if(isNextAttackUnlocked && isAttacking1 && !isAttacking3)
         {
             isAttacking2 = true;
@@ -279,22 +284,26 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
+
+
+
     IEnumerator LightAttacking()
     {
         
         if (isHForm)
         { 
-            yield return new WaitForSecondsRealtime(0.82f); 
+            yield return new WaitForSecondsRealtime(0.82f * animatorTimeVector); 
         }
         else
         {
             IsLightAttacking= true;
             isAnticipation1 = true;
             
-            yield return new WaitForSecondsRealtime(0.2f);
+            yield return new WaitForSecondsRealtime(0.2f*animatorTimeVector);
             isNextAttackUnlocked = true;
             isAnticipation1 =false;
-            yield return new WaitForSecondsRealtime(0.217f);
+            yield return new WaitForSecondsRealtime(0.217f*animatorTimeVector);
             IsLightAttacking = false;
             if (isAttacking2)
             {
@@ -312,16 +321,16 @@ public class PlayerMovement : MonoBehaviour
         
         if (isHForm)
         {
-            yield return new WaitForSecondsRealtime(0.82f);
+            yield return new WaitForSecondsRealtime(0.82f*animatorTimeVector);
         }
         else
         {
            
-            yield return new WaitForSecondsRealtime(0.383f);
+            yield return new WaitForSecondsRealtime(0.383f*animatorTimeVector);
 
             IsLightAttacking = true;
             isNextAttackUnlocked = true;
-            yield return new WaitForSecondsRealtime(0.2f);
+            yield return new WaitForSecondsRealtime(0.2f * animatorTimeVector);
             IsLightAttacking = false;
             if (isAttacking3)
             {
@@ -345,11 +354,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(0.1f * animatorTimeVector);
 
             IsLightAttacking = true;
             isNextAttackUnlocked = false;
-            yield return new WaitForSecondsRealtime(0.15f);
+            yield return new WaitForSecondsRealtime(0.15f * animatorTimeVector);
             IsLightAttacking = false;
 
 
@@ -398,6 +407,7 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetLayerWeight(1, 0f);
             if (isAttacking1)
             {
+               
                 ChangeAnimationState(lightAttack1Anim);
                 if(Attack1==null)
                 Attack1 = StartCoroutine(LightAttacking());
