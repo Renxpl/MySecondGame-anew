@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     bool isAttacking2 = false;
     bool isAttacking3 = false;
     bool isNextAttackUnlocked = false;
+    bool isAnticipation1 = false;
     
 
 
@@ -217,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
             myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(1.75f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
             //Debug.Log(transform.localScale.x);
         }
-        if ((isAttacking1 && !isHForm) || (isAttacking3 && !isHForm))
+        if ((isAttacking1 && !isHForm &&!isAnticipation1) || (isAttacking3 && !isHForm))
         {
             
             
@@ -288,9 +289,12 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             IsLightAttacking= true;
-            yield return new WaitForSecondsRealtime(0.067f);
+            isAnticipation1 = true;
+            
+            yield return new WaitForSecondsRealtime(0.2f);
             isNextAttackUnlocked = true;
-            yield return new WaitForSecondsRealtime(0.1f);
+            isAnticipation1 =false;
+            yield return new WaitForSecondsRealtime(0.217f);
             IsLightAttacking = false;
             if (isAttacking2)
             {
@@ -394,7 +398,7 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetLayerWeight(1, 0f);
             if (isAttacking1)
             {
-                ChangeAnimationState(lightAttackAnim);
+                ChangeAnimationState(lightAttack1Anim);
                 if(Attack1==null)
                 Attack1 = StartCoroutine(LightAttacking());
 
