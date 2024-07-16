@@ -326,7 +326,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
            
-            yield return new WaitForSecondsRealtime(0.383f*animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.3f*animatorTimeVector);
 
             IsLightAttacking = true;
             isNextAttackUnlocked = true;
