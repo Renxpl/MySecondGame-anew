@@ -85,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
    
     [SerializeField] PlayerDMG dmg;
     bool isCoroutineFinished = true;
+    bool isPushed = false;
 
 
     void Start()
@@ -219,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
             myRb.AddForce(Mathf.Sign(transform.localScale.x) * new Vector2(1.75f, 0) / Time.fixedDeltaTime, ForceMode2D.Impulse);
             //Debug.Log(transform.localScale.x);
         }
-        if ((isAttacking1 && !isHForm &&!isAnticipation1) || (isAttacking3 && !isHForm))
+        if ((isAttacking1 && !isHForm &&!isAnticipation1 && isPushed) || (isAttacking3 && !isHForm &isPushed))
         {
             
             
@@ -297,6 +298,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            isPushed= true;
             IsLightAttacking= true;
             isAnticipation1 = true;
             
@@ -305,6 +307,7 @@ public class PlayerMovement : MonoBehaviour
             isAnticipation1 =false;
             yield return new WaitForSecondsRealtime(0.217f*animatorTimeVector);
             IsLightAttacking = false;
+            isPushed= false;
             if (isAttacking2)
             {
                 Attack2 = StartCoroutine(Attacking2());
@@ -325,19 +328,19 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-           
-            yield return new WaitForSecondsRealtime(0.3f*animatorTimeVector);
+            isPushed = false;
+            yield return new WaitForSecondsRealtime(0.2f*animatorTimeVector);
 
             IsLightAttacking = true;
             isNextAttackUnlocked = true;
-            yield return new WaitForSecondsRealtime(0.2f * animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.4f * animatorTimeVector);
             IsLightAttacking = false;
             if (isAttacking3)
             {
                 Attack3 = StartCoroutine(Attacking3());
             }
 
-
+          
         }
         isNextAttackUnlocked = false;
         isAttacking2 = false;
@@ -353,7 +356,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            
+            isPushed = true;
             yield return new WaitForSecondsRealtime(0.1f * animatorTimeVector);
 
             IsLightAttacking = true;
@@ -361,7 +364,7 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.15f * animatorTimeVector);
             IsLightAttacking = false;
 
-
+            isPushed= false;
         }
         isNextAttackUnlocked = false;
         isAttacking3 = false;
