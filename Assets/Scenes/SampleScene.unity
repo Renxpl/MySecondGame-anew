@@ -1290,6 +1290,7 @@ MonoBehaviour:
   walkingSpeed: 3.5
   hFormTransitionSeconds: 0.3
   timeSlowDuration: 2
+  animationTimeVector: 2
   slowMotionTimeScale: 0.25
   dmg: {fileID: 11400000, guid: af48e9dede756714bb54fd731247de47, type: 2}
 --- !u!1 &979996008
