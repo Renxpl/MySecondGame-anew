@@ -1288,6 +1288,7 @@ MonoBehaviour:
   idleStanceSprite: {fileID: 0}
   hFormStanceSprite: {fileID: 0}
   walkingSpeed: 3.5
+  runningSpeed: 12
   hFormTransitionSeconds: 0.3
   timeSlowDuration: 2
   animationTimeVector: 2

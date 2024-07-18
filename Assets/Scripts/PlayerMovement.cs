@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     string idle = "Idle";
     string walkingAnim = "WalkingTest";
     string rollingAnim = "RollingTest1";
-
+    string runningAnim = "RunningTest1";
 
     //for Light Attacks
     string lightAttack1Anim = "LightAttack1";
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     bool isAttacking3 = false;
     bool isNextAttackUnlocked = false;
     bool isAnticipation1 = false;
-    
+    bool isRunning = false;
 
 
     //hForm
@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Animation and Movement variables")]
     [SerializeField] float walkingSpeed;
+    [SerializeField] float runningSpeed;
     [SerializeField] float hFormTransitionSeconds=0.3f;
     [SerializeField] float timeSlowDuration = 1.5f;
     [SerializeField] float animationTimeVector = 2f;
@@ -200,12 +201,19 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         bool notAttacking = !isAttacking1 && !isAttacking2 && !isAttacking3;
-        if ((moveInput.x >0.15f || moveInput.x < -0.15f)&& notAttacking)
+        if ((moveInput.x >0.75f || moveInput.x < -0.75f)&& notAttacking)
         {
             if(!isHForm)
-                myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * walkingSpeed, myRb.velocity.y);
+                myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * runningSpeed, myRb.velocity.y);
             else
                 myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * walkingSpeed/2f, myRb.velocity.y);
+        }
+        else if ((moveInput.x > 0.15f || moveInput.x < -0.15f) && notAttacking)
+        {
+            if (!isHForm)
+                myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * walkingSpeed, myRb.velocity.y);
+            else
+                myRb.velocity = new Vector2(Mathf.Sign(moveInput.x) * walkingSpeed / 2f, myRb.velocity.y);
         }
         
         else
@@ -430,6 +438,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 ChangeAnimationState(rollingAnim);
             }
+            else if (isRunning)
+            {
+                ChangeAnimationState(runningAnim);
+            }
             else if (isWalking)
             {
                 ChangeAnimationState(walkingAnim);
@@ -457,14 +469,14 @@ public class PlayerMovement : MonoBehaviour
 
     void SpriteChangesInAction()
     {
-        if (myRb.velocity.x > 0f)
+        if (myRb.velocity.x > 0f && myRb.velocity.x < 10f)
         {
             isWalking = true;
             if (myRb.velocity.x > 0.5f)
                 transform.localScale = new Vector2(1f, 1f); 
 
         }
-        else if (myRb.velocity.x < 0f)
+        else if (myRb.velocity.x < 0f && myRb.velocity.x > -10f)
         {
             isWalking = true;
             if (myRb.velocity.x < -0.5f)
@@ -472,6 +484,18 @@ public class PlayerMovement : MonoBehaviour
         }
         else { isWalking = false; }
 
+        if(myRb.velocity.x > 10f || myRb.velocity.x < -10f)
+        {
+            isRunning = true;
+            if (myRb.velocity.x > 0.5f)
+                transform.localScale = new Vector2(1f, 1f);
+            else if (myRb.velocity.x < -0.5f)
+                transform.localScale = new Vector2(-1f, 1f);
+        }
+        else
+        {
+            isRunning = false;
+        }
 
 
         if (hFormInput > 0.1)
