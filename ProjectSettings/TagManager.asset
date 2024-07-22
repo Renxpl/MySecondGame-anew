@@ -61,3 +61,6 @@ TagManager:
   - name: child
     uniqueID: 1253417927
     locked: 0
+  - name: Rain Effect
+    uniqueID: 30128771
+    locked: 0
