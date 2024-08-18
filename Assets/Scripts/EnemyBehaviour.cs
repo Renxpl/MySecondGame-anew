@@ -20,9 +20,10 @@ public class EnemyBehaviour : MonoBehaviour
     string idleAnim = "Idle";
     string finisher1Anim = "Finisher1";
     string enemyDodgeableAttackAnim = "EnemyDodgeableAttackTest";
+    string enemyWalkingAnim = "EnemyWalking1";
     bool isFinisher1 = false;
 
-
+    bool isWalking = false;
     bool isDead = false;
     bool isInRange = false;
     void Start()
@@ -150,6 +151,10 @@ public class EnemyBehaviour : MonoBehaviour
 
         }
 
+        else if (isWalking)
+        {
+            ChangeAnimationState(enemyWalkingAnim);
+        }
 
         else
         {
@@ -192,6 +197,15 @@ public class EnemyBehaviour : MonoBehaviour
 
         }
         else { isInRange = false; }
+
+        if(soldierRb.velocity.x > 0.1f || soldierRb.velocity.x < -0.1f)
+        {
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+        }
        
     }
 
