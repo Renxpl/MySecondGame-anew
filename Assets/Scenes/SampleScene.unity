@@ -625,7 +625,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 1
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5794,7 +5794,7 @@ SpriteRenderer:
   m_SortingLayerID: -1248569755
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fc50651a628f58645a73e3daf337ac9b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6c34b19d4dfcb54ca78ccdf742689e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
