@@ -58,6 +58,9 @@ TagManager:
   - name: Goods
     uniqueID: 4090648333
     locked: 0
+  - name: Enemies
+    uniqueID: 2382191949
+    locked: 0
   - name: Player
     uniqueID: 722697965
     locked: 0
