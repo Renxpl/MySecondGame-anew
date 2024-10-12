@@ -7,23 +7,24 @@ using UnityEngine;
 public class StateMachine 
 {
     public IState CurrentState { get; private set; }
-    public GroundState groundState = new GroundState();
-    public AirborneState airborneState = new AirborneState();
 
-    public void Enter(IState newState)
+
+
+
+    public void ChangeState(IState nextState)
     {
         CurrentState?.Exit();
-        CurrentState= newState;
-        newState.Enter();
-
+        CurrentState = nextState;
+        nextState.Enter();
     }
 
     public void Update()
     {
         CurrentState?.Update();
+
     }
 
 
 
-   
+
 }

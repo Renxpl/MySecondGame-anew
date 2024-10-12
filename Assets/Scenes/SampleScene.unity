@@ -449,7 +449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &224374367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5897,7 +5897,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844448531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.14, y: -1.95, z: 0}
+  m_LocalPosition: {x: -9.14, y: -2.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5975,7 +5975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e690203bd3b34409fa5dfebaed5cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  script: {fileID: 938682220}
+  script: {fileID: 0}
   isGetMoved: 0
   health: 3
   dmg: {fileID: 11400000, guid: af48e9dede756714bb54fd731247de47, type: 2}
@@ -5990,10 +5990,10 @@ GameObject:
   - component: {fileID: 938682215}
   - component: {fileID: 938682214}
   - component: {fileID: 938682216}
+  - component: {fileID: 938682222}
   - component: {fileID: 938682217}
   - component: {fileID: 938682218}
   - component: {fileID: 938682219}
-  - component: {fileID: 938682220}
   - component: {fileID: 938682221}
   m_Layer: 6
   m_Name: Player
@@ -6168,7 +6168,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &938682220
+--- !u!114 &938682221
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6177,21 +6177,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 938682213}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38b2fa60669847b4dba02c4566a7e60d, type: 3}
+  m_Script: {fileID: 11500000, guid: 14ab7ab8997cbec439678fff081930f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodyHitbox: {fileID: 1644540068}
-  rollingHitbox: {fileID: 1644540067}
-  idleStanceSprite: {fileID: 0}
-  hFormStanceSprite: {fileID: 0}
-  walkingSpeed: 3.5
-  runningSpeed: 12
-  hFormTransitionSeconds: 0.3
-  timeSlowDuration: 2
-  animationTimeVector: 2
-  slowMotionTimeScale: 0.25
-  dmg: {fileID: 11400000, guid: af48e9dede756714bb54fd731247de47, type: 2}
---- !u!114 &938682221
+--- !u!114 &938682222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6557,6 +6546,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1275972697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1275972698}
+  - component: {fileID: 1275972699}
+  m_Layer: 0
+  m_Name: GameValues
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1275972698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275972697}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.040384, y: -1.8112324, z: -8.109084}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1275972699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275972697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca0c4a317fe1411438bc6301489e0527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1365212720
 GameObject:
   m_ObjectHideFlags: 0
@@ -6748,7 +6781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e690203bd3b34409fa5dfebaed5cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  script: {fileID: 938682220}
+  script: {fileID: 0}
   isGetMoved: 0
   health: 3
   dmg: {fileID: 11400000, guid: af48e9dede756714bb54fd731247de47, type: 2}
@@ -7085,9 +7118,9 @@ GameObject:
   - component: {fileID: 1968162052}
   - component: {fileID: 1968162051}
   - component: {fileID: 1968162050}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tilemap Test
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
