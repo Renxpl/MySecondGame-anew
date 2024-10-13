@@ -6,8 +6,8 @@ using UnityEngine;
 [Serializable]
 public class StateMachine 
 {
-    public IState CurrentState { get; private set; }
 
+    public IState CurrentState { get; private set; }
 
 
 

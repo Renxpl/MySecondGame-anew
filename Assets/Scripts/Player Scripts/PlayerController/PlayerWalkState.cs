@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class PlayerWalkState : IState
 {
-    
+    Rigidbody2D playerRb;
     
     public void Enter()
     {
-         PlayerController.PlayerRB.velocity = new Vector2(0, 0);
+        //Debug.Log("WalkingStateStarted");
+         playerRb = PlayerController.PlayerRB;
 
     }
 
     public void Update()
     {
 
-
-        
+        //Debug.Log("is Walking now");
+        playerRb.velocity = new Vector2(200f * Time.deltaTime,playerRb.velocity.y);
 
 
 

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAirborneState :IState
+public class PlayerRunState : IState
 {
-    int a = 0;
     public void Enter()
     {
 
@@ -13,13 +12,6 @@ public class PlayerAirborneState :IState
 
     public void Update()
     {
-        if(a  == 0)
-        {
-            Debug.Log("Airborne state is updated");
-            a++;
-        }
-
-
 
     }
 
@@ -28,7 +20,4 @@ public class PlayerAirborneState :IState
     {
 
     }
-
-
-
 }
