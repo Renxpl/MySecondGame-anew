@@ -10,12 +10,12 @@ public class PlayerNeededValues : MonoBehaviour
     public static PlayerIdleState IdleStateForPlayer { get; private set; }
     public static PlayerWalkState WalkStateForPlayer { get; private set; }  
     public static PlayerRunState RunStateForPlayer { get; private set; }
-
+    public static PlayerRollState RollStateForPlayer { get; private set; }
 
 
 
     public static bool IsGroundedPlayer { get; private set; }
-
+    public static bool IsRolling { get; private set; }
 
     public static LayerMask groundLayer;
     public static GameObject player;
@@ -34,6 +34,7 @@ public class PlayerNeededValues : MonoBehaviour
         IdleStateForPlayer = new PlayerIdleState();
         WalkStateForPlayer = new PlayerWalkState();
         RunStateForPlayer = new PlayerRunState();
+        RollStateForPlayer = new PlayerRollState();
     }
 
     // Start is called before the first frame update
@@ -59,6 +60,28 @@ public class PlayerNeededValues : MonoBehaviour
         Debug.Log("MoveInput Debug Display " + MoveInput);
         Debug.Log("IsGrounded: " + IsGroundedPlayer);
     }
+
+
+    void OnRolling()
+    {
+        Debug.Log("Rolling");
+
+        StartCoroutine(RollingCoroutine());
+
+    }
+
+
+    IEnumerator RollingCoroutine()
+    {
+        IsRolling = true;
+        yield return new WaitForSeconds(0.2f); 
+        IsRolling= false;
+    }
+
+
+
+
+
 
 
 

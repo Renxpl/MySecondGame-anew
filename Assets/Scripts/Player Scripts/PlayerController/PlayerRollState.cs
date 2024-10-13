@@ -2,27 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAirborneState :IState
+public class PlayerRollState : IState
 {
-    int a = 0;
+    Rigidbody2D playerRb;
+
     public void Enter()
     {
+        //Debug.Log("WalkingStateStarted");
+        playerRb = PlayerController.PlayerRB;
 
     }
 
 
     public void Update()
     {
-        if (PlayerNeededValues.IsGroundedPlayer)
+        if (!PlayerNeededValues.IsRolling)
         {
-            
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
-           
             return;
         }
-
-
-
+        playerRb.velocity = new Vector2(1000f * Time.deltaTime, playerRb.velocity.y);
     }
 
 
@@ -30,7 +29,4 @@ public class PlayerAirborneState :IState
     {
 
     }
-
-
-
 }

@@ -21,22 +21,46 @@ public class PlayerGroundedState : IState
     }
     public void Update()
     {
-       /* if (!(PlayerNeededValues.IsGroundedPlayer))
+        if (!(PlayerNeededValues.IsGroundedPlayer))
         {
-            Debug.Log("Entered into Airborne State");
+            //Debug.Log("Entered into Airborne State");
             PlayerController.playerSM.ChangeState(PlayerNeededValues.AirborneStateForPlayer);
-            Debug.Log("Entered into Airborne State");
+            //Debug.Log("Entered into Airborne State");
             return;
         }
-        Debug.Log("Grounded State Update finished");**/
-        if (PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)
+
+
+        if (PlayerNeededValues.IsRolling)
         {
-            //Debug.Log("Entered into Walking State");
-            PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.WalkStateForPlayer);
-            //Debug.Log("Entered into Walking State");
+
+            PlayerController.playerSM.ChangeState( CurrentState = PlayerNeededValues.RollStateForPlayer);
+
 
         }
 
+        else if (PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)
+        {
+            PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.RunStateForPlayer);
+
+
+
+        }
+
+        else if (PlayerNeededValues.MoveInput.x > 0.15f || -0.15f > PlayerNeededValues.MoveInput.x)
+        {
+           
+            PlayerController.playerSM.ChangeState( CurrentState = PlayerNeededValues.WalkStateForPlayer);
+           
+
+        }
+
+        else
+        {
+            
+            PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.IdleStateForPlayer);
+           
+
+        }
 
 
     }
