@@ -33,7 +33,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RollingTest1
+  m_Name: Rolling
   m_Speed: 1.4
   m_CycleOffset: 0
   m_Transitions: []
@@ -277,7 +277,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WalkingTest
+  m_Name: Walking
   m_Speed: 0.75
   m_CycleOffset: 0
   m_Transitions: []
@@ -381,7 +381,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RunningTest1
+  m_Name: Running
   m_Speed: 1.25
   m_CycleOffset: 0
   m_Transitions: []

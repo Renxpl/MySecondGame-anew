@@ -24,7 +24,7 @@ public class PlayerIdleState : IState
         PlayerController.PlayerRB.velocity = new Vector2(0f, 0f);
 
 
-
+        PlayerController.ChangeAnimationState("Idle");
 
     }
 

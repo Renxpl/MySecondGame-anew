@@ -15,7 +15,7 @@ public class PlayerWalkState : IState
 
     public void Update()
     {
-        if (!(PlayerNeededValues.MoveInput.x > 0.15f || -0.15f > PlayerNeededValues.MoveInput.x)|| ((PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)))
+        if (!(PlayerNeededValues.MoveInput.x > 0.15f || -0.15f > PlayerNeededValues.MoveInput.x)|| ((PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)) || !PlayerNeededValues.IsGroundedPlayer)
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
@@ -34,9 +34,9 @@ public class PlayerWalkState : IState
         }
 
         //Debug.Log("is Walking now");
-        playerRb.velocity = new Vector2(200f * Time.deltaTime,playerRb.velocity.y);
+        playerRb.velocity = new Vector2(3f * Mathf.Sign(PlayerNeededValues.MoveInput.x),playerRb.velocity.y);
 
-
+        PlayerController.ChangeAnimationState("Walking");
 
     }
 

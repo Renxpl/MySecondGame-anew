@@ -16,7 +16,7 @@ public class PlayerRunState : IState
     public void Update()
     {
 
-        if (!(PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x))
+        if (!(PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)|| !PlayerNeededValues.IsGroundedPlayer)
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
@@ -33,7 +33,8 @@ public class PlayerRunState : IState
 
 
         }
-        playerRb.velocity = new Vector2(500f * Time.deltaTime, playerRb.velocity.y);
+        playerRb.velocity = new Vector2(15f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+        PlayerController.ChangeAnimationState("Running");
     }
 
 
