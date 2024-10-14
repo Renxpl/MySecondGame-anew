@@ -61,12 +61,12 @@
                 },
                 {
                     "name": "Jumping",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "043fec94-814c-4ecb-9d67-f41a15cdba02",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

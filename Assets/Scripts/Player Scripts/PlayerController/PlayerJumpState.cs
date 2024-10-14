@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerJumpState : IState
 {
+    
+
+
+
     public void Enter()
     {
 
@@ -20,8 +24,9 @@ public class PlayerJumpState : IState
             return;
         }
 
-        PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, 40f);
-
+        PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerNeededValues.JumpSpeed );
+        //PlayerController.PlayerRB.AddForce(PlayerNeededValues.JumpSpeed * Vector2.up, ForceMode2D.Impulse);
+        
     }
 
 

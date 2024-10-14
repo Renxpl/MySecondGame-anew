@@ -5,7 +5,8 @@ using System;
 
 public class PlayerAirborneState :IState
 {
-    int a = 0;
+
+    
     public void Enter()
     {
 
@@ -22,10 +23,19 @@ public class PlayerAirborneState :IState
             return;
         }
 
-
-        PlayerController.PlayerRB.velocity = new Vector2(8f* Math.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
-        Debug.Log("MoveInput Debug Display " + Math.Sign(PlayerNeededValues.MoveInput.x));
+        if (PlayerNeededValues.IsSpacePressing)
+        {
+            PlayerController.PlayerRB.velocity = new Vector2(8f * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerNeededValues.JumpSpeed);
+           // Debug.Log("azalma");
+        }
+        else
+        {
+            PlayerController.PlayerRB.velocity = new Vector2(8f * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
+            Debug.Log("korunma");
+        }
+        //Debug.Log("MoveInput Debug Display " + Math.Sign(PlayerNeededValues.MoveInput.x));
         PlayerController.ChangeAnimationState("Idle");
+
     }
 
 

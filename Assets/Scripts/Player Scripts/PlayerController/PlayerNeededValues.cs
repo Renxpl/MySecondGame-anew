@@ -18,11 +18,15 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsGroundedPlayer { get; private set; }
     public static bool IsRolling { get; private set; }
     public static bool IsJumping { get; private set; }
+    public static bool IsSpacePressing { get; private set; }
+    public static float JumpTime { get; private set; }
+    public static float JumpSpeed { get; private set; }
 
     public static LayerMask groundLayer;
     public static GameObject player;
 
 
+    public AnimationCurve jumpCurve;
 
 
 
@@ -57,7 +61,13 @@ public class PlayerNeededValues : MonoBehaviour
         if(IsGroundedPlayer)
         {
             IsJumping = false;
+            JumpTime = 0;
         }
+        if(JumpTime<=0.5f)
+        JumpSpeed = jumpCurve.Evaluate(JumpTime);
+        else IsSpacePressing= false;
+
+
 
     }
 
@@ -85,17 +95,20 @@ public class PlayerNeededValues : MonoBehaviour
         IsRolling= false;
     }
 
-    void OnJumping()
+    void OnJumping(InputValue input)
     {
         Debug.Log("Jumping");
-        if(IsGroundedPlayer) IsJumping= true;
+        if (IsGroundedPlayer) IsJumping = true;
+        if (JumpTime <= 0.5) IsSpacePressing = true;
+        JumpTime += Time.deltaTime;
+        Debug.Log("Space Value:" + input.Get<float>());
 
 
     }
 
 
 
-
+   
 
 
 }
