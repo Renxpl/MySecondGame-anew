@@ -11,6 +11,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static PlayerWalkState WalkStateForPlayer { get; private set; }  
     public static PlayerRunState RunStateForPlayer { get; private set; }
     public static PlayerRollState RollStateForPlayer { get; private set; }
+    public static PlayerAttackModeState AttackModeStateForPlayer { get; private set; }
 
 
 
