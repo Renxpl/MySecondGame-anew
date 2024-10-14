@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerAirborneState :IState
 {
@@ -22,7 +23,8 @@ public class PlayerAirborneState :IState
         }
 
 
-        PlayerController.PlayerRB.velocity = new Vector2(8f* Mathf.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
+        PlayerController.PlayerRB.velocity = new Vector2(8f* Math.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
+        Debug.Log("MoveInput Debug Display " + Math.Sign(PlayerNeededValues.MoveInput.x));
         PlayerController.ChangeAnimationState("Idle");
     }
 

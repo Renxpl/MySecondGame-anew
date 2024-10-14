@@ -64,8 +64,8 @@ public class PlayerNeededValues : MonoBehaviour
     void OnMove(InputValue input)
     {
         MoveInput = input.Get<Vector2>();
-        Debug.Log("MoveInput Debug Display " + MoveInput);
-        Debug.Log("IsGrounded: " + IsGroundedPlayer);
+        //Debug.Log("MoveInput Debug Display " + MoveInput);
+        //Debug.Log("IsGrounded: " + IsGroundedPlayer);
     }
 
 
