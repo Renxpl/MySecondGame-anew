@@ -38,6 +38,12 @@ public class PlayerGroundedState : IState
 
         }
 
+        else if (PlayerNeededValues.IsJumping)
+        {
+            PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.JumpStateForPlayer);
+        }
+
+
         else if (PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)
         {
             PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.RunStateForPlayer);

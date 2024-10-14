@@ -24,7 +24,7 @@ public class PlayerRunState : IState
             return;
 
         }
-        if (PlayerNeededValues.IsRolling)
+        if (PlayerNeededValues.IsRolling || PlayerNeededValues.IsJumping)
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);

@@ -22,7 +22,8 @@ public class PlayerAirborneState :IState
         }
 
 
-
+        PlayerController.PlayerRB.velocity = new Vector2(8f* Mathf.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
+        PlayerController.ChangeAnimationState("Idle");
     }
 
 

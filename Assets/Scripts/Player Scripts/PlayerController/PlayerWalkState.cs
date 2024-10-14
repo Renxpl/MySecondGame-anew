@@ -23,7 +23,7 @@ public class PlayerWalkState : IState
             return;
 
         }
-        if (PlayerNeededValues.IsRolling)
+        if (PlayerNeededValues.IsRolling || PlayerNeededValues.IsJumping)
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);

@@ -12,11 +12,12 @@ public class PlayerNeededValues : MonoBehaviour
     public static PlayerRunState RunStateForPlayer { get; private set; }
     public static PlayerRollState RollStateForPlayer { get; private set; }
     public static PlayerAttackModeState AttackModeStateForPlayer { get; private set; }
-
+    public static PlayerJumpState JumpStateForPlayer { get; private set; }
 
 
     public static bool IsGroundedPlayer { get; private set; }
     public static bool IsRolling { get; private set; }
+    public static bool IsJumping { get; private set; }
 
     public static LayerMask groundLayer;
     public static GameObject player;
@@ -36,6 +37,8 @@ public class PlayerNeededValues : MonoBehaviour
         WalkStateForPlayer = new PlayerWalkState();
         RunStateForPlayer = new PlayerRunState();
         RollStateForPlayer = new PlayerRollState();
+        AttackModeStateForPlayer= new PlayerAttackModeState();
+        JumpStateForPlayer = new PlayerJumpState();
     }
 
     // Start is called before the first frame update
@@ -51,7 +54,10 @@ public class PlayerNeededValues : MonoBehaviour
     {
         IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1f, groundLayer);
         Debug.DrawRay(player.transform.position, Vector2.down * 1f, IsGroundedPlayer ? Color.green : Color.red);
-
+        if(IsGroundedPlayer)
+        {
+            IsJumping = false;
+        }
 
     }
 
@@ -65,7 +71,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnRolling()
     {
-        Debug.Log("Rolling");
+        //Debug.Log("Rolling");
 
         StartCoroutine(RollingCoroutine());
 
@@ -79,7 +85,13 @@ public class PlayerNeededValues : MonoBehaviour
         IsRolling= false;
     }
 
+    void OnJumping()
+    {
+        Debug.Log("Jumping");
+        if(IsGroundedPlayer) IsJumping= true;
 
+
+    }
 
 
 
