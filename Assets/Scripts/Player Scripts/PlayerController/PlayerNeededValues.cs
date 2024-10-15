@@ -69,7 +69,7 @@ public class PlayerNeededValues : MonoBehaviour
         }
 
 
-        if(jumpInput != 0 && JumpTime <= 0.5f)
+        if(jumpInput != 0 && JumpTime <= 0.5f &&IsSpacePressing)
         {
             JumpTime += Time.deltaTime;
             IsSpacePressing= true;
@@ -78,6 +78,7 @@ public class PlayerNeededValues : MonoBehaviour
         else
         {
             IsSpacePressing = false;
+            IsJumping= false;
         }
        
         
@@ -112,11 +113,13 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnJumping(InputValue input)
     {
-        Debug.Log("Jumping");
+        //Debug.Log("Jumping");
         jumpInput = input.Get<float>();
-        if (IsGroundedPlayer) IsJumping = true;
+        if (IsGroundedPlayer && jumpInput != 0) { IsJumping = true; IsSpacePressing = true; }
+
+
         
-        Debug.Log("Space Value:" + input.Get<float>());
+        //Debug.Log("Space Value:" + input.Get<float>());
 
 
     }
