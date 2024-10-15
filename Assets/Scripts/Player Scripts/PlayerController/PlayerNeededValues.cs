@@ -33,6 +33,9 @@ public class PlayerNeededValues : MonoBehaviour
     public static Vector2 MoveInput { get; private set; }
 
 
+    float jumpInput;
+
+
     void Awake()
     {
         GroundedStateForPlayer = new PlayerGroundedState();
@@ -58,14 +61,26 @@ public class PlayerNeededValues : MonoBehaviour
     {
         IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1f, groundLayer);
         Debug.DrawRay(player.transform.position, Vector2.down * 1f, IsGroundedPlayer ? Color.green : Color.red);
+        
         if(IsGroundedPlayer)
         {
             IsJumping = false;
             JumpTime = 0;
         }
-        if(JumpTime<=0.5f)
-        JumpSpeed = jumpCurve.Evaluate(JumpTime);
-        else IsSpacePressing= false;
+
+
+        if(jumpInput != 0 && JumpTime <= 0.5f)
+        {
+            JumpTime += Time.deltaTime;
+            IsSpacePressing= true;
+            JumpSpeed = jumpCurve.Evaluate(JumpTime);
+        }
+        else
+        {
+            IsSpacePressing = false;
+        }
+       
+        
 
 
 
@@ -98,9 +113,9 @@ public class PlayerNeededValues : MonoBehaviour
     void OnJumping(InputValue input)
     {
         Debug.Log("Jumping");
+        jumpInput = input.Get<float>();
         if (IsGroundedPlayer) IsJumping = true;
-        if (JumpTime <= 0.5) IsSpacePressing = true;
-        JumpTime += Time.deltaTime;
+        
         Debug.Log("Space Value:" + input.Get<float>());
 
 
