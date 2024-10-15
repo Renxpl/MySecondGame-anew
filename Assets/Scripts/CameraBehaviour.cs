@@ -32,10 +32,21 @@ public class CameraBehaviour : MonoBehaviour
         //transform.position = newPosition;
     }
 
-
+    //Moving First Camera and then Parallax Background
     void LateUpdate()
     {
         targetPosition = new Vector3(toFollow.transform.position.x + 2, toFollow.transform.position.y + 3, this.transform.position.z);
         transform.position = targetPosition;
+
+
+        GameEvents.gameEvents.OnUpdateParallax();
+
+
     }
+
+
+    
+
+
+
 }

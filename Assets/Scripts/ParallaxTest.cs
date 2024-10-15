@@ -33,6 +33,7 @@ public class ParallaxTest : MonoBehaviour
     //Assigned parallax's objects starting position to their startingPosition variables.
     void Start()
     {
+        if (GameEvents.gameEvents != null) GameEvents.gameEvents.onUpdateParallax += MovingParallax;
         cameraStartingPosition = transform.position;
 
         for (int i = 0; i < 3; i += 2)
@@ -61,6 +62,7 @@ public class ParallaxTest : MonoBehaviour
     //I used lateupdate to ensure calculations will be done properly.
     void LateUpdate()
     {
+        /*
         cameraTotalDisplacement = (Vector2)transform.position - cameraStartingPosition;
 
         ReproductionOfParallax(cloudTransforms, parallaxStartingPositionsForSky, targetsForSky, 24f, ref counterForSky, 9 / 10f, cameraTotalDisplacement);
@@ -72,8 +74,25 @@ public class ParallaxTest : MonoBehaviour
         ParallaxTransform(groundsTransforms, parallaxStartingPositions, ref targetsForGround, cameraTotalDisplacement, 7f / 10f, 0f, 20f, true);
         //ParallaxTransform(groundsTransforms, parallaxStartingPositions,ref targetsForGround, cameraTotalDisplacement, 1f / 2f, 1 / 128f, 25f, true);
         //ParallaxTransform(backMountainTransforms, parallaxStartingPositionsForBM,ref targetsForBM, cameraTotalDisplacement, 7f / 10f, 1 / 64f, 20f, true);
-       
+       */
 
+    }
+
+
+    void MovingParallax()
+    {
+
+        cameraTotalDisplacement = (Vector2)transform.position - cameraStartingPosition;
+
+        ReproductionOfParallax(cloudTransforms, parallaxStartingPositionsForSky, targetsForSky, 24f, ref counterForSky, 9 / 10f, cameraTotalDisplacement);
+        ReproductionOfParallax(groundsTransforms, parallaxStartingPositions, targetsForGround, 24f, ref counter, 1 / 2f, cameraTotalDisplacement);
+        // ReproductionOfParallax(backMountainTransforms, parallaxStartingPositionsForBM, targetsForBM, 16f, ref counterForBM, 7f / 10f, cameraTotalDisplacement);
+
+        ParallaxTransform(sunTransform, sunStartingPosition, ref targetForSun, cameraTotalDisplacement, 1f, 0f, 20f);
+        ParallaxTransform(cloudTransforms, parallaxStartingPositionsForSky, ref targetsForSky, cameraTotalDisplacement, 9f / 10f, 0f, 12f);
+        ParallaxTransform(groundsTransforms, parallaxStartingPositions, ref targetsForGround, cameraTotalDisplacement, 7f / 10f, 0f, 20f, true);
+        //ParallaxTransform(groundsTransforms, parallaxStartingPositions,ref targetsForGround, cameraTotalDisplacement, 1f / 2f, 1 / 128f, 25f, true);
+        //ParallaxTransform(backMountainTransforms, parallaxStartingPositionsForBM,ref targetsForBM, cameraTotalDisplacement, 7f / 10f, 1 / 64f, 20f, true);
     }
 
     //Simply moving parallax objects, there are 2 overloaded methods, one for arrays(reproducted parallaxas)
@@ -101,10 +120,17 @@ public class ParallaxTest : MonoBehaviour
             lerpResult0 = new Vector2(lerpResult0.x, lerpResult0y.y);
             lerpResult1 = new Vector2(lerpResult1.x, lerpResult1y.y);
 
-
+            /*
             parallax[2].position = lerpResult2;
             parallax[0].position = lerpResult0;
             parallax[1].position = lerpResult1;
+            */
+            parallax[2].position = new Vector2(targets[2].x, parallax[2].position.y);
+            parallax[0].position = new Vector2(targets[0].x, parallax[0].position.y);
+            parallax[1].position = new Vector2(targets[1].x, parallax[1].position.y);
+
+           
+
         }
 
     }
@@ -132,10 +158,17 @@ public class ParallaxTest : MonoBehaviour
             //lerpResult0 = new Vector2(lerpResult0.x, lerpResult0y.y);
             //lerpResult1 = new Vector2(lerpResult1.x, lerpResult1y.y);
 
-
+            /*
             parallax[2].position = lerpResult2;
             parallax[0].position = lerpResult0;
             parallax[1].position = lerpResult1;
+            */
+            parallax[2].position = new Vector2(targets[2].x, parallax[2].position.y);
+            parallax[0].position = new Vector2(targets[0].x, parallax[0].position.y);
+            parallax[1].position = new Vector2(targets[1].x, parallax[1].position.y);
+
+
+
         }
 
     }
@@ -150,9 +183,9 @@ public class ParallaxTest : MonoBehaviour
             Vector2 lerpResult = Vector2.Lerp(parallax.position, target, Time.deltaTime * lerpFactor);
             Vector2 lerpResult2 = Vector2.Lerp(parallax.position, target, 1);
             lerpResult = new Vector2(lerpResult.x, lerpResult2.y);
-            parallax.position = lerpResult;
+            //parallax.position = lerpResult;
             //parallax.position = new Vector2((float)Rounding(lerpResult.x, target.x - parallax.position.x), (float)Rounding(lerpResult.y, target.y - parallax.position.y));
-
+            parallax.position = new Vector2(target.x, parallax.position.y);
         }
 
     }

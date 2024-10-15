@@ -12,6 +12,8 @@ public class GameEvents : MonoBehaviour
     public event EnemyHealthDepleted onEHDepleted;
     public delegate void EnemySoldier(GameObject sender, EnemySoldierInfos e);
     public event EnemySoldier onEnemyInteraction;
+    public delegate void UpdateParallax();
+    public event UpdateParallax onUpdateParallax;
 
     void Awake()
     {
@@ -50,6 +52,16 @@ public class GameEvents : MonoBehaviour
         }
 
     }
+
+
+
+    public void OnUpdateParallax()
+    {
+
+        onUpdateParallax?.Invoke();
+
+    }
+
 
 }
 
