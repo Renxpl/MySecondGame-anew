@@ -17,24 +17,10 @@ public class AuraTransitionController : MonoBehaviour
     void Update()
     {
 
-        if (PlayerNeededValues.IsLightningAura && !isCoroutineStarted)
-        {
-            StartCoroutine(PlayTransition());
-
-
-        }
 
 
     }
 
-    IEnumerator PlayTransition()
-    {
-        isCoroutineStarted= true;
-        AnimatorForAuraTransition.Play("LT for Idle");
-        yield return new WaitForSeconds(0.25f);
-        AnimatorForAuraTransition.Play("Nothing");
-        isCoroutineStarted= false;
-
-    }
+  
 
 }

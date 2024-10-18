@@ -36,7 +36,7 @@ public class PlayerNeededValues : MonoBehaviour
 
 
     float jumpInput;
-
+    bool isLightningCoroutineStarted = false;
 
     void Awake()
     {
@@ -132,11 +132,18 @@ public class PlayerNeededValues : MonoBehaviour
 
         //Debug.Log("Aura Input:" + input.Get<float>());
         if (IsLightningAura && input.Get<float>() == 1) { IsLightningAura = false; }
-        else if(!IsLightningAura && input.Get<float>() == 1) { IsLightningAura = true; }
+        else if(!IsLightningAura && input.Get<float>() == 1) { IsLightningAura = true;if(!isLightningCoroutineStarted) StartCoroutine(PlayTransition()); }
         Debug.Log("Aura Input:" + IsLightningAura);
     }
 
-
+    IEnumerator PlayTransition()
+    {
+        isLightningCoroutineStarted = true;
+        AuraTransitionController.AnimatorForAuraTransition.Play("LT for Idle");
+        yield return new WaitForSeconds(0.25f);
+        AuraTransitionController.AnimatorForAuraTransition.Play("Nothing");
+        isLightningCoroutineStarted = false;
+    }
 
 
 }
