@@ -21,6 +21,8 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsSpacePressing { get; private set; }
     public static float JumpTime { get; private set; }
     public static float JumpSpeed { get; private set; }
+    public static bool IsLightningAura { get; private set; }
+
 
     public static LayerMask groundLayer;
     public static GameObject player;
@@ -53,6 +55,7 @@ public class PlayerNeededValues : MonoBehaviour
     {
         groundLayer = LayerMask.GetMask("Ground");
         player = PlayerController.PlayerRB.gameObject;
+        IsLightningAura= false;
        
     }
 
@@ -124,9 +127,16 @@ public class PlayerNeededValues : MonoBehaviour
 
     }
 
+    void OnToLightningAura(InputValue input)
+    {
+
+        //Debug.Log("Aura Input:" + input.Get<float>());
+        if (IsLightningAura && input.Get<float>() == 1) { IsLightningAura = false; }
+        else if(!IsLightningAura && input.Get<float>() == 1) { IsLightningAura = true; }
+        Debug.Log("Aura Input:" + IsLightningAura);
+    }
 
 
-   
 
 
 }
