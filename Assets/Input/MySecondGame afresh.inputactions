@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ToWindAura",
+                    "type": "Value",
+                    "id": "15d3c532-7c2a-40f4-87be-96e51361ef0a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -384,6 +393,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToLightningAura",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9b19880-279a-4f72-8732-015f98a45c59",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToWindAura",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

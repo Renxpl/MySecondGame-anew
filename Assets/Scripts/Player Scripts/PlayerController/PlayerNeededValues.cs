@@ -22,6 +22,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static float JumpTime { get; private set; }
     public static float JumpSpeed { get; private set; }
     public static bool IsLightningAura { get; private set; }
+    public static bool IsWindAura { get; private set; }
 
 
     public static LayerMask groundLayer;
@@ -37,6 +38,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     float jumpInput;
     bool isLightningCoroutineStarted = false;
+    bool isWindCoroutineStarted = false;
 
     void Awake()
     {
@@ -132,18 +134,29 @@ public class PlayerNeededValues : MonoBehaviour
 
         //Debug.Log("Aura Input:" + input.Get<float>());
         if (IsLightningAura && input.Get<float>() == 1) { IsLightningAura = false; }
-        else if(!IsLightningAura && input.Get<float>() == 1) { IsLightningAura = true;if(!isLightningCoroutineStarted) StartCoroutine(PlayTransition()); }
+        else if(!IsLightningAura && input.Get<float>() == 1) { IsLightningAura = true;if(!isLightningCoroutineStarted) StartCoroutine(PlayTransition(2)); }
         Debug.Log("Aura Input:" + IsLightningAura);
     }
 
-    IEnumerator PlayTransition()
+    IEnumerator PlayTransition(int i)
     {
         isLightningCoroutineStarted = true;
-        AuraTransitionController.AnimatorForAuraTransition.Play("LT for Idle");
+        if (i == 2)AuraTransitionController.AnimatorForAuraTransition.Play("LT for Idle");
+        else if(i == 1) AuraTransitionController.AnimatorForAuraTransition.Play("WT for Idle");
         yield return new WaitForSeconds(0.25f);
         AuraTransitionController.AnimatorForAuraTransition.Play("Nothing");
         isLightningCoroutineStarted = false;
     }
+
+    void OnToWindAura(InputValue input)
+    {
+
+        //Debug.Log("Aura Input:" + input.Get<float>());
+        if (IsWindAura && input.Get<float>() == 1) { IsWindAura = false; }
+        else if (!IsWindAura && input.Get<float>() == 1) { IsWindAura = true; if (!isWindCoroutineStarted) StartCoroutine(PlayTransition(1)); }
+        Debug.Log("Aura Input:" + IsWindAura);
+    }
+
 
 
 }
