@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerIdleState : IState
 {
+
+
+    float timePassed;
+    float timeToBePassed = 5f;
     public void Enter()
     {
 
@@ -30,12 +34,24 @@ public class PlayerIdleState : IState
 
 
         }
-
+        timePassed += Time.deltaTime;
 
         PlayerController.PlayerRB.velocity = new Vector2(0f, 0f);
 
+        if (timePassed < timeToBePassed)
+        {
+            PlayerController.ChangeAnimationState("Idle");
+        }
+        else
+        {
+            PlayerController.ChangeAnimationState("IdleAnim1");
+            if (timePassed >= (timeToBePassed+ (1 / 0.7) *0.583))
+            {
+                timePassed = 0f;
+            }
+        }
 
-        PlayerController.ChangeAnimationState("Idle");
+
 
     }
 
