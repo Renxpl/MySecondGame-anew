@@ -45,7 +45,7 @@ public class PlayerIdleState : IState
         else
         {
             PlayerController.ChangeAnimationState("IdleAnim1");
-            if (timePassed >= (timeToBePassed+ (1 / 0.7) *0.583))
+            if (timePassed >= (timeToBePassed+ (1 / 0.5) *0.75))
             {
                 timePassed = 0f;
             }
