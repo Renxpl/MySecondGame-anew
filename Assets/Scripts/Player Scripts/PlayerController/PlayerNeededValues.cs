@@ -19,6 +19,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsRolling { get; private set; }
     public static bool IsJumping { get; private set; }
     public static bool IsSpacePressing { get; private set; }
+    public static bool IsJumpingUp { get; private set; }
     public static float JumpTime { get; private set; }
     public static float JumpSpeed { get; private set; }
     public static bool IsLightningAura { get; private set; }
@@ -85,8 +86,8 @@ public class PlayerNeededValues : MonoBehaviour
             IsSpacePressing = false;
             IsJumping= false;
         }
-       
-        
+
+        IsJumpingUp = IsSpacePressing;
 
 
 

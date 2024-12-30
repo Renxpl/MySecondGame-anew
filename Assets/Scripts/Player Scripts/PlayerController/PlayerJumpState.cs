@@ -19,14 +19,30 @@ public class PlayerJumpState : IState
         if (!(PlayerNeededValues.IsGroundedPlayer))
         {
             //Debug.Log("Entered into Airborne State");
+
+
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
+
+
+           
+
+
             //Debug.Log("Entered into Airborne State");
+
+
+
+
             return;
         }
 
         PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerNeededValues.JumpSpeed);
         //PlayerController.PlayerRB.AddForce(PlayerNeededValues.JumpSpeed * Vector2.up, ForceMode2D.Impulse);
         
+
+
+
+
+
     }
 
 

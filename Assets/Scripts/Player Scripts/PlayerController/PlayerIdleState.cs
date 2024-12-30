@@ -21,6 +21,7 @@ public class PlayerIdleState : IState
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
+            timePassed = 0;
 
             return;
 
@@ -29,7 +30,7 @@ public class PlayerIdleState : IState
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
-
+            timePassed = 0;
             return;
 
 
