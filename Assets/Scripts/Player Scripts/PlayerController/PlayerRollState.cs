@@ -21,7 +21,7 @@ public class PlayerRollState : IState
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
             return;
         }
-        playerRb.velocity = new Vector2(50f * playerRb.gameObject.transform.localScale.x, playerRb.velocity.y);
+        playerRb.velocity = new Vector2(30f * playerRb.gameObject.transform.localScale.x, playerRb.velocity.y);
         PlayerController.ChangeAnimationState("Rolling");
     }
 
