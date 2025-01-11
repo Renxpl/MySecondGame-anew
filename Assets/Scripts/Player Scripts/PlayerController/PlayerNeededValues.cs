@@ -113,7 +113,7 @@ public class PlayerNeededValues : MonoBehaviour
     IEnumerator RollingCoroutine()
     {
         IsRolling = true;
-        yield return new WaitForSeconds(0.35f); 
+        yield return new WaitForSeconds(0.30f); 
         IsRolling= false;
     }
 
