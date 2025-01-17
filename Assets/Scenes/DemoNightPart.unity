@@ -5939,7 +5939,7 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5235988
+      scalar: 0.2617994
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -10432,7 +10432,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633821a5cd0d7ca44acf1d3cacc36516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instancedParallax: []
+  pixelCountToDisplayInAnUnit: 16
+  parallaxes:
+  - {fileID: 844448531}
+  movementFactor:
+  - 0.8
+  parallaxWidths: 80010000
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ public class ParallaxTest : MonoBehaviour
     //Assigned parallax's objects starting position to their startingPosition variables.
     void Start()
     {
-        if (GameEvents.gameEvents != null) GameEvents.gameEvents.onUpdateParallax += MovingParallax;
+        if (GameEvents.gameEvents != null) GameEvents.gameEvents.onUpdateCamera += MovingParallax;
         cameraStartingPosition = transform.position;
 
         for (int i = 0; i < 3; i += 2)

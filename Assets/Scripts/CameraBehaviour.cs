@@ -39,7 +39,7 @@ public class CameraBehaviour : MonoBehaviour
         transform.position = targetPosition;
 
 
-        GameEvents.gameEvents.OnUpdateParallax();
+        GameEvents.gameEvents.OnUpdateCamera();
 
 
     }
