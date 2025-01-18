@@ -10436,9 +10436,14 @@ MonoBehaviour:
   pixelCountToDisplayInAnUnit: 16
   parallaxes:
   - {fileID: 844448531}
+  - {fileID: 118095993}
+  - {fileID: 1365212720}
   movementFactor:
   - 0.95
-  parallaxWidths: 80010000
+  - 1
+  - 0.5
+  parallaxWidths: 800100008001000080010000
+  yXMovementRatio: 0.2
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
