@@ -41,7 +41,6 @@ public class CameraBehaviour : MonoBehaviour
         targetPosition = new Vector3(toFollow.transform.position.x + 2, toFollow.transform.position.y + 3, this.transform.position.z);
 
         transform.position = targetPosition;
-        //transform.position =  Vector3.Lerp(transform.position, targetPosition, Time.deltaTime *10);
 
         GameEvents.gameEvents.OnUpdateCamera();
 

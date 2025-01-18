@@ -14,16 +14,18 @@ public class Parallax : MonoBehaviour
     public int pixelCountToDisplayInAnUnit;
 
 
-    [Header("Parallax Settings")]
+    [Header("Parallax Setup")]
     public GameObject[] parallaxes;
     public float[] movementFactor;
     public int[] parallaxWidths;
-    
-    
-    Vector2 cameraTransform;
 
+    [Header("Parallax Settings")]
+    public float yXMovementRatio;
+
+
+    Vector2 cameraTransform;
     int totalLength;
-    //Parallax factor for y axis???
+
     void Start()
     {
 
@@ -32,7 +34,12 @@ public class Parallax : MonoBehaviour
             GameEvents.gameEvents.onUpdateCamera += ParallaxUpdate;
 
         }
-        // need to throw an error when these counts are not equal
+       
+        if(parallaxes.Length != movementFactor.Length || parallaxes.Length != parallaxWidths.Length)
+        {
+            Debug.LogError("Parallax Input Lengths Are Not Equal");
+
+        }
          cameraTransform = transform.position;
          parallaxMain = new GameObject[parallaxes.Length,3];
          movementInfos = new float[parallaxes.Length,2];
@@ -84,8 +91,9 @@ public class Parallax : MonoBehaviour
 
 
     }
+
     //Moving Parallaxes
-    //In Progress
+    //Debugged
     void MovingParallaxes()
     {
         
@@ -95,13 +103,13 @@ public class Parallax : MonoBehaviour
             if (movementInfos[i, 1] == 1)
             {
                 Vector2 currentPosition = parallaxMain[i, 1].transform.position;
-                parallaxMain[i, 1].transform.position = new Vector2(currentPosition.x + distance.x * movementInfos[i, 1], currentPosition.y + distance.y * (movementInfos[i, 1]));
+                parallaxMain[i, 1].transform.position = new Vector2(transform.position.x,transform.position.y);
                 continue;
             }
             for (int j = 0; j< 3; j++)
             {
                 Vector2 currentPosition = parallaxMain[i, j].transform.position;
-                parallaxMain[i, j].transform.position = new Vector2(currentPosition.x + distance.x * movementInfos[i, 1], currentPosition.y + distance.y * (movementInfos[i, 1]/10f) );
+                parallaxMain[i, j].transform.position = new Vector2(currentPosition.x + distance.x * movementInfos[i, 1], currentPosition.y + distance.y * (movementInfos[i, 1]* yXMovementRatio));
             }
            
 
@@ -110,14 +118,6 @@ public class Parallax : MonoBehaviour
 
         cameraTransform = transform.position;
     }
-
-
-
-
-
-
-
-
 
 
     //Adjusting and Instantiating Parallaxes According to Camera Position 
@@ -155,7 +155,5 @@ public class Parallax : MonoBehaviour
         }
        
     }
-
-
 
 }
