@@ -6,6 +6,7 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class CameraBehaviour : MonoBehaviour
 {
+    [SerializeField] int targetFps = 30;
     [SerializeField] GameObject toFollow;
     public float smoothTime = 0.3f;
     Vector3 velocity = Vector3.zero;
@@ -14,7 +15,8 @@ public class CameraBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Application.targetFrameRate = targetFps;
+
     }
 
     // Update is called once per frame
@@ -35,16 +37,18 @@ public class CameraBehaviour : MonoBehaviour
     //Moving First Camera and then Parallax Background
     void LateUpdate()
     {
+        
         targetPosition = new Vector3(toFollow.transform.position.x + 2, toFollow.transform.position.y + 3, this.transform.position.z);
-        transform.position = targetPosition;
 
+        transform.position = targetPosition;
+        //transform.position =  Vector3.Lerp(transform.position, targetPosition, Time.deltaTime *10);
 
         GameEvents.gameEvents.OnUpdateCamera();
 
 
     }
 
-
+    
     
 
 
