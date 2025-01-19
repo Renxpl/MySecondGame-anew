@@ -110,12 +110,12 @@ public class Parallax : MonoBehaviour
             {
                 Vector2 currentPosition = parallaxMain[i, j].transform.position;
                 parallaxMain[i, j].transform.position = new Vector2(currentPosition.x + distance.x * movementInfos[i, 1], currentPosition.y + distance.y * (movementInfos[i, 1]* yXMovementRatio));
+          
             }
            
 
 
         }
-
         cameraTransform = transform.position;
     }
 
