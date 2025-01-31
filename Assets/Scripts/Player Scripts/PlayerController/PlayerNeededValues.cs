@@ -135,7 +135,7 @@ public class PlayerNeededValues : MonoBehaviour
 
         //Debug.Log("Aura Input:" + input.Get<float>());
         if (IsLightningAura && input.Get<float>() == 1) { IsLightningAura = false; }
-        else if(!IsLightningAura && input.Get<float>() == 1) { IsLightningAura = true;if(!isLightningCoroutineStarted) StartCoroutine(PlayTransition(2)); }
+        else if(!IsLightningAura && input.Get<float>() == 1) { IsLightningAura = true; IsWindAura = false; if (!isLightningCoroutineStarted) StartCoroutine(PlayTransition(2)); }
         Debug.Log("Aura Input:" + IsLightningAura);
     }
 
@@ -154,7 +154,7 @@ public class PlayerNeededValues : MonoBehaviour
 
         //Debug.Log("Aura Input:" + input.Get<float>());
         if (IsWindAura && input.Get<float>() == 1) { IsWindAura = false; }
-        else if (!IsWindAura && input.Get<float>() == 1) { IsWindAura = true; if (!isWindCoroutineStarted) StartCoroutine(PlayTransition(1)); }
+        else if (!IsWindAura && input.Get<float>() == 1) { IsWindAura = true; IsLightningAura = false; if (!isWindCoroutineStarted) StartCoroutine(PlayTransition(1)); }
         Debug.Log("Aura Input:" + IsWindAura);
     }
 
