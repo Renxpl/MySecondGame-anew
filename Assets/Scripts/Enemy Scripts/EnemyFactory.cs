@@ -17,23 +17,23 @@ public class EnemyFactory :MonoBehaviour
     [SerializeField] GameObject swordsmanPrefab;
     [SerializeField] GameObject magePrefab;
 
-    GameObject newlyCreatedOne;
-    void CreateEnemy(EnemyTypes type,Vector3 position)
+    public GameObject CreateEnemy(EnemyTypes type)
     {
+
         switch (type)
         {
             case EnemyTypes.Swordsman:
-                newlyCreatedOne = Instantiate(swordsmanPrefab);
-                newlyCreatedOne.transform.position = position;
+                return Instantiate(swordsmanPrefab);
+               
                 break;
             case EnemyTypes.Mage:
-                newlyCreatedOne = Instantiate(magePrefab);
-                newlyCreatedOne.transform.position = position;
+                return Instantiate(magePrefab);
+                
                 break;
 
 
             default:
-                
+                return null;
                 break;
         }
 
