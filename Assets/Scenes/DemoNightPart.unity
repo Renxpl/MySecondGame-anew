@@ -11398,7 +11398,7 @@ GameObject:
   - component: {fileID: 1058171114}
   - component: {fileID: 1058171115}
   m_Layer: 7
-  m_Name: Enemy Soldier
+  m_Name: Enemy-Swordsman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

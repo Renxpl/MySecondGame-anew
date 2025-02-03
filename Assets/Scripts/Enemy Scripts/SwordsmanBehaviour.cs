@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SwordsmanBehaviour : EnemyMain
 {
-    public override void AttackMode()
+    protected override void AttackMode()
     {
-
+        Debug.Log("Attacking-Swordsman");
     }
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class MageBehaviour : EnemyMain
 {
-    public override void AttackMode()
+    protected override void AttackMode()
     {
-
+        Debug.Log("Attacking-Mage");
     }
+
+
 }

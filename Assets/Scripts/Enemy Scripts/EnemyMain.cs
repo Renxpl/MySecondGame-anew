@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class EnemyMain : MonoBehaviour
 {
+
+
+    Vector2 firstPosition;
+    void Start()
+    {
         
+    }
     
-    void Patrolling()
+    void Update()
+    {
+        
+    }
+    protected virtual void Patrolling()
     {
 
     }
 
 
-    public abstract void AttackMode();
+    protected abstract void AttackMode();
 
 
 }
