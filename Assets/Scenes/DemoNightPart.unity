@@ -10957,7 +10957,6 @@ GameObject:
   m_Component:
   - component: {fileID: 898680661}
   - component: {fileID: 898680662}
-  - component: {fileID: 898680663}
   m_Layer: 0
   m_Name: Get Dmg Hitbox
   m_TagString: Untagged
@@ -11006,22 +11005,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.80477476, y: 2.0662313}
   m_EdgeRadius: 0
---- !u!114 &898680663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898680660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e690203bd3b34409fa5dfebaed5cd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  script: {fileID: 0}
-  isGetMoved: 0
-  health: 3
-  dmg: {fileID: 11400000, guid: af48e9dede756714bb54fd731247de47, type: 2}
 --- !u!1 &938682213
 GameObject:
   m_ObjectHideFlags: 0
@@ -11414,14 +11397,13 @@ GameObject:
   - component: {fileID: 1058171113}
   - component: {fileID: 1058171114}
   - component: {fileID: 1058171115}
-  - component: {fileID: 1058171116}
   m_Layer: 7
   m_Name: Enemy Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1058171111
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11463,7 +11445,7 @@ SpriteRenderer:
   m_SortingLayerID: -1912775347
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1440098529, guid: 00fdc9e72016f044898430d309eec821, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ac119a9bb548d44e9d5c8d6d3e150f9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11508,7 +11490,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8, y: 6}
+    oldSize: {x: 16, y: 8}
     newSize: {x: 8, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -11558,22 +11540,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &1058171116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1058171110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42f2b27902455244da7cdbe8153d37f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 938682213}
-  finisher: 0
-  distance: 0
-  speed: 1
 --- !u!1 &1098711560
 GameObject:
   m_ObjectHideFlags: 0
@@ -11929,7 +11895,6 @@ GameObject:
   - component: {fileID: 1644540066}
   - component: {fileID: 1644540068}
   - component: {fileID: 1644540067}
-  - component: {fileID: 1644540069}
   m_Layer: 0
   m_Name: Get Dmg Hitbox
   m_TagString: Untagged
@@ -12004,21 +11969,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53715706, y: 1.5603793}
   m_EdgeRadius: 0
---- !u!114 &1644540069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644540065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff8d509262fb25249b6de7d6584a2c11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  script: {fileID: 1058171116}
-  isGetMoved: 0
-  health: 15
 --- !u!1 &1693003340
 GameObject:
   m_ObjectHideFlags: 0
