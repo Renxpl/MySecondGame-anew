@@ -111,8 +111,11 @@ public class PlayerNeededValues : MonoBehaviour
     void OnRolling()
     {
         //Debug.Log("Rolling");
-
-        StartCoroutine(RollingCoroutine());
+        if (!IsRolling)
+        {
+            StartCoroutine(RollingCoroutine());
+        }
+        
 
     }
 
