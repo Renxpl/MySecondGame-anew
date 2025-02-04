@@ -7,13 +7,13 @@ public abstract class EnemyMain : MonoBehaviour
 {
 
 
-    Vector2 firstPosition;
-    void Start()
+    protected Vector2 firstPosition;
+    protected virtual void Start()
     {
         
     }
-    
-    void Update()
+
+    protected virtual void Update()
     {
         
     }
@@ -25,5 +25,9 @@ public abstract class EnemyMain : MonoBehaviour
 
     protected abstract void AttackMode();
 
+    protected virtual void TakingDamage()
+    {
+
+    }
 
 }
