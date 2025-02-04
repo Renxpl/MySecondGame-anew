@@ -37,6 +37,10 @@ public class PlayerGroundedState : IState
 
 
         }
+        else if (PlayerNeededValues.IsLightAttack )
+        {
+            PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.GrAttackState);
+        }
 
         else if (PlayerNeededValues.IsJumping)
         {

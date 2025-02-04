@@ -14,6 +14,8 @@ public class PlayerNeededValues : MonoBehaviour
     public static PlayerAttackModeState AttackModeStateForPlayer { get; private set; }
     public static PlayerJumpState JumpStateForPlayer { get; private set; }
 
+    public static PlayerGrAttackState GrAttackState { get; private set; }
+
 
     public static bool IsGroundedPlayer { get; private set; }
     public static bool IsRolling { get; private set; }
@@ -24,6 +26,11 @@ public class PlayerNeededValues : MonoBehaviour
     public static float JumpSpeed { get; private set; }
     public static bool IsLightningAura { get; private set; }
     public static bool IsWindAura { get; private set; }
+
+    public static bool IsHeavyAttack { get; private set; }
+    public static bool IsLightAttack { get; private set; }
+
+    public static bool IsSpeacialAttack { get; private set; }
 
 
     public static LayerMask groundLayer;
@@ -157,6 +164,15 @@ public class PlayerNeededValues : MonoBehaviour
         else if (!IsWindAura && input.Get<float>() == 1) { IsWindAura = true; IsLightningAura = false; if (!isWindCoroutineStarted) StartCoroutine(PlayTransition(1)); }
         Debug.Log("Aura Input:" + IsWindAura);
     }
+
+
+    void OnLightAttack()
+    {
+
+    }
+
+    
+
 
 
 
