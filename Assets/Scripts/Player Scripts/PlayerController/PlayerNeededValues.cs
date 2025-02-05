@@ -44,9 +44,10 @@ public class PlayerNeededValues : MonoBehaviour
     public static Vector2 MoveInput { get; private set; }
 
 
-    float jumpInput;
+    static float jumpInput;
     bool isLightningCoroutineStarted = false;
     bool isWindCoroutineStarted = false;
+    //next input will be handled by bools
 
     void Awake()
     {
@@ -131,13 +132,17 @@ public class PlayerNeededValues : MonoBehaviour
     {
         //Debug.Log("Jumping");
         jumpInput = input.Get<float>();
-        if (IsGroundedPlayer && jumpInput != 0) { IsJumping = true; IsSpacePressing = true; }
+        CommandHandler.HandleCommand(new JumpInput());
 
 
         
         //Debug.Log("Space Value:" + input.Get<float>());
 
 
+    }
+    public static void JumpExecute()
+    {
+        if (IsGroundedPlayer && jumpInput != 0) { IsJumping = true; IsSpacePressing = true; }
     }
 
     void OnToLightningAura(InputValue input)
@@ -171,6 +176,8 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnLightAttack()
     {
+        
+
 
     }
 
@@ -180,3 +187,6 @@ public class PlayerNeededValues : MonoBehaviour
 
 
 }
+
+
+
