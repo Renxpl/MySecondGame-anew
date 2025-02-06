@@ -132,7 +132,11 @@ public class PlayerNeededValues : MonoBehaviour
     {
         //Debug.Log("Jumping");
         jumpInput = input.Get<float>();
-        CommandHandler.HandleCommand(new JumpInput());
+        //Debug.Log(jumpInput);
+        if (jumpInput != 0)
+        {
+            CommandHandler.HandleCommand(new JumpInput());
+        }
 
 
         
@@ -142,6 +146,7 @@ public class PlayerNeededValues : MonoBehaviour
     }
     public static void JumpExecute()
     {
+        
         if (IsGroundedPlayer && jumpInput != 0) { IsJumping = true; IsSpacePressing = true; }
     }
 

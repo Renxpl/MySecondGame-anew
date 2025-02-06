@@ -22,9 +22,9 @@ public static class CommandHandler
         {
             next = command;
         }
-        else if (PlayerNeededValues.IsJumping)
+        else if (PlayerAirborneState.isAirborne)
         {
-
+            Debug.Log("Airborne");
             next = command;
         }
         else
