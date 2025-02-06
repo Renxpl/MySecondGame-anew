@@ -48,6 +48,7 @@ public class PlayerNeededValues : MonoBehaviour
     static float jumpInput;
     bool isLightningCoroutineStarted = false;
     bool isWindCoroutineStarted = false;
+    bool extraRollingWait = false;
     //next input will be handled by bools
 
     void Awake()
@@ -99,10 +100,7 @@ public class PlayerNeededValues : MonoBehaviour
         IsJumpingUp = IsSpacePressing;
 
 
-        if (IsRolling)
-        {
-            StartCoroutine(RollingCoroutine());
-        }
+        
     }
 
     void OnMove(InputValue input)
@@ -116,17 +114,24 @@ public class PlayerNeededValues : MonoBehaviour
     void OnRolling()
     {
         //Debug.Log("Rolling");
-        if (!IsRolling)
-        {
-            CommandHandler.HandleCommand(new RollInput());
-            
-        }
-        
+
+
+        CommandHandler.HandleCommand(new RollInput());
+
+
+
 
     }
     public void RollExecute()
     {
-        StartCoroutine(RollingCoroutine());
+        
+        if (!IsRolling && !extraRollingWait)
+        {
+
+            StartCoroutine(RollingCoroutine());
+
+        }
+
 
     }
     
@@ -136,6 +141,9 @@ public class PlayerNeededValues : MonoBehaviour
         IsRolling = true;
         yield return new WaitForSeconds(0.33f); 
         IsRolling= false;
+        extraRollingWait = true;
+        yield return new WaitForSeconds(0.165f);
+        extraRollingWait= false;
     }
 
     void OnJumping(InputValue input)
