@@ -64,7 +64,9 @@ public class PlayerNeededValues : MonoBehaviour
         RollStateForPlayer = new PlayerRollState();
         AttackModeStateForPlayer= new PlayerAttackModeState();
         JumpStateForPlayer = new PlayerJumpState();
+        GrAttackState = new PlayerGrAttackState();
         heavyAttackInput = new HeavyAttackInput();
+        
     }
 
     // Start is called before the first frame update
@@ -73,6 +75,7 @@ public class PlayerNeededValues : MonoBehaviour
         groundLayer = LayerMask.GetMask("Ground");
         player = PlayerController.PlayerRB.gameObject;
         IsLightningAura= false;
+        AttackNumber = 1;
        
     }
 
@@ -215,19 +218,26 @@ public class PlayerNeededValues : MonoBehaviour
         {
             //Debug.Log("HeavyAttack");
             CommandHandler.HandleCommand(heavyAttackInput);
+            //Debug.Log(heavyAttackInput);
+          
         }
+        
 
     }
 
     public void HeavyAttackExecution()
     {
-        HeavyAttack(AttackNumber);
+        if (!IsHeavyAttack)
+        {
+            StartCoroutine(HeavyAttack(AttackNumber));
+        }
     }
     IEnumerator HeavyAttack(int count)
     {
-        
+        //Debug.Log("In Coroutine");
         if (AttackNumber == 1)
         {
+            Debug.Log("AttackNUmber1");
             IsHeavyAttack= true;
             yield return new WaitForSeconds(0.25f);
             IsHeavyAttack= false;
@@ -251,7 +261,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     public static void ResetAttackNumber()
     {
-        AttackNumber= 0;
+        AttackNumber= 1;
     }
 
     public  static void IncreaseAttackNumber()

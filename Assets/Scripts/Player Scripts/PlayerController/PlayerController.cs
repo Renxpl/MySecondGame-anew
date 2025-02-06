@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public static StateMachine playerSM;
     public static string currentAnimation = "";
     static Animator playerAnimator;
+    public static Vector2 forward;
 
     void Awake()
     {
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
        
         playerSM?.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
         Debug.Log("Ground state started");
+        forward = new Vector2(transform.localScale.x,0f);
 
     }
 
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = new Vector2(-1f, 1f);
         }
+        forward = new Vector2(transform.localScale.x, 0f);
     }
 
 

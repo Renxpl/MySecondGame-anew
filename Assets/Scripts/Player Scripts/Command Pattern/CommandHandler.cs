@@ -29,6 +29,7 @@ public static class CommandHandler
         }
         else
         {
+            //Debug.Log("1");
             command?.Execute();
         }
 

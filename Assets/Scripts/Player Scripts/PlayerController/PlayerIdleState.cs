@@ -26,7 +26,7 @@ public class PlayerIdleState : IState
             return;
 
         }
-        if (PlayerNeededValues.IsRolling || PlayerNeededValues.IsJumping)
+        if (PlayerNeededValues.IsRolling || PlayerNeededValues.IsJumping || PlayerNeededValues.IsHeavyAttack||PlayerNeededValues.IsLightAttack)
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
@@ -35,6 +35,7 @@ public class PlayerIdleState : IState
 
 
         }
+
         timePassed += Time.deltaTime;
 
         PlayerController.PlayerRB.velocity = new Vector2(0f, 0f);
