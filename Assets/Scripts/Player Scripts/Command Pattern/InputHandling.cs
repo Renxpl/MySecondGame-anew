@@ -48,7 +48,7 @@ public class LightAttackInput : ICommand
 {
     public void Execute()
     {
-
+        GameObject.FindObjectOfType<PlayerNeededValues>().LightAttackExecution();
     }
 
 }

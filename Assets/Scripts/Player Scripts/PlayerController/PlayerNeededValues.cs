@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering.Universal.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -51,7 +52,10 @@ public class PlayerNeededValues : MonoBehaviour
     bool extraRollingWait = false;
 
     public static HeavyAttackInput heavyAttackInput;
-    public static int AttackNumber { get; private set; }    
+    public static LightAttackInput lightAttackInput;
+    public static int AttackNumber { get; private set; }
+    public static int LightAttackNumber { get; private set; }
+    public static int Stamina { get; private set; }
     //next input will be handled by bools
 
     void Awake()
@@ -66,7 +70,7 @@ public class PlayerNeededValues : MonoBehaviour
         JumpStateForPlayer = new PlayerJumpState();
         GrAttackState = new PlayerGrAttackState();
         heavyAttackInput = new HeavyAttackInput();
-        
+        lightAttackInput = new LightAttackInput();
     }
 
     // Start is called before the first frame update
@@ -76,6 +80,8 @@ public class PlayerNeededValues : MonoBehaviour
         player = PlayerController.PlayerRB.gameObject;
         IsLightningAura= false;
         AttackNumber = 1;
+        LightAttackNumber = 1;
+        Stamina = 15;
        
     }
 
@@ -206,15 +212,65 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnLightAttack()
     {
-        
+        if (IsGroundedPlayer && Stamina >= 3)
+        {
+            //Debug.Log("HeavyAttack");
+            CommandHandler.HandleCommand(lightAttackInput);
+            //Debug.Log(heavyAttackInput);
+
+        }
 
 
     }
+    public void LightAttackExecution()
+    {
+        if (!IsLightAttack)
+        {
+            StartCoroutine(LightAttack(LightAttackNumber));
+        }
+    }
+    IEnumerator LightAttack(int count)
+    {
+        //Debug.Log("In Coroutine");
+        if (LightAttackNumber == 1)
+        {
+            Debug.Log("AttackNUmber1");
+            IsLightAttack = true;
+            yield return new WaitForSeconds(0.25f);
+            IsLightAttack = false;
+        }
+        else if (LightAttackNumber == 2)
+        {
+            IsLightAttack = true;
+            yield return new WaitForSeconds(0.25f);
+            IsLightAttack = false;
+        }
+
+        else if (LightAttackNumber == 3)
+        {
+            IsLightAttack = true;
+            yield return new WaitForSeconds(0.167f);
+            IsLightAttack = false;
+        }
+        else if (LightAttackNumber == 4)
+        {
+            IsLightAttack = true;
+            yield return new WaitForSeconds(0.333f);
+            IsLightAttack = false;
+        }
+        else if (LightAttackNumber == 5)
+        {
+            IsLightAttack = true;
+            yield return new WaitForSeconds(0.417f);
+            IsLightAttack = false;
+        }
+    }
+
 
     void OnHeavyAttack()
     {
         
-        if (IsGroundedPlayer)
+        if (IsGroundedPlayer &&Stamina>=5)
         {
             //Debug.Log("HeavyAttack");
             CommandHandler.HandleCommand(heavyAttackInput);
@@ -259,16 +315,37 @@ public class PlayerNeededValues : MonoBehaviour
     }
 
 
-    public static void ResetAttackNumber()
+    public static void ResetAttackNumber(int which)
     {
-        AttackNumber= 1;
+        if (which == 0)
+        {
+            AttackNumber = 1;
+        }
+        else if (which == 1)
+        {
+            LightAttackNumber = 1;
+        }
     }
 
-    public  static void IncreaseAttackNumber()
+    public  static void IncreaseAttackNumber(int which)
     {
-        AttackNumber++;
+        if (which == 0)
+        {
+            AttackNumber++;
+        }
+        else if (which == 1)
+        {
+            LightAttackNumber++;
+        }
     }
-
+    public static void ResetStamina()
+    {
+        Stamina = 15;
+    }
+    public static void DecreaseStamina(int number)
+    {
+        Stamina -= number;
+    }
 }
 
 
