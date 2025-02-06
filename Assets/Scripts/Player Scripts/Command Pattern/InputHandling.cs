@@ -38,7 +38,7 @@ public class RollInput: ICommand
 {
     public void Execute() 
     {
-
+       new PlayerNeededValues().RollExecute();
     }
 
 }

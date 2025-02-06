@@ -10,7 +10,7 @@ public class PlayerRollState : IState
     {
         //Debug.Log("WalkingStateStarted");
         playerRb = PlayerController.PlayerRB;
-
+        CommandHandler.ResetNext();
     }
 
 
@@ -23,11 +23,12 @@ public class PlayerRollState : IState
         }
         playerRb.velocity = new Vector2(30f * playerRb.gameObject.transform.localScale.x, playerRb.velocity.y);
         PlayerController.ChangeAnimationState("Rolling");
+
     }
 
 
     public void Exit()
     {
-
+        CommandHandler.StartNext();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.Universal.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -98,7 +99,10 @@ public class PlayerNeededValues : MonoBehaviour
         IsJumpingUp = IsSpacePressing;
 
 
-
+        if (IsRolling)
+        {
+            StartCoroutine(RollingCoroutine());
+        }
     }
 
     void OnMove(InputValue input)
@@ -114,12 +118,18 @@ public class PlayerNeededValues : MonoBehaviour
         //Debug.Log("Rolling");
         if (!IsRolling)
         {
-            StartCoroutine(RollingCoroutine());
+            CommandHandler.HandleCommand(new RollInput());
+            
         }
         
 
     }
+    public void RollExecute()
+    {
+        StartCoroutine(RollingCoroutine());
 
+    }
+    
 
     IEnumerator RollingCoroutine()
     {
