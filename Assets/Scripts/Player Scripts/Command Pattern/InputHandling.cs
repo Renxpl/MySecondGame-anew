@@ -56,7 +56,7 @@ public class HeavyAttackInput : ICommand
 {
     public void Execute()
     {
-
+        GameObject.FindObjectOfType<PlayerNeededValues>().HeavyAttackExecution();
     }
 
 }

@@ -49,6 +49,9 @@ public class PlayerNeededValues : MonoBehaviour
     bool isLightningCoroutineStarted = false;
     bool isWindCoroutineStarted = false;
     bool extraRollingWait = false;
+
+    public static HeavyAttackInput heavyAttackInput;
+    public static int AttackNumber { get; private set; }    
     //next input will be handled by bools
 
     void Awake()
@@ -61,6 +64,7 @@ public class PlayerNeededValues : MonoBehaviour
         RollStateForPlayer = new PlayerRollState();
         AttackModeStateForPlayer= new PlayerAttackModeState();
         JumpStateForPlayer = new PlayerJumpState();
+        heavyAttackInput = new HeavyAttackInput();
     }
 
     // Start is called before the first frame update
@@ -204,10 +208,56 @@ public class PlayerNeededValues : MonoBehaviour
 
     }
 
-    
+    void OnHeavyAttack()
+    {
+        
+        if (IsGroundedPlayer)
+        {
+            //Debug.Log("HeavyAttack");
+            CommandHandler.HandleCommand(heavyAttackInput);
+        }
+
+    }
+
+    public void HeavyAttackExecution()
+    {
+        HeavyAttack(AttackNumber);
+    }
+    IEnumerator HeavyAttack(int count)
+    {
+        
+        if (AttackNumber == 1)
+        {
+            IsHeavyAttack= true;
+            yield return new WaitForSeconds(0.25f);
+            IsHeavyAttack= false;
+        }
+        else if (AttackNumber == 2)
+        {
+            IsHeavyAttack = true;
+            yield return new WaitForSeconds(0.25f);
+            IsHeavyAttack = false;
+        }
+
+        else if (AttackNumber == 3)
+        {
+            IsHeavyAttack = true;
+            yield return new WaitForSeconds(0.5f);
+            IsHeavyAttack = false;
+        }
+        
+    }
 
 
+    public static void ResetAttackNumber()
+    {
+        AttackNumber= 0;
+    }
 
+    public  static void IncreaseAttackNumber()
+    {
+        AttackNumber++;
+    }
 
 }
 

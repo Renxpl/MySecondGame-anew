@@ -448,10 +448,10 @@
                 {
                     "name": "",
                     "id": "0be3dc0e-044b-406d-8781-ac81e7900bcf",
-                    "path": "",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad;Keyboard&Mouse",
                     "action": "HeavyAttack",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -45,6 +45,10 @@ public static class CommandHandler
         next= null;
     }
 
+    public static ICommand ShowNext()
+    {
+        return next;
+    }
 
 
 }
