@@ -258,7 +258,7 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSeconds(0.333f);
             IsLightAttack = false;
         }
-        else if (LightAttackNumber == 5)
+        else if (LightAttackNumber >= 5)
         {
             IsLightAttack = true;
             yield return new WaitForSeconds(0.417f);
@@ -270,7 +270,7 @@ public class PlayerNeededValues : MonoBehaviour
     void OnHeavyAttack()
     {
         
-        if (IsGroundedPlayer &&Stamina>=5)
+        if (IsGroundedPlayer && Stamina>=5)
         {
             //Debug.Log("HeavyAttack");
             CommandHandler.HandleCommand(heavyAttackInput);
@@ -305,7 +305,7 @@ public class PlayerNeededValues : MonoBehaviour
             IsHeavyAttack = false;
         }
 
-        else if (AttackNumber == 3)
+        else if (AttackNumber >= 3)
         {
             IsHeavyAttack = true;
             yield return new WaitForSeconds(0.5f);
@@ -345,6 +345,17 @@ public class PlayerNeededValues : MonoBehaviour
     public static void DecreaseStamina(int number)
     {
         Stamina -= number;
+    }
+    public static void AdjustAttackNumber(int which)
+    {
+        if (which == 0)
+        {
+            AttackNumber += (int)((Mathf.Round(((LightAttackNumber - 1)/2f)*10f))/10f);
+        }
+        else if (which == 1)
+        {
+            LightAttackNumber += (AttackNumber - 1) * 2;
+        }
     }
 }
 
