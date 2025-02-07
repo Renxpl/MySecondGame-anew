@@ -7,6 +7,8 @@ public class PlayerGrAttackState : IState
 {
 
     bool sw = false;
+    bool permissionforLA = false;
+    bool permissionforHA = false;
     float factor = 1f;
     public void Enter()
     {
@@ -36,13 +38,18 @@ public class PlayerGrAttackState : IState
             Debug.Log("Special Attack");
             PlayerNeededValues.DecreaseStamina(15);
             sw = true;
+            permissionforLA = false; permissionforHA = false;
         }
 
         else if (PlayerNeededValues.IsHeavyAttack && !sw)
         {
+            if (PlayerNeededValues.LightAttackNumber == 2 && PlayerNeededValues.AttackNumber == 2)
+            {
+                PlayerNeededValues.IncreaseAttackNumber(0);
+            }
             if (PlayerNeededValues.AttackNumber == 1)
             {
-                Debug.Log("Playing Heavy Attack 1");
+                //Debug.Log("Playing Heavy Attack 1");
                 PlayerController.ChangeAnimationState("HeavyAttack1");
                 PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f*factor, ForceMode2D.Impulse);
 
@@ -60,6 +67,7 @@ public class PlayerGrAttackState : IState
             PlayerNeededValues.DecreaseStamina(5);
             sw = true;
             PlayerNeededValues.IncreaseAttackNumber(0);
+            permissionforLA = true; permissionforHA = false;
             //Debug.Log(PlayerNeededValues.LightAttackNumber);
             //Debug.Log(PlayerNeededValues.Stamina);
         }
@@ -69,7 +77,7 @@ public class PlayerGrAttackState : IState
         {
             if (PlayerNeededValues.LightAttackNumber == 1)
             {
-                Debug.Log("Playing Light Attack 1");
+                //Debug.Log("Playing Light Attack 1");
                 PlayerController.ChangeAnimationState("LightAttack1");
                 PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
             }
@@ -96,6 +104,7 @@ public class PlayerGrAttackState : IState
             PlayerNeededValues.DecreaseStamina(3);
             sw = true;
             PlayerNeededValues.IncreaseAttackNumber(1);
+            permissionforLA = false; permissionforHA = true; 
             //Debug.Log(PlayerNeededValues.LightAttackNumber);
 
         }
@@ -105,14 +114,14 @@ public class PlayerGrAttackState : IState
 
     public void Exit()
     {
-
-        if (PlayerNeededValues.heavyAttackInput == CommandHandler.ShowNext())
+        sw = false;
+        if (PlayerNeededValues.heavyAttackInput == CommandHandler.ShowNext() && permissionforHA)
         {
             PlayerNeededValues.AdjustAttackNumber(0);
            
 
         }
-        else if (PlayerNeededValues.lightAttackInput == CommandHandler.ShowNext())
+        else if (PlayerNeededValues.lightAttackInput == CommandHandler.ShowNext() && permissionforLA)
         {
             PlayerNeededValues.AdjustAttackNumber(1);
 
@@ -129,7 +138,7 @@ public class PlayerGrAttackState : IState
             PlayerNeededValues.ResetAttackNumber(1);
             PlayerNeededValues.ResetStamina();
         }
-        sw= false;
+        
         CommandHandler.StartNext();
     }
 }

@@ -237,7 +237,7 @@ public class PlayerNeededValues : MonoBehaviour
         //Debug.Log("In Coroutine");
         if (LightAttackNumber == 1)
         {
-            Debug.Log("AttackNUmber1");
+            //Debug.Log("AttackNUmber1");
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
@@ -296,7 +296,7 @@ public class PlayerNeededValues : MonoBehaviour
         //Debug.Log("In Coroutine");
         if (AttackNumber == 1)
         {
-            Debug.Log("AttackNUmber1");
+            //Debug.Log("AttackNUmber1");
             IsHeavyAttack= true;
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             
@@ -354,7 +354,10 @@ public class PlayerNeededValues : MonoBehaviour
     {
         if (which == 0)
         {
-            AttackNumber += (int)((Mathf.Round(((LightAttackNumber - 1)/2f)*10f))/10f);
+            AttackNumber += (int)Mathf.Round((LightAttackNumber - 1f) / 2f);
+            //Debug.Log("Light attack Number :" + LightAttackNumber);
+            //Debug.Log((int)Mathf.Round((LightAttackNumber -0.99f) / 2f));
+            
         }
         else if (which == 1)
         {
