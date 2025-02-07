@@ -7,6 +7,7 @@ public class PlayerGrAttackState : IState
 {
 
     bool sw = false;
+    float factor = 1f;
     public void Enter()
     {
         CommandHandler.ResetNext();
@@ -20,6 +21,14 @@ public class PlayerGrAttackState : IState
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
             return;
         }
+        if(Time.timeScale < 1)
+        {
+            factor = 1.5f;
+        }
+        else
+        {
+            factor = 1f;
+        }
         //Debug.Log("In Heavy Attack ");
         if (PlayerNeededValues.IsHeavyAttack && !sw)
         {
@@ -27,18 +36,18 @@ public class PlayerGrAttackState : IState
             {
                 Debug.Log("Playing Heavy Attack 1");
                 PlayerController.ChangeAnimationState("HeavyAttack1");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f*factor, ForceMode2D.Impulse);
 
             }
             else if (PlayerNeededValues.AttackNumber == 2)
             {
                 PlayerController.ChangeAnimationState("HeavyAttack2");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f*factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.AttackNumber >= 3)
             {
                 PlayerController.ChangeAnimationState("HeavyAttack3");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f*factor, ForceMode2D.Impulse);
             }
             PlayerNeededValues.DecreaseStamina(5);
             sw = true;
@@ -54,27 +63,27 @@ public class PlayerGrAttackState : IState
             {
                 Debug.Log("Playing Light Attack 1");
                 PlayerController.ChangeAnimationState("LightAttack1");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 2)
             {
                 PlayerController.ChangeAnimationState("LightAttack2");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 3)
             {
                 PlayerController.ChangeAnimationState("LightAttack3");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 4)
             {
                 PlayerController.ChangeAnimationState("LightAttack4");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber >= 5)
             {
                 PlayerController.ChangeAnimationState("LightAttack5");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
             }
             PlayerNeededValues.DecreaseStamina(3);
             sw = true;
