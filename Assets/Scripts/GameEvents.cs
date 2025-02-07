@@ -14,7 +14,10 @@ public class GameEvents : MonoBehaviour
     public event EnemySoldier onEnemyInteraction;
     public delegate void UpdateThingsAboutCameraBehaviour();
     public event UpdateThingsAboutCameraBehaviour onUpdateCamera;
-
+    public delegate void UpdateThingsAboutGettingDmg(GameObject receiver, GameObject sender, Collider2D otherCollider, int attackVer);
+    public event UpdateThingsAboutGettingDmg onGettingDmg;
+    public delegate void TimeSlowing();
+    public event TimeSlowing onTimeSlow;
     void Awake()
     {
         if(gameEvents == null)
@@ -43,13 +46,10 @@ public class GameEvents : MonoBehaviour
     }
 
 
-    public void OnTimeSlow(GameObject sender, float distance, bool isAttacking)
+    public void OnTimeSlow()
     {
-
-        if(onEnemyInteraction != null)
-        {
-            onEnemyInteraction?.Invoke(sender, new EnemySoldierInfos(distance, isAttacking));
-        }
+       onTimeSlow?.Invoke();
+        
 
     }
 
@@ -60,6 +60,11 @@ public class GameEvents : MonoBehaviour
 
         onUpdateCamera?.Invoke();
 
+    }
+
+    public void OnGettingDmg(GameObject receiver, GameObject sender, Collider2D otherCollider,int attackVer)
+    {
+        onGettingDmg?.Invoke(receiver,sender,otherCollider,attackVer);
     }
 
 

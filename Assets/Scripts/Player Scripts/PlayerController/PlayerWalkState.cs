@@ -34,7 +34,14 @@ public class PlayerWalkState : IState
         }
 
         //Debug.Log("is Walking now");
-        playerRb.velocity = new Vector2(3f * Mathf.Sign(PlayerNeededValues.MoveInput.x),playerRb.velocity.y);
+        if (Time.timeScale < 1)
+        {
+            playerRb.velocity = new Vector2(3f * 1.5f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+        }
+        else
+        {
+            playerRb.velocity = new Vector2(3f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+        }
 
         PlayerController.ChangeAnimationState("Walking");
 

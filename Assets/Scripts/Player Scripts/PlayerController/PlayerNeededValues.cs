@@ -152,10 +152,10 @@ public class PlayerNeededValues : MonoBehaviour
     IEnumerator RollingCoroutine()
     {
         IsRolling = true;
-        yield return new WaitForSeconds(0.33f); 
+        yield return new WaitForSecondsRealtime(0.33f * PlayerController.animatorTimeVector); 
         IsRolling= false;
         extraRollingWait = true;
-        yield return new WaitForSeconds(0.165f);
+        yield return new WaitForSecondsRealtime(0.165f * PlayerController.animatorTimeVector);
         extraRollingWait= false;
     }
 
@@ -236,32 +236,32 @@ public class PlayerNeededValues : MonoBehaviour
         {
             Debug.Log("AttackNUmber1");
             IsLightAttack = true;
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
         }
         else if (LightAttackNumber == 2)
         {
             IsLightAttack = true;
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSecondsRealtime(0.25f *PlayerController.animatorTimeVector);
             IsLightAttack = false;
         }
 
         else if (LightAttackNumber == 3)
         {
             IsLightAttack = true;
-            yield return new WaitForSeconds(0.167f);
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
         }
         else if (LightAttackNumber == 4)
         {
             IsLightAttack = true;
-            yield return new WaitForSeconds(0.333f);
+            yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
         }
         else if (LightAttackNumber >= 5)
         {
             IsLightAttack = true;
-            yield return new WaitForSeconds(0.417f);
+            yield return new WaitForSecondsRealtime(0.417f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
         }
     }
@@ -295,20 +295,21 @@ public class PlayerNeededValues : MonoBehaviour
         {
             Debug.Log("AttackNUmber1");
             IsHeavyAttack= true;
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+            
             IsHeavyAttack= false;
         }
         else if (AttackNumber == 2)
         {
             IsHeavyAttack = true;
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             IsHeavyAttack = false;
         }
 
         else if (AttackNumber >= 3)
         {
             IsHeavyAttack = true;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             IsHeavyAttack = false;
         }
         

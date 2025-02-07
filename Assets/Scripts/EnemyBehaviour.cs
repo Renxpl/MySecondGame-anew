@@ -43,7 +43,7 @@ public class EnemyBehaviour : MonoBehaviour
         direction = (int)Mathf.Sign(player.transform.position.x-transform.position.x);
         distance = Mathf.Abs(transform.position.x - player.transform.position.x);
         SpriteChanges();
-        GameEvents.gameEvents.OnTimeSlow(gameObject, distance, IsAttacking);
+        //GameEvents.gameEvents.OnTimeSlow(gameObject, distance, IsAttacking);
 
 
 
@@ -121,7 +121,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             isDead = true;
             IsAttacking= false;
-            GameEvents.gameEvents.OnTimeSlow(gameObject, distance, IsAttacking);
+          //  GameEvents.gameEvents.OnTimeSlow(gameObject, distance, IsAttacking);
             if (health.Health <= 0)
             gameObject.SetActive(false); 
         }

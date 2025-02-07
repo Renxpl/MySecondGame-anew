@@ -123,6 +123,69 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &16850022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 16850023}
+  - component: {fileID: 16850024}
+  m_Layer: 0
+  m_Name: 'HA Hitboxes '
+  m_TagString: HeavyAttack
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &16850023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16850022}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 938682215}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &16850024
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16850022}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 1}
+      - {x: -0.32789713, y: 0.4195775}
+      - {x: -0.12544101, y: -0.87937367}
+      - {x: 3.813467, y: -0.8259158}
+      - {x: 3.872871, y: 1.7130591}
+      - {x: 1.0752592, y: 1.8062638}
 --- !u!1 &118095993
 GameObject:
   m_ObjectHideFlags: 0
@@ -10957,6 +11020,7 @@ GameObject:
   m_Component:
   - component: {fileID: 898680661}
   - component: {fileID: 898680662}
+  - component: {fileID: 898680663}
   m_Layer: 0
   m_Name: Get Dmg Hitbox
   m_TagString: Untagged
@@ -11005,6 +11069,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.80477476, y: 2.0662313}
   m_EdgeRadius: 0
+--- !u!114 &898680663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898680660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bfaab9c8ecfeec4ab5e234469d54a06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938682213
 GameObject:
   m_ObjectHideFlags: 0
@@ -11095,6 +11171,7 @@ Transform:
   m_Children:
   - {fileID: 427870794}
   - {fileID: 1693003341}
+  - {fileID: 16850023}
   - {fileID: 1644540066}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -11395,6 +11472,7 @@ GameObject:
   - component: {fileID: 1058171112}
   - component: {fileID: 1058171111}
   - component: {fileID: 1058171113}
+  - component: {fileID: 1058171116}
   - component: {fileID: 1058171114}
   - component: {fileID: 1058171115}
   m_Layer: 7
@@ -11540,6 +11618,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1058171116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058171110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02dadb4014c24444b2d83dc27acb173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getDmgRb: {fileID: 898680660}
 --- !u!1 &1098711560
 GameObject:
   m_ObjectHideFlags: 0
@@ -11915,7 +12006,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 938682215}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1644540067
 BoxCollider2D:
@@ -11980,7 +12071,7 @@ GameObject:
   - component: {fileID: 1693003341}
   - component: {fileID: 1693003342}
   m_Layer: 0
-  m_Name: Sword Hitboxes
+  m_Name: LA Hitboxes
   m_TagString: LightAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12030,6 +12121,9 @@ PolygonCollider2D:
       - {x: -0.32789713, y: 0.4195775}
       - {x: -0.12544101, y: -0.87937367}
       - {x: 1.2703282, y: -0.7203171}
+      - {x: 1.9949646, y: -0.5987041}
+      - {x: 2.2574253, y: 0.45493376}
+      - {x: 2.0971317, y: 1.1068436}
       - {x: 0.971158, y: 1.2337048}
 --- !u!1 &1772905025
 GameObject:
