@@ -468,10 +468,10 @@
                 {
                     "name": "",
                     "id": "90c36b23-29ca-4032-88af-a68ffd605558",
-                    "path": "",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "SpecialAttack",
                     "isComposite": false,
                     "isPartOfComposite": false

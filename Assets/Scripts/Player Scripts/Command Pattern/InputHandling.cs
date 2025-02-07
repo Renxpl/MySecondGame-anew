@@ -65,7 +65,7 @@ public class SpecialAttackInput : ICommand
 {
     public void Execute()
     {
-
+        GameObject.FindObjectOfType<PlayerNeededValues>().SpecialAttackExecution();
     }
 
 }

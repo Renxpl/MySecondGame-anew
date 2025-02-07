@@ -37,7 +37,7 @@ public class PlayerGroundedState : IState
 
 
         }
-        else if (PlayerNeededValues.IsLightAttack || PlayerNeededValues.IsHeavyAttack)
+        else if (PlayerNeededValues.IsLightAttack || PlayerNeededValues.IsHeavyAttack || PlayerNeededValues.IsSpecialAttack)
         {
             
             PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.GrAttackState);

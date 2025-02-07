@@ -25,7 +25,7 @@ public class PlayerRunState : IState
             return;
 
         }
-        if (PlayerNeededValues.IsRolling || PlayerNeededValues.IsJumping ||PlayerNeededValues.IsHeavyAttack||PlayerNeededValues.IsLightAttack)
+        if (PlayerNeededValues.IsRolling || PlayerNeededValues.IsJumping ||PlayerNeededValues.IsHeavyAttack||PlayerNeededValues.IsLightAttack || PlayerNeededValues.IsSpecialAttack)
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);

@@ -32,7 +32,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsHeavyAttack { get; private set; }
     public static bool IsLightAttack { get; private set; }
 
-    public static bool IsSpeacialAttack { get; private set; }
+    public static bool IsSpecialAttack { get; private set; }
 
 
     public static LayerMask groundLayer;
@@ -53,8 +53,10 @@ public class PlayerNeededValues : MonoBehaviour
 
     public static HeavyAttackInput heavyAttackInput;
     public static LightAttackInput lightAttackInput;
+    public static SpecialAttackInput specialAttackInput;
     public static int AttackNumber { get; private set; }
     public static int LightAttackNumber { get; private set; }
+    public static int SpecialAttackNumber { get; private set; }
     public static int Stamina { get; private set; }
     //next input will be handled by bools
 
@@ -71,6 +73,7 @@ public class PlayerNeededValues : MonoBehaviour
         GrAttackState = new PlayerGrAttackState();
         heavyAttackInput = new HeavyAttackInput();
         lightAttackInput = new LightAttackInput();
+        specialAttackInput = new SpecialAttackInput();
     }
 
     // Start is called before the first frame update
@@ -357,6 +360,25 @@ public class PlayerNeededValues : MonoBehaviour
         {
             LightAttackNumber += (AttackNumber - 1) * 2;
         }
+    }
+
+    void OnSpecialAttack()
+    {
+        //CommandHandler.HandleCommand(new SpecialAttackInput());
+    }
+
+    public void SpecialAttackExecution()
+    {
+        StartCoroutine(SpecialAttack(SpecialAttackNumber));
+    }
+
+    IEnumerator SpecialAttack(int number)
+    {
+        IsSpecialAttack= true;
+        yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector);
+        IsSpecialAttack= false;
+
+
     }
 }
 
