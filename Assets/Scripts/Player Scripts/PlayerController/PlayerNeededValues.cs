@@ -354,6 +354,7 @@ public class PlayerNeededValues : MonoBehaviour
     {
         if (which == 0)
         {
+
             AttackNumber += (int)Mathf.Round((LightAttackNumber - 1f) / 2f);
             //Debug.Log("Light attack Number :" + LightAttackNumber);
             //Debug.Log((int)Mathf.Round((LightAttackNumber -0.99f) / 2f));

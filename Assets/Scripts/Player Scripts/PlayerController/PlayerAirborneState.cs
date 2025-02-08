@@ -15,6 +15,7 @@ public class PlayerAirborneState :IState
 
     public void Update()
     {
+        
         if (PlayerNeededValues.IsGroundedPlayer)
         {
             isAirborne = false; 
@@ -24,8 +25,9 @@ public class PlayerAirborneState :IState
             return;
 
         }
+        
 
-        isAirborne= true;
+        isAirborne = true;
         if (PlayerNeededValues.IsJumpingUp)
         {
             PlayerController.PlayerRB.velocity = new Vector2(8f * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerNeededValues.JumpSpeed);

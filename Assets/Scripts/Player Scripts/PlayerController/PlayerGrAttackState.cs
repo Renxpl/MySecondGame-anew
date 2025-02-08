@@ -115,15 +115,15 @@ public class PlayerGrAttackState : IState
     public void Exit()
     {
         sw = false;
-        if (PlayerNeededValues.heavyAttackInput == CommandHandler.ShowNext() && permissionforHA)
+        if (PlayerNeededValues.heavyAttackInput == CommandHandler.ShowNext())
         {
-            PlayerNeededValues.AdjustAttackNumber(0);
+            if(permissionforHA) PlayerNeededValues.AdjustAttackNumber(0);
            
 
         }
-        else if (PlayerNeededValues.lightAttackInput == CommandHandler.ShowNext() && permissionforLA)
+        else if (PlayerNeededValues.lightAttackInput == CommandHandler.ShowNext())
         {
-            PlayerNeededValues.AdjustAttackNumber(1);
+            if(permissionforLA) PlayerNeededValues.AdjustAttackNumber(1);
 
         }
         else
