@@ -227,10 +227,9 @@ public class PlayerNeededValues : MonoBehaviour
     }
     public void LightAttackExecution()
     {
-        if (!IsLightAttack)
-        {
+        
             StartCoroutine(LightAttack(LightAttackNumber));
-        }
+        
     }
     IEnumerator LightAttack(int count)
     {
@@ -241,12 +240,14 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
+            PlayerGrAttackState.sw = false;
         }
         else if (LightAttackNumber == 2)
         {
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.25f *PlayerController.animatorTimeVector);
             IsLightAttack = false;
+            PlayerGrAttackState.sw = false;
         }
 
         else if (LightAttackNumber == 3)
@@ -254,18 +255,22 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
+            PlayerGrAttackState.sw = false;
         }
         else if (LightAttackNumber == 4)
         {
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
+            PlayerGrAttackState.sw = false;
         }
+
         else if (LightAttackNumber >= 5)
         {
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.417f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
+            PlayerGrAttackState.sw = false;
         }
     }
 
@@ -286,10 +291,9 @@ public class PlayerNeededValues : MonoBehaviour
 
     public void HeavyAttackExecution()
     {
-        if (!IsHeavyAttack)
-        {
+       
             StartCoroutine(HeavyAttack(AttackNumber));
-        }
+        
     }
     IEnumerator HeavyAttack(int count)
     {
@@ -301,12 +305,15 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             
             IsHeavyAttack= false;
+            PlayerGrAttackState.sw = false;
         }
         else if (AttackNumber == 2)
         {
+           
             IsHeavyAttack = true;
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             IsHeavyAttack = false;
+            PlayerGrAttackState.sw = false;
         }
 
         else if (AttackNumber >= 3)
@@ -314,6 +321,7 @@ public class PlayerNeededValues : MonoBehaviour
             IsHeavyAttack = true;
             yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             IsHeavyAttack = false;
+            PlayerGrAttackState.sw = false;
         }
         
     }

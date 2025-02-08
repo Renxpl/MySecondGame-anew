@@ -6,7 +6,7 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class PlayerGrAttackState : IState
 {
 
-    bool sw = false;
+    public static bool sw = false;
     bool permissionforLA = false;
     bool permissionforHA = false;
     float factor = 1f;
@@ -114,11 +114,11 @@ public class PlayerGrAttackState : IState
 
     public void Exit()
     {
-        sw = false;
+        
         if (PlayerNeededValues.heavyAttackInput == CommandHandler.ShowNext())
         {
             if(permissionforHA) PlayerNeededValues.AdjustAttackNumber(0);
-           
+            
 
         }
         else if (PlayerNeededValues.lightAttackInput == CommandHandler.ShowNext())
@@ -132,12 +132,7 @@ public class PlayerGrAttackState : IState
             PlayerNeededValues.ResetAttackNumber(1);
             PlayerNeededValues.ResetStamina();
         }
-        if(PlayerNeededValues.Stamina < 3)
-        {
-            PlayerNeededValues.ResetAttackNumber(0);
-            PlayerNeededValues.ResetAttackNumber(1);
-            PlayerNeededValues.ResetStamina();
-        }
+        
         
         CommandHandler.StartNext();
     }
