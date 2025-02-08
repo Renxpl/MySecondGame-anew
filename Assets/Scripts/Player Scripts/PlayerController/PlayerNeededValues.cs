@@ -17,6 +17,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static PlayerJumpState JumpStateForPlayer { get; private set; }
 
     public static PlayerGrAttackState GrAttackState { get; private set; }
+    public static PlayerKnockbackState playerKbState { get; private set; }
 
 
     public static bool IsGroundedPlayer { get; private set; }
@@ -33,6 +34,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsLightAttack { get; private set; }
 
     public static bool IsSpecialAttack { get; private set; }
+    public static bool IsKnocbacking { get; private set; }
 
 
     public static LayerMask groundLayer;
@@ -59,6 +61,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static int SpecialAttackNumber { get; private set; }
     public static int Stamina { get; private set; }
     //next input will be handled by bools
+    [SerializeField] float knockbackDuration;
 
     void Awake()
     {
@@ -74,6 +77,7 @@ public class PlayerNeededValues : MonoBehaviour
         heavyAttackInput = new HeavyAttackInput();
         lightAttackInput = new LightAttackInput();
         specialAttackInput = new SpecialAttackInput();
+        playerKbState = new PlayerKnockbackState();
     }
 
     // Start is called before the first frame update
@@ -85,12 +89,14 @@ public class PlayerNeededValues : MonoBehaviour
         AttackNumber = 1;
         LightAttackNumber = 1;
         Stamina = 15;
-       
+        GameEvents.gameEvents.onGettingDmg += TakingDamage;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1f, groundLayer);
         Debug.DrawRay(player.transform.position, Vector2.down * 1f, IsGroundedPlayer ? Color.green : Color.red);
         
@@ -228,7 +234,7 @@ public class PlayerNeededValues : MonoBehaviour
     public void LightAttackExecution()
     {
         
-            StartCoroutine(LightAttack(LightAttackNumber));
+        StartCoroutine(LightAttack(LightAttackNumber));
         
     }
     IEnumerator LightAttack(int count)
@@ -292,7 +298,7 @@ public class PlayerNeededValues : MonoBehaviour
     public void HeavyAttackExecution()
     {
        
-            StartCoroutine(HeavyAttack(AttackNumber));
+        StartCoroutine(HeavyAttack(AttackNumber));
         
     }
     IEnumerator HeavyAttack(int count)
@@ -392,6 +398,31 @@ public class PlayerNeededValues : MonoBehaviour
 
 
     }
+    protected virtual void TakingDamage(GameObject receiver, GameObject sender, Collider2D otherCollider, int attakVer)
+    {
+        if (receiver == gameObject)
+        {
+
+            Debug.Log("GettingDmg");
+
+            if (!IsKnocbacking && !IsRolling) StartCoroutine(Knockback());
+            
+
+
+        }
+    }
+
+
+    IEnumerator Knockback()
+    {
+        IsKnocbacking = true;
+        yield return new WaitForSeconds(knockbackDuration);
+        IsKnocbacking= false;
+
+
+    }
+
+
 }
 
 

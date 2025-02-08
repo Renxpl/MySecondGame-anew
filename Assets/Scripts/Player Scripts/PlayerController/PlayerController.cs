@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
         playerSM?.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
         Debug.Log("Ground state started");
         forward = new Vector2(transform.localScale.x,0f);
-        GameEvents.gameEvents.onGettingDmg += TakingDamage;
         startTimeScale = Time.timeScale;
         startFixedDeltaTime = Time.fixedDeltaTime;
         animatorTimeVector = 1f;
@@ -60,15 +59,16 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("state machine updated");
 
 
-
+       
         if (PlayerNeededValues.MoveInput.x > 0 && PlayerRB.velocity.x > 0)
         {
-            transform.localScale = new Vector2(1f, 1f);
+          if(!PlayerNeededValues.IsKnocbacking)  transform.localScale = new Vector2(1f, 1f);
         }
         else if (PlayerNeededValues.MoveInput.x < 0 && PlayerRB.velocity.x < 0)
         {
-            transform.localScale = new Vector2(-1f, 1f);
+           if (!PlayerNeededValues.IsKnocbacking) transform.localScale = new Vector2(-1f, 1f);
         }
+
         forward = new Vector2(transform.localScale.x, 0f);
 
        
@@ -100,15 +100,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    protected virtual void TakingDamage(GameObject receiver, GameObject sender, Collider2D otherCollider, int attakVer)
-    {
-        if (receiver == gameObject)
-        {
-            Debug.Log("GettingDmg");
-
-
-        }
-    }
+    
 
     IEnumerator TimeSlow()
     {

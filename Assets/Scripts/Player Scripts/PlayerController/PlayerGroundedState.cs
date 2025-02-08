@@ -37,11 +37,17 @@ public class PlayerGroundedState : IState
 
 
         }
+        else if (PlayerNeededValues.IsKnocbacking)
+        {
+            PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.playerKbState);
+        }
         else if (PlayerNeededValues.IsLightAttack || PlayerNeededValues.IsHeavyAttack || PlayerNeededValues.IsSpecialAttack)
         {
             
             PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.GrAttackState);
         }
+
+       
 
         else if (PlayerNeededValues.IsJumping)
         {

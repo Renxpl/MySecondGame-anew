@@ -30,6 +30,17 @@ public class TriggerHandler : MonoBehaviour
             }
 
         }
+        if (collider.gameObject.CompareTag("EnemyDodgeableAttack"))
+        {
+
+            if (GameEvents.gameEvents != null)
+            {
+                // receiver, sender, otherCollider, AttackVersion
+                GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject, gameObject, collider, 0);
+
+            }
+
+        }
 
 
     }

@@ -26,7 +26,7 @@ public class PlayerIdleState : IState
             return;
 
         }
-        if (PlayerNeededValues.IsRolling || PlayerNeededValues.IsJumping || PlayerNeededValues.IsHeavyAttack||PlayerNeededValues.IsLightAttack || PlayerNeededValues.IsSpecialAttack)
+        if (PlayerNeededValues.IsRolling || PlayerNeededValues.IsJumping || PlayerNeededValues.IsHeavyAttack||PlayerNeededValues.IsLightAttack || PlayerNeededValues.IsSpecialAttack || PlayerNeededValues.IsKnocbacking)
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
