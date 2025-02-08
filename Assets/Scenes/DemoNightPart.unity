@@ -11633,6 +11633,8 @@ MonoBehaviour:
   AttackRange: 3
   enemyVelocity: 2.75
   minMovementDuration: 0.5
+  forceFactor: 10
+  knockbackDuration: 0.25
   getDmgRb: {fileID: 898680660}
 --- !u!1 &1098711560
 GameObject:

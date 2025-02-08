@@ -8,7 +8,10 @@ public abstract class EnemyMain : MonoBehaviour
     [SerializeField] protected float AttackRange;
     [SerializeField] protected float enemyVelocity;
     [SerializeField] protected float minMovementDuration;
+    [SerializeField] protected float forceFactor;
+    [SerializeField] protected float knockbackDuration;
     protected bool IsMoving = false;
+    
 
     [SerializeField] GameObject getDmgRb;
     protected GameObject player;
@@ -17,6 +20,9 @@ public abstract class EnemyMain : MonoBehaviour
     protected Vector2 firstPosition;
     protected float xDiff;
     protected float yDiff;
+    protected Vector2 backward;
+    protected bool isStopped = true;
+    protected bool isKnockbacking = false;
 
     protected virtual void Start()
     {
@@ -28,6 +34,7 @@ public abstract class EnemyMain : MonoBehaviour
 
     protected virtual void Update()
     {
+        backward = new Vector2(-transform.localScale.x,0f);
         xDiff = transform.localScale.x * (player.transform.position.x - transform.position.x);
         yDiff =  Mathf.Abs(player.transform.position.y - transform.position.y);
 
@@ -38,17 +45,22 @@ public abstract class EnemyMain : MonoBehaviour
                 if (!IsMoving)
                 {
                     StartCoroutine(Move());
+                    isStopped= false;
                 }
               
             }
             else if (xDiff>=0)
             {
-                enemyRb.velocity = new Vector2(0f, 0f);
+                if (!isKnockbacking)
+                {
+                    enemyRb.velocity = new Vector2(0f, 0f); isStopped = true;
+                }
+                
                 AttackMode();
             }
             else if (xDiff >= -AttackRange)
             {
-                enemyRb.velocity = new Vector2(0f, 0f);
+                
                 transform.localScale = new Vector2 (-transform.localScale.x, transform.localScale.y);
                 
             }
@@ -86,7 +98,7 @@ public abstract class EnemyMain : MonoBehaviour
             }
 
         }
-        Following();
+        if(!isKnockbacking) Following();
 
 
 
@@ -126,10 +138,26 @@ public abstract class EnemyMain : MonoBehaviour
     {
         if(receiver == gameObject)
         {
+
             Debug.Log("GettingDmg");
+
+            
+            if(!isKnockbacking) StartCoroutine(KnockBacking());
 
 
         }
+    }
+
+    IEnumerator KnockBacking()
+    {
+
+        isKnockbacking = true;
+        enemyRb.AddForce(backward * forceFactor, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(knockbackDuration);
+        enemyRb.velocity = new Vector2(0f, 0f);
+        isKnockbacking = false;
+        
+
     }
 
 }

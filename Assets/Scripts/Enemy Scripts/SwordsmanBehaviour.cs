@@ -15,7 +15,7 @@ public class SwordsmanBehaviour : EnemyMain
     }
     protected override void AttackMode()
     {
-        Debug.Log("Attacking-Swordsman");
+        //Debug.Log("Attacking-Swordsman");
     
     }
 }
