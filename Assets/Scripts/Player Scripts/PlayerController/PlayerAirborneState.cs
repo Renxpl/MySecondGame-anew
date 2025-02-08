@@ -6,6 +6,7 @@ using System;
 public class PlayerAirborneState :IState
 {
     int a = 0;
+
     public static bool isAirborne = false;
     public void Enter()
     {
@@ -25,9 +26,15 @@ public class PlayerAirborneState :IState
             return;
 
         }
+        if (PlayerNeededValues.IsKnocbacking)
+        {
+            PlayerController.playerSM.ChangeState(PlayerNeededValues.playerKbState);
+            return;
+        }
         
 
         isAirborne = true;
+
         if (PlayerNeededValues.IsJumpingUp)
         {
             PlayerController.PlayerRB.velocity = new Vector2(8f * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerNeededValues.JumpSpeed);

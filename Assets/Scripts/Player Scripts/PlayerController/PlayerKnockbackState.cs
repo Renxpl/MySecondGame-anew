@@ -15,7 +15,8 @@ public class PlayerKnockbackState : IState
     {
         if (!PlayerNeededValues.IsKnocbacking)
         {
-            PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
+            if (PlayerNeededValues.IsGroundedPlayer) PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
+            else PlayerController.playerSM.ChangeState(PlayerNeededValues.AirborneStateForPlayer);
             return;
         }
         if (Time.timeScale < 1)
