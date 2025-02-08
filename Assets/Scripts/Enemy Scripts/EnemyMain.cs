@@ -23,12 +23,15 @@ public abstract class EnemyMain : MonoBehaviour
     protected Vector2 backward;
     protected bool isStopped = true;
     protected bool isKnockbacking = false;
+    protected static string currentAnimation ="";
+    protected static Animator enemyAnimator;
 
     protected virtual void Start()
     {
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
         player = GameObject.Find("Player");
         enemyRb = GetComponent<Rigidbody2D>();
+        enemyAnimator = GetComponent<Animator>();
         
     }
 
@@ -44,6 +47,7 @@ public abstract class EnemyMain : MonoBehaviour
             {
                 if (!IsMoving)
                 {
+                    ChangeAnimationState("Idle");
                     StartCoroutine(Move());
                     isStopped= false;
                 }
@@ -152,11 +156,23 @@ public abstract class EnemyMain : MonoBehaviour
     {
 
         isKnockbacking = true;
+        ChangeAnimationState("Idle");
         enemyRb.AddForce(backward * forceFactor, ForceMode2D.Impulse);
         yield return new WaitForSeconds(knockbackDuration);
         enemyRb.velocity = new Vector2(0f, 0f);
         isKnockbacking = false;
         
+
+    }
+
+
+    public static void ChangeAnimationState(string newAnimation)
+    {
+        if (currentAnimation == newAnimation) return;
+
+        currentAnimation = newAnimation;
+
+        enemyAnimator.Play(currentAnimation);
 
     }
 

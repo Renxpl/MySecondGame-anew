@@ -11360,7 +11360,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  knockbackDuration: 1
+  knockbackDuration: 0.35
 --- !u!1 &979996008
 GameObject:
   m_ObjectHideFlags: 0
@@ -11634,7 +11634,7 @@ MonoBehaviour:
   AttackRange: 3
   enemyVelocity: 2.75
   minMovementDuration: 0.5
-  forceFactor: 0
+  forceFactor: 5
   knockbackDuration: 0.25
   getDmgRb: {fileID: 898680660}
 --- !u!1 &1098711560

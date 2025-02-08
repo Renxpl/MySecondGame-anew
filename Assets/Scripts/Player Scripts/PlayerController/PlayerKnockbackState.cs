@@ -28,7 +28,7 @@ public class PlayerKnockbackState : IState
             PlayerController.PlayerRB.velocity = new Vector2(backward * 5f, PlayerController.PlayerRB.velocity.y);
            
         }
-        
+        //will change to knockback anim
         PlayerController.ChangeAnimationState("Idle");
 
     }
