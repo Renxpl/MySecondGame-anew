@@ -10741,7 +10741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &695586181
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11630,6 +11630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02dadb4014c24444b2d83dc27acb173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackRange: 3
+  enemyVelocity: 2.75
+  minMovementDuration: 0.5
   getDmgRb: {fileID: 898680660}
 --- !u!1 &1098711560
 GameObject:
