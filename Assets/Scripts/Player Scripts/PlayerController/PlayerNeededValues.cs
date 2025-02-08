@@ -405,7 +405,23 @@ public class PlayerNeededValues : MonoBehaviour
 
             Debug.Log("GettingDmg");
 
-            if (!IsKnocbacking && !IsRolling) StartCoroutine(Knockback());
+            if (!IsKnocbacking && !IsRolling) 
+            {
+
+                StartCoroutine(Knockback());
+
+                if(otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)
+                {
+                    transform.localScale = new Vector2(-1f,transform.localScale.y);
+                }
+
+                else if(otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == -1f)
+                {
+                    transform.localScale = new Vector2(1f, transform.localScale.y);
+                }
+
+
+             } 
             
 
 

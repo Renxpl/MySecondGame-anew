@@ -58,16 +58,18 @@ public class PlayerController : MonoBehaviour
         playerSM?.Update();
         //Debug.Log("state machine updated");
 
-
-       
-        if (PlayerNeededValues.MoveInput.x > 0 && PlayerRB.velocity.x > 0)
+        if (!PlayerNeededValues.IsKnocbacking)
         {
-          if(!PlayerNeededValues.IsKnocbacking)  transform.localScale = new Vector2(1f, 1f);
+            if (PlayerNeededValues.MoveInput.x > 0 && PlayerRB.velocity.x > 0)
+            {
+                transform.localScale = new Vector2(1f, 1f);
+            }
+            else if (PlayerNeededValues.MoveInput.x < 0 && PlayerRB.velocity.x < 0)
+            {
+                transform.localScale = new Vector2(-1f, 1f);
+            }
         }
-        else if (PlayerNeededValues.MoveInput.x < 0 && PlayerRB.velocity.x < 0)
-        {
-           if (!PlayerNeededValues.IsKnocbacking) transform.localScale = new Vector2(-1f, 1f);
-        }
+        
 
         forward = new Vector2(transform.localScale.x, 0f);
 
