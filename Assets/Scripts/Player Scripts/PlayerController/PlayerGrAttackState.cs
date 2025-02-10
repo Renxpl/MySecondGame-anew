@@ -51,18 +51,18 @@ public class PlayerGrAttackState : IState
             {
                 //Debug.Log("Playing Heavy Attack 1");
                 PlayerController.ChangeAnimationState("HeavyAttack1");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f*factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 45f*factor, ForceMode2D.Impulse);
 
             }
             else if (PlayerNeededValues.AttackNumber == 2)
             {
                 PlayerController.ChangeAnimationState("HeavyAttack2");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f*factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 80f*factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.AttackNumber >= 3)
             {
                 PlayerController.ChangeAnimationState("HeavyAttack3");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f*factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 60f*factor, ForceMode2D.Impulse);
             }
             PlayerNeededValues.DecreaseStamina(5);
             sw = true;
@@ -79,27 +79,27 @@ public class PlayerGrAttackState : IState
             {
                 //Debug.Log("Playing Light Attack 1");
                 PlayerController.ChangeAnimationState("LightAttack1");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 2)
             {
                 PlayerController.ChangeAnimationState("LightAttack2");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 3)
             {
                 PlayerController.ChangeAnimationState("LightAttack3");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 4)
             {
                 PlayerController.ChangeAnimationState("LightAttack4");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber >= 5)
             {
                 PlayerController.ChangeAnimationState("LightAttack5");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
             }
             PlayerNeededValues.DecreaseStamina(3);
             sw = true;
@@ -118,12 +118,22 @@ public class PlayerGrAttackState : IState
         if (PlayerNeededValues.heavyAttackInput == CommandHandler.ShowNext())
         {
             if(permissionforHA) PlayerNeededValues.AdjustAttackNumber(0);
-            
+            if (PlayerNeededValues.Stamina < 5)
+            {
+                PlayerNeededValues.ResetAttackNumber(0);
+                PlayerNeededValues.ResetStamina();
+            }
 
         }
         else if (PlayerNeededValues.lightAttackInput == CommandHandler.ShowNext())
         {
             if(permissionforLA) PlayerNeededValues.AdjustAttackNumber(1);
+            if (PlayerNeededValues.Stamina < 3)
+            {
+                PlayerNeededValues.ResetAttackNumber(1);
+                PlayerNeededValues.ResetStamina();
+
+            }
 
         }
         else
@@ -132,6 +142,7 @@ public class PlayerGrAttackState : IState
             PlayerNeededValues.ResetAttackNumber(1);
             PlayerNeededValues.ResetStamina();
         }
+        
         
         
         CommandHandler.StartNext();
