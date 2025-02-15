@@ -243,6 +243,7 @@ public class PlayerNeededValues : MonoBehaviour
         if (LightAttackNumber == 1)
         {
             //Debug.Log("AttackNUmber1");
+            PlayerGrAttackState.sw = false;
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
@@ -250,6 +251,7 @@ public class PlayerNeededValues : MonoBehaviour
         }
         else if (LightAttackNumber == 2)
         {
+            PlayerGrAttackState.sw = false;
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.333f *PlayerController.animatorTimeVector);
             IsLightAttack = false;
@@ -258,6 +260,7 @@ public class PlayerNeededValues : MonoBehaviour
 
         else if (LightAttackNumber == 3)
         {
+            PlayerGrAttackState.sw = false;
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
@@ -265,6 +268,7 @@ public class PlayerNeededValues : MonoBehaviour
         }
         else if (LightAttackNumber == 4)
         {
+            PlayerGrAttackState.sw = false;
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
@@ -273,6 +277,7 @@ public class PlayerNeededValues : MonoBehaviour
 
         else if (LightAttackNumber >= 5)
         {
+            PlayerGrAttackState.sw = false;
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsLightAttack = false;
@@ -306,8 +311,9 @@ public class PlayerNeededValues : MonoBehaviour
         //Debug.Log("In Coroutine");
         if (AttackNumber == 1)
         {
+            PlayerGrAttackState.sw = false;
             //Debug.Log("AttackNUmber1");
-            IsHeavyAttack= true;
+            IsHeavyAttack = true;
             yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
             
             IsHeavyAttack= false;
@@ -315,7 +321,8 @@ public class PlayerNeededValues : MonoBehaviour
         }
         else if (AttackNumber == 2)
         {
-           
+            PlayerGrAttackState.sw = false;
+
             IsHeavyAttack = true;
             yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
             IsHeavyAttack = false;
@@ -324,6 +331,7 @@ public class PlayerNeededValues : MonoBehaviour
 
         else if (AttackNumber >= 3)
         {
+            PlayerGrAttackState.sw = false;
             IsHeavyAttack = true;
             yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
             IsHeavyAttack = false;
