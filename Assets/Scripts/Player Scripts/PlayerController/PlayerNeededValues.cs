@@ -314,7 +314,7 @@ public class PlayerNeededValues : MonoBehaviour
             PlayerGrAttackState.sw = false;
             //Debug.Log("AttackNUmber1");
             IsHeavyAttack = true;
-            yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.583f * PlayerController.animatorTimeVector);
             
             IsHeavyAttack= false;
             PlayerGrAttackState.sw = false;
