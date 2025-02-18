@@ -7,6 +7,7 @@ public class PlayerGrAttackState : IState
 {
 
     public static bool sw = false;
+    public static bool isLeaping = false; 
     bool permissionforLA = false;
     bool permissionforHA = false;
     float factor = 1f;
@@ -51,7 +52,7 @@ public class PlayerGrAttackState : IState
             {
                 //Debug.Log("Playing Heavy Attack 1");
                 PlayerController.ChangeAnimationState("HeavyAttack1");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 45f*factor, ForceMode2D.Impulse);
+                //PlayerController.PlayerRB.AddForce(PlayerController.forward * 45f*factor, ForceMode2D.Impulse);
 
             }
             else if (PlayerNeededValues.AttackNumber == 2)
@@ -106,6 +107,19 @@ public class PlayerGrAttackState : IState
             PlayerNeededValues.IncreaseAttackNumber(1);
             permissionforLA = false; permissionforHA = true; 
             //Debug.Log(PlayerNeededValues.LightAttackNumber);
+
+        }
+        if(PlayerNeededValues.IsHeavyAttack && isLeaping)
+        {
+            if (PlayerNeededValues.AttackNumber == 2)
+            {
+                //Debug.Log("Playing Heavy Attack 1");
+                
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 350f * factor, ForceMode2D.Impulse);
+               
+
+            }
+            isLeaping = false;
 
         }
 
