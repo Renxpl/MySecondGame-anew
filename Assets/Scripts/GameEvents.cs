@@ -67,7 +67,7 @@ public class GameEvents : MonoBehaviour
         onGettingDmg?.Invoke(receiver,sender,otherCollider,attackVer);
     }
 
-
+   
 }
 
 

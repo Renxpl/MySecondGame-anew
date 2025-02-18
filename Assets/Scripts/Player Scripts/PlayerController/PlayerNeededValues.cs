@@ -35,7 +35,8 @@ public class PlayerNeededValues : MonoBehaviour
 
     public static bool IsSpecialAttack { get; private set; }
     public static bool IsKnocbacking { get; private set; }
-
+    public static bool IsSheating { get; private set; }
+    public static bool IsUnsheating { get; private set; }
 
     public static LayerMask groundLayer;
     public static GameObject player;
@@ -90,7 +91,6 @@ public class PlayerNeededValues : MonoBehaviour
         LightAttackNumber = 1;
         Stamina = 15;
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
-
     }
 
     // Update is called once per frame
@@ -245,8 +245,23 @@ public class PlayerNeededValues : MonoBehaviour
             //Debug.Log("AttackNUmber1");
             
             IsLightAttack = true;
+            if (AttackNumber == 1)
+            {
+                IsUnsheating = true;
+                yield return new WaitForSecondsRealtime(0.667f * PlayerController.animatorTimeVector);
+                IsUnsheating = false;
+
+            }
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
+            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
+            {
+                IsSheating = true;
+                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
+                CommandHandler.ResetNext();
+                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
+                IsSheating = false;
+            }
             IsLightAttack = false;
         }
         else if (LightAttackNumber == 2)
@@ -255,6 +270,14 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.333f *PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
+            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
+            {
+                IsSheating = true;
+                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
+                CommandHandler.ResetNext();
+                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
+                IsSheating = false;
+            }
             IsLightAttack = false;
         }
 
@@ -264,6 +287,14 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
+            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
+            {
+                IsSheating = true;
+                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
+                CommandHandler.ResetNext();
+                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
+                IsSheating = false;
+            }
             IsLightAttack = false;
         }
         else if (LightAttackNumber == 4)
@@ -272,6 +303,14 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
+            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
+            {
+                IsSheating = true;
+                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
+                CommandHandler.ResetNext();
+                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
+                IsSheating = false;
+            }
             IsLightAttack = false;
         }
 
@@ -281,6 +320,14 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
+            if(heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
+            {
+                IsSheating = true;
+                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
+                CommandHandler.ResetNext();
+                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
+                IsSheating = false;
+            }
             IsLightAttack = false;
         }
     }
@@ -311,13 +358,27 @@ public class PlayerNeededValues : MonoBehaviour
         //Debug.Log("In Coroutine");
         if (AttackNumber == 1)
         {
-            
-            //Debug.Log("AttackNUmber1");
             IsHeavyAttack = true;
+            if (LightAttackNumber == 1)
+            {
+                IsUnsheating= true;
+                yield return new WaitForSecondsRealtime(0.667f * PlayerController.animatorTimeVector);
+                IsUnsheating= false;
+
+            }
+            //Debug.Log("AttackNUmber1");
             yield return new WaitForSecondsRealtime(0f*0.9f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.isLeaping = true;
             yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
+            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
+            {
+                IsSheating = true;
+                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
+                CommandHandler.ResetNext();
+                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
+                IsSheating = false;
+            }
             IsHeavyAttack = false;
         }
         else if (AttackNumber == 2)
@@ -327,6 +388,14 @@ public class PlayerNeededValues : MonoBehaviour
             IsHeavyAttack = true;
             yield return new WaitForSecondsRealtime(0.583f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
+            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
+            {
+                IsSheating = true;
+                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
+                CommandHandler.ResetNext();
+                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
+                IsSheating = false;
+            }
             IsHeavyAttack = false;
         }
 
@@ -336,6 +405,14 @@ public class PlayerNeededValues : MonoBehaviour
             IsHeavyAttack = true;
             yield return new WaitForSecondsRealtime(0.417f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
+            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
+            {
+                IsSheating = true;
+                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
+                CommandHandler.ResetNext();
+                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
+                IsSheating = false;
+            }
             IsHeavyAttack = false;
         }
         
@@ -447,6 +524,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     }
 
+   
 
 }
 

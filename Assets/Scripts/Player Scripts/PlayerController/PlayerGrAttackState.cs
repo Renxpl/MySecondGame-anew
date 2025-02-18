@@ -19,10 +19,13 @@ public class PlayerGrAttackState : IState
 
     public void Update()
     {
+
         if (!PlayerNeededValues.IsHeavyAttack && !PlayerNeededValues.IsLightAttack && !PlayerNeededValues.IsSpecialAttack)
         {
+
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
             return;
+
         }
         if(Time.timeScale < 1)
         {
@@ -33,6 +36,24 @@ public class PlayerGrAttackState : IState
             factor = 1f;
         }
         //Debug.Log("In Heavy Attack ");
+        if (PlayerNeededValues.IsSheating)
+        {
+            PlayerController.ChangeAnimationState("Sheating1");
+            PlayerNeededValues.ResetAttackNumber(0);
+            PlayerNeededValues.ResetAttackNumber(1);
+            PlayerNeededValues.ResetStamina();
+            return;
+        }
+        else if (PlayerNeededValues.IsUnsheating)
+        {
+           
+            PlayerController.ChangeAnimationState("Unsheating");
+            PlayerNeededValues.ResetAttackNumber(0);
+            PlayerNeededValues.ResetAttackNumber(1);
+            PlayerNeededValues.ResetStamina();
+            return;
+        }
+        
 
         if (PlayerNeededValues.IsSpecialAttack && !sw)
         {
@@ -135,8 +156,10 @@ public class PlayerGrAttackState : IState
             if (PlayerNeededValues.Stamina < 5)
             {
                 PlayerNeededValues.ResetAttackNumber(0);
+                PlayerNeededValues.ResetAttackNumber(1);
                 PlayerNeededValues.ResetStamina();
             }
+            
 
         }
         else if (PlayerNeededValues.lightAttackInput == CommandHandler.ShowNext())
@@ -144,21 +167,23 @@ public class PlayerGrAttackState : IState
             if(permissionforLA) PlayerNeededValues.AdjustAttackNumber(1);
             if (PlayerNeededValues.Stamina < 3)
             {
+                PlayerNeededValues.ResetAttackNumber(0);
                 PlayerNeededValues.ResetAttackNumber(1);
                 PlayerNeededValues.ResetStamina();
 
             }
+            
 
         }
         else
         {
+           
             PlayerNeededValues.ResetAttackNumber(0);
             PlayerNeededValues.ResetAttackNumber(1);
             PlayerNeededValues.ResetStamina();
         }
-        
-        
-        
+
         CommandHandler.StartNext();
+
     }
 }
