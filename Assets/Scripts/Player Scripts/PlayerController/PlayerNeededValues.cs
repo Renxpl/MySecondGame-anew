@@ -314,9 +314,9 @@ public class PlayerNeededValues : MonoBehaviour
             
             //Debug.Log("AttackNUmber1");
             IsHeavyAttack = true;
-            yield return new WaitForSecondsRealtime(0.867f/1.1f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0f*0.9f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.isLeaping = true;
-            yield return new WaitForSecondsRealtime(0.8f/1.1f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
             IsHeavyAttack = false;
         }
@@ -325,7 +325,7 @@ public class PlayerNeededValues : MonoBehaviour
             
 
             IsHeavyAttack = true;
-            yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.583f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
             IsHeavyAttack = false;
         }
@@ -334,7 +334,7 @@ public class PlayerNeededValues : MonoBehaviour
         {
            
             IsHeavyAttack = true;
-            yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.417f * PlayerController.animatorTimeVector);
             PlayerGrAttackState.sw = false;
             IsHeavyAttack = false;
         }
