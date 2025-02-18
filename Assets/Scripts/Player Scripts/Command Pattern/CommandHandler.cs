@@ -16,15 +16,23 @@ public static class CommandHandler
         }
         else if (PlayerNeededValues.IsHeavyAttack)
         {
-            next = command;
+            if (PlayerNeededValues.IsRolling)
+            {
+                command?.Execute();
+            }
+            else next = command;
         }
         else if (PlayerNeededValues.IsLightAttack)
         {
-            next = command;
+            if (PlayerNeededValues.IsRolling)
+            {
+                command?.Execute();
+            }
+            else next = command;
         }
         else if (PlayerAirborneState.isAirborne)
         {
-            Debug.Log("Airborne");
+            //Debug.Log("Airborne");
             next = command;
         }
         else

@@ -57,12 +57,16 @@ public class PlayerNeededValues : MonoBehaviour
     public static HeavyAttackInput heavyAttackInput;
     public static LightAttackInput lightAttackInput;
     public static SpecialAttackInput specialAttackInput;
+    public static RollInput rollInput;
     public static int AttackNumber { get; private set; }
     public static int LightAttackNumber { get; private set; }
     public static int SpecialAttackNumber { get; private set; }
     public static int Stamina { get; private set; }
     //next input will be handled by bools
     [SerializeField] float knockbackDuration;
+
+    Coroutine lightAttackCoroutine;
+    Coroutine heavyAttackCoroutine;
 
     void Awake()
     {
@@ -78,6 +82,7 @@ public class PlayerNeededValues : MonoBehaviour
         heavyAttackInput = new HeavyAttackInput();
         lightAttackInput = new LightAttackInput();
         specialAttackInput = new SpecialAttackInput();
+        rollInput = new RollInput();
         playerKbState = new PlayerKnockbackState();
     }
 
@@ -91,6 +96,7 @@ public class PlayerNeededValues : MonoBehaviour
         LightAttackNumber = 1;
         Stamina = 15;
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
+        
     }
 
     // Update is called once per frame
@@ -138,7 +144,7 @@ public class PlayerNeededValues : MonoBehaviour
         //Debug.Log("Rolling");
 
 
-        CommandHandler.HandleCommand(new RollInput());
+        CommandHandler.HandleCommand(rollInput);
 
 
 
@@ -149,8 +155,16 @@ public class PlayerNeededValues : MonoBehaviour
         
         if (!IsRolling && !extraRollingWait)
         {
-
+            if(lightAttackCoroutine!= null)   StopCoroutine(lightAttackCoroutine);
+            if (heavyAttackCoroutine != null) StopCoroutine(heavyAttackCoroutine);
+            IsLightAttack = false;
+            IsHeavyAttack = false;
+            IsSheating= false;
+            IsUnsheating= false;
+            PlayerGrAttackState.sw = false;
             StartCoroutine(RollingCoroutine());
+           
+            
 
         }
 
@@ -234,7 +248,7 @@ public class PlayerNeededValues : MonoBehaviour
     public void LightAttackExecution()
     {
         
-        StartCoroutine(LightAttack(LightAttackNumber));
+        lightAttackCoroutine=StartCoroutine(LightAttack(LightAttackNumber));
         
     }
     IEnumerator LightAttack(int count)
@@ -350,7 +364,7 @@ public class PlayerNeededValues : MonoBehaviour
     public void HeavyAttackExecution()
     {
        
-        StartCoroutine(HeavyAttack(AttackNumber));
+       heavyAttackCoroutine =  StartCoroutine(HeavyAttack(AttackNumber));
         
     }
     IEnumerator HeavyAttack(int count)
