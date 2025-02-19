@@ -24,7 +24,6 @@ public class PlayerRollState : IState
         if(Time.timeScale < 1)
         {
             //playerRb.velocity = new Vector2(30f * 1.5f * playerRb.gameObject.transform.localScale.x, playerRb.velocity.y);
-            playerRb.velocity = new Vector2(30f * 1.5f * PlayerNeededValues.RollInput.x, playerRb.velocity.y);
             if(PlayerNeededValues.RollInput.x != 0)
             {
                 playerRb.velocity = new Vector2(30f * 1.5f * Mathf.Sign(PlayerNeededValues.RollInput.x), playerRb.velocity.y);
