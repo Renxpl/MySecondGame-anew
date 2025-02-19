@@ -25,11 +25,26 @@ public class PlayerRollState : IState
         {
             //playerRb.velocity = new Vector2(30f * 1.5f * playerRb.gameObject.transform.localScale.x, playerRb.velocity.y);
             playerRb.velocity = new Vector2(30f * 1.5f * PlayerNeededValues.RollInput.x, playerRb.velocity.y);
+            if(PlayerNeededValues.RollInput.x != 0)
+            {
+                playerRb.velocity = new Vector2(30f * 1.5f * Mathf.Sign(PlayerNeededValues.RollInput.x), playerRb.velocity.y);
+            }
+            else
+            {
+                playerRb.velocity = new Vector2(30f * 1.5f * Mathf.Sign(playerRb.gameObject.transform.localScale.x), playerRb.velocity.y);
+            }
         }
         else
         {
             //playerRb.velocity = new Vector2(30f * playerRb.gameObject.transform.localScale.x, playerRb.velocity.y);
-            playerRb.velocity = new Vector2(30f * PlayerNeededValues.RollInput.x, playerRb.velocity.y);
+            if (PlayerNeededValues.RollInput.x != 0)
+            {
+                playerRb.velocity = new Vector2(30f * Mathf.Sign(PlayerNeededValues.RollInput.x), playerRb.velocity.y);
+            }
+            else
+            {
+                playerRb.velocity = new Vector2(30f * Mathf.Sign(playerRb.gameObject.transform.localScale.x), playerRb.velocity.y);
+            }
         }
         PlayerController.ChangeAnimationState("Rolling");
 
