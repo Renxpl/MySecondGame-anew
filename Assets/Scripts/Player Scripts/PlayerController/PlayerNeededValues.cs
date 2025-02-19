@@ -37,6 +37,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsKnocbacking { get; private set; }
     public static bool IsSheating { get; private set; }
     public static bool IsUnsheating { get; private set; }
+    public static bool IsDuringAttack { get; private set; }
 
     public static LayerMask groundLayer;
     public static GameObject player;
@@ -47,7 +48,7 @@ public class PlayerNeededValues : MonoBehaviour
 
 
     public static Vector2 MoveInput { get; private set; }
-
+    public static Vector2 RollInput { get; private set; }
 
     static float jumpInput;
     bool isLightningCoroutineStarted = false;
@@ -96,6 +97,8 @@ public class PlayerNeededValues : MonoBehaviour
         LightAttackNumber = 1;
         Stamina = 15;
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
+        MoveInput = new Vector2();
+        RollInput = new Vector2();
         
     }
 
@@ -155,12 +158,14 @@ public class PlayerNeededValues : MonoBehaviour
         
         if (!IsRolling && !extraRollingWait)
         {
+            RollInput = MoveInput;
             if(lightAttackCoroutine!= null)   StopCoroutine(lightAttackCoroutine);
             if (heavyAttackCoroutine != null) StopCoroutine(heavyAttackCoroutine);
             IsLightAttack = false;
             IsHeavyAttack = false;
             IsSheating= false;
             IsUnsheating= false;
+            IsDuringAttack=false;
             PlayerGrAttackState.sw = false;
             StartCoroutine(RollingCoroutine());
            
@@ -266,7 +271,9 @@ public class PlayerNeededValues : MonoBehaviour
                 IsUnsheating = false;
 
             }
+            IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
+            IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
             if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
             {
@@ -282,7 +289,9 @@ public class PlayerNeededValues : MonoBehaviour
         {
          
             IsLightAttack = true;
+            IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.333f *PlayerController.animatorTimeVector);
+            IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
             if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
             {
@@ -299,7 +308,9 @@ public class PlayerNeededValues : MonoBehaviour
         {
             
             IsLightAttack = true;
+            IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
+            IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
             if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
             {
@@ -315,7 +326,9 @@ public class PlayerNeededValues : MonoBehaviour
         {
             
             IsLightAttack = true;
+            IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
+            IsDuringAttack= false;
             PlayerGrAttackState.sw = false;
             if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
             {
@@ -332,7 +345,9 @@ public class PlayerNeededValues : MonoBehaviour
         {
            
             IsLightAttack = true;
+            IsDuringAttack= true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
+            IsDuringAttack= false;
             PlayerGrAttackState.sw = false;
             if(heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
             {
@@ -381,9 +396,11 @@ public class PlayerNeededValues : MonoBehaviour
 
             }
             //Debug.Log("AttackNUmber1");
-            yield return new WaitForSecondsRealtime(0f*0.9f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f* PlayerController.animatorTimeVector);
             PlayerGrAttackState.isLeaping = true;
-            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
+            IsDuringAttack= true;
+            yield return new WaitForSecondsRealtime(0.4f * PlayerController.animatorTimeVector);
+            IsDuringAttack= false;
             PlayerGrAttackState.sw = false;
             if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
             {
@@ -400,7 +417,10 @@ public class PlayerNeededValues : MonoBehaviour
             
 
             IsHeavyAttack = true;
-            yield return new WaitForSecondsRealtime(0.583f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+            IsDuringAttack = true;
+            yield return new WaitForSecondsRealtime(0.483f * PlayerController.animatorTimeVector);
+            IsDuringAttack= false;
             PlayerGrAttackState.sw = false;
             if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
             {
@@ -417,7 +437,10 @@ public class PlayerNeededValues : MonoBehaviour
         {
            
             IsHeavyAttack = true;
-            yield return new WaitForSecondsRealtime(0.417f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+            IsDuringAttack= true;
+            yield return new WaitForSecondsRealtime(0.317f * PlayerController.animatorTimeVector);
+            IsDuringAttack= false;
             PlayerGrAttackState.sw = false;
             if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
             {
@@ -508,7 +531,7 @@ public class PlayerNeededValues : MonoBehaviour
             if (!IsKnocbacking && !IsRolling) 
             {
 
-                StartCoroutine(Knockback());
+                if(!IsDuringAttack) StartCoroutine(Knockback());
 
                 if(otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)
                 {
