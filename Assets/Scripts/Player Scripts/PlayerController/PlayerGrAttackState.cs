@@ -118,12 +118,13 @@ public class PlayerGrAttackState : IState
                 PlayerController.ChangeAnimationState("LightAttack4");
                 PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
             }
-            else if (PlayerNeededValues.LightAttackNumber >= 5)
+            else if (PlayerNeededValues.LightAttackNumber == 5)
             {
                 PlayerController.ChangeAnimationState("LightAttack5");
                 PlayerController.PlayerRB.AddForce(PlayerController.forward * 150f * factor, ForceMode2D.Impulse);
+                PlayerNeededValues.ResetAttackNumber(1);
             }
-            PlayerNeededValues.DecreaseStamina(3);
+            //PlayerNeededValues.DecreaseStamina(3);
             sw = true;
             PlayerNeededValues.IncreaseAttackNumber(1);
             permissionforLA = false; permissionforHA = true; 
@@ -165,6 +166,7 @@ public class PlayerGrAttackState : IState
         else if (PlayerNeededValues.lightAttackInput == CommandHandler.ShowNext())
         {
             if(permissionforLA) PlayerNeededValues.AdjustAttackNumber(1);
+            
             if (PlayerNeededValues.Stamina < 3)
             {
                 PlayerNeededValues.ResetAttackNumber(0);

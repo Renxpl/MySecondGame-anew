@@ -269,14 +269,7 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
-            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
-            {
-                IsSheating = true;
-                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
-                CommandHandler.ResetNext();
-                yield return new WaitForSeconds(0.3f * PlayerController.animatorTimeVector);
-                IsSheating = false;
-            }
+          
             IsLightAttack = false;
         }
         else if (LightAttackNumber == 2)
@@ -287,14 +280,7 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.333f *PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
-            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
-            {
-                IsSheating = true;
-                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
-                CommandHandler.ResetNext();
-                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
-                IsSheating = false;
-            }
+            
             IsLightAttack = false;
         }
 
@@ -306,14 +292,7 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
-            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
-            {
-                IsSheating = true;
-                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
-                CommandHandler.ResetNext();
-                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
-                IsSheating = false;
-            }
+            
             IsLightAttack = false;
         }
         else if (LightAttackNumber == 4)
@@ -324,14 +303,7 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
             PlayerGrAttackState.sw = false;
-            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
-            {
-                IsSheating = true;
-                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
-                CommandHandler.ResetNext();
-                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
-                IsSheating = false;
-            }
+            
             IsLightAttack = false;
         }
 
@@ -342,15 +314,8 @@ public class PlayerNeededValues : MonoBehaviour
             IsDuringAttack= true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
+            LightAttackNumber= 1;
             PlayerGrAttackState.sw = false;
-            if(heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
-            {
-                IsSheating = true;
-                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
-                CommandHandler.ResetNext();
-                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
-                IsSheating = false;
-            }
             IsLightAttack = false;
         }
     }
