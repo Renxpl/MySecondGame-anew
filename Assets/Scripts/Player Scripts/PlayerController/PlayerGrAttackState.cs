@@ -122,11 +122,11 @@ public class PlayerGrAttackState : IState
             {
                 PlayerController.ChangeAnimationState("LightAttack5");
                 PlayerController.PlayerRB.AddForce(PlayerController.forward * 150f * factor, ForceMode2D.Impulse);
-                PlayerNeededValues.ResetAttackNumber(1);
+                
             }
             //PlayerNeededValues.DecreaseStamina(3);
             sw = true;
-            PlayerNeededValues.IncreaseAttackNumber(1);
+            //PlayerNeededValues.IncreaseAttackNumber(1);
             permissionforLA = false; permissionforHA = true; 
             //Debug.Log(PlayerNeededValues.LightAttackNumber);
 

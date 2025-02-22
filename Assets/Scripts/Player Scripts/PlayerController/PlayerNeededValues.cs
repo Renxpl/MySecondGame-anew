@@ -54,6 +54,7 @@ public class PlayerNeededValues : MonoBehaviour
     bool isLightningCoroutineStarted = false;
     bool isWindCoroutineStarted = false;
     bool extraRollingWait = false;
+    static bool isResettingAttack = false;
 
     public static HeavyAttackInput heavyAttackInput;
     public static LightAttackInput lightAttackInput;
@@ -68,6 +69,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     Coroutine lightAttackCoroutine;
     Coroutine heavyAttackCoroutine;
+    Coroutine resettingAttack;
 
     void Awake()
     {
@@ -100,6 +102,7 @@ public class PlayerNeededValues : MonoBehaviour
         MoveInput = new Vector2();
         RollInput = new Vector2();
         
+        
     }
 
     // Update is called once per frame
@@ -131,7 +134,13 @@ public class PlayerNeededValues : MonoBehaviour
         IsJumpingUp = IsSpacePressing;
 
 
-        
+        if (isResettingAttack)
+        {
+            if(resettingAttack != null) StopCoroutine(resettingAttack);
+            resettingAttack = StartCoroutine(ResettingLightAttack());
+            
+            isResettingAttack= false;
+        }
     }
 
     void OnMove(InputValue input)
@@ -252,13 +261,13 @@ public class PlayerNeededValues : MonoBehaviour
     }
     public void LightAttackExecution()
     {
-        
         lightAttackCoroutine=StartCoroutine(LightAttack(LightAttackNumber));
         
     }
     IEnumerator LightAttack(int count)
     {
         //Debug.Log("In Coroutine");
+       
         if (LightAttackNumber == 1)
         {
             //Debug.Log("AttackNUmber1");
@@ -266,21 +275,24 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             
             IsDuringAttack = true;
-            yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
+            LightAttackNumber++;
             PlayerGrAttackState.sw = false;
-          
             IsLightAttack = false;
+            
+
         }
         else if (LightAttackNumber == 2)
         {
          
             IsLightAttack = true;
             IsDuringAttack = true;
-            yield return new WaitForSecondsRealtime(0.333f *PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.5f *PlayerController.animatorTimeVector);
             IsDuringAttack = false;
+            LightAttackNumber++;
             PlayerGrAttackState.sw = false;
-            
+           
             IsLightAttack = false;
         }
 
@@ -289,10 +301,10 @@ public class PlayerNeededValues : MonoBehaviour
             
             IsLightAttack = true;
             IsDuringAttack = true;
-            yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
+            LightAttackNumber++;
             PlayerGrAttackState.sw = false;
-            
             IsLightAttack = false;
         }
         else if (LightAttackNumber == 4)
@@ -300,10 +312,10 @@ public class PlayerNeededValues : MonoBehaviour
             
             IsLightAttack = true;
             IsDuringAttack = true;
-            yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
+            LightAttackNumber++;
             PlayerGrAttackState.sw = false;
-            
             IsLightAttack = false;
         }
 
@@ -312,7 +324,7 @@ public class PlayerNeededValues : MonoBehaviour
            
             IsLightAttack = true;
             IsDuringAttack= true;
-            yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
             LightAttackNumber= 1;
             PlayerGrAttackState.sw = false;
@@ -417,10 +429,18 @@ public class PlayerNeededValues : MonoBehaviour
         }
         else if (which == 1)
         {
-            LightAttackNumber = 1;
+            isResettingAttack= true;
         }
     }
-
+    IEnumerator ResettingLightAttack()
+    {
+      
+       
+        yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+        
+        if(!IsLightAttack) LightAttackNumber = 1;
+       
+    }
     public  static void IncreaseAttackNumber(int which)
     {
         if (which == 0)
