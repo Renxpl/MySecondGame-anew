@@ -264,13 +264,7 @@ public class PlayerNeededValues : MonoBehaviour
             //Debug.Log("AttackNUmber1");
             
             IsLightAttack = true;
-            if (AttackNumber == 1)
-            {
-                IsUnsheating = true;
-                yield return new WaitForSecondsRealtime(0.667f * PlayerController.animatorTimeVector);
-                IsUnsheating = false;
-
-            }
+            
             IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.333f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
@@ -280,7 +274,7 @@ public class PlayerNeededValues : MonoBehaviour
                 IsSheating = true;
                 yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
                 CommandHandler.ResetNext();
-                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
+                yield return new WaitForSeconds(0.3f * PlayerController.animatorTimeVector);
                 IsSheating = false;
             }
             IsLightAttack = false;
@@ -388,13 +382,7 @@ public class PlayerNeededValues : MonoBehaviour
         if (AttackNumber == 1)
         {
             IsHeavyAttack = true;
-            if (LightAttackNumber == 1)
-            {
-                IsUnsheating= true;
-                yield return new WaitForSecondsRealtime(0.667f * PlayerController.animatorTimeVector);
-                IsUnsheating= false;
-
-            }
+            
             //Debug.Log("AttackNUmber1");
             yield return new WaitForSecondsRealtime(0.1f* PlayerController.animatorTimeVector);
             PlayerGrAttackState.isLeaping = true;
