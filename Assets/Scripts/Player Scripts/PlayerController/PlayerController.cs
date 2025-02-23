@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public static Rigidbody2D PlayerRB { get; private set; }
     public static StateMachine playerSM;
     public static string currentAnimation = "";
-    static Animator playerAnimator;
+    public static Animator playerAnimator;
     public static Vector2 forward;
 
     [Header("Slowing Time")]
@@ -77,15 +77,34 @@ public class PlayerController : MonoBehaviour
 
         if (Time.timeScale < 1f)
         {
-            animatorTimeVector = animationTimeVector;
-            playerAnimator.speed = 1f / (Time.timeScale * animatorTimeVector);
+            if (PlayerNeededValues.IsLightAttack)
+            {
+                animatorTimeVector = animationTimeVector * (1f/PlayerNeededValues.AttackSpeed);
+                playerAnimator.speed = 1f / (Time.timeScale * animatorTimeVector);
+            }
+            else
+            {
+                animatorTimeVector = animationTimeVector;
+                playerAnimator.speed = 1f / (Time.timeScale * animatorTimeVector);
+            }
+           
            
 
         }
         else
         {
-            animatorTimeVector = 1f;
-            playerAnimator.speed = 1f;
+            if (PlayerNeededValues.IsLightAttack)
+            {
+
+                animatorTimeVector = (1f / PlayerNeededValues.AttackSpeed);
+                playerAnimator.speed = 1f / (Time.timeScale * animatorTimeVector);
+            }
+            else
+            {
+                animatorTimeVector = 1f;
+                playerAnimator.speed = 1f;
+            }
+           
           
         }
 

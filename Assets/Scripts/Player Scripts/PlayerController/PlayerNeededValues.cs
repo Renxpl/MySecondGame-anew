@@ -38,6 +38,8 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsSheating { get; private set; }
     public static bool IsUnsheating { get; private set; }
     public static bool IsDuringAttack { get; private set; }
+    public static int ComboCounter { get; private set; }
+    public static float AttackSpeed { get; private set; }
 
     public static LayerMask groundLayer;
     public static GameObject player;
@@ -55,6 +57,7 @@ public class PlayerNeededValues : MonoBehaviour
     bool isWindCoroutineStarted = false;
     bool extraRollingWait = false;
     static bool isResettingAttack = false;
+    static bool isResettingCombo = false;
 
     public static HeavyAttackInput heavyAttackInput;
     public static LightAttackInput lightAttackInput;
@@ -70,6 +73,7 @@ public class PlayerNeededValues : MonoBehaviour
     Coroutine lightAttackCoroutine;
     Coroutine heavyAttackCoroutine;
     Coroutine resettingAttack;
+    Coroutine resettingCombo;
 
     void Awake()
     {
@@ -137,9 +141,37 @@ public class PlayerNeededValues : MonoBehaviour
         if (isResettingAttack)
         {
             if(resettingAttack != null) StopCoroutine(resettingAttack);
-            resettingAttack = StartCoroutine(ResettingLightAttack());
+            resettingAttack = StartCoroutine(ResettingLightAttack(1));
             
             isResettingAttack= false;
+        }
+        if (isResettingCombo)
+        {
+            if (resettingCombo != null) StopCoroutine(resettingCombo);
+            resettingCombo = StartCoroutine(ResettingLightAttack(0));
+
+            isResettingCombo = false;
+        }
+
+        if (ComboCounter < 10)
+        {
+            AttackSpeed = 1f;
+        }
+        else if(ComboCounter < 20)
+        {
+            AttackSpeed = 1.1f;
+        }
+        else if (ComboCounter < 30)
+        {
+            AttackSpeed = 1.22f;
+        }
+        else if (ComboCounter < 40)
+        {
+            AttackSpeed = 1.35f;
+        }
+        else
+        {
+            AttackSpeed = 1.5f;
         }
     }
 
@@ -267,26 +299,28 @@ public class PlayerNeededValues : MonoBehaviour
     IEnumerator LightAttack(int count)
     {
         //Debug.Log("In Coroutine");
-       
+        
         if (LightAttackNumber == 1)
         {
             //Debug.Log("AttackNUmber1");
             
             IsLightAttack = true;
-            
+            if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
+         
             IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
             IsLightAttack = false;
-            
+         
 
         }
         else if (LightAttackNumber == 2)
         {
          
             IsLightAttack = true;
+            if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.5f *PlayerController.animatorTimeVector);
             IsDuringAttack = false;
@@ -300,6 +334,7 @@ public class PlayerNeededValues : MonoBehaviour
         {
             
             IsLightAttack = true;
+            if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
@@ -311,6 +346,7 @@ public class PlayerNeededValues : MonoBehaviour
         {
             
             IsLightAttack = true;
+            if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
@@ -323,13 +359,15 @@ public class PlayerNeededValues : MonoBehaviour
         {
            
             IsLightAttack = true;
-            IsDuringAttack= true;
+            if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
+            IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
             LightAttackNumber= 1;
             PlayerGrAttackState.sw = false;
             IsLightAttack = false;
         }
+        if(ComboCounter <60) ComboCounter++;
     }
 
 
@@ -425,20 +463,37 @@ public class PlayerNeededValues : MonoBehaviour
     {
         if (which == 0)
         {
-            AttackNumber = 1;
+            isResettingCombo = true;
         }
         else if (which == 1)
         {
             isResettingAttack= true;
         }
     }
-    IEnumerator ResettingLightAttack()
+    IEnumerator ResettingLightAttack(int resetType)
     {
       
-       
-        yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
-        
-        if(!IsLightAttack) LightAttackNumber = 1;
+       if(resetType == 1)
+        {
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+
+            if (!IsLightAttack) LightAttackNumber = 1;
+        }
+       else if(resetType == 0)
+        {
+            float counter = 0;
+            float resetTime = 5f;
+            while(counter < resetTime)
+            {
+                if (IsLightAttack)
+                {
+                    break;
+                }
+                yield return new WaitForSecondsRealtime(0.25f);
+                counter += 0.25f;
+            }
+            if (counter == resetTime) ComboCounter = 0;
+        }
        
     }
     public  static void IncreaseAttackNumber(int which)
@@ -533,6 +588,9 @@ public class PlayerNeededValues : MonoBehaviour
 
 
     }
+
+
+  
 
    
 
