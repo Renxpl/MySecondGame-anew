@@ -29,7 +29,6 @@ public abstract class EnemyMain : MonoBehaviour
     protected static Animator enemyAnimator;
     protected Coroutine moving;
     protected Coroutine attacking;
-
     protected virtual void Start()
     {
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
@@ -44,72 +43,81 @@ public abstract class EnemyMain : MonoBehaviour
         backward = new Vector2(-transform.localScale.x,0f);
         xDiff = transform.localScale.x * (player.transform.position.x - transform.position.x);
         yDiff =  Mathf.Abs(player.transform.position.y - transform.position.y);
-
-        if (yDiff < 1f)
+        if (!isKnockbacking)
         {
-            if(xDiff > AttackRange)
+
+
+            if (yDiff < 1f)
             {
-                if (!IsMoving)
+                if (xDiff > AttackRange)
                 {
-                    ChangeAnimationState("Idle");
-                    moving = StartCoroutine(Move());
-                    isStopped= false;
+                    if (!IsMoving)
+                    {
+                        
+                        moving = StartCoroutine(Move());
+                        isStopped = false;
+                    }
+
                 }
-              
-            }
-            else if (xDiff>=0)
-            {
-                if (!isKnockbacking)
+                else if (xDiff >= 0)
                 {
-                    enemyRb.velocity = new Vector2(0f, 0f); isStopped = true;
+                    if (!isKnockbacking)
+                    {
+                        enemyRb.velocity = new Vector2(0f, 0f); isStopped = true;
+                    }
+                    if (moving != null)
+                    {
+                        StopCoroutine(moving);
+                        IsMoving = false;
+                    }
+                    isAttacking = true;
+                    AttackMode();
                 }
-                if (moving != null) StopCoroutine(moving);
-                isAttacking= true;  
-                AttackMode();
+                else if (xDiff >= -AttackRange)
+                {
+                    if (!isTurningLocked)
+                        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+
+                }
+                else
+                {
+                    if (!isTurningLocked)
+                        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+
+                }
             }
-            else if (xDiff >= -AttackRange)
-            {
-                if(!isTurningLocked)
-                    transform.localScale = new Vector2 (-transform.localScale.x, transform.localScale.y);
-                
-            }
+
             else
             {
-                if (!isTurningLocked)
-                    transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-                
+
+                if (xDiff > AttackRange)
+                {
+                    if (!IsMoving)
+                    {
+                        moving = StartCoroutine(Move());
+                    }
+
+                }
+                else if (xDiff >= 0)
+                {
+                    //Do Nothing
+                }
+                else if (xDiff >= -AttackRange)
+                {
+                    if (!isTurningLocked)
+                        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+                    //Do Nothing
+                }
+                else
+                {
+                    if (!isTurningLocked)
+                        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+
+                }
+
             }
         }
 
-        else
-        {
-
-            if (xDiff > AttackRange)
-            {
-                if (!IsMoving)
-                {
-                   moving = StartCoroutine(Move());
-                }
-               
-            }
-            else if (xDiff >= 0)
-            {
-               //Do Nothing
-            }
-            else if (xDiff >= -AttackRange)
-            {
-                if (!isTurningLocked)
-                    transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-                //Do Nothing
-            }
-            else
-            {
-                if (!isTurningLocked)
-                    transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-                
-            }
-
-        }
         if(!isKnockbacking) Following();
 
 
@@ -172,8 +180,9 @@ public abstract class EnemyMain : MonoBehaviour
     {
 
         isKnockbacking = true;
-        ChangeAnimationState("Idle");
-        enemyRb.AddForce(backward * forceFactor, ForceMode2D.Impulse);
+        enemyAnimator.Play("Knockback");
+        enemyRb.AddForce(PlayerController.forward * forceFactor, ForceMode2D.Impulse);
+        transform.localScale = new Vector2(Mathf.Sign(-PlayerController.forward.x),transform.localScale.y);
         yield return new WaitForSeconds(knockbackDuration);
         enemyRb.velocity = new Vector2(0f, 0f);
         isKnockbacking = false;

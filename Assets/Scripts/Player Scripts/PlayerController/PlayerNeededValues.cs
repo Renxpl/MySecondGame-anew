@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Rendering.Universal.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -175,7 +174,10 @@ public class PlayerNeededValues : MonoBehaviour
             AttackSpeed = 1.5f;
         }
 
-        
+        if (!IsLightAttack)
+        {
+            lightAttackCollider.enabled = false;
+        }
     }
     
 
