@@ -69,6 +69,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static int Stamina { get; private set; }
     //next input will be handled by bools
     [SerializeField] float knockbackDuration;
+    [SerializeField] Collider2D lightAttackCollider;
 
     Coroutine lightAttackCoroutine;
     Coroutine heavyAttackCoroutine;
@@ -105,7 +106,7 @@ public class PlayerNeededValues : MonoBehaviour
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
         MoveInput = new Vector2();
         RollInput = new Vector2();
-        
+        lightAttackCollider.enabled = false;
         
     }
 
@@ -173,7 +174,10 @@ public class PlayerNeededValues : MonoBehaviour
         {
             AttackSpeed = 1.5f;
         }
+
+        
     }
+    
 
     void OnMove(InputValue input)
     {
@@ -308,7 +312,10 @@ public class PlayerNeededValues : MonoBehaviour
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
          
             IsDuringAttack = true;
-            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = true;
+            yield return new WaitForSecondsRealtime(0.05f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = false;
+            yield return new WaitForSecondsRealtime(0.45f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -322,7 +329,10 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             IsDuringAttack = true;
-            yield return new WaitForSecondsRealtime(0.5f *PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = true;
+            yield return new WaitForSecondsRealtime(0.05f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = false;
+            yield return new WaitForSecondsRealtime(0.45f *PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -336,7 +346,10 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             IsDuringAttack = true;
-            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = true;
+            yield return new WaitForSecondsRealtime(0.05f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = false;
+            yield return new WaitForSecondsRealtime(0.45f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -348,7 +361,10 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             IsDuringAttack = true;
-            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = true;
+            yield return new WaitForSecondsRealtime(0.05f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = false;
+            yield return new WaitForSecondsRealtime(0.45f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -361,7 +377,10 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             IsDuringAttack = true;
-            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = true;
+            yield return new WaitForSecondsRealtime(0.05f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = false;
+            yield return new WaitForSecondsRealtime(0.45f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
             LightAttackNumber= 1;
             PlayerGrAttackState.sw = false;

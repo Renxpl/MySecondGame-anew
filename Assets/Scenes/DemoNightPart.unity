@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &16850023
 Transform:
   m_ObjectHideFlags: 0
@@ -11611,6 +11611,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   knockbackDuration: 0.35
+  lightAttackCollider: {fileID: 1693003342}
 --- !u!1 &979996008
 GameObject:
   m_ObjectHideFlags: 0
@@ -11774,7 +11775,7 @@ SpriteRenderer:
   m_SortingLayerID: -1912775347
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1ac119a9bb548d44e9d5c8d6d3e150f9, type: 3}
+  m_Sprite: {fileID: 1004582972, guid: 029868542488b9f4aa372520638178cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11881,12 +11882,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02dadb4014c24444b2d83dc27acb173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 3
+  AttackRange: 2
   enemyVelocity: 2.25
   minMovementDuration: 0.5
   forceFactor: 5
   knockbackDuration: 0.25
   getDmgRb: {fileID: 898680660}
+  attackCollider: {fileID: 1464371383}
 --- !u!1 &1098711560
 GameObject:
   m_ObjectHideFlags: 0
@@ -12151,11 +12153,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.32699633, y: 1.091559}
-      - {x: -2.1524434, y: 0.53427696}
-      - {x: -2.1419635, y: 0.038345337}
-      - {x: -0.05590284, y: 0.06967282}
-      - {x: 0.6235907, y: 0.23038203}
+    - - {x: -1.1249194, y: 1.6826133}
+      - {x: -2.713945, y: 1.3617529}
+      - {x: -3.0828004, y: 0.8295324}
+      - {x: -3.028545, y: 0.09745073}
+      - {x: -2.6269035, y: -0.6771585}
+      - {x: -2.3141768, y: -0.99314976}
+      - {x: -1.0311426, y: -0.72825015}
+      - {x: -1.0313609, y: 0.17127663}
 --- !u!1 &1537673852
 GameObject:
   m_ObjectHideFlags: 0

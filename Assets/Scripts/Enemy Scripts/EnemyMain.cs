@@ -23,8 +23,12 @@ public abstract class EnemyMain : MonoBehaviour
     protected Vector2 backward;
     protected bool isStopped = true;
     protected bool isKnockbacking = false;
+    protected bool isAttacking = false;
+    protected bool isTurningLocked = false;
     protected static string currentAnimation ="";
     protected static Animator enemyAnimator;
+    protected Coroutine moving;
+    protected Coroutine attacking;
 
     protected virtual void Start()
     {
@@ -48,7 +52,7 @@ public abstract class EnemyMain : MonoBehaviour
                 if (!IsMoving)
                 {
                     ChangeAnimationState("Idle");
-                    StartCoroutine(Move());
+                    moving = StartCoroutine(Move());
                     isStopped= false;
                 }
               
@@ -59,18 +63,20 @@ public abstract class EnemyMain : MonoBehaviour
                 {
                     enemyRb.velocity = new Vector2(0f, 0f); isStopped = true;
                 }
-                
+                if (moving != null) StopCoroutine(moving);
+                isAttacking= true;  
                 AttackMode();
             }
             else if (xDiff >= -AttackRange)
             {
-                
-                transform.localScale = new Vector2 (-transform.localScale.x, transform.localScale.y);
+                if(!isTurningLocked)
+                    transform.localScale = new Vector2 (-transform.localScale.x, transform.localScale.y);
                 
             }
             else
             {
-                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+                if (!isTurningLocked)
+                    transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
                 
             }
         }
@@ -82,7 +88,7 @@ public abstract class EnemyMain : MonoBehaviour
             {
                 if (!IsMoving)
                 {
-                    StartCoroutine(Move());
+                   moving = StartCoroutine(Move());
                 }
                
             }
@@ -92,12 +98,14 @@ public abstract class EnemyMain : MonoBehaviour
             }
             else if (xDiff >= -AttackRange)
             {
-                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+                if (!isTurningLocked)
+                    transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
                 //Do Nothing
             }
             else
             {
-                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+                if (!isTurningLocked)
+                    transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
                 
             }
 
@@ -109,25 +117,28 @@ public abstract class EnemyMain : MonoBehaviour
     }
     protected virtual void Following()
     {
-        if (IsMoving)
+        if (!isAttacking)
         {
-            if (transform.localScale.x == 1)
+            if (IsMoving)
             {
-                enemyRb.velocity = new Vector2(enemyVelocity, 0f);
-            }
-            else if (transform.localScale.x == -1)
-            {
-                enemyRb.velocity = new Vector2(-enemyVelocity, 0f);
+                if (transform.localScale.x == 1)
+                {
+                    enemyRb.velocity = new Vector2(enemyVelocity, 0f);
+                }
+                else if (transform.localScale.x == -1)
+                {
+                    enemyRb.velocity = new Vector2(-enemyVelocity, 0f);
+                }
+                else
+                {
+                    Debug.Log("There is a problem of localScale.x discrepancy");
+                }
+                enemyAnimator.Play("Walking");
             }
             else
             {
-                Debug.Log("There is a problem of localScale.x discrepancy");
+                enemyAnimator.Play("Idle");
             }
-            enemyAnimator.Play("Walking");
-        }
-        else
-        {
-            enemyAnimator.Play("Idle");
         }
 
     }
