@@ -10415,7 +10415,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7.5
+  orthographic size: 6.75
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -11171,7 +11171,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.037543535, y: 0.09010404}
+  m_Offset: {x: -0.09154105, y: 0.17041206}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -11182,7 +11182,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.80477476, y: 2.0662313}
+  m_Size: {x: 0.9344516, y: 2.2268472}
   m_EdgeRadius: 0
 --- !u!114 &898680663
 MonoBehaviour:
@@ -11231,7 +11231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -997, y: 183}
+  m_AnchoredPosition: {x: -678, y: 113}
   m_SizeDelta: {x: 506.601, y: 249.7551}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &937559979
@@ -11775,7 +11775,7 @@ SpriteRenderer:
   m_SortingLayerID: -1912775347
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1004582972, guid: 029868542488b9f4aa372520638178cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ac119a9bb548d44e9d5c8d6d3e150f9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
