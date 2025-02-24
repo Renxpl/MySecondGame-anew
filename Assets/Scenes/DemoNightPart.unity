@@ -11396,7 +11396,7 @@ SpriteRenderer:
   m_SortingLayerID: 722697965
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 078b1a180308d584abab06148842243a, type: 3}
+  m_Sprite: {fileID: 687703009, guid: 84caa36f1de2ddb4faaf43883becca6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11732,7 +11732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1058171111
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11882,7 +11882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackRange: 3
-  enemyVelocity: 2.75
+  enemyVelocity: 2.25
   minMovementDuration: 0.5
   forceFactor: 5
   knockbackDuration: 0.25
@@ -12387,11 +12387,11 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0, y: 1}
-      - {x: -0.32789713, y: 0.4195775}
-      - {x: -0.12544101, y: -0.87937367}
-      - {x: 1.2703282, y: -0.7203171}
-      - {x: 1.9949646, y: -0.5987041}
-      - {x: 2.2574253, y: 0.45493376}
+      - {x: 0.25213522, y: 0.10725251}
+      - {x: 0.81153446, y: -0.36626828}
+      - {x: 1.5603462, y: -0.7203171}
+      - {x: 3.0881042, y: -0.28637934}
+      - {x: 2.8820763, y: 1.0349661}
       - {x: 2.0971317, y: 1.1068436}
       - {x: 0.971158, y: 1.2337048}
 --- !u!1 &1772905025

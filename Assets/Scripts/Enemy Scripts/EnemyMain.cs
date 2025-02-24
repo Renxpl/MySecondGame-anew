@@ -123,6 +123,11 @@ public abstract class EnemyMain : MonoBehaviour
             {
                 Debug.Log("There is a problem of localScale.x discrepancy");
             }
+            enemyAnimator.Play("Walking");
+        }
+        else
+        {
+            enemyAnimator.Play("Idle");
         }
 
     }
