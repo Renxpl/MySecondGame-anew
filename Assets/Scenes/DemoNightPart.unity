@@ -10458,7 +10458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64034a00bb58c59438bd62430cf0fb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetFps: 500
+  targetFps: 60
   toFollow: {fileID: 938682213}
   smoothTime: 1
 --- !u!114 &519420034

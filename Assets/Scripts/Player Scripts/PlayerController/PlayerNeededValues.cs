@@ -362,7 +362,7 @@ public class PlayerNeededValues : MonoBehaviour
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0.2f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
-            LightAttackNumber++;
+            LightAttackNumber = 1;
             PlayerGrAttackState.sw = false;
             IsLightAttack = false;
         }

@@ -29,9 +29,9 @@ public class SwordsmanBehaviour : EnemyMain
         enemyAnimator.Play("Attack1");
         yield return new WaitForSeconds(0.42f);
         attackCollider.enabled = true;
-        yield return new WaitForSeconds(0.03f);
+        yield return new WaitForSeconds(0.05f);
         attackCollider.enabled = false;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.28f);
         isTurningLocked = false;
         isAttacking= false;
     }
