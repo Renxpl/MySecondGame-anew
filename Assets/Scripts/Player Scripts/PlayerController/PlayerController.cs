@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         playerSM?.Update();
         //Debug.Log("state machine updated");
 
-        if (!PlayerNeededValues.IsKnocbacking)
+        if (!PlayerNeededValues.IsKnocbacking && !PlayerNeededValues.IsLightAttack)
         {
             if (PlayerNeededValues.MoveInput.x > 0 && PlayerRB.velocity.x > 0)
             {
