@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerRunState : IState
 {
     Rigidbody2D playerRb;
-    float speed = 15f;
+    float speed = 12f;
     public void Enter()
     {
         //Debug.Log("WalkingStateStarted");
@@ -36,11 +36,11 @@ public class PlayerRunState : IState
         }
         if(Time.timeScale < 1)
         {
-            playerRb.velocity = new Vector2(15f * 1.5f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+            playerRb.velocity = new Vector2(speed* 1.5f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
         }
         else
         {
-            playerRb.velocity = new Vector2(15f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+            playerRb.velocity = new Vector2(speed * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
         }
        
         PlayerController.ChangeAnimationState("Running");

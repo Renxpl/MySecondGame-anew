@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerRollState : IState
 {
     Rigidbody2D playerRb;
-    float rollingForceFactor = 20f;
+    float rollingForceFactor = 40f;
     public void Enter()
     {
         //Debug.Log("WalkingStateStarted");
