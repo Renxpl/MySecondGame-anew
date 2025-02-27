@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerRunState : IState
 {
     Rigidbody2D playerRb;
-    float speed = 12f;
+    float speed = 10f;
     public void Enter()
     {
         //Debug.Log("WalkingStateStarted");

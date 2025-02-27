@@ -227,10 +227,10 @@ public class PlayerNeededValues : MonoBehaviour
     IEnumerator RollingCoroutine()
     {
         IsRolling = true;
-        yield return new WaitForSecondsRealtime(0.2f * PlayerController.animatorTimeVector); 
+        yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector); 
         IsRolling= false;
         extraRollingWait = true;
-        yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+        yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
         extraRollingWait= false;
     }
 
