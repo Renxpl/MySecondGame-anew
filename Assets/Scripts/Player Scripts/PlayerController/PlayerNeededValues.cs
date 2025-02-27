@@ -598,7 +598,7 @@ public class PlayerNeededValues : MonoBehaviour
 
             if (!IsKnocbacking && !IsRolling) 
             {
-
+                Debug.Log("Player Took Dmg");
                 if(!IsDuringAttack) StartCoroutine(Knockback());
 
                 if(otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)

@@ -50,7 +50,8 @@ public abstract class EnemyMain : MonoBehaviour
         backward = new Vector2(-transform.localScale.x,0f);
         xDiff = transform.localScale.x * (player.transform.position.x - transform.position.x);
         yDiff =  Mathf.Abs(player.transform.position.y - transform.position.y);
-        if (!isKnockbacking)
+        
+        if (!isKnockbacking &&!isAttacking)
         {
 
 
@@ -64,25 +65,20 @@ public abstract class EnemyMain : MonoBehaviour
                         moving = StartCoroutine(Move());
                         isStopped = false;
                     }
+                    
 
                 }
                 else if (xDiff >= 0)
                 {
-                    if (!isKnockbacking)
-                    {
-                        enemyRb.velocity = new Vector2(0f, 0f); isStopped = true;
-                    }
                     if (moving != null)
                     {
                         StopCoroutine(moving);
                         IsMoving = false;
                     }
+                    enemyRb.velocity = new Vector2(0f, 0f); isStopped = true;
+                    
+                    AttackMode();
 
-                    if (!isKnockbacking) 
-                    {
-                        isAttacking = true;
-                        AttackMode();
-                    }  
                 }
                 else if (xDiff >= -AttackRange)
                 {
@@ -103,7 +99,7 @@ public abstract class EnemyMain : MonoBehaviour
 
                 if (xDiff > AttackRange)
                 {
-                    if (!IsMoving)
+                    if (!IsMoving )
                     {
                         moving = StartCoroutine(Move());
                     }
@@ -129,7 +125,7 @@ public abstract class EnemyMain : MonoBehaviour
             }
         }
 
-        if(!isKnockbacking) Following();
+        if(!isKnockbacking && !isAttacking) Following();
 
 
         if(HP == 0)
@@ -139,35 +135,32 @@ public abstract class EnemyMain : MonoBehaviour
     }
     protected virtual void Following()
     {
-        if (!isAttacking)
+        if (IsMoving)
         {
-            if (IsMoving)
+            if (transform.localScale.x == 1)
             {
-                if (transform.localScale.x == 1)
-                {
-                    enemyRb.velocity = new Vector2(enemyVelocity, 0f);
-                }
-                else if (transform.localScale.x == -1)
-                {
-                    enemyRb.velocity = new Vector2(-enemyVelocity, 0f);
-                }
-                else
-                {
-                    Debug.Log("There is a problem of localScale.x discrepancy");
-                }
-                enemyAnimator.Play("Walking");
+                enemyRb.velocity = new Vector2(enemyVelocity, 0f);
+            }
+            else if (transform.localScale.x == -1)
+            {
+                enemyRb.velocity = new Vector2(-enemyVelocity, 0f);
             }
             else
             {
-                enemyAnimator.Play("Idle");
+                Debug.Log("There is a problem of localScale.x discrepancy");
             }
+            enemyAnimator.Play("Walking");
+        }
+        else
+        {
+            enemyAnimator.Play("Idle");
         }
 
     }
 
     protected virtual IEnumerator Move()
     {
-
+      
         IsMoving = true;
         yield return new WaitForSeconds(minMovementDuration);
         IsMoving = false;

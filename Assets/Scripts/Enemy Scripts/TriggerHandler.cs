@@ -32,7 +32,7 @@ public class TriggerHandler : MonoBehaviour
                 GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject,gameObject,collider,0);
 
             }
-
+            HasTriggered = true;
         }
         if (collider.gameObject.CompareTag("EnemyDodgeableAttack"))
         {
@@ -43,9 +43,9 @@ public class TriggerHandler : MonoBehaviour
                 GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject, gameObject, collider, 0);
 
             }
-
+            HasTriggered = true;
         }
-        HasTriggered = true;
+        
         
 
 

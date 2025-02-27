@@ -29,12 +29,21 @@ public class SwordsmanBehaviour : EnemyMain
     }
     protected override void AttackMode()
     {
+        if(attacking != null)
+        {
+            StopCoroutine(attacking);
+            isTurningLocked = false;
+            isAttacking = false;
+            GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
+            attackCollider.enabled = false;
+        }
         attacking = StartCoroutine(Attacking());
         //Debug.Log("Attacking-Swordsman");
     
     }
     IEnumerator Attacking()
     {
+        isAttacking = true;
         isTurningLocked= true;
         enemyAnimator.Play("Attack1");
         yield return new WaitForSeconds(0.42f);
@@ -42,7 +51,7 @@ public class SwordsmanBehaviour : EnemyMain
         yield return new WaitForSeconds(0.083f);
         attackCollider.enabled = false;
         GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
-        yield return new WaitForSeconds(0.327f);
+        yield return new WaitForSeconds(0.247f);
         isTurningLocked = false;
         isAttacking= false;
     }
