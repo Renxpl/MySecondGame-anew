@@ -18,6 +18,8 @@ public class GameEvents : MonoBehaviour
     public event UpdateThingsAboutGettingDmg onGettingDmg;
     public delegate void TimeSlowing();
     public event TimeSlowing onTimeSlow;
+    public delegate void DisableAttackCollider(GameObject sender);
+    public event DisableAttackCollider onDisablingAC;
     void Awake()
     {
         if(gameEvents == null)
@@ -67,7 +69,10 @@ public class GameEvents : MonoBehaviour
         onGettingDmg?.Invoke(receiver,sender,otherCollider,attackVer);
     }
 
-   
+    public void OnDisablingAttackCollider(GameObject sender)
+    {
+        onDisablingAC?.Invoke(sender);
+    }
 }
 
 

@@ -8,6 +8,7 @@ TagManager:
   - EnemyDodgeableAttack
   - Ground
   - HeavyAttack
+  - Enemy
   layers:
   - Default
   - TransparentFX

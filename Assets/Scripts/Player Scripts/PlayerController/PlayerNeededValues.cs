@@ -318,9 +318,10 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
-            yield return new WaitForSecondsRealtime(0.05f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.083f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
-            yield return new WaitForSecondsRealtime(0.2f * PlayerController.animatorTimeVector);
+            GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -338,9 +339,10 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
-            yield return new WaitForSecondsRealtime(0.05f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.083f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
-            yield return new WaitForSecondsRealtime(0.2f * PlayerController.animatorTimeVector);
+            GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -358,9 +360,10 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
-            yield return new WaitForSecondsRealtime(0.05f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.083f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
-            yield return new WaitForSecondsRealtime(0.2f * PlayerController.animatorTimeVector);
+            GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber = 1;
             PlayerGrAttackState.sw = false;
@@ -376,9 +379,10 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
-            yield return new WaitForSecondsRealtime(0.05f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.083f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
-            yield return new WaitForSecondsRealtime(0.2f * PlayerController.animatorTimeVector);
+            GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -395,9 +399,10 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
-            yield return new WaitForSecondsRealtime(0.05f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.083f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
-            yield return new WaitForSecondsRealtime(0.2f * PlayerController.animatorTimeVector);
+            GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
             LightAttackNumber= 1;
             PlayerGrAttackState.sw = false;
@@ -589,7 +594,7 @@ public class PlayerNeededValues : MonoBehaviour
         if (receiver == gameObject)
         {
 
-            Debug.Log("GettingDmg");
+            //Debug.Log("GettingDmg");
 
             if (!IsKnocbacking && !IsRolling) 
             {

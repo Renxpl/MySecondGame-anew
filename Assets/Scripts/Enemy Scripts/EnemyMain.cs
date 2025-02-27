@@ -16,6 +16,7 @@ public abstract class EnemyMain : MonoBehaviour
     [SerializeField] GameObject getDmgRb;
     protected GameObject player;
     protected Rigidbody2D enemyRb;
+    [SerializeField] protected Collider2D attackCollider;
 
     protected Vector2 firstPosition;
     protected float xDiff;
@@ -29,6 +30,10 @@ public abstract class EnemyMain : MonoBehaviour
     protected static Animator enemyAnimator;
     protected Coroutine moving;
     protected Coroutine attacking;
+
+
+
+    protected float HP = 10;
     protected virtual void Start()
     {
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
@@ -70,8 +75,12 @@ public abstract class EnemyMain : MonoBehaviour
                         StopCoroutine(moving);
                         IsMoving = false;
                     }
-                    isAttacking = true;
-                    AttackMode();
+
+                    if (!isKnockbacking) 
+                    {
+                        isAttacking = true;
+                        AttackMode();
+                    }  
                 }
                 else if (xDiff >= -AttackRange)
                 {
@@ -167,10 +176,13 @@ public abstract class EnemyMain : MonoBehaviour
         if(receiver == gameObject)
         {
 
-            Debug.Log("GettingDmg");
+            //Debug.Log("GettingDmg");
 
             
             if(!isKnockbacking) StartCoroutine(KnockBacking());
+
+            HP--;
+            Debug.Log("Enemy HP:"+HP);
 
 
         }
@@ -178,7 +190,7 @@ public abstract class EnemyMain : MonoBehaviour
 
     IEnumerator KnockBacking()
     {
-
+        
         isKnockbacking = true;
         enemyAnimator.Play("Knockback");
         enemyRb.AddForce(PlayerController.forward * forceFactor, ForceMode2D.Impulse);

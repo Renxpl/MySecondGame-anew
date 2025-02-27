@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwordsmanBehaviour : EnemyMain
 {
-    [SerializeField] Collider2D attackCollider;
+    
     protected override void Start()
     {
         base.Start();
@@ -14,6 +14,17 @@ public class SwordsmanBehaviour : EnemyMain
     {
         base.Update();
         Debug.DrawRay(transform.position, -transform.right * 2f, Color.red);
+        if (isKnockbacking)
+        {
+           if(attacking != null)
+            {
+                StopCoroutine(attacking);
+                attackCollider.enabled = false;
+                GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
+                isTurningLocked = false;
+                isAttacking = false;
+            }
+        }
 
     }
     protected override void AttackMode()
@@ -25,13 +36,13 @@ public class SwordsmanBehaviour : EnemyMain
     IEnumerator Attacking()
     {
         isTurningLocked= true;
-        
         enemyAnimator.Play("Attack1");
         yield return new WaitForSeconds(0.42f);
         attackCollider.enabled = true;
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.083f);
         attackCollider.enabled = false;
-        yield return new WaitForSeconds(0.28f);
+        GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
+        yield return new WaitForSeconds(0.327f);
         isTurningLocked = false;
         isAttacking= false;
     }
