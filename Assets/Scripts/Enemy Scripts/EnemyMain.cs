@@ -11,6 +11,7 @@ public abstract class EnemyMain : MonoBehaviour
     [SerializeField] protected float forceFactor;
     [SerializeField] protected float knockbackDuration;
     protected bool IsMoving = false;
+    protected int stance;
     
 
     [SerializeField] GameObject getDmgRb;
@@ -40,6 +41,7 @@ public abstract class EnemyMain : MonoBehaviour
         player = GameObject.Find("Player");
         enemyRb = GetComponent<Rigidbody2D>();
         enemyAnimator = GetComponent<Animator>();
+        stance = 2;
         
     }
 
@@ -130,7 +132,10 @@ public abstract class EnemyMain : MonoBehaviour
         if(!isKnockbacking) Following();
 
 
-
+        if(HP == 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
     protected virtual void Following()
     {
@@ -179,9 +184,10 @@ public abstract class EnemyMain : MonoBehaviour
             //Debug.Log("GettingDmg");
 
             
-            if(!isKnockbacking) StartCoroutine(KnockBacking());
+            if(!isKnockbacking && stance % 3 == 0) StartCoroutine(KnockBacking());
 
             HP--;
+            stance--;
             Debug.Log("Enemy HP:"+HP);
 
 
