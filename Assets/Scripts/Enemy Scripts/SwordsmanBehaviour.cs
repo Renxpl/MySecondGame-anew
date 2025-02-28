@@ -47,6 +47,7 @@ public class SwordsmanBehaviour : EnemyMain
         enemyAnimator.Play("Attack1");
         yield return new WaitForSeconds(0.40f);
         attackCollider.enabled = true;
+        GetComponent<Rigidbody2D>().WakeUp();
         yield return new WaitForSeconds(0.15f);
         attackCollider.enabled = false;
         yield return new WaitForSeconds(0.20f);

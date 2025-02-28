@@ -182,6 +182,8 @@ public class PlayerNeededValues : MonoBehaviour
         if (!IsLightAttack)
         {
             lightAttackCollider.enabled = false;
+            GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
+            IsDuringAttack = false;
         }
     }
     
@@ -322,6 +324,7 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             IsDuringAttack = true;
             CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
@@ -344,6 +347,7 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             IsDuringAttack = true;
             CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
@@ -366,6 +370,7 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             IsDuringAttack = true;
             CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
@@ -604,7 +609,7 @@ public class PlayerNeededValues : MonoBehaviour
             HP--;
             Stance--;
 
-            Debug.Log("PlayerHp:"+ HP+"  Player Stance:"+ Stance);
+            //Debug.Log("PlayerHp:"+ HP+"  Player Stance:"+ Stance);
             
             if (!IsKnocbacking && !IsRolling) 
             {
