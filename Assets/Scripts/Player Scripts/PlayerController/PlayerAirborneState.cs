@@ -32,7 +32,10 @@ public class PlayerAirborneState :IState
             PlayerController.playerSM.ChangeState(PlayerNeededValues.playerKbState);
             return;
         }
-        
+        if (!PlayerNeededValues.CanDoActionDuringJump)
+        {
+            CommandHandler.ResetNext();
+        }
 
         isAirborne = true;
 

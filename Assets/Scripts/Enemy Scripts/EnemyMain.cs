@@ -42,7 +42,7 @@ public abstract class EnemyMain : MonoBehaviour
         player = GameObject.Find("Player");
         enemyRb = GetComponent<Rigidbody2D>();
         enemyAnimator = GetComponent<Animator>();
-        stance = 2;
+        stance = 3;
         baseColor = GetComponent<SpriteRenderer>().color;
         
     }
@@ -178,11 +178,10 @@ public abstract class EnemyMain : MonoBehaviour
 
             //Debug.Log("GettingDmg");
 
-            
-            if(!isKnockbacking && stance % 3 == 0) StartCoroutine(KnockBacking());
+            stance--;
+            if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
             StartCoroutine(TurningColorRed());
             HP--;
-            stance--;
             Debug.Log("Enemy HP:"+HP);
 
 
@@ -205,6 +204,7 @@ public abstract class EnemyMain : MonoBehaviour
         transform.localScale = new Vector2(Mathf.Sign(-PlayerController.forward.x),transform.localScale.y);
         yield return new WaitForSeconds(knockbackDuration);
         enemyRb.velocity = new Vector2(0f, 0f);
+        stance = 3;
         isKnockbacking = false;
         
 

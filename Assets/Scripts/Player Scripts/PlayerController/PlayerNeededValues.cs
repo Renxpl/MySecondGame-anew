@@ -20,6 +20,7 @@ public class PlayerNeededValues : MonoBehaviour
 
 
     public static bool IsGroundedPlayer { get; private set; }
+    public static bool CanDoActionDuringJump { get; private set; }
     public static bool IsRolling { get; private set; }
     public static bool IsJumping { get; private set; }
     public static bool IsSpacePressing { get; private set; }
@@ -115,8 +116,8 @@ public class PlayerNeededValues : MonoBehaviour
 
         IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1f, groundLayer);
         Debug.DrawRay(player.transform.position, Vector2.down * 1f, IsGroundedPlayer ? Color.green : Color.red);
-        
-        if(IsGroundedPlayer)
+        CanDoActionDuringJump = Physics2D.Raycast(player.transform.position, Vector2.down, 2.25f,groundLayer);
+        if (IsGroundedPlayer)
         {
             IsJumping = false;
             JumpTime = 0;
