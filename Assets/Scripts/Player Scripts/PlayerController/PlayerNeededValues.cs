@@ -29,6 +29,8 @@ public class PlayerNeededValues : MonoBehaviour
     public static float JumpSpeed { get; private set; }
     public static bool IsLightningAura { get; private set; }
     public static bool IsWindAura { get; private set; }
+    public static int HP { get; private set; }
+    public static int Stance { get; private set; }
 
     public static bool IsHeavyAttack { get; private set; }
     public static bool IsLightAttack { get; private set; }
@@ -107,6 +109,8 @@ public class PlayerNeededValues : MonoBehaviour
         MoveInput = new Vector2();
         RollInput = new Vector2();
         lightAttackCollider.enabled = false;
+        HP = 10;
+        Stance = 5;
         
     }
 
@@ -314,15 +318,16 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
          
-            IsDuringAttack = true;
+            
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+            IsDuringAttack = true;
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
-            yield return new WaitForSecondsRealtime(0.083f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
-            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -335,15 +340,16 @@ public class PlayerNeededValues : MonoBehaviour
          
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
-            IsDuringAttack = true;
+            
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+            IsDuringAttack = true;
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
-            yield return new WaitForSecondsRealtime(0.083f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
-            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -356,15 +362,16 @@ public class PlayerNeededValues : MonoBehaviour
             
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
-            IsDuringAttack = true;
+            
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+            IsDuringAttack = true;
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
-            yield return new WaitForSecondsRealtime(0.083f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
-            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber = 1;
             PlayerGrAttackState.sw = false;
@@ -380,10 +387,10 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
-            yield return new WaitForSecondsRealtime(0.083f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
-            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -400,10 +407,10 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
-            yield return new WaitForSecondsRealtime(0.083f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
-            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
             LightAttackNumber= 1;
             PlayerGrAttackState.sw = false;
@@ -594,13 +601,20 @@ public class PlayerNeededValues : MonoBehaviour
     {
         if (receiver == gameObject)
         {
+            HP--;
+            Stance--;
 
-            //Debug.Log("GettingDmg");
-
+            Debug.Log("PlayerHp:"+ HP+"  Player Stance:"+ Stance);
+            
             if (!IsKnocbacking && !IsRolling) 
             {
-                Debug.Log("Player Took Dmg");
-                if(!IsDuringAttack) StartCoroutine(Knockback());
+                //Debug.Log("Player Took Dmg");
+                if (!IsDuringAttack) 
+                {
+                    if(IsLightAttack) IsLightAttack = false;
+                    if(Stance==0) StartCoroutine(Knockback());
+                }
+
 
                 if(otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)
                 {
@@ -626,6 +640,7 @@ public class PlayerNeededValues : MonoBehaviour
         IsKnocbacking = true;
         yield return new WaitForSeconds(knockbackDuration);
         IsKnocbacking= false;
+        Stance = 5;
 
 
     }

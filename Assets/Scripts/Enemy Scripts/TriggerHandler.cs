@@ -20,8 +20,13 @@ public class TriggerHandler : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("TriggerEnter");
+    }
     void OnTriggerStay2D(Collider2D collider)
     {
+        Debug.Log("TriggerStay");
         if (HasTriggered) return;
         if (collider.gameObject.CompareTag("LightAttack"))
         {
@@ -34,22 +39,17 @@ public class TriggerHandler : MonoBehaviour
             }
             HasTriggered = true;
         }
-        if (collider.gameObject.CompareTag("EnemyDodgeableAttack"))
-        {
-
-            if (GameEvents.gameEvents != null)
-            {
-                // receiver, sender, otherCollider, AttackVersion
-                GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject, gameObject, collider, 0);
-
-            }
-            HasTriggered = true;
-        }
+        
         
         
 
 
 
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("TriggerExit");
     }
 
     void EndAttack(GameObject sender)
