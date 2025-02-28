@@ -32,7 +32,8 @@ public abstract class EnemyMain : MonoBehaviour
     protected Coroutine moving;
     protected Coroutine attacking;
 
-
+    protected Color baseColor;
+    [SerializeField]protected Color onDmgColor;
 
     protected float HP = 10;
     protected virtual void Start()
@@ -42,6 +43,7 @@ public abstract class EnemyMain : MonoBehaviour
         enemyRb = GetComponent<Rigidbody2D>();
         enemyAnimator = GetComponent<Animator>();
         stance = 2;
+        baseColor = GetComponent<SpriteRenderer>().color;
         
     }
 
@@ -178,13 +180,20 @@ public abstract class EnemyMain : MonoBehaviour
 
             
             if(!isKnockbacking && stance % 3 == 0) StartCoroutine(KnockBacking());
-
+            StartCoroutine(TurningColorRed());
             HP--;
             stance--;
             Debug.Log("Enemy HP:"+HP);
 
 
         }
+    }
+    IEnumerator TurningColorRed() 
+    {
+        GetComponent<SpriteRenderer>().color = onDmgColor;
+        yield return new WaitForSeconds(0.15f);
+        GetComponent<SpriteRenderer>().color = baseColor;
+
     }
 
     IEnumerator KnockBacking()

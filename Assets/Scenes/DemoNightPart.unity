@@ -11889,6 +11889,7 @@ MonoBehaviour:
   knockbackDuration: 0.25
   getDmgRb: {fileID: 898680660}
   attackCollider: {fileID: 1464371383}
+  onDmgColor: {r: 0.9339623, g: 0.4887012, b: 0.4887012, a: 1}
 --- !u!1 &1098711560
 GameObject:
   m_ObjectHideFlags: 0
