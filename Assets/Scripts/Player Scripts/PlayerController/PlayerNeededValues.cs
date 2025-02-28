@@ -231,7 +231,7 @@ public class PlayerNeededValues : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector); 
         IsRolling= false;
         extraRollingWait = true;
-        yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
+        yield return new WaitForSecondsRealtime(0.175f * PlayerController.animatorTimeVector);
         extraRollingWait= false;
     }
 

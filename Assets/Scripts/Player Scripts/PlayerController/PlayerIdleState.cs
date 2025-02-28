@@ -17,7 +17,7 @@ public class PlayerIdleState : IState
     public void Update()
     {
         //Going Back To GroundedState
-        if (!PlayerNeededValues.IsGroundedPlayer || PlayerNeededValues.MoveInput.x != 0 ) 
+        if (!PlayerNeededValues.IsGroundedPlayer || Mathf.Abs(PlayerNeededValues.MoveInput.x) > 0.15f ) 
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);

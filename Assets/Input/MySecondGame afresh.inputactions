@@ -423,6 +423,17 @@
                 },
                 {
                     "name": "",
+                    "id": "81df5bdb-0bb8-430a-b04b-f05a010accfb",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jumping",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "35d43b01-65f4-4068-aa55-3aff437c9e4a",
                     "path": "<Keyboard>/2",
                     "interactions": "",
@@ -450,6 +461,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "LightAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "447db2b9-9509-4dbe-a752-e57b76b4a5de",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "LightAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
