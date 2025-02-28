@@ -20,22 +20,25 @@ public class TriggerHandler : MonoBehaviour
         
     }
 
-  
-    void OnTriggerStay2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("TriggerStay");
-        if (HasTriggered) return;
         if (collider.gameObject.CompareTag("LightAttack"))
         {
 
             if (GameEvents.gameEvents != null)
             {
                 // receiver, sender, otherCollider, AttackVersion
-                GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject,gameObject,collider,0);
+                GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject, gameObject, collider, 0);
 
             }
-            HasTriggered = true;
+            
         }
+
+    }
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        //Debug.Log("TriggerStay");
+       
         
         
         

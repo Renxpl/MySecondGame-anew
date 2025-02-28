@@ -22,7 +22,7 @@ public class PlayerTakingDmgScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Enter");
+        //Debug.Log("Enter");
         if (collider.gameObject.tag == "EnemyDodgeableAttack")
         {
             if (GameEvents.gameEvents != null)

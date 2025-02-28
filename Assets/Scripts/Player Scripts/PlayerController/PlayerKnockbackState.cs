@@ -37,7 +37,7 @@ public class PlayerKnockbackState : IState
     public void Exit()
     {
 
-        CommandHandler.StartNext();
+        CommandHandler.ResetNext();
 
     }
 }

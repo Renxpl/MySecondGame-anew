@@ -54,7 +54,7 @@
                     "name": "Parry",
                     "type": "Value",
                     "id": "aa65995a-c9ca-45c9-88db-c7ab17e96643",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

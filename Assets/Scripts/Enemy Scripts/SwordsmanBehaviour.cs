@@ -45,12 +45,12 @@ public class SwordsmanBehaviour : EnemyMain
         isAttacking = true;
         isTurningLocked= true;
         enemyAnimator.Play("Attack1");
-        yield return new WaitForSeconds(0.40f);
+        yield return new WaitForSeconds(0.45f);
         attackCollider.enabled = true;
         GetComponent<Rigidbody2D>().WakeUp();
         yield return new WaitForSeconds(0.15f);
         attackCollider.enabled = false;
-        yield return new WaitForSeconds(0.20f);
+        yield return new WaitForSeconds(0.15f);
         isTurningLocked = false;
         isAttacking= false;
     }

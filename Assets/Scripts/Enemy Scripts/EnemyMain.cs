@@ -182,7 +182,7 @@ public abstract class EnemyMain : MonoBehaviour
             if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
             StartCoroutine(TurningColorRed());
             HP--;
-            Debug.Log("Enemy HP:"+HP);
+            //Debug.Log("Enemy HP:"+HP);
 
 
         }

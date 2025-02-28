@@ -16,7 +16,7 @@ public static class CommandHandler
         }
         else if (PlayerNeededValues.IsHeavyAttack)
         {
-            if (PlayerNeededValues.IsRolling)
+            if (PlayerNeededValues.IsRolling && !PlayerNeededValues.IsKnocbacking)
             {
                 command?.Execute();
             }
@@ -24,7 +24,7 @@ public static class CommandHandler
         }
         else if (PlayerNeededValues.IsLightAttack)
         {
-            if (PlayerNeededValues.IsRolling)
+            if (PlayerNeededValues.IsRolling && !PlayerNeededValues.IsKnocbacking && !PlayerNeededValues.IsDuringAttack)
             {
                 command?.Execute();
             }
@@ -38,6 +38,7 @@ public static class CommandHandler
         else
         {
             //Debug.Log("1");
+            if(!PlayerNeededValues.IsKnocbacking)
             command?.Execute();
         }
 
