@@ -18,7 +18,7 @@ public class PlayerTakingDmgScript : MonoBehaviour
     {
         
     }
-
+   
     private void OnTriggerStay2D(Collider2D collider)
     {
         Debug.Log("OnTriggerStay Started");

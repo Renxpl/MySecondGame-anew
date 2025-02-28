@@ -19,10 +19,10 @@ TagManager:
   - Player
   - Enemy
   - Ground
-  - 
-  - 
-  - 
-  - 
+  - PlayerLightAttack
+  - EnemyAttack
+  - PlayerGetDmgLayer
+  - EnemyGetDmgLayer
   - 
   - 
   - 

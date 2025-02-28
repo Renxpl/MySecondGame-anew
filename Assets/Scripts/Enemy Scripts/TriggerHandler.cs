@@ -20,10 +20,7 @@ public class TriggerHandler : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("TriggerEnter");
-    }
+  
     void OnTriggerStay2D(Collider2D collider)
     {
         Debug.Log("TriggerStay");
@@ -47,10 +44,7 @@ public class TriggerHandler : MonoBehaviour
 
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Debug.Log("TriggerExit");
-    }
+   
 
     void EndAttack(GameObject sender)
     {

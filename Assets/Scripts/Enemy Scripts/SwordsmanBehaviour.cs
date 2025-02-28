@@ -34,7 +34,6 @@ public class SwordsmanBehaviour : EnemyMain
             StopCoroutine(attacking);
             isTurningLocked = false;
             isAttacking = false;
-            GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
             attackCollider.enabled = false;
         }
         attacking = StartCoroutine(Attacking());
