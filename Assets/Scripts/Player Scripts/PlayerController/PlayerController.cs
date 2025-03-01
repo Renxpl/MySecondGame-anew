@@ -77,6 +77,10 @@ public class PlayerController : MonoBehaviour
 
         if (Time.timeScale < 1f)
         {
+
+            PlayerRB.gravityScale = 20f;
+            PlayerRB.drag = 2f;
+
             if (PlayerNeededValues.IsLightAttack)
             {
                 animatorTimeVector = animationTimeVector * (1f/PlayerNeededValues.AttackSpeed);
@@ -93,6 +97,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            PlayerRB.gravityScale = 8;
+            PlayerRB.drag = 5f;
             if (PlayerNeededValues.IsLightAttack)
             {
 
