@@ -131,7 +131,7 @@ public abstract class EnemyMain : MonoBehaviour
         if(!isKnockbacking && !isAttacking) Following();
 
 
-        if(HP == 0)
+        if(HP <= 0)
         {
             gameObject.SetActive(false);
         }
@@ -208,7 +208,7 @@ public abstract class EnemyMain : MonoBehaviour
         enemyRb.velocity = new Vector2(0f, 0f);
         //will play stagger in future
         isInStagger = true;
-        enemyAnimator.Play("Idle");
+        enemyAnimator.Play("Staggering");
         yield return new WaitForSeconds(1.5f);
         isInStagger = false;
         stance = 3;
