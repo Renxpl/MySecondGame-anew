@@ -301,6 +301,10 @@ public class PlayerNeededValues : MonoBehaviour
         if (IsGroundedPlayer && Stamina >= 3)
         {
             //Debug.Log("HeavyAttack");
+            if(IsRolling || extraRollingWait)
+            {
+                LightAttackNumber = 5;
+            }
             CommandHandler.HandleCommand(lightAttackInput);
             //Debug.Log(heavyAttackInput);
 
@@ -310,6 +314,7 @@ public class PlayerNeededValues : MonoBehaviour
     }
     public void LightAttackExecution()
     {
+        
         lightAttackCoroutine=StartCoroutine(LightAttack(LightAttackNumber));
         
     }
@@ -405,20 +410,21 @@ public class PlayerNeededValues : MonoBehaviour
 
         else if (LightAttackNumber >= 5)
         {
-           
+
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
-            IsDuringAttack = true;
+
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+            IsDuringAttack = true;
             CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
             if (ComboCounter < 60) ComboCounter++;
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
-            GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
-            IsDuringAttack= false;
-            LightAttackNumber= 1;
+            IsDuringAttack = false;
+            LightAttackNumber = 1;
             PlayerGrAttackState.sw = false;
             IsLightAttack = false;
         }
@@ -560,6 +566,10 @@ public class PlayerNeededValues : MonoBehaviour
         {
             LightAttackNumber++;
         }
+    }
+    public static void SetLightAttackNumber(int number)
+    {
+        LightAttackNumber = number;
     }
     public static void ResetStamina()
     {

@@ -121,7 +121,7 @@ public class PlayerGrAttackState : IState
             else if (PlayerNeededValues.LightAttackNumber == 5)
             {
                 PlayerController.ChangeAnimationState("LightAttack5");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 50f * factor, ForceMode2D.Impulse);
                 
             }
             //PlayerNeededValues.DecreaseStamina(3);

@@ -27,6 +27,7 @@ public abstract class EnemyMain : MonoBehaviour
     protected bool isKnockbacking = false;
     protected bool isAttacking = false;
     protected bool isTurningLocked = false;
+    protected bool isInStagger = false;
     protected static string currentAnimation ="";
     protected static Animator enemyAnimator;
     protected Coroutine moving;
@@ -35,7 +36,7 @@ public abstract class EnemyMain : MonoBehaviour
     protected Color baseColor;
     [SerializeField]protected Color onDmgColor;
 
-    protected float HP = 10;
+    protected float HP;
     protected virtual void Start()
     {
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
@@ -181,8 +182,9 @@ public abstract class EnemyMain : MonoBehaviour
             stance--;
             if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
             StartCoroutine(TurningColorRed());
-            HP--;
-            //Debug.Log("Enemy HP:"+HP);
+            if (!isInStagger) HP--;
+            else HP -= 2;
+            Debug.Log("Enemy HP:"+HP);
 
 
         }
@@ -204,6 +206,11 @@ public abstract class EnemyMain : MonoBehaviour
         transform.localScale = new Vector2(Mathf.Sign(-PlayerController.forward.x),transform.localScale.y);
         yield return new WaitForSeconds(knockbackDuration);
         enemyRb.velocity = new Vector2(0f, 0f);
+        //will play stagger in future
+        isInStagger = true;
+        enemyAnimator.Play("Idle");
+        yield return new WaitForSeconds(1.5f);
+        isInStagger = false;
         stance = 3;
         isKnockbacking = false;
         

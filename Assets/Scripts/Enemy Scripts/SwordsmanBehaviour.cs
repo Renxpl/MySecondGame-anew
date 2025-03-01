@@ -9,6 +9,7 @@ public class SwordsmanBehaviour : EnemyMain
     {
         base.Start();
         attackCollider.enabled = false;
+        HP = 9;
     }
     protected override void Update()
     {
