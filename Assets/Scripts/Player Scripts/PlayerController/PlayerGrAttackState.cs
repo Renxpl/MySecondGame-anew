@@ -36,23 +36,6 @@ public class PlayerGrAttackState : IState
             factor = 1f;
         }
         //Debug.Log("In Heavy Attack ");
-        if (PlayerNeededValues.IsSheating)
-        {
-            PlayerController.ChangeAnimationState("Sheating1");
-            PlayerNeededValues.ResetAttackNumber(0);
-            PlayerNeededValues.ResetAttackNumber(1);
-            PlayerNeededValues.ResetStamina();
-            return;
-        }
-        else if (PlayerNeededValues.IsUnsheating)
-        {
-           
-            PlayerController.ChangeAnimationState("Unsheating");
-            PlayerNeededValues.ResetAttackNumber(0);
-            PlayerNeededValues.ResetAttackNumber(1);
-            PlayerNeededValues.ResetStamina();
-            return;
-        }
         
 
         if (PlayerNeededValues.IsSpecialAttack && !sw)
@@ -65,10 +48,7 @@ public class PlayerGrAttackState : IState
 
         else if (PlayerNeededValues.IsHeavyAttack && !sw)
         {
-            if (PlayerNeededValues.LightAttackNumber == 2 && PlayerNeededValues.AttackNumber == 2)
-            {
-                PlayerNeededValues.IncreaseAttackNumber(0);
-            }
+            
             if (PlayerNeededValues.AttackNumber == 1)
             {
                 //Debug.Log("Playing Heavy Attack 1");
@@ -86,9 +66,7 @@ public class PlayerGrAttackState : IState
                 PlayerController.ChangeAnimationState("HeavyAttack3");
                 PlayerController.PlayerRB.AddForce(PlayerController.forward * 300f*factor, ForceMode2D.Impulse);
             }
-            PlayerNeededValues.DecreaseStamina(5);
             sw = true;
-            PlayerNeededValues.IncreaseAttackNumber(0);
             permissionforLA = true; permissionforHA = false;
             //Debug.Log(PlayerNeededValues.LightAttackNumber);
             //Debug.Log(PlayerNeededValues.Stamina);
@@ -153,7 +131,6 @@ public class PlayerGrAttackState : IState
         
         if (PlayerNeededValues.heavyAttackInput == CommandHandler.ShowNext())
         {
-            if(permissionforHA) PlayerNeededValues.AdjustAttackNumber(0);
             if (PlayerNeededValues.Stamina < 5)
             {
                 PlayerNeededValues.ResetAttackNumber(0);
@@ -165,7 +142,6 @@ public class PlayerGrAttackState : IState
         }
         else if (PlayerNeededValues.lightAttackInput == CommandHandler.ShowNext())
         {
-            if(permissionforLA) PlayerNeededValues.AdjustAttackNumber(1);
             
             if (PlayerNeededValues.Stamina < 3)
             {

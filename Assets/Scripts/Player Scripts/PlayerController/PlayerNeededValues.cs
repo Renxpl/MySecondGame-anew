@@ -166,19 +166,15 @@ public class PlayerNeededValues : MonoBehaviour
         }
         else if(ComboCounter < 20)
         {
-            AttackSpeed = 1.1f;
+            AttackSpeed = 1.15f;
         }
         else if (ComboCounter < 30)
-        {
-            AttackSpeed = 1.22f;
-        }
-        else if (ComboCounter < 40)
         {
             AttackSpeed = 1.35f;
         }
         else
         {
-            AttackSpeed = 1.5f;
+            AttackSpeed = 1.6f;
         }
 
         
@@ -335,7 +331,7 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            if (ComboCounter < 60) ComboCounter++;
+            if (ComboCounter < 30) ComboCounter++;
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
@@ -357,7 +353,7 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            if (ComboCounter < 60) ComboCounter++;
+            if (ComboCounter < 30) ComboCounter++;
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
@@ -379,7 +375,7 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            if (ComboCounter < 60) ComboCounter++;
+            if (ComboCounter < 30) ComboCounter++;
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
@@ -397,7 +393,7 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
-            if (ComboCounter < 60) ComboCounter++;
+            if (ComboCounter < 30) ComboCounter++;
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
@@ -419,7 +415,7 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            if (ComboCounter < 60) ComboCounter++;
+            if (ComboCounter < 30) ComboCounter++;
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
@@ -453,67 +449,53 @@ public class PlayerNeededValues : MonoBehaviour
     }
     IEnumerator HeavyAttack(int count)
     {
-        //Debug.Log("In Coroutine");
-        if (AttackNumber == 1)
+        //Debug.Log("In Coroutine");,
+        if (ComboCounter < 10)
+        {
+            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector);
+        }
+        else if (ComboCounter <20)
         {
             IsHeavyAttack = true;
-            
+            AttackNumber = 1;
             //Debug.Log("AttackNUmber1");
             yield return new WaitForSecondsRealtime(0.1f* PlayerController.animatorTimeVector);
-            PlayerGrAttackState.isLeaping = true;
+            
             IsDuringAttack= true;
             yield return new WaitForSecondsRealtime(0.4f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
             PlayerGrAttackState.sw = false;
-            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
-            {
-                IsSheating = true;
-                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
-                CommandHandler.ResetNext();
-                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
-                IsSheating = false;
-            }
-            IsHeavyAttack = false;
-        }
-        else if (AttackNumber == 2)
-        {
             
+            IsHeavyAttack = false;
+            ComboCounter = 0;
+        }
+        else if (ComboCounter < 30)
+        {
 
+            AttackNumber = 2;
             IsHeavyAttack = true;
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
             IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.483f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
             PlayerGrAttackState.sw = false;
-            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
-            {
-                IsSheating = true;
-                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
-                CommandHandler.ResetNext();
-                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
-                IsSheating = false;
-            }
+            
             IsHeavyAttack = false;
+            ComboCounter = 0;
         }
 
-        else if (AttackNumber >= 3)
+        else if (ComboCounter < 40)
         {
-           
+            AttackNumber = 3;
             IsHeavyAttack = true;
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
             IsDuringAttack= true;
-            yield return new WaitForSecondsRealtime(0.317f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.65f * PlayerController.animatorTimeVector);
             IsDuringAttack= false;
             PlayerGrAttackState.sw = false;
-            if (heavyAttackInput != CommandHandler.ShowNext() && lightAttackInput != CommandHandler.ShowNext() && specialAttackInput != CommandHandler.ShowNext())
-            {
-                IsSheating = true;
-                yield return new WaitForSeconds(0.2f * PlayerController.animatorTimeVector);
-                CommandHandler.ResetNext();
-                yield return new WaitForSeconds(0.217f * PlayerController.animatorTimeVector);
-                IsSheating = false;
-            }
+            
             IsHeavyAttack = false;
+            ComboCounter = 0;
         }
         
     }
