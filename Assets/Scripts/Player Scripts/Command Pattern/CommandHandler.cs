@@ -14,6 +14,14 @@ public static class CommandHandler
             next = command;
 
         }
+        else if (PlayerNeededValues.IsSpecialAttack)
+        {
+            if (PlayerNeededValues.IsRolling && !PlayerNeededValues.IsKnocbacking && !PlayerNeededValues.IsDuringAttack)
+            {
+                command?.Execute();
+            }
+            else next = command;
+        }
         else if (PlayerNeededValues.IsHeavyAttack)
         {
             if (PlayerNeededValues.IsRolling && !PlayerNeededValues.IsKnocbacking && !PlayerNeededValues.IsDuringAttack)

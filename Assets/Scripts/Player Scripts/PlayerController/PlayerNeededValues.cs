@@ -18,6 +18,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static PlayerGrAttackState GrAttackState { get; private set; }
     public static PlayerKnockbackState playerKbState { get; private set; }
     public static PlayerKnockbackState playerParryState { get; private set; }
+    public static PlayerAirborneAttackState playerAAstate { get; private set; }
 
     public static bool IsGroundedPlayer { get; private set; }
     public static bool CanDoActionDuringJump { get; private set; }
@@ -43,6 +44,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsDuringAttack { get; private set; }
     public static int ComboCounter { get; private set; }
     public static float AttackSpeed { get; private set; }
+    public static bool IsAirborneAttack { get; set; }
 
     public static LayerMask groundLayer;
     public static GameObject player;
@@ -70,6 +72,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static int LightAttackNumber { get; private set; }
     public static int SpecialAttackNumber { get; private set; }
     public static int Stamina { get; private set; }
+    public static bool IsHitting { get;  set; }
     //next input will be handled by bools
     [SerializeField] float knockbackDuration;
     [SerializeField] Collider2D lightAttackCollider;
@@ -79,7 +82,9 @@ public class PlayerNeededValues : MonoBehaviour
     Coroutine rollingCoroutine;
     Coroutine resettingAttack;
     Coroutine resettingCombo;
+    bool isHittingLocker;
 
+    
     void Awake()
     {
         GroundedStateForPlayer = new PlayerGroundedState();
@@ -96,6 +101,7 @@ public class PlayerNeededValues : MonoBehaviour
         specialAttackInput = new SpecialAttackInput();
         rollInput = new RollInput();
         playerKbState = new PlayerKnockbackState();
+        playerAAstate = new PlayerAirborneAttackState();
     }
 
     // Start is called before the first frame update
@@ -177,9 +183,27 @@ public class PlayerNeededValues : MonoBehaviour
             AttackSpeed = 1.6f;
         }
 
-        
+        if (IsHitting)
+        {
+
+
+            if (!isHittingLocker)
+            {
+                StartCoroutine(ComboIncrement());
+                IsHitting = false;
+                if(ComboCounter < 30) ComboCounter++;
+            }
+
+
+        }
+
     }
-    
+    IEnumerator ComboIncrement()
+    {
+        isHittingLocker= true;
+        yield return new WaitForSeconds(0.15f);
+        isHittingLocker = false;
+    }
 
     void OnMove(InputValue input)
     {
@@ -294,7 +318,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnLightAttack()
     {
-        if (IsGroundedPlayer && Stamina >= 3)
+        if (IsGroundedPlayer)
         {
             //Debug.Log("HeavyAttack");
             if(IsRolling || extraRollingWait)
@@ -303,6 +327,12 @@ public class PlayerNeededValues : MonoBehaviour
             }
             CommandHandler.HandleCommand(lightAttackInput);
             //Debug.Log(heavyAttackInput);
+
+        }
+        else
+        {
+            IsAirborneAttack = true;
+
 
         }
 
@@ -331,7 +361,7 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            if (ComboCounter < 30) ComboCounter++;
+       
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
@@ -353,7 +383,7 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            if (ComboCounter < 30) ComboCounter++;
+         
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
@@ -375,7 +405,7 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            if (ComboCounter < 30) ComboCounter++;
+           
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
@@ -393,7 +423,6 @@ public class PlayerNeededValues : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             CommandHandler.ResetNext();
             lightAttackCollider.enabled = true;
-            if (ComboCounter < 30) ComboCounter++;
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
@@ -415,7 +444,7 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            if (ComboCounter < 30) ComboCounter++;
+           
             yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
@@ -426,6 +455,8 @@ public class PlayerNeededValues : MonoBehaviour
         }
     }
 
+
+   
 
     void OnHeavyAttack()
     {
@@ -579,7 +610,10 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnSpecialAttack()
     {
-        //CommandHandler.HandleCommand(new SpecialAttackInput());
+        if (IsGroundedPlayer)
+        {
+            CommandHandler.HandleCommand(new SpecialAttackInput());
+        }
     }
 
     public void SpecialAttackExecution()
@@ -590,7 +624,10 @@ public class PlayerNeededValues : MonoBehaviour
     IEnumerator SpecialAttack(int number)
     {
         IsSpecialAttack= true;
-        yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector);
+        IsDuringAttack = true;
+        yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
+        IsDuringAttack = false;
+        PlayerGrAttackState.sw = false;
         IsSpecialAttack= false;
 
 

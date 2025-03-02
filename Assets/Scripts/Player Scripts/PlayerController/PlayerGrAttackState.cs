@@ -40,9 +40,9 @@ public class PlayerGrAttackState : IState
 
         if (PlayerNeededValues.IsSpecialAttack && !sw)
         {
-            Debug.Log("Special Attack");
-            PlayerNeededValues.DecreaseStamina(15);
+            //Debug.Log("Special Attack");
             sw = true;
+            PlayerController.ChangeAnimationState("SpecialAttack");
             permissionforLA = false; permissionforHA = false;
         }
 

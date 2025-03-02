@@ -27,7 +27,14 @@ public class PlayerAirborneState :IState
             return;
 
         }
-        if (PlayerNeededValues.IsKnocbacking)
+
+        if (PlayerNeededValues.IsAirborneAttack)
+        {
+            PlayerController.playerSM.ChangeState(PlayerNeededValues.playerAAstate);
+            return;
+        }
+
+        else if (PlayerNeededValues.IsKnocbacking)
         {
             PlayerController.playerSM.ChangeState(PlayerNeededValues.playerKbState);
             return;

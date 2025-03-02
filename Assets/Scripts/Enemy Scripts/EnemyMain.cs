@@ -185,6 +185,9 @@ public abstract class EnemyMain : MonoBehaviour
             if (!isInStagger) HP--;
             else HP -= 2;
             Debug.Log("Enemy HP:"+HP);
+            
+            if(PlayerNeededValues.IsLightAttack)PlayerNeededValues.IsHitting= true;
+
 
 
         }
