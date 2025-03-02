@@ -33,6 +33,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsWindAura { get; private set; }
     public static int HP { get; private set; }
     public static int Stance { get; private set; }
+    public static bool SwitchAACollider { get; set; }
 
     public static bool IsHeavyAttack { get; private set; }
     public static bool IsLightAttack { get; private set; }
@@ -75,7 +76,13 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsHitting { get;  set; }
     //next input will be handled by bools
     [SerializeField] float knockbackDuration;
+    [Header("Colliders")]
     [SerializeField] Collider2D lightAttackCollider;
+    [SerializeField] Collider2D HA1Collider;
+    [SerializeField] Collider2D HA2Collider;
+    [SerializeField] Collider2D HA3Collider;
+    [SerializeField] Collider2D SACollider;
+    [SerializeField] Collider2D AACollider;
 
     Coroutine lightAttackCoroutine;
     Coroutine heavyAttackCoroutine;
@@ -117,6 +124,11 @@ public class PlayerNeededValues : MonoBehaviour
         MoveInput = new Vector2();
         RollInput = new Vector2();
         lightAttackCollider.enabled = false;
+        HA1Collider.enabled = false;
+        HA2Collider.enabled = false;
+        HA3Collider.enabled = false;
+        SACollider.enabled = false;
+        AACollider.enabled = false;
         HP = 10;
         Stance = 5;
         
@@ -196,6 +208,21 @@ public class PlayerNeededValues : MonoBehaviour
 
 
         }
+
+        if (SwitchAACollider)
+        {
+            if (AACollider.enabled)
+            {
+                AACollider.enabled = false;
+            }
+            else
+            {
+                AACollider.enabled = true;
+            }
+            SwitchAACollider= false;
+        }
+
+
 
     }
     IEnumerator ComboIncrement()
@@ -332,12 +359,14 @@ public class PlayerNeededValues : MonoBehaviour
         else
         {
             IsAirborneAttack = true;
-
+            SwitchAACollider = true;
 
         }
 
 
     }
+
+   
     public void LightAttackExecution()
     {
         
@@ -488,13 +517,16 @@ public class PlayerNeededValues : MonoBehaviour
         else if (ComboCounter <20)
         {
             IsHeavyAttack = true;
+            IsDuringAttack = true;
             AttackNumber = 1;
+            CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
+            HA1Collider.enabled = true;
             //Debug.Log("AttackNUmber1");
-            yield return new WaitForSecondsRealtime(0.1f* PlayerController.animatorTimeVector);
-            
-            IsDuringAttack= true;
-            yield return new WaitForSecondsRealtime(0.4f * PlayerController.animatorTimeVector);
-            IsDuringAttack= false;
+
+            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
+            HA1Collider.enabled = false;
+            IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
             
             IsHeavyAttack = false;
@@ -505,10 +537,15 @@ public class PlayerNeededValues : MonoBehaviour
 
             AttackNumber = 2;
             IsHeavyAttack = true;
-            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
             IsDuringAttack = true;
-            yield return new WaitForSecondsRealtime(0.483f * PlayerController.animatorTimeVector);
-            IsDuringAttack= false;
+            CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
+            HA1Collider.enabled = true;
+
+    
+            yield return new WaitForSecondsRealtime(0.583f * PlayerController.animatorTimeVector);
+            HA1Collider.enabled = false;
+            IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
             
             IsHeavyAttack = false;
@@ -519,10 +556,14 @@ public class PlayerNeededValues : MonoBehaviour
         {
             AttackNumber = 3;
             IsHeavyAttack = true;
-            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+           
             IsDuringAttack= true;
-            yield return new WaitForSecondsRealtime(0.65f * PlayerController.animatorTimeVector);
-            IsDuringAttack= false;
+            CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
+            HA1Collider.enabled = true;
+            yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
+            HA1Collider.enabled = false;
+            IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
             
             IsHeavyAttack = false;
@@ -625,7 +666,9 @@ public class PlayerNeededValues : MonoBehaviour
     {
         IsSpecialAttack= true;
         IsDuringAttack = true;
+        SACollider.enabled = true;
         yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
+        SACollider.enabled = false;
         IsDuringAttack = false;
         PlayerGrAttackState.sw = false;
         IsSpecialAttack= false;

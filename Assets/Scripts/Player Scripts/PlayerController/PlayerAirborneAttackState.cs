@@ -18,7 +18,8 @@ public class PlayerAirborneAttackState : IState
         {
             PlayerController.PlayerRB.velocity = Vector2.zero;
             PlayerNeededValues.IsAirborneAttack = false;
-            PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
+            PlayerNeededValues.SwitchAACollider = true;
+            PlayerController.playerSM.ChangeState(PlayerNeededValues.AirborneStateForPlayer);
 
 
             return;
