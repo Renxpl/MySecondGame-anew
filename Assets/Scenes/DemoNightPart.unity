@@ -10853,8 +10853,8 @@ PolygonCollider2D:
     - - {x: 1.716896, y: 1.2354703}
       - {x: 0.16757673, y: 1.3944448}
       - {x: -0.056432188, y: -0.7251197}
-      - {x: 10.786648, y: -1.0050237}
-      - {x: 11.083308, y: 0.8560296}
+      - {x: 10.640925, y: -1.0778847}
+      - {x: 10.719003, y: 0.9288906}
       - {x: 9.601391, y: 1.1758521}
 --- !u!4 &617683283
 Transform:
@@ -11801,7 +11801,7 @@ SpriteRenderer:
   m_SortingLayerID: 722697965
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: -720099784, guid: 7647ef02264561c4c8b9d1048d89e884, type: 3}
+  m_Sprite: {fileID: 205462686, guid: 9afd515c91fd9544687eb97b84b8a709, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

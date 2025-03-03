@@ -38,7 +38,7 @@ public class CameraBehaviour : MonoBehaviour
     void LateUpdate()
     {
         
-        targetPosition = new Vector3(toFollow.transform.position.x + 2, toFollow.transform.position.y + 3, this.transform.position.z);
+        targetPosition = new Vector3(toFollow.transform.position.x, toFollow.transform.position.y + 3, this.transform.position.z);
 
         transform.position = targetPosition;
 
