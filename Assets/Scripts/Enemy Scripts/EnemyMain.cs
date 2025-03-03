@@ -28,8 +28,8 @@ public abstract class EnemyMain : MonoBehaviour
     protected bool isAttacking = false;
     protected bool isTurningLocked = false;
     protected bool isInStagger = false;
-    protected static string currentAnimation ="";
-    protected static Animator enemyAnimator;
+    protected string currentAnimation ="";
+    protected Animator enemyAnimator;
     protected Coroutine moving;
     protected Coroutine attacking;
 
@@ -172,21 +172,49 @@ public abstract class EnemyMain : MonoBehaviour
 
     protected abstract void AttackMode();
 
-    protected virtual void TakingDamage(GameObject receiver, GameObject sender, Collider2D otherCollider, int attakVer)
+    protected virtual void TakingDamage(GameObject receiver, GameObject sender, Collider2D otherCollider, int attackVer)
     {
         if(receiver == gameObject)
         {
+            //for light attacks
+            if(attackVer == 0)
+            {
+                stance--;
+                if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
+                StartCoroutine(TurningColorRed());
+                if (!isInStagger) HP--;
+                else HP -= 2;
+                Debug.Log("Enemy HP:" + HP);
 
-            //Debug.Log("GettingDmg");
+                if (PlayerNeededValues.IsLightAttack) PlayerNeededValues.IsHitting = true;
+            }
+            //for AA
+            else if(attackVer == 1)
+            {
 
-            stance--;
-            if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
-            StartCoroutine(TurningColorRed());
-            if (!isInStagger) HP--;
-            else HP -= 2;
-            Debug.Log("Enemy HP:"+HP);
+            }
+           
+            //for HA1
+            else if (attackVer == 10)
+            {
+
+            }
             
-            if(PlayerNeededValues.IsLightAttack)PlayerNeededValues.IsHitting= true;
+            //for HA2
+            else if (attackVer == 11)
+            {
+
+            }
+            //forHA3
+            else if (attackVer == 12)
+            {
+
+            }
+            //for SA1
+            else if(attackVer == 20)
+            {
+
+            }
 
 
 
@@ -221,7 +249,7 @@ public abstract class EnemyMain : MonoBehaviour
     }
 
 
-    public static void ChangeAnimationState(string newAnimation)
+    public void ChangeAnimationState(string newAnimation)
     {
         if (currentAnimation == newAnimation) return;
 

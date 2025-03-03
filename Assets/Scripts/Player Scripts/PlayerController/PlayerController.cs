@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     {
        
         playerSM?.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
-        Debug.Log("Ground state started");
+       // Debug.Log("Ground state started");
         forward = new Vector2(transform.localScale.x,0f);
         startTimeScale = Time.timeScale;
         startFixedDeltaTime = Time.fixedDeltaTime;

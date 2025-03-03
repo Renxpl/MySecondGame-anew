@@ -7,8 +7,12 @@ TagManager:
   - LightAttack
   - EnemyDodgeableAttack
   - Ground
-  - HeavyAttack
   - Enemy
+  - HeavyAttack1
+  - HeavyAttack2
+  - HeavyAttack3
+  - SpecialAttack1
+  - AirborneAttack
   layers:
   - Default
   - TransparentFX

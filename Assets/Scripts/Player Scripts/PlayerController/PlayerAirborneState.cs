@@ -50,14 +50,14 @@ public class PlayerAirborneState :IState
         {
             PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerNeededValues.JumpSpeed);
             PlayerController.ChangeAnimationState("JumpingUp");
-           if (a % 2 == 0 ) { Debug.Log("azalma"); a++;  }
+           if (a % 2 == 0 ) { a++;  }
 
         }
         else
         {
             PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
             PlayerController.ChangeAnimationState("JumpingDown");
-           if (a % 2 == 1) { Debug.Log("korunma"); a++; CommandHandler.ResetNext(); }
+           if (a % 2 == 1) { a++; CommandHandler.ResetNext(); }
             
 
         }
