@@ -10850,12 +10850,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.5381165, y: 1.7271107}
-      - {x: 0.16757673, y: 1.707307}
+    - - {x: 1.716896, y: 1.2354703}
+      - {x: 0.16757673, y: 1.3944448}
       - {x: -0.056432188, y: -0.7251197}
-      - {x: 9.177644, y: -0.82624555}
-      - {x: 9.072053, y: 0.6325568}
-      - {x: 8.930972, y: 1.6227978}
+      - {x: 10.786648, y: -1.0050237}
+      - {x: 11.083308, y: 0.8560296}
+      - {x: 9.601391, y: 1.1758521}
 --- !u!4 &617683283
 Transform:
   m_ObjectHideFlags: 0
@@ -11801,7 +11801,7 @@ SpriteRenderer:
   m_SortingLayerID: 722697965
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1938887621, guid: b4a7b60dab057c94d95da782b3b6cb15, type: 3}
+  m_Sprite: {fileID: -720099784, guid: 7647ef02264561c4c8b9d1048d89e884, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11893,7 +11893,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16, y: 8}
+    oldSize: {x: 32, y: 8}
     newSize: {x: 1.28, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

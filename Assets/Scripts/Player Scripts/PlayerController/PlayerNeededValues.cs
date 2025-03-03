@@ -216,7 +216,7 @@ public class PlayerNeededValues : MonoBehaviour
             SwitchAACollider= false;
         }
 
-        if (ComboCounter < 30) ComboCounter++;
+       // if (ComboCounter < 30) ComboCounter++;
 
     }
 

@@ -331,7 +331,7 @@ public abstract class EnemyMain : MonoBehaviour
             StopCoroutine(HA3Attack);
             HA3Attack = null;
         }
-        enemyRb.MovePosition(new Vector2(player.transform.position.x + (Mathf.Sign(PlayerController.forward.x) * 7f), enemyRb.transform.position.y));
+        enemyRb.MovePosition(new Vector2(player.transform.position.x + (Mathf.Sign(PlayerController.forward.x) * 12f), enemyRb.transform.position.y));
         GetComponent<SpriteRenderer>().color = onDmgColor;
         yield return new WaitForSeconds(0.15f);
         
