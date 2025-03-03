@@ -37,6 +37,9 @@ public abstract class EnemyMain : MonoBehaviour
     [SerializeField]protected Color onDmgColor;
 
     protected float HP;
+
+    Coroutine SA1Attack;
+    Coroutine HA3Attack;
     protected virtual void Start()
     {
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
@@ -180,11 +183,11 @@ public abstract class EnemyMain : MonoBehaviour
             if(attackVer == 0)
             {
                 stance--;
-                if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
+                if (!isKnockbacking && stance <= 0) StartCoroutine(KnockBacking());
                 StartCoroutine(TurningColorRed());
                 if (!isInStagger) HP--;
                 else HP -= 2;
-                Debug.Log("Enemy HP:" + HP);
+                Debug.Log("attack0");
 
                 if (PlayerNeededValues.IsLightAttack) GameEvents.gameEvents.OnPlayerComboIncrement();
             }
@@ -192,11 +195,11 @@ public abstract class EnemyMain : MonoBehaviour
             else if(attackVer == 1)
             {
                 stance--;
-                if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
+                if (!isKnockbacking && stance <= 0) StartCoroutine(KnockBacking());
                 StartCoroutine(TurningColorRed());
                 if (!isInStagger) HP--;
                 else HP -= 2;
-                Debug.Log("Enemy HP:" + HP);
+                Debug.Log("attack1");
 
                 if (PlayerNeededValues.IsAirborneAttack) GameEvents.gameEvents.OnPlayerComboIncrement();
             }
@@ -205,11 +208,11 @@ public abstract class EnemyMain : MonoBehaviour
             else if (attackVer == 10)
             {
                 stance-=2;
-                if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
+                if (!isKnockbacking && stance <= 0) StartCoroutine(KnockBacking());
                 StartCoroutine(TurningColorRed());
                 if (!isInStagger) HP-=2;
                 else HP -= 4;
-                Debug.Log("Enemy HP:" + HP);
+                Debug.Log("attack10");
 
             }
             
@@ -217,20 +220,36 @@ public abstract class EnemyMain : MonoBehaviour
             else if (attackVer == 11)
             {
                 stance -= 3;
-                if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
+                if (!isKnockbacking && stance <= 0) StartCoroutine(KnockBacking());
                 StartCoroutine(TurningColorRed());
                 if (!isInStagger) HP -= 3;
                 else HP -= 6;
-                Debug.Log("Enemy HP:" + HP);
+                Debug.Log("attack11");
             }
             //forHA3
             else if (attackVer == 12)
             {
+                stance -= 4;
+                HA3Attack= StartCoroutine(HA3KnockBacking());
+                
+                if (!isInStagger) HP -= 4;
+                else HP -= 8;
+                Debug.Log("attack12");
+
+
 
             }
             //for SA1
             else if(attackVer == 20)
             {
+
+                stance -= 6;
+                SA1Attack= StartCoroutine(SA1KnockBacking());
+                
+                if (!isInStagger) HP -= 6;
+                else HP -= 12;
+                Debug.Log("attack20");
+
 
             }
 
@@ -250,6 +269,7 @@ public abstract class EnemyMain : MonoBehaviour
     {
         
         isKnockbacking = true;
+        
         enemyAnimator.Play("Knockback");
         enemyRb.AddForce(PlayerController.forward * forceFactor, ForceMode2D.Impulse);
         transform.localScale = new Vector2(Mathf.Sign(-PlayerController.forward.x),transform.localScale.y);
@@ -265,6 +285,72 @@ public abstract class EnemyMain : MonoBehaviour
         
 
     }
+    IEnumerator HA3KnockBacking()
+    {
+
+        isKnockbacking = true;
+        
+        enemyAnimator.Play("Knockback");
+        if (SA1Attack != null)
+        {
+            StopCoroutine(SA1Attack);
+            SA1Attack= null;
+        }
+        float counter = 0;
+        while(counter < 1f)
+        {
+            enemyRb.AddForce(Vector2.up * 2.3f, ForceMode2D.Impulse);
+            GetComponent<SpriteRenderer>().color = onDmgColor;
+            yield return new WaitForSeconds(0.15f);
+            GetComponent<SpriteRenderer>().color = baseColor;
+            enemyRb.velocity = Vector2.zero;
+            yield return new WaitForSeconds(0.1f);
+            counter += 0.25f;
+        }
+        
+        
+        
+        //will play stagger in future
+        isInStagger = true;
+        enemyAnimator.Play("Staggering");
+        yield return new WaitForSeconds(2.5f);
+        isInStagger = false;
+        stance = 3;
+        isKnockbacking = false;
+        HA3Attack= null;
+
+
+    }
+    IEnumerator SA1KnockBacking()
+    {
+
+        isKnockbacking = true;
+        enemyAnimator.Play("Knockback");
+        if (HA3Attack != null)
+        {
+            StopCoroutine(HA3Attack);
+            HA3Attack = null;
+        }
+        enemyRb.MovePosition(new Vector2(player.transform.position.x + (Mathf.Sign(PlayerController.forward.x) * 7f), enemyRb.transform.position.y));
+        GetComponent<SpriteRenderer>().color = onDmgColor;
+        yield return new WaitForSeconds(0.15f);
+        
+        enemyRb.velocity = new Vector2(0f, 0f);
+        GetComponent<SpriteRenderer>().color = baseColor;
+        //will play stagger in future
+        isInStagger = true;
+        yield return new WaitForSeconds(0.5f);
+        
+        enemyAnimator.Play("Staggering");
+        yield return new WaitForSeconds(2.5f);
+        isInStagger = false;
+        stance = 3;
+        isKnockbacking = false;
+        SA1Attack = null;
+
+
+    }
+
 
 
     public void ChangeAnimationState(string newAnimation)

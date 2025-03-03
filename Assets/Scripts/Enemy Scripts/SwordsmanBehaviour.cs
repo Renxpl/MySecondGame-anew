@@ -10,6 +10,7 @@ public class SwordsmanBehaviour : EnemyMain
         base.Start();
         attackCollider.enabled = false;
         HP = 9;
+       
     }
     protected override void Update()
     {
@@ -21,7 +22,6 @@ public class SwordsmanBehaviour : EnemyMain
             {
                 StopCoroutine(attacking);
                 attackCollider.enabled = false;
-                GameEvents.gameEvents.OnDisablingAttackCollider(gameObject);
                 isTurningLocked = false;
                 isAttacking = false;
             }

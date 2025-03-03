@@ -216,7 +216,7 @@ public class PlayerNeededValues : MonoBehaviour
             SwitchAACollider= false;
         }
 
-
+        if (ComboCounter < 30) ComboCounter++;
 
     }
 
@@ -544,11 +544,11 @@ public class PlayerNeededValues : MonoBehaviour
             IsDuringAttack = true;
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
-            HA1Collider.enabled = true;
+            HA2Collider.enabled = true;
 
     
             yield return new WaitForSecondsRealtime(0.583f * PlayerController.animatorTimeVector);
-            HA1Collider.enabled = false;
+            HA2Collider.enabled = false;
             IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
             
@@ -564,9 +564,10 @@ public class PlayerNeededValues : MonoBehaviour
             IsDuringAttack= true;
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
-            HA1Collider.enabled = true;
-            yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
-            HA1Collider.enabled = false;
+            HA3Collider.enabled = true;
+            yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
+            HA3Collider.enabled = false;
+            yield return new WaitForSecondsRealtime(0.85f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
             
@@ -670,12 +671,20 @@ public class PlayerNeededValues : MonoBehaviour
     {
         IsSpecialAttack= true;
         IsDuringAttack = true;
+       
+        yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
+        CommandHandler.ResetNext();
+        PlayerController.PlayerRB.WakeUp();
+
         SACollider.enabled = true;
+        
         yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
         SACollider.enabled = false;
         IsDuringAttack = false;
         PlayerGrAttackState.sw = false;
         IsSpecialAttack= false;
+
+
 
 
     }
