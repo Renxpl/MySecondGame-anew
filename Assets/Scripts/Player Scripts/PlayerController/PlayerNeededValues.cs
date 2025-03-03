@@ -89,7 +89,9 @@ public class PlayerNeededValues : MonoBehaviour
     Coroutine rollingCoroutine;
     Coroutine resettingAttack;
     Coroutine resettingCombo;
+    Coroutine comboIncrement;
     bool isHittingLocker;
+    float timeBetweenHits;
 
     
     void Awake()
@@ -131,6 +133,8 @@ public class PlayerNeededValues : MonoBehaviour
         AACollider.enabled = false;
         HP = 10;
         Stance = 5;
+        timeBetweenHits = 0;
+        GameEvents.gameEvents.onComboIncrement += ComboAdjuster;
         
     }
 
@@ -195,19 +199,9 @@ public class PlayerNeededValues : MonoBehaviour
             AttackSpeed = 1.6f;
         }
 
-        if (IsHitting)
-        {
+       
 
-
-            if (!isHittingLocker)
-            {
-                StartCoroutine(ComboIncrement());
-                IsHitting = false;
-                if(ComboCounter < 30) ComboCounter++;
-            }
-
-
-        }
+        
 
         if (SwitchAACollider)
         {
@@ -225,11 +219,21 @@ public class PlayerNeededValues : MonoBehaviour
 
 
     }
+
+    public void ComboAdjuster()
+    {
+
+        if (comboIncrement == null) comboIncrement = StartCoroutine(ComboIncrement());
+
+    }
+
     IEnumerator ComboIncrement()
     {
-        isHittingLocker= true;
-        yield return new WaitForSeconds(0.15f);
-        isHittingLocker = false;
+
+
+        if (ComboCounter < 30) ComboCounter++;
+        yield return new WaitForSeconds(0.2f);
+        comboIncrement = null;
     }
 
     void OnMove(InputValue input)

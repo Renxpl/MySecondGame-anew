@@ -186,24 +186,42 @@ public abstract class EnemyMain : MonoBehaviour
                 else HP -= 2;
                 Debug.Log("Enemy HP:" + HP);
 
-                if (PlayerNeededValues.IsLightAttack) PlayerNeededValues.IsHitting = true;
+                if (PlayerNeededValues.IsLightAttack) GameEvents.gameEvents.OnPlayerComboIncrement();
             }
             //for AA
             else if(attackVer == 1)
             {
+                stance--;
+                if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
+                StartCoroutine(TurningColorRed());
+                if (!isInStagger) HP--;
+                else HP -= 2;
+                Debug.Log("Enemy HP:" + HP);
 
+                if (PlayerNeededValues.IsAirborneAttack) GameEvents.gameEvents.OnPlayerComboIncrement();
             }
            
             //for HA1
             else if (attackVer == 10)
             {
+                stance-=2;
+                if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
+                StartCoroutine(TurningColorRed());
+                if (!isInStagger) HP-=2;
+                else HP -= 4;
+                Debug.Log("Enemy HP:" + HP);
 
             }
             
             //for HA2
             else if (attackVer == 11)
             {
-
+                stance -= 3;
+                if (!isKnockbacking && stance == 0) StartCoroutine(KnockBacking());
+                StartCoroutine(TurningColorRed());
+                if (!isInStagger) HP -= 3;
+                else HP -= 6;
+                Debug.Log("Enemy HP:" + HP);
             }
             //forHA3
             else if (attackVer == 12)

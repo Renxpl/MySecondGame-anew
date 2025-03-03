@@ -20,6 +20,8 @@ public class GameEvents : MonoBehaviour
     public event TimeSlowing onTimeSlow;
     public delegate void DisableAttackCollider(GameObject sender);
     public event DisableAttackCollider onDisablingAC;
+    public delegate void PlayerComboIncrement();
+    public event PlayerComboIncrement onComboIncrement;
     void Awake()
     {
         if(gameEvents == null)
@@ -73,6 +75,13 @@ public class GameEvents : MonoBehaviour
     {
         onDisablingAC?.Invoke(sender);
     }
+
+    public void OnPlayerComboIncrement()
+    {
+        onComboIncrement?.Invoke();
+    }
+
+
 }
 
 
