@@ -230,7 +230,11 @@ public abstract class EnemyMain : MonoBehaviour
             else if (attackVer == 12)
             {
                 stance -= 4;
-                HA3Attack= StartCoroutine(HA3KnockBacking());
+                if (HA3Attack != null)
+                {
+                    StopCoroutine(HA3Attack);
+                }
+                HA3Attack = StartCoroutine(HA3KnockBacking());
                 
                 if (!isInStagger) HP -= 4;
                 else HP -= 8;
@@ -244,8 +248,13 @@ public abstract class EnemyMain : MonoBehaviour
             {
 
                 stance -= 6;
-                SA1Attack= StartCoroutine(SA1KnockBacking());
-                
+                if(SA1Attack != null)
+                {
+                    StopCoroutine(SA1Attack);
+                }
+                SA1Attack = StartCoroutine(SA1KnockBacking());
+
+
                 if (!isInStagger) HP -= 6;
                 else HP -= 12;
                 Debug.Log("attack20");

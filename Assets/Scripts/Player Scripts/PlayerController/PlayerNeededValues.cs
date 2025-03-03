@@ -216,7 +216,7 @@ public class PlayerNeededValues : MonoBehaviour
             SwitchAACollider= false;
         }
 
-       // if (ComboCounter < 30) ComboCounter++;
+       if (ComboCounter < 30) ComboCounter++;
 
     }
 
@@ -562,12 +562,14 @@ public class PlayerNeededValues : MonoBehaviour
             IsHeavyAttack = true;
            
             IsDuringAttack= true;
+            yield return new WaitForSecondsRealtime(0.415f * PlayerController.animatorTimeVector);
+            PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 9, PlayerController.PlayerRB.transform.position.y));
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             HA3Collider.enabled = true;
-            yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
+            
+            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
             HA3Collider.enabled = false;
-            yield return new WaitForSecondsRealtime(0.85f * PlayerController.animatorTimeVector);
             IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
             

@@ -64,7 +64,8 @@ public class PlayerGrAttackState : IState
             else if (PlayerNeededValues.AttackNumber >= 3)
             {
                 PlayerController.ChangeAnimationState("HeavyAttack3");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 300f*factor, ForceMode2D.Impulse);
+                //PlayerController.PlayerRB.AddForce(PlayerController.forward * 300f*factor, ForceMode2D.Impulse);
+                //PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 9, PlayerController.PlayerRB.transform.position.y));
             }
             sw = true;
             permissionforLA = true; permissionforHA = false;
