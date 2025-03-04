@@ -690,7 +690,14 @@ public class PlayerNeededValues : MonoBehaviour
         {
             if(HP > 0) HP--;
             if(Stance>0) Stance--;
-
+            if(ComboCounter <= 5)
+            {
+                ComboCounter = 0;
+            }
+            else
+            {
+                ComboCounter -= 5;
+            }
             Debug.Log("PlayerHp:"+ HP+"  Player Stance:"+ Stance);
             
             if (!IsKnocbacking) 
