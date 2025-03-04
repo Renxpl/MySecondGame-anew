@@ -80,17 +80,17 @@ public class PlayerGrAttackState : IState
             {
                 //Debug.Log("Playing Light Attack 1");
                 PlayerController.ChangeAnimationState("LightAttack1");
-                //PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 2)
             {
                 PlayerController.ChangeAnimationState("LightAttack2");
-               // PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 3)
             {
                 PlayerController.ChangeAnimationState("LightAttack3");
-                //PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 4)
             {

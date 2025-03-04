@@ -90,8 +90,7 @@ public class PlayerNeededValues : MonoBehaviour
     Coroutine resettingAttack;
     Coroutine resettingCombo;
     Coroutine comboIncrement;
-    bool isHittingLocker;
-    float timeBetweenHits;
+  
 
     
     void Awake()
@@ -133,7 +132,6 @@ public class PlayerNeededValues : MonoBehaviour
         AACollider.enabled = false;
         HP = 10;
         Stance = 5;
-        timeBetweenHits = 0;
         GameEvents.gameEvents.onComboIncrement += ComboAdjuster;
         
     }
@@ -216,7 +214,7 @@ public class PlayerNeededValues : MonoBehaviour
             SwitchAACollider= false;
         }
 
-       if (ComboCounter < 30) ComboCounter++;
+       //if (ComboCounter < 30) ComboCounter++;
 
     }
 
@@ -352,10 +350,7 @@ public class PlayerNeededValues : MonoBehaviour
         if (IsGroundedPlayer)
         {
             //Debug.Log("HeavyAttack");
-            if(IsRolling || extraRollingWait)
-            {
-                LightAttackNumber = 5;
-            }
+            
             CommandHandler.HandleCommand(lightAttackInput);
             //Debug.Log(heavyAttackInput);
 
@@ -596,7 +591,7 @@ public class PlayerNeededValues : MonoBehaviour
       
        if(resetType == 1)
         {
-            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(1f * PlayerController.animatorTimeVector);
 
             if (!IsLightAttack) LightAttackNumber = 1;
         }

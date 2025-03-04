@@ -185,6 +185,7 @@ public abstract class EnemyMain : MonoBehaviour
                 stance--;
                 if (!isKnockbacking && stance <= 0) StartCoroutine(KnockBacking());
                 StartCoroutine(TurningColorRed());
+                enemyRb.AddForce(PlayerController.forward * forceFactor/4f, ForceMode2D.Impulse);
                 if (!isInStagger) HP--;
                 else HP -= 2;
                 Debug.Log("attack0");
@@ -197,6 +198,7 @@ public abstract class EnemyMain : MonoBehaviour
                 stance--;
                 if (!isKnockbacking && stance <= 0) StartCoroutine(KnockBacking());
                 StartCoroutine(TurningColorRed());
+                enemyRb.AddForce(PlayerController.forward * forceFactor / 4f, ForceMode2D.Impulse);
                 if (!isInStagger) HP--;
                 else HP -= 2;
                 Debug.Log("attack1");
@@ -210,6 +212,7 @@ public abstract class EnemyMain : MonoBehaviour
                 stance-=2;
                 if (!isKnockbacking && stance <= 0) StartCoroutine(KnockBacking());
                 StartCoroutine(TurningColorRed());
+                enemyRb.AddForce(PlayerController.forward * forceFactor / 4f, ForceMode2D.Impulse);
                 if (!isInStagger) HP-=2;
                 else HP -= 4;
                 Debug.Log("attack10");
@@ -222,6 +225,7 @@ public abstract class EnemyMain : MonoBehaviour
                 stance -= 3;
                 if (!isKnockbacking && stance <= 0) StartCoroutine(KnockBacking());
                 StartCoroutine(TurningColorRed());
+                enemyRb.AddForce(PlayerController.forward * forceFactor / 4f, ForceMode2D.Impulse);
                 if (!isInStagger) HP -= 3;
                 else HP -= 6;
                 Debug.Log("attack11");
@@ -273,14 +277,14 @@ public abstract class EnemyMain : MonoBehaviour
         GetComponent<SpriteRenderer>().color = baseColor;
 
     }
-
+    
     IEnumerator KnockBacking()
     {
         
         isKnockbacking = true;
         
         enemyAnimator.Play("Knockback");
-        enemyRb.AddForce(PlayerController.forward * forceFactor, ForceMode2D.Impulse);
+        enemyRb.AddForce(PlayerController.forward * forceFactor/3f, ForceMode2D.Impulse);
         transform.localScale = new Vector2(Mathf.Sign(-PlayerController.forward.x),transform.localScale.y);
         yield return new WaitForSeconds(knockbackDuration);
         enemyRb.velocity = new Vector2(0f, 0f);

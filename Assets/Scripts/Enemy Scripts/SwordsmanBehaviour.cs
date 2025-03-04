@@ -10,7 +10,7 @@ public class SwordsmanBehaviour : EnemyMain
         base.Start();
         attackCollider.enabled = false;
         HP = 9;
-        HP = 50; stance = 50;
+       // HP = 50; stance = 50;
        
     }
     protected override void Update()
