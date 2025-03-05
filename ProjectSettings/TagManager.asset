@@ -13,6 +13,7 @@ TagManager:
   - HeavyAttack3
   - SpecialAttack1
   - AirborneAttack
+  - SwordsmanEnemy
   layers:
   - Default
   - TransparentFX
@@ -79,4 +80,7 @@ TagManager:
     locked: 0
   - name: Rain Effect
     uniqueID: 30128771
+    locked: 0
+  - name: UI
+    uniqueID: 1805654697
     locked: 0

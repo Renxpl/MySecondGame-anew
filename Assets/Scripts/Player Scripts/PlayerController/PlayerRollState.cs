@@ -27,11 +27,11 @@ public class PlayerRollState : IState
         timePassed += Time.deltaTime;
         if (timePassed < 0.083f)
         {
-            rollingForceFactor = 15f;
+            rollingForceFactor = 10f;
         }
         else
         {
-            rollingForceFactor = 30f;
+            rollingForceFactor = 20f;
         }
         
         if (Time.timeScale < 1)

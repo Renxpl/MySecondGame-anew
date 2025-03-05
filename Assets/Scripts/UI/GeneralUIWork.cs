@@ -7,12 +7,14 @@ using TMPro;
 public class GeneralUIWork : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI comboText;
-    
+    Canvas canvas;
     
 
 
     void Start()
     {
+        canvas = GetComponent<Canvas>();
+        canvas.pixelPerfect= true;
         
     }
 

@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class SwordsmanBehaviour : EnemyMain
 {
-    
+    bool isRegistered;
     protected override void Start()
     {
         base.Start();
+        
         attackCollider.enabled = false;
         HP = 9;
        // HP = 50; stance = 50;
        
     }
+ 
+
     protected override void Update()
     {
+        if (!isRegistered)
+        {
+            GameEvents.gameEvents.OnRegisteringEnemiesToManager(gameObject, "swordsman", 9);
+            isRegistered = true;
+        }
         base.Update();
         Debug.DrawRay(transform.position, -transform.right * 2f, Color.red);
         if (isKnockbacking)

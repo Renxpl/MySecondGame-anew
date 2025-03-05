@@ -22,6 +22,8 @@ public class GameEvents : MonoBehaviour
     public event DisableAttackCollider onDisablingAC;
     public delegate void PlayerComboIncrement();
     public event PlayerComboIncrement onComboIncrement;
+    public delegate void RegisteringEnemiesToManager(GameObject sender, string type, float amount);
+    public event RegisteringEnemiesToManager onRegisteringEnemiesToManager;
     void Awake()
     {
         if(gameEvents == null)
@@ -80,7 +82,12 @@ public class GameEvents : MonoBehaviour
     {
         onComboIncrement?.Invoke();
     }
+    public void OnRegisteringEnemiesToManager(GameObject sender, string type, float amount)
+    {
 
+        onRegisteringEnemiesToManager?.Invoke(sender, type, amount);
+
+    }
 
 }
 

@@ -11,7 +11,7 @@ public abstract class EnemyMain : MonoBehaviour
     [SerializeField] protected float forceFactor;
     [SerializeField] protected float knockbackDuration;
     protected bool IsMoving = false;
-    protected int stance;
+    public int stance;
     
 
     [SerializeField] GameObject getDmgRb;
@@ -36,10 +36,12 @@ public abstract class EnemyMain : MonoBehaviour
     protected Color baseColor;
     [SerializeField]protected Color onDmgColor;
 
-    protected float HP;
+    public float HP;
 
     Coroutine SA1Attack;
     Coroutine HA3Attack;
+
+
     protected virtual void Start()
     {
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
@@ -48,6 +50,7 @@ public abstract class EnemyMain : MonoBehaviour
         enemyAnimator = GetComponent<Animator>();
         stance = 3;
         baseColor = GetComponent<SpriteRenderer>().color;
+      
         
     }
 
@@ -375,5 +378,7 @@ public abstract class EnemyMain : MonoBehaviour
         enemyAnimator.Play(currentAnimation);
 
     }
+
+   
 
 }

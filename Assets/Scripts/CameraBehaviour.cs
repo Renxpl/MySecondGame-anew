@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class CameraBehaviour : MonoBehaviour
 {
@@ -11,11 +13,38 @@ public class CameraBehaviour : MonoBehaviour
     public float smoothTime = 0.3f;
     Vector3 velocity = Vector3.zero;
     Vector3 targetPosition= Vector3.zero;
+    Camera cam;
+    PixelPerfectCamera pixelPerfectCamera;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         Application.targetFrameRate = targetFps;
+        cam = GetComponent<Camera>();
+        float aspectRatio= (float)Screen.width / Screen.height;
+        float tolerance = 0.02f;
+        //Debug.Log(aspectRatio);
+        pixelPerfectCamera = GetComponent<PixelPerfectCamera>();
+        if (Mathf.Abs(aspectRatio-16f / 9f) <= tolerance)
+        {
+            //GameObject.Find("CanvasFor16:9").SetActive(true);
+            //GameObject.Find("CanvasFor16:10").SetActive(false);
+        }
+        else if (Mathf.Abs(aspectRatio - 16f / 10f) <= tolerance)
+        {
+            pixelPerfectCamera.refResolutionY = 240;
+            //GameObject.Find("CanvasFor16:9").SetActive(false);
+            //GameObject.Find("CanvasFor16:10").SetActive(true);
+        }
+        else
+        {
+            //GameObject.Find("CanvasFor16:9").SetActive(true);
+            //GameObject.Find("CanvasFor16:10").SetActive(false);
+        }
+      
+
+        
 
     }
 
