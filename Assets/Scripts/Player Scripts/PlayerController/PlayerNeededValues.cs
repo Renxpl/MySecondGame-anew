@@ -161,13 +161,24 @@ public class PlayerNeededValues : MonoBehaviour
             JumpTime = 0;
             firstTimeGrounded= false;
         }
-
+        
 
         if(jumpInput != 0 && JumpTime <= 0.5f &&IsSpacePressing)
         {
-            JumpTime += Time.deltaTime;
-            IsSpacePressing= true;
-            JumpSpeed = jumpCurve.Evaluate(JumpTime);
+            if (Time.timeScale < 1)
+            {
+                JumpTime += (1/Time.timeScale) *Time.deltaTime;
+                IsSpacePressing = true;
+                JumpSpeed = jumpCurve.Evaluate(JumpTime);
+            }
+            else 
+            {
+                JumpTime += Time.deltaTime;
+                IsSpacePressing = true;
+                JumpSpeed = jumpCurve.Evaluate(JumpTime);
+            }
+
+            
         }
         else
         {
@@ -436,7 +447,7 @@ public class PlayerNeededValues : MonoBehaviour
     IEnumerator LightAttack(int count)
     {
         //Debug.Log("In Coroutine");
-        
+        PlayerController.PlayerRB.velocity = Vector2.zero;
         if (LightAttackNumber == 1)
         {
             //Debug.Log("AttackNUmber1");
@@ -568,6 +579,7 @@ public class PlayerNeededValues : MonoBehaviour
     }
     IEnumerator HeavyAttack(int count)
     {
+        PlayerController.PlayerRB.velocity = Vector2.zero;
         //Debug.Log("In Coroutine");,
         if (ComboCounter < 10)
         {
@@ -618,7 +630,7 @@ public class PlayerNeededValues : MonoBehaviour
            
             IsDuringAttack= true;
             yield return new WaitForSecondsRealtime(0.415f * PlayerController.animatorTimeVector);
-            PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 9, PlayerController.PlayerRB.transform.position.y));
+            PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 7, PlayerController.PlayerRB.transform.position.y));
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             HA3Collider.enabled = true;
@@ -733,6 +745,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     IEnumerator SpecialAttack(int number)
     {
+        PlayerController.PlayerRB.velocity = Vector2.zero;
         SpecialAttackBar -= 15;
         IsSpecialAttack= true;
         IsDuringAttack = true;

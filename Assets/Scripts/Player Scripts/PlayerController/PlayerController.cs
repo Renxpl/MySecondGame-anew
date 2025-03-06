@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     //slowing time
     public static float slowMotionTimeScale = 1/3f;
     public static  float timeSlowDuration = 3f;
-    public static  float animationTimeVector = 2f;
+    public static  float animationTimeVector = 1f;
     float startTimeScale;
     float startFixedDeltaTime;
     bool isTimeSlowStarted;
@@ -78,14 +78,14 @@ public class PlayerController : MonoBehaviour
 
         if (Time.timeScale < 1f)
         {
-
-            PlayerRB.gravityScale = 20f;
-            PlayerRB.drag = 2f;
+            //PlayerRB.mass = 15f;
+            PlayerRB.gravityScale = 24f;
+            //PlayerRB.drag = 5f;
 
             if (PlayerNeededValues.IsLightAttack)
             {
-                animatorTimeVector = animationTimeVector * (1f/PlayerNeededValues.AttackSpeed);
-                playerAnimator.speed = 1f / (Time.timeScale * animatorTimeVector);
+                //animatorTimeVector = animationTimeVector * (1f/PlayerNeededValues.AttackSpeed);
+                playerAnimator.speed = 1f / (Time.timeScale * (1f / PlayerNeededValues.AttackSpeed));
             }
             else
             {
@@ -98,13 +98,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            PlayerRB.gravityScale = 8;
-            PlayerRB.drag = 5f;
+            PlayerRB.gravityScale = 8f;
+            //PlayerRB.mass = 5f;
+            //PlayerRB.drag = 5f;
             if (PlayerNeededValues.IsLightAttack)
             {
 
-                animatorTimeVector = (1f / PlayerNeededValues.AttackSpeed);
-                playerAnimator.speed = 1f / (Time.timeScale * animatorTimeVector);
+                //animatorTimeVector = (1f / PlayerNeededValues.AttackSpeed);
+                playerAnimator.speed = 1f / (Time.timeScale * (1f / PlayerNeededValues.AttackSpeed));
             }
             else
             {

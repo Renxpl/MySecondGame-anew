@@ -60,7 +60,7 @@ public class PlayerGrAttackState : IState
             else if (PlayerNeededValues.AttackNumber == 2)
             {
                 PlayerController.ChangeAnimationState("HeavyAttack2");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 300f*factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 300f * (1 / Time.timeScale) * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.AttackNumber >= 3)
             {
@@ -82,27 +82,27 @@ public class PlayerGrAttackState : IState
             {
                 //Debug.Log("Playing Light Attack 1");
                 PlayerController.ChangeAnimationState("LightAttack1");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * (1/Time.timeScale)* factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 2)
             {
                 PlayerController.ChangeAnimationState("LightAttack2");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * (1 / Time.timeScale) * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 3)
             {
                 PlayerController.ChangeAnimationState("LightAttack3");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * (1 / Time.timeScale) * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 4)
             {
                 PlayerController.ChangeAnimationState("LightAttack4");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * (1 / Time.timeScale) * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 5)
             {
                 PlayerController.ChangeAnimationState("LightAttack5");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 50f * factor, ForceMode2D.Impulse);
+                PlayerController.PlayerRB.AddForce(PlayerController.forward * 50f * (1 / Time.timeScale) * factor, ForceMode2D.Impulse);
                 
             }
             //PlayerNeededValues.DecreaseStamina(3);

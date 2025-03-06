@@ -36,7 +36,7 @@ public class PlayerRunState : IState
         }
         if(Time.timeScale < 1)
         {
-            playerRb.velocity = new Vector2(speed* 1.5f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+            playerRb.velocity = new Vector2(speed* 3f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
         }
         else
         {
