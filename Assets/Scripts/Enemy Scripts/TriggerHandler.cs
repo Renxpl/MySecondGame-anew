@@ -24,9 +24,20 @@ public class TriggerHandler : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("LightAttack"))
         {
-
+            
             if (GameEvents.gameEvents != null)
             {
+                if (PlayerNeededValues.SpecialAttackBarTiming >= 0.25f)
+                {
+                    if (PlayerNeededValues.SpecialAttackBar < 30)
+                    {
+                        PlayerNeededValues.SpecialAttackBar+= 0.2f;
+                        PlayerNeededValues.SpecialAttackBarTiming = 0;
+
+                    } 
+
+
+                }
                 // receiver, sender, otherCollider, AttackVersion
                 GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject, gameObject, collider, 0);
 
@@ -35,8 +46,20 @@ public class TriggerHandler : MonoBehaviour
         }
         else if (collider.gameObject.CompareTag("AirborneAttack"))
         {
+
             if (GameEvents.gameEvents != null)
             {
+                if (PlayerNeededValues.SpecialAttackBarTiming >= 0.25f)
+                {
+                    if (PlayerNeededValues.SpecialAttackBar < 30)
+                    {
+                        PlayerNeededValues.SpecialAttackBar += 0.2f;
+                        PlayerNeededValues.SpecialAttackBarTiming = 0;
+
+                    }
+
+
+                }
                 // receiver, sender, otherCollider, AttackVersion
                 GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject, gameObject, collider, 1);
 
@@ -44,8 +67,20 @@ public class TriggerHandler : MonoBehaviour
         }
         else if (collider.gameObject.CompareTag("HeavyAttack1"))
         {
+            
             if (GameEvents.gameEvents != null)
             {
+                if (PlayerNeededValues.SpecialAttackBarTiming >= 0.25f)
+                {
+                    if (PlayerNeededValues.SpecialAttackBar < 30)
+                    {
+                        PlayerNeededValues.SpecialAttackBar += 0.6f;
+                        PlayerNeededValues.SpecialAttackBarTiming = 0;
+
+                    }
+
+
+                }
                 // receiver, sender, otherCollider, AttackVersion
                 GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject, gameObject, collider, 10);
 
@@ -53,8 +88,20 @@ public class TriggerHandler : MonoBehaviour
         }
         else if (collider.gameObject.CompareTag("HeavyAttack2"))
         {
+            
             if (GameEvents.gameEvents != null)
             {
+                if (PlayerNeededValues.SpecialAttackBarTiming >= 0.25f)
+                {
+                    if (PlayerNeededValues.SpecialAttackBar < 30)
+                    {
+                        PlayerNeededValues.SpecialAttackBar+= 1f;
+                        PlayerNeededValues.SpecialAttackBarTiming = 0;
+
+                    }
+
+
+                }
                 // receiver, sender, otherCollider, AttackVersion
                 GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject, gameObject, collider, 11);
 
@@ -62,8 +109,19 @@ public class TriggerHandler : MonoBehaviour
         }
         else if (collider.gameObject.CompareTag("HeavyAttack3"))
         {
+           
             if (GameEvents.gameEvents != null)
             {
+                if (PlayerNeededValues.SpecialAttackBarTiming >= 0.25f)
+                {
+                    if (PlayerNeededValues.SpecialAttackBar < 30)
+                    {
+                        PlayerNeededValues.SpecialAttackBar+= 2f;
+                        PlayerNeededValues.SpecialAttackBarTiming = 0;
+
+                    }
+
+                }
                 // receiver, sender, otherCollider, AttackVersion
                 GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject, gameObject, collider, 12);
 
@@ -71,8 +129,10 @@ public class TriggerHandler : MonoBehaviour
         }
         else if (collider.gameObject.CompareTag("SpecialAttack1"))
         {
+            
             if (GameEvents.gameEvents != null)
             {
+                
                 // receiver, sender, otherCollider, AttackVersion
                 GameEvents.gameEvents.OnGettingDmg(transform.parent.gameObject, gameObject, collider, 20);
 

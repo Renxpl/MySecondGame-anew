@@ -32,7 +32,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsLightningAura { get; private set; }
     public static bool IsWindAura { get; private set; }
     public static int HP { get; private set; }
-    public static int Stance { get; private set; }
+    public static float Stance { get; private set; }
     public static bool SwitchAACollider { get; set; }
 
     public static bool IsHeavyAttack { get; private set; }
@@ -93,6 +93,11 @@ public class PlayerNeededValues : MonoBehaviour
     
     static public float SpecialAttackBar { get; set; }
     bool firstTimeGrounded;
+    static public float SpecialAttackBarTiming = 0;
+    bool isTakenDmg = false;
+    float isTakenDmgCounter = 0;
+    bool lockCounter;
+    
 
     
     void Awake()
@@ -222,9 +227,57 @@ public class PlayerNeededValues : MonoBehaviour
             SwitchAACollider= false;
         }
 
-       //if (ComboCounter < 30) ComboCounter++;
+        //if (ComboCounter < 30) ComboCounter++;
+
+        //SpecialAttackBarControl
+        SpecialAttackBarControl();
+
+        //Stance Control
+        StanceControl();
+
+
 
     }
+
+    void SpecialAttackBarControl()
+    {
+        SpecialAttackBarTiming += Time.deltaTime;
+        if (SpecialAttackBar > 30)
+        {
+            SpecialAttackBar = 30;
+
+
+
+        }
+    }
+    void StanceControl()
+    {
+        if (isTakenDmg)
+        {
+
+            isTakenDmgCounter += Time.deltaTime;
+
+
+            if (isTakenDmgCounter > 1f)
+            {
+                if (Stance < 5 && !lockCounter) Stance += 0.8f * Time.deltaTime;
+                if (Stance < 5 && lockCounter) Stance += 2f * Time.deltaTime;
+
+                if (Stance > 5) Stance = 5;
+            }
+
+            if (Stance <= 0)
+            {
+                lockCounter = true;
+            }
+
+        }
+        if (Stance == 5)
+        {
+            isTakenDmg = false;
+            lockCounter = false;
+        }
+    } 
 
     public void ComboAdjuster()
     {
@@ -390,7 +443,7 @@ public class PlayerNeededValues : MonoBehaviour
             
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
-         
+            
             
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
             IsDuringAttack = true;
@@ -703,9 +756,11 @@ public class PlayerNeededValues : MonoBehaviour
     protected virtual void TakingDamage(GameObject receiver, GameObject sender, Collider2D otherCollider, int attakVer)
     {
         if (receiver == gameObject)
-        {
+        {   
+            isTakenDmg= true;
+            if(!lockCounter) isTakenDmgCounter = 0f;
             if(HP > 0) HP--;
-            if(Stance>0) Stance--;
+            if(Stance>0 && !lockCounter) Stance--;
             if(ComboCounter <= 5)
             {
                 ComboCounter = 0;
@@ -718,12 +773,15 @@ public class PlayerNeededValues : MonoBehaviour
             
             if (!IsKnocbacking) 
             {
+                
                 //Debug.Log("Player Took Dmg");
                 if (!IsDuringAttack) 
                 {
+                    
 
                     if (Stance == 0) 
                     {
+                        
                         StartCoroutine(Knockback());
                         if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)
                         {
@@ -742,7 +800,8 @@ public class PlayerNeededValues : MonoBehaviour
                 {
                     if(Stance == 0)
                     {
-                        Stance = 5;
+                        
+
                     }
 
 
@@ -779,7 +838,7 @@ public class PlayerNeededValues : MonoBehaviour
         }
         yield return new WaitForSeconds(knockbackDuration);
         IsKnocbacking= false;
-        Stance = 5;
+        //Stance = 5;
 
 
     }

@@ -41,6 +41,7 @@ public class PlayerGrAttackState : IState
         if (PlayerNeededValues.IsSpecialAttack && !sw)
         {
             //Debug.Log("Special Attack");
+            
             sw = true;
             PlayerController.ChangeAnimationState("SpecialAttack");
             permissionforLA = false; permissionforHA = false;
@@ -48,7 +49,7 @@ public class PlayerGrAttackState : IState
 
         else if (PlayerNeededValues.IsHeavyAttack && !sw)
         {
-            
+           
             if (PlayerNeededValues.AttackNumber == 1)
             {
                 //Debug.Log("Playing Heavy Attack 1");
@@ -76,6 +77,7 @@ public class PlayerGrAttackState : IState
 
         else if (PlayerNeededValues.IsLightAttack && !sw)
         {
+            
             if (PlayerNeededValues.LightAttackNumber == 1)
             {
                 //Debug.Log("Playing Light Attack 1");
