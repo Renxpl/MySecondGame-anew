@@ -6,7 +6,8 @@ using UnityEngine;
 //will handle position and count of enemies
 public class EnemySpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject swordsman;
+    float timeCounter = 0;
     void Start()
     {
         
@@ -16,5 +17,17 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         
+
+        timeCounter+= Time.deltaTime;
+
+        if(timeCounter > 5f)
+        {
+            Instantiate(swordsman);
+            swordsman.transform.position = Vector2.zero;
+
+            timeCounter = 0;
+        }
+
+
     }
 }

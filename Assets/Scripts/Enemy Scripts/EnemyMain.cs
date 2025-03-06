@@ -40,8 +40,8 @@ public abstract class EnemyMain : MonoBehaviour
 
     Coroutine SA1Attack;
     Coroutine HA3Attack;
-
-
+    protected bool isGrounded;
+    protected bool firstTimeGrounded;
     protected virtual void Start()
     {
         GameEvents.gameEvents.onGettingDmg += TakingDamage;
@@ -56,6 +56,19 @@ public abstract class EnemyMain : MonoBehaviour
 
     protected virtual void Update()
     {
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1f, PlayerNeededValues.groundLayer);
+        Debug.DrawRay(transform.position, Vector2.down * 1f, isGrounded ? Color.green : Color.red);
+        if (!isGrounded)
+        {
+            isKnockbacking = true;
+            firstTimeGrounded = true;
+        }
+        if(isGrounded && firstTimeGrounded)
+        {
+            isKnockbacking= false;
+            firstTimeGrounded = false;
+        }
+
         backward = new Vector2(-transform.localScale.x,0f);
         xDiff = transform.localScale.x * (player.transform.position.x - transform.position.x);
         yDiff =  Mathf.Abs(player.transform.position.y - transform.position.y);

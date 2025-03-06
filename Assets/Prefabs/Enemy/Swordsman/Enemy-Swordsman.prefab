@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755101060785083058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.56, y: -1.98, z: -8.978693}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -133,9 +133,11 @@ MonoBehaviour:
   minMovementDuration: 0.5
   forceFactor: 5
   knockbackDuration: 0.25
+  stance: 0
   getDmgRb: {fileID: 755101060944575744}
   attackCollider: {fileID: 755101062532657891}
   onDmgColor: {r: 0.9339623, g: 0.4887012, b: 0.4887012, a: 1}
+  HP: 0
 --- !u!50 &755101060785083070
 Rigidbody2D:
   serializedVersion: 4

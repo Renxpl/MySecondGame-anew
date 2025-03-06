@@ -58,7 +58,7 @@ public class SwordsmanBehaviour : EnemyMain
         yield return new WaitForSeconds(0.45f);
         attackCollider.enabled = true;
         GetComponent<Rigidbody2D>().WakeUp();
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.083f);
         attackCollider.enabled = false;
         yield return new WaitForSeconds(0.15f);
         isTurningLocked = false;

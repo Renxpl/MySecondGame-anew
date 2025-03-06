@@ -90,7 +90,9 @@ public class PlayerNeededValues : MonoBehaviour
     Coroutine resettingAttack;
     Coroutine resettingCombo;
     Coroutine comboIncrement;
-  
+    
+    static public float SpecialAttackBar { get; set; }
+    bool firstTimeGrounded;
 
     
     void Awake()
@@ -133,6 +135,7 @@ public class PlayerNeededValues : MonoBehaviour
         HP = 10;
         Stance = 5;
         GameEvents.gameEvents.onComboIncrement += ComboAdjuster;
+        SpecialAttackBar = 30;
         
     }
 
@@ -143,10 +146,15 @@ public class PlayerNeededValues : MonoBehaviour
         IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1f, groundLayer);
         Debug.DrawRay(player.transform.position, Vector2.down * 1f, IsGroundedPlayer ? Color.green : Color.red);
         CanDoActionDuringJump = Physics2D.Raycast(player.transform.position, Vector2.down, 2.25f,groundLayer);
-        if (IsGroundedPlayer)
+        if (!IsGroundedPlayer)
+        {
+            firstTimeGrounded= true;
+        }
+        if (IsGroundedPlayer && firstTimeGrounded)
         {
             IsJumping = false;
             JumpTime = 0;
+            firstTimeGrounded= false;
         }
 
 
@@ -313,7 +321,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static void JumpExecute()
     {
         
-        if (IsGroundedPlayer && jumpInput != 0) { IsJumping = true; IsSpacePressing = true; }
+        if (IsGroundedPlayer && jumpInput != 0) { Debug.Log("Jumping"); IsJumping = true; IsSpacePressing = true; }
     }
 
     void OnToLightningAura(InputValue input)
@@ -597,7 +605,7 @@ public class PlayerNeededValues : MonoBehaviour
        else if(resetType == 0)
         {
             float counter = 0;
-            float resetTime = 5f;
+            float resetTime = 8f;
             while(counter < resetTime)
             {
                 if (IsLightAttack)
@@ -652,7 +660,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnSpecialAttack()
     {
-        if (IsGroundedPlayer)
+        if (IsGroundedPlayer && SpecialAttackBar >= 15)
         {
             CommandHandler.HandleCommand(new SpecialAttackInput());
         }
@@ -660,11 +668,19 @@ public class PlayerNeededValues : MonoBehaviour
 
     public void SpecialAttackExecution()
     {
-        StartCoroutine(SpecialAttack(SpecialAttackNumber));
+        if (PlayerNeededValues.SpecialAttackBar >= 15)
+        {
+            StartCoroutine(SpecialAttack(SpecialAttackNumber));
+        }
+        else 
+        {
+            CommandHandler.ResetNext();
+        }
     }
 
     IEnumerator SpecialAttack(int number)
     {
+        SpecialAttackBar -= 15;
         IsSpecialAttack= true;
         IsDuringAttack = true;
        

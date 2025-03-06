@@ -11075,7 +11075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.62352943, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11681,7 +11681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.6224408, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13140,7 +13140,6 @@ GameObject:
   - component: {fileID: 938682217}
   - component: {fileID: 938682218}
   - component: {fileID: 938682219}
-  - component: {fileID: 938682223}
   - component: {fileID: 938682224}
   - component: {fileID: 938682225}
   m_Layer: 6
@@ -13334,18 +13333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c79a9099e7484488afbd68b91581ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &938682223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938682213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4c79a9099e7484488afbd68b91581ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &938682224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13430,6 +13417,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 227306339}
   stanceBar: {fileID: 1315953159}
+  sABar1: {fileID: 928564496}
+  sABar2: {fileID: 1428950372}
 --- !u!1 &979996008
 GameObject:
   m_ObjectHideFlags: 0
@@ -13672,6 +13661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1260550480}
   - component: {fileID: 1260550479}
+  - component: {fileID: 1260550481}
   m_Layer: 0
   m_Name: EnemyFactory
   m_TagString: Untagged
@@ -13708,6 +13698,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1260550481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260550478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0086be03e200f842a2624997fa5985d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordsman: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
 --- !u!1 &1275972697
 GameObject:
   m_ObjectHideFlags: 0
@@ -20401,13 +20404,13 @@ Canvas:
   m_RenderMode: 1
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 30128771
+  m_SortingLayerID: 1805654697
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &2076197571

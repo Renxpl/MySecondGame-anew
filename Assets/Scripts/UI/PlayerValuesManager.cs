@@ -8,6 +8,8 @@ public class PlayerValuesManager : MonoBehaviour
     // Start is called before the first frame update
     public Image healthBar;
     public Image stanceBar;
+    public Image sABar1;
+    public Image sABar2;
     void Start()
     {
         
@@ -18,6 +20,16 @@ public class PlayerValuesManager : MonoBehaviour
     {
         healthBar.fillAmount = PlayerNeededValues.HP / 10f;
         stanceBar.fillAmount = PlayerNeededValues.Stance / 5f;
+        if (PlayerNeededValues.SpecialAttackBar > 15)
+        {
+            sABar2.fillAmount = (PlayerNeededValues.SpecialAttackBar-15f) / 15f;
+            sABar1.fillAmount = 1f;
+        }
+        else
+        {
+            sABar2.fillAmount = 0f;
+            sABar1.fillAmount = PlayerNeededValues.SpecialAttackBar / 15f;
+        }
 
 
     }

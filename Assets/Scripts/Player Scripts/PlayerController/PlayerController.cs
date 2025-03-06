@@ -14,10 +14,11 @@ public class PlayerController : MonoBehaviour
     [Header("Slowing Time")]
     //slowing time
     public static float slowMotionTimeScale = 1/3f;
-    public static  float timeSlowDuration = 5f;
+    public static  float timeSlowDuration = 3f;
     public static  float animationTimeVector = 2f;
     float startTimeScale;
     float startFixedDeltaTime;
+    bool isTimeSlowStarted;
     
     Coroutine timeSlow = null;
     public static float animatorTimeVector;
@@ -132,24 +133,34 @@ public class PlayerController : MonoBehaviour
     IEnumerator TimeSlow()
     {
 
-     
+        PlayerNeededValues.SpecialAttackBar -= 3;
         Time.timeScale = slowMotionTimeScale;
         Time.fixedDeltaTime = startFixedDeltaTime * slowMotionTimeScale;
         
         yield return new WaitForSecondsRealtime(timeSlowDuration);
         Time.timeScale = startTimeScale;
         Time.fixedDeltaTime = startFixedDeltaTime;
-        
 
+        
+        
         timeSlow = null;
+        isTimeSlowStarted= false;
 
     }
-    void OnTimeSlow()
+    void OnTimeSlow(InputValue input)
     {
-        
-        if (timeSlow != null) { StopCoroutine(timeSlow); }
-        timeSlow = StartCoroutine(TimeSlow());
+        Debug.Log(input.Get<float>());
+        if (PlayerNeededValues.SpecialAttackBar >= 3 && !isTimeSlowStarted)
+        {
+            isTimeSlowStarted= true;
+            if (timeSlow != null) { StopCoroutine(timeSlow); }
+          
+            timeSlow = StartCoroutine(TimeSlow());
+        }
+       
+
     }
 
+   
 
 }
