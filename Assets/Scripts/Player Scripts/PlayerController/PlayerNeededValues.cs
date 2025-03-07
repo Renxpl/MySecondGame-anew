@@ -630,7 +630,7 @@ public class PlayerNeededValues : MonoBehaviour
            
             IsDuringAttack= true;
             yield return new WaitForSecondsRealtime(0.415f * PlayerController.animatorTimeVector);
-            PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 7, PlayerController.PlayerRB.transform.position.y));
+            PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 8, PlayerController.PlayerRB.transform.position.y));
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             HA3Collider.enabled = true;

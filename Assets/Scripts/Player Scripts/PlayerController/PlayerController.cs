@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator TimeSlow()
     {
 
-        PlayerNeededValues.SpecialAttackBar -= 3;
+        PlayerNeededValues.SpecialAttackBar -= 5;
         Time.timeScale = slowMotionTimeScale;
         Time.fixedDeltaTime = startFixedDeltaTime * slowMotionTimeScale;
         
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
     void OnTimeSlow(InputValue input)
     {
         Debug.Log(input.Get<float>());
-        if (PlayerNeededValues.SpecialAttackBar >= 3 && !isTimeSlowStarted)
+        if (PlayerNeededValues.SpecialAttackBar >= 5 && !isTimeSlowStarted)
         {
             isTimeSlowStarted= true;
             if (timeSlow != null) { StopCoroutine(timeSlow); }
