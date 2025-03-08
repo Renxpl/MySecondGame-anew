@@ -204,17 +204,18 @@ public class PlayerNeededValues : MonoBehaviour
             isResettingCombo = false;
         }
 
-        if (ComboCounter < 10)
+        if (ComboCounter <= 10)
         {
-            AttackSpeed = 1f;
+            AttackSpeed = 1f+ ComboCounter * 0.010f;
         }
-        else if(ComboCounter < 20)
+        else if(ComboCounter <= 20)
         {
-            AttackSpeed = 1.15f;
+            AttackSpeed = 1f+ ComboCounter * 0.015f;
         }
-        else if (ComboCounter < 30)
+        else if (ComboCounter <= 30)
         {
-            AttackSpeed = 1.35f;
+            AttackSpeed = 1f + ComboCounter * 0.02f;
+            //Debug.Log(AttackSpeed);
         }
         else
         {
@@ -454,17 +455,18 @@ public class PlayerNeededValues : MonoBehaviour
             
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
-            
-            
-            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+
+           
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f/AttackSpeed));
             IsDuringAttack = true;
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
        
-            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             lightAttackCollider.enabled = false;
-            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -478,15 +480,15 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             
-            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             IsDuringAttack = true;
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
          
-            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             lightAttackCollider.enabled = false;
-            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             IsDuringAttack = false;
             LightAttackNumber++;
             PlayerGrAttackState.sw = false;
@@ -500,15 +502,15 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             
-            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             IsDuringAttack = true;
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
            
-            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             lightAttackCollider.enabled = false;
-            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             IsDuringAttack = false;
             LightAttackNumber = 1;
             PlayerGrAttackState.sw = false;
