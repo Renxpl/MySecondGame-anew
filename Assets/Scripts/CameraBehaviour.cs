@@ -34,7 +34,7 @@ public class CameraBehaviour : MonoBehaviour
         }
         else if (Mathf.Abs(aspectRatio - 16f / 10f) <= tolerance)
         {
-            pixelPerfectCamera.refResolutionY = 240;
+            pixelPerfectCamera.refResolutionY = 300;
             //GameObject.Find("CanvasFor16:9").SetActive(false);
             //GameObject.Find("CanvasFor16:10").SetActive(true);
         }
