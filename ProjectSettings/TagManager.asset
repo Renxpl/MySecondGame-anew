@@ -54,11 +54,11 @@ TagManager:
   - name: Sun
     uniqueID: 4181715545
     locked: 0
-  - name: Sea
-    uniqueID: 2208064979
-    locked: 0
   - name: Sky
     uniqueID: 3046397541
+    locked: 0
+  - name: Sea
+    uniqueID: 2208064979
     locked: 0
   - name: background
     uniqueID: 1202623035

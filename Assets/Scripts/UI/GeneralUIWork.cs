@@ -14,7 +14,7 @@ public class GeneralUIWork : MonoBehaviour
     void Start()
     {
         canvas = GetComponent<Canvas>();
-       // canvas.pixelPerfect= true;
+       // canvas.pixelPerfect= false;
         
     }
 
