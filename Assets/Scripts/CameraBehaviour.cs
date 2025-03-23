@@ -15,7 +15,7 @@ public class CameraBehaviour : MonoBehaviour
     Vector3 targetPosition= Vector3.zero;
     Camera cam;
     PixelPerfectCamera pixelPerfectCamera;
-    
+    int a = 0;
 
     // Start is called before the first frame update
     
@@ -43,9 +43,8 @@ public class CameraBehaviour : MonoBehaviour
             //GameObject.Find("CanvasFor16:9").SetActive(true);
             //GameObject.Find("CanvasFor16:10").SetActive(false);
         }
-      
 
-        
+
 
     }
 
@@ -67,8 +66,13 @@ public class CameraBehaviour : MonoBehaviour
     //Moving First Camera and then Parallax Background
     void LateUpdate()
     {
+        if (a == 0) 
+        {
+            targetPosition = new Vector3(toFollow.transform.position.x, toFollow.transform.position.y + 3, this.transform.position.z); a++;
+        }
         
-        targetPosition = new Vector3(toFollow.transform.position.x, toFollow.transform.position.y + 3, this.transform.position.z);
+        else
+        targetPosition = new Vector3(toFollow.transform.position.x, transform.position.y, this.transform.position.z);
 
         transform.position = targetPosition;
 
