@@ -603,7 +603,7 @@ public class PlayerNeededValues : MonoBehaviour
             PlayerGrAttackState.sw = false;
             
             IsHeavyAttack = false;
-            ComboCounter = 0;
+            ComboCounter -= 10;
         }
         else if (ComboCounter < 30)
         {
@@ -622,7 +622,7 @@ public class PlayerNeededValues : MonoBehaviour
             PlayerGrAttackState.sw = false;
             
             IsHeavyAttack = false;
-            ComboCounter = 0;
+            ComboCounter -= 20;
         }
 
         else if (ComboCounter < 40)
