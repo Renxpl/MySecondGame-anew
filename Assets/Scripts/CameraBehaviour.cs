@@ -18,7 +18,11 @@ public class CameraBehaviour : MonoBehaviour
     int a = 0;
 
     // Start is called before the first frame update
-    
+
+    void Awake()
+    {
+        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+    }
     void Start()
     {
         Application.targetFrameRate = targetFps;
