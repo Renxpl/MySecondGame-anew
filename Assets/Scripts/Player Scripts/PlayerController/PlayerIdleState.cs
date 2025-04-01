@@ -7,7 +7,7 @@ public class PlayerIdleState : IState
 
 
     float timePassed;
-    float timeToBePassed = 5f;
+    float timeToBePassed = 0.5f;
     public void Enter()
     {
 
@@ -47,7 +47,7 @@ public class PlayerIdleState : IState
         else
         {
             PlayerController.ChangeAnimationState("IdleAnim1");
-            if (timePassed >= (timeToBePassed+ (1 / 0.5) *0.75))
+            if (timePassed >= (timeToBePassed+ 0.83f))
             {
                 timePassed = 0f;
             }
