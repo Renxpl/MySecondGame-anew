@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject swordsman;
     float timeCounter = 0;
+    public bool isSpawning;
     void Start()
     {
         
@@ -17,13 +18,18 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         
-
+        
         timeCounter+= Time.deltaTime;
 
         if(timeCounter > 5f)
         {
-            Instantiate(swordsman);
-            swordsman.transform.position = Vector2.zero;
+            if (isSpawning)
+            {
+                Instantiate(swordsman);
+                swordsman.transform.position = Vector2.zero;
+
+            }
+           
 
             timeCounter = 0;
         }

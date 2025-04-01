@@ -11142,6 +11142,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy-Swordsman (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 755101060785083068, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_RootOrder
       value: 26
@@ -13221,7 +13225,7 @@ SpriteRenderer:
   m_SortingLayerID: 722697965
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2054560451, guid: 18eb275308f6ff54d9bece6f6f1f4101, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8145c558e797864d8cd37ef327d5a30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -13781,6 +13785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swordsman: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
+  isSpawning: 0
 --- !u!1 &1275972697
 GameObject:
   m_ObjectHideFlags: 0
@@ -52433,6 +52438,10 @@ PrefabInstance:
     - target: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_Name
       value: Enemy-Swordsman
+      objectReference: {fileID: 0}
+    - target: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 755101060785083068, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_RootOrder
