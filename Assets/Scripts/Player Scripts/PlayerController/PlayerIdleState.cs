@@ -7,7 +7,7 @@ public class PlayerIdleState : IState
 
 
     float timePassed;
-    float timeToBePassed = 0.5f;
+    float timeToBePassed = 0.75f;
     public void Enter()
     {
 
