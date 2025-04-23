@@ -7,6 +7,7 @@ public class PlayerRollState : IState
     Rigidbody2D playerRb;
     float rollingForceFactor = 25f;
     float timePassed = 0;
+    float extraFactor = 1.5f;
     public void Enter()
     {
         //Debug.Log("WalkingStateStarted");
@@ -27,11 +28,11 @@ public class PlayerRollState : IState
         timePassed += Time.deltaTime;
         if (timePassed < 0.083f)
         {
-            rollingForceFactor = 10f;
+            rollingForceFactor = 10f * extraFactor;
         }
         else
         {
-            rollingForceFactor = 20f;
+            rollingForceFactor = 20f * extraFactor;
         }
         
         if (Time.timeScale < 1)
