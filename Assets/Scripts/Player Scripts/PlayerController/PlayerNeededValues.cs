@@ -485,8 +485,8 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-         
-            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            PlayerController.PlayerRB.AddForce(PlayerController.forward * 35f * (1 / Time.timeScale), ForceMode2D.Impulse);
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             IsDuringAttack = false;
