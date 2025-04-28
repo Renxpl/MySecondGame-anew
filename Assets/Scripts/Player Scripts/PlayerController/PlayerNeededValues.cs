@@ -457,7 +457,7 @@ public class PlayerNeededValues : MonoBehaviour
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
 
            
-            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f/AttackSpeed));
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector * (1f/AttackSpeed));
             IsDuringAttack = true;
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
@@ -480,7 +480,7 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             
-            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             IsDuringAttack = true;
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
@@ -502,7 +502,7 @@ public class PlayerNeededValues : MonoBehaviour
             IsLightAttack = true;
             if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
             
-            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             IsDuringAttack = true;
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
