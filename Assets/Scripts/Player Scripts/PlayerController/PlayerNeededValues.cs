@@ -462,7 +462,9 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * (1 / Time.timeScale), ForceMode2D.Impulse);
+            if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f, ForceMode2D.Impulse);
+
+            else PlayerController.PlayerRB.AddForce(PlayerController.forward * 42f, ForceMode2D.Impulse);
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
@@ -485,7 +487,10 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f * (1 / Time.timeScale), ForceMode2D.Impulse);
+            if(Time.timeScale ==1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f, ForceMode2D.Impulse);
+           
+            else PlayerController.PlayerRB.AddForce(PlayerController.forward * 42f, ForceMode2D.Impulse);
+
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
@@ -507,7 +512,9 @@ public class PlayerNeededValues : MonoBehaviour
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            PlayerController.PlayerRB.AddForce(PlayerController.forward * 50f * (1 / Time.timeScale), ForceMode2D.Impulse);
+            if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 50f, ForceMode2D.Impulse);
+
+            else PlayerController.PlayerRB.AddForce(PlayerController.forward * 84f, ForceMode2D.Impulse);
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             lightAttackCollider.enabled = false;
             yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
