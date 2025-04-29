@@ -60,7 +60,8 @@ public class PlayerGrAttackState : IState
             else if (PlayerNeededValues.AttackNumber == 2)
             {
                 PlayerController.ChangeAnimationState("HeavyAttack2");
-                PlayerController.PlayerRB.AddForce(PlayerController.forward * 300f * (1 / Time.timeScale) * factor, ForceMode2D.Impulse);
+                //PlayerController.PlayerRB.AddForce(PlayerController.forward * 300f * (1 / Time.timeScale) * factor, ForceMode2D.Impulse);
+               
             }
             else if (PlayerNeededValues.AttackNumber >= 3)
             {

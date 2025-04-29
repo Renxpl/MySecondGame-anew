@@ -617,13 +617,16 @@ public class PlayerNeededValues : MonoBehaviour
 
             AttackNumber = 2;
             IsHeavyAttack = true;
+            IsDuringAttack = false;
+            yield return new WaitForSecondsRealtime(0.3335f * PlayerController.animatorTimeVector);
             IsDuringAttack = true;
+
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             HA2Collider.enabled = true;
+            PlayerController.PlayerRB.AddForce(PlayerController.forward * 300f * (1 / Time.timeScale), ForceMode2D.Impulse);
 
-    
-            yield return new WaitForSecondsRealtime(0.583f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.3335f * PlayerController.animatorTimeVector);
             HA2Collider.enabled = false;
             IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
