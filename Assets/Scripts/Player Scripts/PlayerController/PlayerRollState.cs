@@ -8,12 +8,14 @@ public class PlayerRollState : IState
     float rollingForceFactor = 25f;
     float timePassed = 0;
     float extraFactor = 1.5f;
+    int counter;
     public void Enter()
     {
         //Debug.Log("WalkingStateStarted");
         playerRb = PlayerController.PlayerRB;
         CommandHandler.ResetNext();
         timePassed = 0;
+        counter = 0;
     }
 
 
@@ -28,35 +30,68 @@ public class PlayerRollState : IState
         timePassed += Time.deltaTime;
         if (timePassed < 0.083f)
         {
-            rollingForceFactor = 10f * extraFactor;
+            //rollingForceFactor = 10f * extraFactor;
+            rollingForceFactor = 10f;
         }
         else
         {
-            rollingForceFactor = 20f * extraFactor;
+           // rollingForceFactor = 20f * extraFactor;
+            rollingForceFactor = 20f;
         }
         
+        if(counter > 0)
+        {
+            return;
+        }
+
         if (Time.timeScale < 1)
         {
             //playerRb.velocity = new Vector2(30f * 1.5f * playerRb.gameObject.transform.localScale.x, playerRb.velocity.y);
             if(PlayerNeededValues.RollInput.x != 0)
             {
-                playerRb.velocity = new Vector2(rollingForceFactor * 3.25f * Mathf.Sign(PlayerNeededValues.RollInput.x), playerRb.velocity.y);
+               
+               if(timePassed < 0.1f) playerRb.velocity = new Vector2(rollingForceFactor * 5.25f * Mathf.Sign(PlayerNeededValues.RollInput.x), playerRb.velocity.y);
+                else
+                {
+                    counter++;
+                    PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 2, PlayerController.PlayerRB.transform.position.y));
+                }
             }
             else
             {
-                playerRb.velocity = new Vector2(rollingForceFactor * 3.25f * Mathf.Sign(playerRb.gameObject.transform.localScale.x), playerRb.velocity.y);
+                //3.25 in old version
+                if (timePassed < 0.1f) playerRb.velocity = new Vector2(rollingForceFactor * 5.25f * Mathf.Sign(playerRb.gameObject.transform.localScale.x), playerRb.velocity.y);
+                else
+                {
+                    counter++;
+                    PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 2, PlayerController.PlayerRB.transform.position.y));
+                }
+
             }
         }
         else
         {
+            
             //playerRb.velocity = new Vector2(30f * playerRb.gameObject.transform.localScale.x, playerRb.velocity.y);
             if (PlayerNeededValues.RollInput.x != 0)
             {
-                playerRb.velocity = new Vector2(rollingForceFactor * Mathf.Sign(PlayerNeededValues.RollInput.x), playerRb.velocity.y);
+
+                if (timePassed < 0.1f)playerRb.velocity = new Vector2(rollingForceFactor * Mathf.Sign(PlayerNeededValues.RollInput.x), playerRb.velocity.y);
+                 else
+                {
+                    counter++;
+                    PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 2, PlayerController.PlayerRB.transform.position.y));
+                }
             }
             else
             {
-                playerRb.velocity = new Vector2(rollingForceFactor * Mathf.Sign(playerRb.gameObject.transform.localScale.x), playerRb.velocity.y);
+
+                if (timePassed < 0.1f)  playerRb.velocity = new Vector2(rollingForceFactor * Mathf.Sign(playerRb.gameObject.transform.localScale.x), playerRb.velocity.y);
+                else
+                {
+                    counter++;
+                    PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 2, PlayerController.PlayerRB.transform.position.y));
+                }
             }
         }
         PlayerController.ChangeAnimationState("Rolling");

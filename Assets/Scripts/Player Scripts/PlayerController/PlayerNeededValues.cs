@@ -604,7 +604,7 @@ public class PlayerNeededValues : MonoBehaviour
             HA1Collider.enabled = true;
             //Debug.Log("AttackNUmber1");
 
-            yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
+            yield return new WaitForSecondsRealtime(0.583f * PlayerController.animatorTimeVector);
             HA1Collider.enabled = false;
             IsDuringAttack = false;
             PlayerGrAttackState.sw = false;
