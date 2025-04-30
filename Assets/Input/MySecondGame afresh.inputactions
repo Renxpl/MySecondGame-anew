@@ -489,6 +489,17 @@
                 },
                 {
                     "name": "",
+                    "id": "9ee6a8bd-d550-48d8-8962-875284effad7",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeavyAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "90c36b23-29ca-4032-88af-a68ffd605558",
                     "path": "<Keyboard>/r",
                     "interactions": "",

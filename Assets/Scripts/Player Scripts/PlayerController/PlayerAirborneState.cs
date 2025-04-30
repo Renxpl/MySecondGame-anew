@@ -28,7 +28,16 @@ public class PlayerAirborneState :IState
 
         }
 
-        if (PlayerNeededValues.IsAirborneAttack)
+        if (PlayerNeededValues.IsRolling)
+        {
+
+            PlayerController.playerSM.ChangeState(PlayerNeededValues.RollStateForPlayer);
+            PlayerNeededValues.isRollingAirborne = false;
+            return;
+
+        }
+
+        else if (PlayerNeededValues.IsAirborneAttack)
         {
             PlayerController.playerSM.ChangeState(PlayerNeededValues.playerAAstate);
             return;
@@ -39,13 +48,15 @@ public class PlayerAirborneState :IState
             PlayerController.playerSM.ChangeState(PlayerNeededValues.playerKbState);
             return;
         }
+        
         if (!PlayerNeededValues.CanDoActionDuringJump)
         {
+            if(!PlayerNeededValues.isRollingAirborne)
             CommandHandler.ResetNext();
         }
 
         isAirborne = true;
-
+        
         if (PlayerNeededValues.IsJumpingUp)
         {
             PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerNeededValues.JumpSpeed);
@@ -57,7 +68,7 @@ public class PlayerAirborneState :IState
         {
             PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
             PlayerController.ChangeAnimationState("JumpingDown");
-           if (a % 2 == 1) { a++; CommandHandler.ResetNext(); }
+           if (a % 2 == 1 && !PlayerNeededValues.isRollingAirborne) { a++; CommandHandler.ResetNext(); }
             
 
         }

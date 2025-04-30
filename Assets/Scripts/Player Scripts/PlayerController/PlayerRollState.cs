@@ -24,8 +24,20 @@ public class PlayerRollState : IState
 
         if (!PlayerNeededValues.IsRolling)
         {
-            PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
-            return;
+            if (PlayerNeededValues.IsGroundedPlayer)
+            {
+                PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
+                return;
+
+            }
+
+
+            else
+            {
+                PlayerController.playerSM.ChangeState(PlayerNeededValues.AirborneStateForPlayer);
+                return;
+            }
+
         }
         timePassed += Time.deltaTime;
         if (timePassed < 0.083f)
@@ -50,7 +62,7 @@ public class PlayerRollState : IState
             if(PlayerNeededValues.RollInput.x != 0)
             {
                
-               if(timePassed < 0.1f) playerRb.velocity = new Vector2(rollingForceFactor * 5.25f * Mathf.Sign(PlayerNeededValues.RollInput.x), playerRb.velocity.y);
+               if(timePassed < 0.1f) playerRb.velocity = new Vector2(rollingForceFactor * 5.25f * Mathf.Sign(PlayerNeededValues.RollInput.x), 0f);
                 else
                 {
                     counter++;
@@ -60,7 +72,7 @@ public class PlayerRollState : IState
             else
             {
                 //3.25 in old version
-                if (timePassed < 0.1f) playerRb.velocity = new Vector2(rollingForceFactor * 5.25f * Mathf.Sign(playerRb.gameObject.transform.localScale.x), playerRb.velocity.y);
+                if (timePassed < 0.1f) playerRb.velocity = new Vector2(rollingForceFactor * 5.25f * Mathf.Sign(playerRb.gameObject.transform.localScale.x), 0f);
                 else
                 {
                     counter++;
@@ -76,7 +88,7 @@ public class PlayerRollState : IState
             if (PlayerNeededValues.RollInput.x != 0)
             {
 
-                if (timePassed < 0.1f)playerRb.velocity = new Vector2(rollingForceFactor * Mathf.Sign(PlayerNeededValues.RollInput.x), playerRb.velocity.y);
+                if (timePassed < 0.1f)playerRb.velocity = new Vector2(rollingForceFactor * Mathf.Sign(PlayerNeededValues.RollInput.x), 0f);
                  else
                 {
                     counter++;
@@ -86,7 +98,7 @@ public class PlayerRollState : IState
             else
             {
 
-                if (timePassed < 0.1f)  playerRb.velocity = new Vector2(rollingForceFactor * Mathf.Sign(playerRb.gameObject.transform.localScale.x), playerRb.velocity.y);
+                if (timePassed < 0.1f)  playerRb.velocity = new Vector2(rollingForceFactor * Mathf.Sign(playerRb.gameObject.transform.localScale.x), 0f);
                 else
                 {
                     counter++;

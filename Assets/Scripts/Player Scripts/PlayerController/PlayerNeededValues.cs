@@ -69,6 +69,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static LightAttackInput lightAttackInput;
     public static SpecialAttackInput specialAttackInput;
     public static RollInput rollInput;
+    public static bool isRollingAirborne;
     public static int AttackNumber { get; private set; }
     public static int LightAttackNumber { get; private set; }
     public static int SpecialAttackNumber { get; private set; }
@@ -319,7 +320,7 @@ public class PlayerNeededValues : MonoBehaviour
     {
         //Debug.Log("Rolling");
 
-
+        if(!IsGroundedPlayer) isRollingAirborne= true;
         CommandHandler.HandleCommand(rollInput);
 
 
@@ -362,6 +363,7 @@ public class PlayerNeededValues : MonoBehaviour
         IsRolling = true;
         yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector); 
         IsRolling= false;
+       
         extraRollingWait = true;
         yield return new WaitForSecondsRealtime(0.175f * PlayerController.animatorTimeVector);
         extraRollingWait= false;

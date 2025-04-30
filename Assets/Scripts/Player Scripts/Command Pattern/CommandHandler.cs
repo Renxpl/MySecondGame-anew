@@ -41,7 +41,12 @@ public static class CommandHandler
         else if (PlayerAirborneState.isAirborne)
         {
             //Debug.Log("Airborne");
-            next = command;
+            if (PlayerNeededValues.isRollingAirborne)
+            {
+                command?.Execute();
+            }
+            
+            else next = command;
         }
         else
         {
