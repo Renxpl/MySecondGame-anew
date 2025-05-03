@@ -225,6 +225,7 @@ public class PlayerNeededValues : MonoBehaviour
 
        
 
+
         
 
         if (SwitchAACollider)
@@ -248,9 +249,32 @@ public class PlayerNeededValues : MonoBehaviour
         //Stance Control
         StanceControl();
 
+        DebugCheats();
+
 
 
     }
+
+
+    void DebugCheats()
+    {
+        /*
+        if (ComboCounter < 20)
+        {
+            ComboCounter++;
+        }
+        */
+
+
+
+
+
+
+
+
+    }
+
+
 
     void SpecialAttackBarControl()
     {
