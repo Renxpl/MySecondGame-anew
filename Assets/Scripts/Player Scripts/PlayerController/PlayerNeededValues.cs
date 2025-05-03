@@ -265,6 +265,10 @@ public class PlayerNeededValues : MonoBehaviour
         }
         */
 
+        if (ComboCounter < 30)
+        {
+            ComboCounter++;
+        }
 
 
 
