@@ -38,10 +38,18 @@ public static class CommandHandler
             }
             else next = command;
         }
+        else if (PlayerNeededValues.IsAirborneAttack)
+        {
+
+
+            next = command;
+
+
+        }
         else if (PlayerAirborneState.isAirborne)
         {
             //Debug.Log("Airborne");
-            if (PlayerNeededValues.isRollingAirborne)
+            if (PlayerNeededValues.isRollingAirborne || PlayerNeededValues.AAInit)
             {
                 command?.Execute();
             }

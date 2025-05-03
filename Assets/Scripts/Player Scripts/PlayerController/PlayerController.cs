@@ -79,7 +79,8 @@ public class PlayerController : MonoBehaviour
         if (Time.timeScale < 1f)
         {
             //PlayerRB.mass = 15f;
-            PlayerRB.gravityScale = 24f;
+            if (PlayerNeededValues.Gravity0) { PlayerRB.gravityScale = 0f; }
+            else    PlayerRB.gravityScale = 24f;
             //PlayerRB.drag = 5f;
 
             if (PlayerNeededValues.IsLightAttack)
@@ -98,7 +99,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            PlayerRB.gravityScale = 8f;
+            if (PlayerNeededValues.Gravity0) { PlayerRB.gravityScale = 0f; }
+            else  PlayerRB.gravityScale = 8f;
             //PlayerRB.mass = 5f;
             //PlayerRB.drag = 5f;
             if (PlayerNeededValues.IsLightAttack)

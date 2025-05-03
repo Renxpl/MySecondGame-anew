@@ -33,7 +33,13 @@ public class JumpInput : ICommand
 
 }
 
-
+public class AAInput : ICommand
+{
+    public void Execute()
+    {
+        GameObject.FindObjectOfType<PlayerNeededValues>().AAExecute();
+    }
+}
 public class RollInput: ICommand
 {
     public void Execute() 

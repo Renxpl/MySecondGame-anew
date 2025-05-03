@@ -51,7 +51,7 @@ public class PlayerAirborneState :IState
         
         if (!PlayerNeededValues.CanDoActionDuringJump)
         {
-            if(!PlayerNeededValues.isRollingAirborne)
+            if(!PlayerNeededValues.isRollingAirborne || ! PlayerNeededValues.AAInit)
             CommandHandler.ResetNext();
         }
 
