@@ -13439,6 +13439,7 @@ MonoBehaviour:
   HA3Collider: {fileID: 540176547}
   SACollider: {fileID: 617683282}
   AACollider: {fileID: 23354947}
+  timeForAALock: 0.1
 --- !u!114 &938682225
 MonoBehaviour:
   m_ObjectHideFlags: 0

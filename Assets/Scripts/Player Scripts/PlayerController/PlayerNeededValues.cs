@@ -108,6 +108,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     float timePassedForAA = 0f;
     float timePassedForOpenAA = 0f;
+    [SerializeField] float timeForAALock;
 
     void Awake()
     {
@@ -165,6 +166,11 @@ public class PlayerNeededValues : MonoBehaviour
         if (!IsGroundedPlayer)
         {
             firstTimeGrounded= true;
+        }
+        else
+        {
+            AACounter = 0;
+
         }
         if (IsGroundedPlayer && firstTimeGrounded)
         {
@@ -234,7 +240,7 @@ public class PlayerNeededValues : MonoBehaviour
         }
 
        
-
+            /*
 
         
 
@@ -249,7 +255,7 @@ public class PlayerNeededValues : MonoBehaviour
                 AACollider.enabled = true;
             }
             SwitchAACollider= false;
-        }
+        }*/
 
         //if (ComboCounter < 30) ComboCounter++;
 
@@ -307,7 +313,7 @@ public class PlayerNeededValues : MonoBehaviour
         }
 
 
-        if (timePassedForOpenAA > 0.5f)
+        if (timePassedForOpenAA > timeForAALock)
         {
             
 
@@ -332,7 +338,7 @@ public class PlayerNeededValues : MonoBehaviour
             timePassedForAA = 0f;
         }
 
-        if (timePassedForAA > 0.5f)
+        if (timePassedForAA > 0.3f)
         {
             AACounter = 0;
            
@@ -577,7 +583,7 @@ else
             lightAttackCollider.enabled = true;
             yield return new WaitForSecondsRealtime(0.24f * PlayerController.animatorTimeVector );
             lightAttackCollider.enabled = false;
-            AACounter++;
+            AACounter = 0;
             IsAirborneAttack = false;
             AAInit = false;
             LockAA = true;

@@ -16,6 +16,10 @@ public class PlayerRollState : IState
         CommandHandler.ResetNext();
         timePassed = 0;
         counter = 0;
+        if (!PlayerNeededValues.IsGroundedPlayer)
+        {
+            PlayerNeededValues.Gravity0 = true;
+        }
     }
 
 
@@ -39,6 +43,8 @@ public class PlayerRollState : IState
             }
 
         }
+
+
         timePassed += Time.deltaTime;
         if (timePassed < 0.083f)
         {
@@ -113,7 +119,7 @@ public class PlayerRollState : IState
 
     public void Exit()
     {
-        
+        PlayerNeededValues.Gravity0 = false;
         CommandHandler.StartNext();
     }
 }
