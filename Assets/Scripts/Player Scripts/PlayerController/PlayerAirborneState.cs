@@ -28,6 +28,9 @@ public class PlayerAirborneState :IState
 
         }
 
+
+
+
         if (PlayerNeededValues.IsRolling)
         {
 
@@ -36,6 +39,12 @@ public class PlayerAirborneState :IState
             return;
 
         }
+
+        else if (PlayerNeededValues.IsKnocbacking)
+        {
+            PlayerController.playerSM.ChangeState(PlayerNeededValues.playerKbState);
+        }
+
 
         else if (PlayerNeededValues.IsAirborneAttack)
         {

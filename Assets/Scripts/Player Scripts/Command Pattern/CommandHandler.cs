@@ -49,7 +49,7 @@ public static class CommandHandler
         else if (PlayerAirborneState.isAirborne)
         {
             //Debug.Log("Airborne");
-            if (PlayerNeededValues.isRollingAirborne || PlayerNeededValues.AAInit)
+            if (PlayerNeededValues.isRollingAirborne || PlayerNeededValues.AAInit && !PlayerNeededValues.IsKnocbacking)
             {
                 command?.Execute();
             }

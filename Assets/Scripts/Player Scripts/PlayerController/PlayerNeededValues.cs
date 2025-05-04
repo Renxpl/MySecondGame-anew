@@ -110,6 +110,9 @@ public class PlayerNeededValues : MonoBehaviour
     float timePassedForOpenAA = 0f;
     [SerializeField] float timeForAALock;
 
+    bool lockDashAirborne = false;
+
+    bool airborneKnockbackDebug;
     void Awake()
     {
         GroundedStateForPlayer = new PlayerGroundedState();
@@ -166,10 +169,12 @@ public class PlayerNeededValues : MonoBehaviour
         if (!IsGroundedPlayer)
         {
             firstTimeGrounded= true;
+
         }
         else
         {
             AACounter = 0;
+            lockDashAirborne = false;
 
         }
         if (IsGroundedPlayer && firstTimeGrounded)
@@ -292,13 +297,24 @@ public class PlayerNeededValues : MonoBehaviour
         }
         */
 
+        if (airborneKnockbackDebug)
+        {
 
+            StartCoroutine(Knockback());
+            airborneKnockbackDebug= false;
+        }
 
 
 
 
     }
+    //Debug Input
+    void OnDebug()
+    {
 
+        //airborneKnockbackDebug = true;
+
+    }
 
     void OpenAA()
     {
@@ -419,7 +435,7 @@ void OnRolling()
 //Debug.Log("Rolling");
 
 if(!IsGroundedPlayer) isRollingAirborne= true;
-CommandHandler.HandleCommand(rollInput);
+if(!lockDashAirborne) CommandHandler.HandleCommand(rollInput);
 
 
 
@@ -430,6 +446,7 @@ public void RollExecute()
 
 if (!IsRolling && !extraRollingWait)
 {
+   if (isRollingAirborne) lockDashAirborne = true;         
 
    RollInput = MoveInput;
    if (IsLightAttack)
@@ -1012,7 +1029,18 @@ if (IsLightAttack)
    lightAttackCollider.enabled = false;
    IsDuringAttack = false;
    PlayerGrAttackState.sw = false;
+            LightAttackNumber = 1;
 }
+        if (IsAirborneAttack)
+        {
+            if (aaCombo != null) StopCoroutine(aaCombo);
+            IsAirborneAttack = false;
+            lightAttackCollider.enabled = false;
+            AACounter = 0;
+            PlayerGrAttackState.sw = false;
+            AAInit = false;
+            Gravity0 = false;
+        }
 if (IsRolling)
 {
    if (rollingCoroutine != null) StopCoroutine(rollingCoroutine);
