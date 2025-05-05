@@ -19,8 +19,11 @@ public class PlayerNeededValues : MonoBehaviour
     public static PlayerKnockbackState playerKbState { get; private set; }
     public static PlayerKnockbackState playerParryState { get; private set; }
     public static PlayerAirborneAttackState playerAAstate { get; private set; }
+    public static PlayerWallClimbState playerWCState { get; private set; }
 
     public static bool IsGroundedPlayer { get; private set; }
+    public static bool IsLeftWallClimbing { get; private set; }
+    public static bool IsRightWallClimbing { get; private set; }
     public static bool CanDoActionDuringJump { get; private set; }
     public static bool IsRolling { get; private set; }
     public static bool IsJumping { get; private set; }
@@ -113,6 +116,15 @@ public class PlayerNeededValues : MonoBehaviour
     bool lockDashAirborne = false;
 
     bool airborneKnockbackDebug;
+    
+    bool firstTimeWalled = false;
+
+
+    public static bool CanJumpFromLWall { get; set; }
+    public static bool CanJumpFromRWall { get; set; }
+
+    float timeForLWall = 0f;
+    float timeForRWall = 0f;
     void Awake()
     {
         GroundedStateForPlayer = new PlayerGroundedState();
@@ -131,6 +143,7 @@ public class PlayerNeededValues : MonoBehaviour
         playerKbState = new PlayerKnockbackState();
         playerAAstate = new PlayerAirborneAttackState();
         aaInput = new AAInput();
+        playerWCState = new PlayerWallClimbState();
     }
 
     // Start is called before the first frame update
@@ -163,9 +176,25 @@ public class PlayerNeededValues : MonoBehaviour
     void Update()
     {
 
-        IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1f, groundLayer);
-        Debug.DrawRay(player.transform.position, Vector2.down * 1f, IsGroundedPlayer ? Color.green : Color.red);
+        IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1.1f, groundLayer);
+        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer;
+        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.65f, groundLayer) && !IsGroundedPlayer;
+        Debug.DrawRay(player.transform.position, Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
+        Debug.DrawRay(player.transform.position, Vector2.right * 0.65f, IsRightWallClimbing ? Color.green : Color.blue);
+        Debug.DrawRay(player.transform.position, Vector2.left * 0.65f, IsLeftWallClimbing ? Color.green : Color.cyan);
         CanDoActionDuringJump = Physics2D.Raycast(player.transform.position, Vector2.down, 2.25f,groundLayer);
+
+        if(!IsRightWallClimbing && !IsLeftWallClimbing)
+        {
+            firstTimeWalled= true;
+        }
+        else
+        {
+            lockDashAirborne = false;
+        }
+        
+        
+
         if (!IsGroundedPlayer)
         {
             firstTimeGrounded= true;
@@ -177,7 +206,17 @@ public class PlayerNeededValues : MonoBehaviour
             lockDashAirborne = false;
 
         }
-        if (IsGroundedPlayer && firstTimeGrounded)
+        bool canDoWallJump = (IsRightWallClimbing || IsLeftWallClimbing) && firstTimeWalled;
+
+
+        if (canDoWallJump)
+        {
+            IsJumping = false;
+            JumpTime = 0;
+            firstTimeWalled = false;
+        }
+
+        if (IsGroundedPlayer  && firstTimeGrounded)
         {
             IsJumping = false;
             JumpTime = 0;
@@ -277,9 +316,42 @@ public class PlayerNeededValues : MonoBehaviour
 
         OpenAA();
 
+        HandlingTimeForWalls();
+
     }
 
+    void HandlingTimeForWalls()
+    {
+        
+        if(!CanJumpFromLWall)
+        {
+            timeForLWall += Time.deltaTime;
+        }
 
+        if(timeForLWall >= 0.75f || (!CanJumpFromRWall && timeForLWall > timeForRWall) )
+        {
+            CanJumpFromLWall = true;
+            timeForLWall= 0;
+
+        }
+
+        if (!CanJumpFromRWall)
+        {
+            timeForRWall += Time.deltaTime;
+        }
+
+        if (timeForRWall >= 0.75f || (!CanJumpFromLWall && timeForRWall > timeForLWall))
+        {
+            CanJumpFromRWall = true;
+            timeForRWall = 0;
+
+        }
+
+
+
+
+
+    }
 
 
     void DebugCheats()
@@ -503,7 +575,7 @@ if (jumpInput != 0)
 public static void JumpExecute()
 {
 
-if (IsGroundedPlayer && jumpInput != 0) { Debug.Log("Jumping"); IsJumping = true; IsSpacePressing = true; }
+if ((IsGroundedPlayer || IsRightWallClimbing ||IsLeftWallClimbing) && jumpInput != 0) { Debug.Log("Jumping"); IsJumping = true; IsSpacePressing = true; }
 }
 
 void OnToLightningAura(InputValue input)

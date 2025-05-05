@@ -49,13 +49,16 @@ public static class CommandHandler
         else if (PlayerAirborneState.isAirborne)
         {
             //Debug.Log("Airborne");
-            if (PlayerNeededValues.isRollingAirborne || PlayerNeededValues.AAInit && !PlayerNeededValues.IsKnocbacking)
+            if (PlayerNeededValues.isRollingAirborne || PlayerNeededValues.AAInit && !PlayerNeededValues.IsKnocbacking || PlayerNeededValues.IsRightWallClimbing || PlayerNeededValues.IsLeftWallClimbing)
             {
                 command?.Execute();
             }
             
             else next = command;
         }
+
+
+
         else
         {
             //Debug.Log("1");

@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class PlayerJumpState : IState
 {
-    
 
 
+    bool firstTime;
 
     public void Enter()
     {
-
+        firstTime = true;
     }
 
 
     public void Update()
     {
-        if (!(PlayerNeededValues.IsGroundedPlayer))
+        if (!(PlayerNeededValues.IsGroundedPlayer) && !PlayerNeededValues.IsRightWallClimbing && !PlayerNeededValues.IsLeftWallClimbing)
         {
             //Debug.Log("Entered into Airborne State");
 
@@ -34,15 +34,46 @@ public class PlayerJumpState : IState
 
             return;
         }
-        if (Time.timeScale < 1)
+        if (PlayerNeededValues.IsGroundedPlayer)
         {
-            PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerNeededValues.JumpSpeed * (1/Time.timeScale)*1.25f);
+            if (Time.timeScale < 1)
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f);
+            }
+            else
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerNeededValues.JumpSpeed);
+            }
         }
-        else 
+        else
         {
-            PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerNeededValues.JumpSpeed);
-        }
+            if (Time.timeScale < 1)
+            {
+                if (PlayerNeededValues.IsRightWallClimbing)
+                {
+                    PlayerController.PlayerRB.velocity = new Vector2(-1f/4f*(PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f), PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f);
+                }
+                if (PlayerNeededValues.IsLeftWallClimbing)
+                {
+                    PlayerController.PlayerRB.velocity = new Vector2(1f / 4f * (PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f), PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f);
+                }
 
+
+            }
+            else
+            {
+               
+                if (PlayerNeededValues.IsRightWallClimbing)
+                {
+                    PlayerController.PlayerRB.velocity = new Vector2( -20f, 5f);
+                }
+                if (PlayerNeededValues.IsLeftWallClimbing)
+                {
+                    PlayerController.PlayerRB.velocity = new Vector2( 20f,5f) ;
+                }
+            }
+        }
+       
         //PlayerController.PlayerRB.AddForce(PlayerNeededValues.JumpSpeed * Vector2.up, ForceMode2D.Impulse);
         
 

@@ -27,6 +27,7 @@ public class PlayerAirborneState :IState
             return;
 
         }
+       
 
 
 
@@ -57,7 +58,18 @@ public class PlayerAirborneState :IState
             PlayerController.playerSM.ChangeState(PlayerNeededValues.playerKbState);
             return;
         }
-        
+        else if (PlayerNeededValues.IsLeftWallClimbing || PlayerNeededValues.IsRightWallClimbing)
+        {
+
+           
+            PlayerController.playerSM.ChangeState(PlayerNeededValues.playerWCState);
+
+
+            return;
+
+
+        }
+
         if (!PlayerNeededValues.CanDoActionDuringJump)
         {
             if(!PlayerNeededValues.isRollingAirborne || ! PlayerNeededValues.AAInit)
