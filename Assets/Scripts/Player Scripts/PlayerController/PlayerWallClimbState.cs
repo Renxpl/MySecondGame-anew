@@ -55,7 +55,20 @@ public class PlayerWallClimbState : IState
 
         //PlayerController.PlayerRB.AddForce(PlayerNeededValues.JumpSpeed * Vector2.up, ForceMode2D.Impulse);
 
-
+        if (PlayerNeededValues.IsRightWallClimbing)
+        {
+            if(PlayerController.PlayerRB.transform.localScale.x ==1)
+                PlayerController.ChangeAnimationState("WR1");
+            else
+                PlayerController.ChangeAnimationState("WL1");
+        }
+        else if (PlayerNeededValues.IsLeftWallClimbing)
+        {
+            if (PlayerController.PlayerRB.transform.localScale.x == 1)
+                PlayerController.ChangeAnimationState("WL1");
+            else
+                PlayerController.ChangeAnimationState("WR1");
+        }
 
 
 
