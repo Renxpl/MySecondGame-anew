@@ -127,6 +127,7 @@ public class PlayerNeededValues : MonoBehaviour
     float timeForLWall = 0f;
     float timeForRWall = 0f;
     float timeForSpriteLock = 0f;
+    float timeToPassOnwalls = 0.75f;
 
 
     public static float TimePassedOnWalls { get; set; }
@@ -183,8 +184,8 @@ public class PlayerNeededValues : MonoBehaviour
     {
 
         IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1.1f, groundLayer);
-        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls <0.5f;
-        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.65f, groundLayer) && !IsGroundedPlayer&& TimePassedOnWalls < 0.5f;
+        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls <timeToPassOnwalls;
+        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.65f, groundLayer) && !IsGroundedPlayer&& TimePassedOnWalls < timeToPassOnwalls;
         Debug.DrawRay(player.transform.position, Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position, Vector2.right * 0.65f, IsRightWallClimbing ? Color.green : Color.blue);
         Debug.DrawRay(player.transform.position, Vector2.left * 0.65f, IsLeftWallClimbing ? Color.green : Color.cyan);
@@ -333,7 +334,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void FallingOfTheWall()
     {
-        if (TimePassedOnWalls >= 0.5f)
+        if (TimePassedOnWalls >= timeToPassOnwalls)
         {
 
             timeToGetWalls = Time.deltaTime;
