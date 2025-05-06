@@ -37,11 +37,13 @@ public class PlayerWallClimbState : IState
             {
                 PlayerNeededValues.CanJumpFromRWall = false;
                 PlayerController.playerSM.ChangeState(PlayerNeededValues.JumpStateForPlayer);
+                PlayerController.PlayerRB.transform.localScale = new Vector2(-1f,1f);
             }
             else if (PlayerNeededValues.IsLeftWallClimbing && PlayerNeededValues.CanJumpFromLWall)
             {
                 PlayerNeededValues.CanJumpFromLWall= false;
                 PlayerController.playerSM.ChangeState(PlayerNeededValues.JumpStateForPlayer);
+                PlayerController.PlayerRB.transform.localScale = new Vector2(1f, 1f);
             }
 
 

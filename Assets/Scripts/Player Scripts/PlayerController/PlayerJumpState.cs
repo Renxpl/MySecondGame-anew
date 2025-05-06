@@ -65,11 +65,11 @@ public class PlayerJumpState : IState
                
                 if (PlayerNeededValues.IsRightWallClimbing)
                 {
-                    PlayerController.PlayerRB.velocity = new Vector2( -20f, 5f);
+                    PlayerController.PlayerRB.velocity = new Vector2( -75f, 20f);
                 }
                 if (PlayerNeededValues.IsLeftWallClimbing)
                 {
-                    PlayerController.PlayerRB.velocity = new Vector2( 20f,5f) ;
+                    PlayerController.PlayerRB.velocity = new Vector2( 75f,20f) ;
                 }
             }
         }

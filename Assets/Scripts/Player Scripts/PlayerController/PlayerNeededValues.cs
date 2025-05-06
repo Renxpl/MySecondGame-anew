@@ -328,7 +328,7 @@ public class PlayerNeededValues : MonoBehaviour
             timeForLWall += Time.deltaTime;
         }
 
-        if(timeForLWall >= 0.75f || (!CanJumpFromRWall && timeForLWall > timeForRWall) )
+        if(timeForLWall >= 1f || (!CanJumpFromRWall && timeForLWall > timeForRWall) )
         {
             CanJumpFromLWall = true;
             timeForLWall= 0;
@@ -340,7 +340,7 @@ public class PlayerNeededValues : MonoBehaviour
             timeForRWall += Time.deltaTime;
         }
 
-        if (timeForRWall >= 0.75f || (!CanJumpFromLWall && timeForRWall > timeForLWall))
+        if (timeForRWall >= 1f || (!CanJumpFromLWall && timeForRWall > timeForLWall))
         {
             CanJumpFromRWall = true;
             timeForRWall = 0;
