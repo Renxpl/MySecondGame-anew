@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayerWallClimbState : IState
 {
+    
     public void Enter()
     {
         PlayerNeededValues.Gravity0 = true;
+        PlayerNeededValues.TimePassedOnWalls = 0f;
+        
     }
 
 
@@ -72,7 +75,7 @@ public class PlayerWallClimbState : IState
                 PlayerController.ChangeAnimationState("WR1");
         }
 
-
+        PlayerNeededValues.TimePassedOnWalls += Time.deltaTime;
 
 
     }

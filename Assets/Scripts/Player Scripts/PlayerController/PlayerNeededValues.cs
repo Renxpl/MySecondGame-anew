@@ -122,9 +122,15 @@ public class PlayerNeededValues : MonoBehaviour
 
     public static bool CanJumpFromLWall { get; set; }
     public static bool CanJumpFromRWall { get; set; }
+    public static bool LockSpriteDirection { get; set; }
 
     float timeForLWall = 0f;
     float timeForRWall = 0f;
+    float timeForSpriteLock = 0f;
+
+
+    public static float TimePassedOnWalls { get; set; }
+    float timeToGetWalls;
     void Awake()
     {
         GroundedStateForPlayer = new PlayerGroundedState();
@@ -177,8 +183,8 @@ public class PlayerNeededValues : MonoBehaviour
     {
 
         IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1.1f, groundLayer);
-        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer;
-        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.65f, groundLayer) && !IsGroundedPlayer;
+        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls <0.5f;
+        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.65f, groundLayer) && !IsGroundedPlayer&& TimePassedOnWalls < 0.5f;
         Debug.DrawRay(player.transform.position, Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position, Vector2.right * 0.65f, IsRightWallClimbing ? Color.green : Color.blue);
         Debug.DrawRay(player.transform.position, Vector2.left * 0.65f, IsLeftWallClimbing ? Color.green : Color.cyan);
@@ -202,6 +208,7 @@ public class PlayerNeededValues : MonoBehaviour
         }
         else
         {
+            TimePassedOnWalls= 0f;
             AACounter = 0;
             lockDashAirborne = false;
 
@@ -318,6 +325,57 @@ public class PlayerNeededValues : MonoBehaviour
 
         HandlingTimeForWalls();
 
+        HandleSpriteLock();
+
+        FallingOfTheWall();
+
+    }
+
+    void FallingOfTheWall()
+    {
+        if (TimePassedOnWalls >= 0.5f)
+        {
+
+            timeToGetWalls = Time.deltaTime;
+
+
+
+        }
+        else
+        {
+            timeToGetWalls = 0f;
+        }
+
+        if(timeToGetWalls > 1f)
+        {
+            TimePassedOnWalls= 0f;
+        }
+
+    }
+
+    void HandleSpriteLock()
+    {
+
+        if (LockSpriteDirection)
+        {
+            timeForSpriteLock += Time.deltaTime;
+          
+
+        }
+
+        else
+        {
+            timeForSpriteLock = 0f;
+        }
+
+        if(timeForSpriteLock > 0.25f)
+        {
+            LockSpriteDirection= false;
+            
+
+        }
+
+
     }
 
     void HandlingTimeForWalls()
@@ -332,6 +390,7 @@ public class PlayerNeededValues : MonoBehaviour
         {
             CanJumpFromLWall = true;
             timeForLWall= 0;
+
 
         }
 
@@ -496,7 +555,9 @@ comboIncrement = null;
 
 void OnMove(InputValue input)
 {
-MoveInput = input.Get<Vector2>();
+        MoveInput = input.Get<Vector2>();
+       
+        
 //Debug.Log("MoveInput Debug Display " + MoveInput);
 //Debug.Log("IsGrounded: " + IsGroundedPlayer);
 }

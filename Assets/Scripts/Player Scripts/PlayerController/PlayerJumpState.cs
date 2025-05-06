@@ -47,6 +47,7 @@ public class PlayerJumpState : IState
         }
         else
         {
+            PlayerNeededValues.LockSpriteDirection = true;
             if (Time.timeScale < 1)
             {
                 if (PlayerNeededValues.IsRightWallClimbing)
@@ -65,11 +66,11 @@ public class PlayerJumpState : IState
                
                 if (PlayerNeededValues.IsRightWallClimbing)
                 {
-                    PlayerController.PlayerRB.velocity = new Vector2( -75f, 20f);
+                    PlayerController.PlayerRB.velocity = new Vector2( -50f, 20f);
                 }
                 if (PlayerNeededValues.IsLeftWallClimbing)
                 {
-                    PlayerController.PlayerRB.velocity = new Vector2( 75f,20f) ;
+                    PlayerController.PlayerRB.velocity = new Vector2( 50f,20f) ;
                 }
             }
         }

@@ -75,20 +75,37 @@ public class PlayerAirborneState :IState
             if(!PlayerNeededValues.isRollingAirborne || ! PlayerNeededValues.AAInit)
             CommandHandler.ResetNext();
         }
-
+        
         isAirborne = true;
         
         if (PlayerNeededValues.IsJumpingUp)
         {
-            PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerNeededValues.JumpSpeed);
-            PlayerController.ChangeAnimationState("JumpingUp");
+            if (PlayerNeededValues.LockSpriteDirection)
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerNeededValues.JumpSpeed);
+                PlayerController.ChangeAnimationState("JumpingUp");
+            }
+            else
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerNeededValues.JumpSpeed);
+                PlayerController.ChangeAnimationState("JumpingUp");
+            }
+           
            if (a % 2 == 0 ) { a++;  }
 
         }
         else
         {
-            PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
-            PlayerController.ChangeAnimationState("JumpingDown");
+            if (PlayerNeededValues.LockSpriteDirection)
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerController.PlayerRB.velocity.y);
+            }
+            else
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
+                PlayerController.ChangeAnimationState("JumpingDown");
+            }
+            
            if (a % 2 == 1 && !PlayerNeededValues.isRollingAirborne) { a++; CommandHandler.ResetNext(); }
             
 
