@@ -56,7 +56,7 @@ public class PlayerWallClimbState : IState
             Debug.Log("Error, WCState");
         }
         
-        PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, -1f);
+        PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, -0.5f);
 
         //PlayerController.PlayerRB.AddForce(PlayerNeededValues.JumpSpeed * Vector2.up, ForceMode2D.Impulse);
 
