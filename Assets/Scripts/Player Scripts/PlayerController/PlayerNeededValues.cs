@@ -132,6 +132,8 @@ public class PlayerNeededValues : MonoBehaviour
 
     public static float TimePassedOnWalls { get; set; }
     float timeToGetWalls;
+
+    float addToSABAr;
     void Awake()
     {
         GroundedStateForPlayer = new PlayerGroundedState();
@@ -174,7 +176,7 @@ public class PlayerNeededValues : MonoBehaviour
         HP = 10;
         Stance = 5;
         GameEvents.gameEvents.onComboIncrement += ComboAdjuster;
-        SpecialAttackBar = 30;
+        SpecialAttackBar = 32;
         AACounter = 0;
         
     }
@@ -501,9 +503,25 @@ public class PlayerNeededValues : MonoBehaviour
     void SpecialAttackBarControl()
 {
 SpecialAttackBarTiming += Time.deltaTime;
-if (SpecialAttackBar > 30)
+        if(SpecialAttackBarTiming >= 7.5f)
+        {
+            if(SpecialAttackBar < 32f)
+            {
+                addToSABAr += Time.deltaTime;
+                if (addToSABAr >= 0.16f)
+                {
+                    SpecialAttackBar += 0.16f;
+                    addToSABAr = 0f;
+                }
+            }
+        }
+        else
+        {
+            addToSABAr = 0f;
+        }
+if (SpecialAttackBar > 32)
 {
-   SpecialAttackBar = 30;
+   SpecialAttackBar = 32;
 
 
 
