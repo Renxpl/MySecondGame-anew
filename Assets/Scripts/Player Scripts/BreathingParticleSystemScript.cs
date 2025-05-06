@@ -26,7 +26,7 @@ public class BreathingParticleSystemScript : MonoBehaviour
 
             if (!ps.isStopped)
             {
-                ps.Stop();
+                ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             }
 
         }

@@ -124,7 +124,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 950fd7a991c9437408a5b29ea9f5d632, type: 2}
+  m_Motion: {fileID: 7400000, guid: f67a466825b9d0b47a8629cacb588b0a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -150,7 +150,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 6b4bdf2512bd5654cb635a4ae1cd646a, type: 2}
+  m_Motion: {fileID: 7400000, guid: 7a2cbeeb7bd057544be9f386fe0eb7ff, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -216,7 +216,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Rolling
-  m_Speed: 1.25
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -228,7 +228,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 8963bebe03cc1c048bb148e572b76970, type: 2}
+  m_Motion: {fileID: 7400000, guid: b6a7828903bc7554ba870e52f56abd76, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
