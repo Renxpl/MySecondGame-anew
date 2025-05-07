@@ -11144,7 +11144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 755101060785083068, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_RootOrder
@@ -12569,7 +12569,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.31544113, y: -0.22138095}
+  m_Offset: {x: -0.13, y: -0.22138095}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -12580,7 +12580,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1626358, y: 1.4427619}
+  m_Size: {x: 0.1278534, y: 1.4427619}
   m_EdgeRadius: 0
 --- !u!61 &791396042
 BoxCollider2D:
@@ -12595,7 +12595,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5092697, y: -0.21676862}
+  m_Offset: {x: 0.41, y: -0.21676862}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -12606,7 +12606,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2263031, y: 1.4335372}
+  m_Size: {x: 0.15676117, y: 1.4335372}
   m_EdgeRadius: 0
 --- !u!1 &804413254
 GameObject:
@@ -13329,7 +13329,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938682213}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -93.07, y: -1.98, z: -5}
+  m_LocalPosition: {x: -94.76, y: -2.05, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13400,7 +13400,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09605789, y: -0.8662007}
+  m_Offset: {x: 0.13758087, y: -0.8822}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -13411,7 +13411,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5695648, y: 0.21125412}
+  m_Size: {x: 0.55659485, y: 0.17925549}
   m_EdgeRadius: 0
 --- !u!114 &938682219
 MonoBehaviour:
@@ -13873,7 +13873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swordsman: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
-  isSpawning: 1
+  isSpawning: 0
 --- !u!1 &1275972697
 GameObject:
   m_ObjectHideFlags: 0
@@ -57576,7 +57576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 755101060785083068, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_RootOrder

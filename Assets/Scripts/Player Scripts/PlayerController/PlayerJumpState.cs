@@ -45,6 +45,7 @@ public class PlayerJumpState : IState
                 PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerNeededValues.JumpSpeed);
             }
         }
+        
         else
         {
             PlayerNeededValues.LockSpriteDirection = true;

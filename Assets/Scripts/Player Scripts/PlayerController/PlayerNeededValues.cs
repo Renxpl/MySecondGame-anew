@@ -20,10 +20,14 @@ public class PlayerNeededValues : MonoBehaviour
     public static PlayerKnockbackState playerParryState { get; private set; }
     public static PlayerAirborneAttackState playerAAstate { get; private set; }
     public static PlayerWallClimbState playerWCState { get; private set; }
+    public static PlayerEdgeClimbState playerECState { get; private set; }
 
     public static bool IsGroundedPlayer { get; private set; }
     public static bool IsLeftWallClimbing { get; private set; }
     public static bool IsRightWallClimbing { get; private set; }
+
+  
+
     public static bool CanDoActionDuringJump { get; private set; }
     public static bool IsRolling { get; private set; }
     public static bool IsJumping { get; private set; }
@@ -118,6 +122,7 @@ public class PlayerNeededValues : MonoBehaviour
     bool airborneKnockbackDebug;
     
     bool firstTimeWalled = false;
+    bool firstTimeOnEdge = false;
 
 
     public static bool CanJumpFromLWall { get; set; }
@@ -153,6 +158,7 @@ public class PlayerNeededValues : MonoBehaviour
         playerAAstate = new PlayerAirborneAttackState();
         aaInput = new AAInput();
         playerWCState = new PlayerWallClimbState();
+        playerECState   = new PlayerEdgeClimbState();
     }
 
     // Start is called before the first frame update
@@ -185,13 +191,20 @@ public class PlayerNeededValues : MonoBehaviour
     void Update()
     {
 
-        IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1.1f, groundLayer);
-        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls <timeToPassOnwalls;
-        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.65f, groundLayer) && !IsGroundedPlayer&& TimePassedOnWalls < timeToPassOnwalls;
+        IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1.1f, groundLayer) || Physics2D.Raycast(player.transform.position + new Vector3(0.25f, 0f, 0f), Vector2.down, 1.1f, groundLayer)|| Physics2D.Raycast(player.transform.position - new Vector3(0.25f, 0f, 0f), Vector2.down, 1.1f, groundLayer);
+        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls <timeToPassOnwalls ;
+        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.65f, groundLayer) && !IsGroundedPlayer&& TimePassedOnWalls < timeToPassOnwalls ;
+        Debug.DrawRay(player.transform.position+new Vector3(0.25f,0f,0f), Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
+        Debug.DrawRay(player.transform.position - new Vector3(0.25f, 0f, 0f), Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position, Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position, Vector2.right * 0.65f, IsRightWallClimbing ? Color.green : Color.blue);
         Debug.DrawRay(player.transform.position, Vector2.left * 0.65f, IsLeftWallClimbing ? Color.green : Color.cyan);
+      
         CanDoActionDuringJump = Physics2D.Raycast(player.transform.position, Vector2.down, 2.25f,groundLayer);
+
+
+        
+
 
         if(!IsRightWallClimbing && !IsLeftWallClimbing)
         {
@@ -203,6 +216,7 @@ public class PlayerNeededValues : MonoBehaviour
         }
         
         
+       
 
         if (!IsGroundedPlayer)
         {
@@ -217,8 +231,10 @@ public class PlayerNeededValues : MonoBehaviour
 
         }
         bool canDoWallJump = (IsRightWallClimbing || IsLeftWallClimbing) && firstTimeWalled;
+     
 
 
+      
         if (canDoWallJump)
         {
             IsJumping = false;

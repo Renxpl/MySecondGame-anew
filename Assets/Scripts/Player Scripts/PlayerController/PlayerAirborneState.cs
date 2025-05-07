@@ -58,6 +58,8 @@ public class PlayerAirborneState :IState
             PlayerController.playerSM.ChangeState(PlayerNeededValues.playerKbState);
             return;
         }
+        
+
         else if (PlayerNeededValues.IsLeftWallClimbing || PlayerNeededValues.IsRightWallClimbing)
         {
 

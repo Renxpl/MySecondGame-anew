@@ -14,6 +14,10 @@ TagManager:
   - SpecialAttack1
   - AirborneAttack
   - SwordsmanEnemy
+  - RightEdge
+  - LeftEdge
+  - UpClimb
+  - DownClimb
   layers:
   - Default
   - TransparentFX
