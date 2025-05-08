@@ -11144,7 +11144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 755101060785083068, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_RootOrder
@@ -13873,7 +13873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swordsman: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
-  isSpawning: 0
+  isSpawning: 1
 --- !u!1 &1275972697
 GameObject:
   m_ObjectHideFlags: 0
@@ -57576,7 +57576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 755101060785083058, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 755101060785083068, guid: d91e880b4d8a15440b8648e59834e372, type: 3}
       propertyPath: m_RootOrder
