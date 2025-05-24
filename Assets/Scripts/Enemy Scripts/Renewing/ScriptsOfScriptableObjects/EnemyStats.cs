@@ -9,7 +9,9 @@ public class EnemyStats : ScriptableObject
 
     public float maxHealth;
     public float moveSpeed;
-    public float attackRange;
+
+
+    public GameObject enemyPrefab;
 
 
 
