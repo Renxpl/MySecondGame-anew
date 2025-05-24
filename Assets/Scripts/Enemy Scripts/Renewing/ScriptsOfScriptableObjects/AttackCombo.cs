@@ -7,6 +7,7 @@ using UnityEngine;
 public class AttackCombo : ScriptableObject
 {
     public AttackStep[] steps;
+    public float[] durations;
     public float comboCooldown;
 
 

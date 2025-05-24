@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChaseMovementBehaviour : IMovementBehaviour
 {
     //to be deleted later
-    float range = 5f;
+    float range = 2.5f;
 
     public void Move(EnemyController self, Rigidbody2D enemyRB, Transform target)
     {
@@ -21,7 +21,18 @@ public class ChaseMovementBehaviour : IMovementBehaviour
         else
         {
             enemyRB.velocity = 0f * dir;
-            self.GetComponent<Animator>().Play("Idle");//have to be more flexible thing
+            if (Mathf.Abs(target.position.y - self.transform.position.y) < 2)
+            {
+                self.ChangeState(new EnemyAttackState());//have to be in state not behaviour
+            }
+            else
+            {
+                
+                self.GetComponent<Animator>().Play("Idle");//have to be more flexible thing
+            }
+            
+
+
         }
         
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ESpawnManager : MonoBehaviour
 {
     public EnemyStats testStat;
+    public AttackCombo testCombo;
     float timeGap=5f;
     float timeCounter = 0f;
 
@@ -19,7 +20,7 @@ public class ESpawnManager : MonoBehaviour
         timeCounter += Time.deltaTime;
         if(timeCounter > timeGap)
         {
-            EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), Vector2.zero);
+            EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), Vector2.zero, testCombo, new CloseCombatBehaviour());
 
             timeCounter= 0f;
         }
