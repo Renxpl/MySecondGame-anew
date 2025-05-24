@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     public Transform PlayerTransform { get; private set; }
     IStateEnemy currentState;
 
+    //method which allows child states to run couroutines
     public Coroutine Run(IEnumerator routine) => StartCoroutine(routine);
 
 
