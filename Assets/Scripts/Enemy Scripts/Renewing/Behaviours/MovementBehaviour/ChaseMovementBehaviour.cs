@@ -16,7 +16,9 @@ public class ChaseMovementBehaviour : IMovementBehaviour
         if(Mathf.Abs(target.position.x - self.transform.position.x) > range)
         {
             enemyRB.velocity = self.Stats.moveSpeed * dir;
+           
             self.GetComponent<Animator>().Play("Walking");
+          
         }
         else
         {

@@ -18889,6 +18889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testStat: {fileID: 11400000, guid: c1158ff692a59084b9e7117c4077cefb, type: 2}
+  testCombo: {fileID: 0}
 --- !u!4 &1369723949
 Transform:
   m_ObjectHideFlags: 0
