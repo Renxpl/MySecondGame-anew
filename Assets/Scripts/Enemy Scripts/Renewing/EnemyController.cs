@@ -12,6 +12,8 @@ public class EnemyController : MonoBehaviour
     public Transform PlayerTransform { get; private set; }
     IStateEnemy currentState;
 
+    public int AttackStep { get; private set; }
+
     //method which allows child states to run couroutines
     public Coroutine Run(IEnumerator routine) => StartCoroutine(routine);
 
@@ -22,6 +24,7 @@ public class EnemyController : MonoBehaviour
         ChaseMov= mov;
         Combo = combo;
         AttackBehaviour = attack;
+        AttackStep = 0;
     }
 
     void Start()
@@ -47,5 +50,25 @@ public class EnemyController : MonoBehaviour
 
 
     }
+
+    public void IncreaseAttackStep()
+    {
+        AttackStep++;
+
+
+    }
+
+    public void ResetAttackStep()
+    {
+        AttackStep= 0;
+
+    }
+
+
+
+
+
+
+
 
 }

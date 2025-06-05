@@ -6,6 +6,7 @@ public class EnemyAttackState : IStateEnemy
 {
     public void Enter(EnemyController ctrl)
     {
+        ctrl.ResetAttackStep();
         ctrl.AttackBehaviour.Attack(ctrl, ctrl.GetComponent<Rigidbody2D>(), ctrl.PlayerTransform);
        
     }
@@ -20,7 +21,7 @@ public class EnemyAttackState : IStateEnemy
 
     public void Exit(EnemyController ctrl)
     {
-
+        ctrl.ResetAttackStep();
     }
 
     

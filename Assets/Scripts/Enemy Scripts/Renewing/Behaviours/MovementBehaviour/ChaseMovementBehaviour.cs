@@ -13,7 +13,7 @@ public class ChaseMovementBehaviour : IMovementBehaviour
         Vector2 dir = new Vector2(target.position.x - self.transform.position.x, 0).normalized;
         self.transform.localScale = new Vector2 (dir.x,1f);//Sprite Adjustment
         //range will be next attack range which will be implemented later
-        if(Mathf.Abs(target.position.x - self.transform.position.x) > range)
+        if(Mathf.Abs(target.position.x - self.transform.position.x) > self.Combo.steps[self.AttackStep].range)
         {
             enemyRB.velocity = self.Stats.moveSpeed * dir;
            
@@ -23,7 +23,7 @@ public class ChaseMovementBehaviour : IMovementBehaviour
         else
         {
             enemyRB.velocity = 0f * dir;
-            if (Mathf.Abs(target.position.y - self.transform.position.y) < 2)
+            if (Mathf.Abs(target.position.y - self.transform.position.y) < 1)
             {
                 self.ChangeState(new EnemyAttackState());//have to be in state not behaviour
             }
