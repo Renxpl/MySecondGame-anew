@@ -19,9 +19,11 @@ public class EnemyController : MonoBehaviour, IDamageable
     public float CurrentHealth { get; private set; }
     public float CurrentStance { get; private set; }
     //method which allows child states to run couroutines
+    
     public Coroutine Run(IEnumerator routine) => StartCoroutine(routine);
+    public void StopCo(Coroutine routine) => StopCoroutine(routine);
 
-   
+
 
 
     bool isDead = false;
@@ -159,8 +161,8 @@ public class EnemyController : MonoBehaviour, IDamageable
             {
                 CurrentHealth -= dmg * 2;
             }
-            CurrentStance--;
-            Debug.Log("enemyhp " + CurrentHealth);
+            if(CurrentStance>0)CurrentStance--;
+            //Debug.Log("enemyhp " + CurrentHealth);
             if (CurrentHealth <= 0) isDead = true;
             timeToBePassedBetweenHits = 0f;
             timeToBePassedForStanceRegen = 0f;

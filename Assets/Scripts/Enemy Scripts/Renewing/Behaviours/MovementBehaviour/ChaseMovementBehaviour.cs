@@ -9,7 +9,12 @@ public class ChaseMovementBehaviour : IMovementBehaviour
 
     public void Move(EnemyController self, Rigidbody2D enemyRB, Transform target)
     {
-        
+        if (self.CurrentStance <= 0)
+        {
+            self.ChangeState(new EnemyKnockbackState());
+            return;
+
+        }
         Vector2 dir = new Vector2(target.position.x - self.transform.position.x, 0).normalized;
         /*self.transform.localScale = new Vector2 (dir.x,1f);*///Sprite Adjustment
         //range will be next attack range which will be implemented later

@@ -25,7 +25,7 @@ public class EnemyKnockbackState : IStateEnemy
 
     public void Exit(EnemyController ctrl)
     {
-       
+        ctrl.UnlockEnemySprite();
     }
 
 }

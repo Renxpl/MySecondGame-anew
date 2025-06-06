@@ -5,13 +5,21 @@ using UnityEngine;
 public class CloseCombatBehaviour : IAttackBehaviour
 {
 
-   
+    Coroutine attack;
     
     public void Attack(EnemyController self, Rigidbody2D enemyRB, Transform target)
     {
-        
-        self.Run(PerformAttack(self,enemyRB,target));
-       
+
+
+        if (attack == null) attack = self.Run(PerformAttack(self,enemyRB,target));
+        if(self.CurrentStance <= 0)
+        {
+            self.StopCo(attack);
+            self.Combo.steps[self.AttackStep % 3].hitbox.enabled = false;
+            self.UnlockEnemySprite();
+            self.ChangeState(new EnemyKnockbackState());
+
+        }
 
 
         
@@ -53,7 +61,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
 
         }
 
-
+        attack = null;
         self.ChangeState(new EnemyMovState());
 
     }
