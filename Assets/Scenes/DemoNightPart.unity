@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 16850023}
   - component: {fileID: 16850024}
+  - component: {fileID: 16850025}
   m_Layer: 9
   m_Name: 'HA1 Hitbox '
   m_TagString: HeavyAttack1
@@ -190,6 +191,20 @@ PolygonCollider2D:
       - {x: 6.4128723, y: 1.2793387}
       - {x: 4.2415786, y: 1.4365284}
       - {x: 1.1674356, y: 1.4068307}
+--- !u!114 &16850025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16850022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20505486d0434c44a8acbcd9808df1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 2
+  timeToBePassed: 0
 --- !u!1 &23354945
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,6 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23354946}
   - component: {fileID: 23354947}
+  - component: {fileID: 23354948}
   m_Layer: 9
   m_Name: AA Hitbox
   m_TagString: AirborneAttack
@@ -252,6 +268,20 @@ PolygonCollider2D:
       - {x: -0.8674407, y: -1.032744}
       - {x: 0.86744404, y: -1.0886748}
       - {x: 0.979022, y: 1.1479912}
+--- !u!114 &23354948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23354945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20505486d0434c44a8acbcd9808df1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 0.5
+  timeToBePassed: 0
 --- !u!1 &36343604
 GameObject:
   m_ObjectHideFlags: 0
@@ -11446,6 +11476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 540176548}
   - component: {fileID: 540176547}
+  - component: {fileID: 540176549}
   m_Layer: 9
   m_Name: 'HA3 Hitbox '
   m_TagString: HeavyAttack3
@@ -11499,6 +11530,20 @@ Transform:
   m_Father: {fileID: 938682215}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &540176549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540176546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20505486d0434c44a8acbcd9808df1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 4
+  timeToBePassed: 0
 --- !u!1 &560720240
 GameObject:
   m_ObjectHideFlags: 0
@@ -19102,10 +19147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e690203bd3b34409fa5dfebaed5cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  script: {fileID: 0}
   isGetMoved: 0
   health: 3
-  dmg: {fileID: 11400000, guid: af48e9dede756714bb54fd731247de47, type: 2}
 --- !u!61 &1537673855
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19441,6 +19484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1693003341}
   - component: {fileID: 1693003342}
+  - component: {fileID: 1693003343}
   m_Layer: 9
   m_Name: LA Hitboxes
   m_TagString: LightAttack
@@ -19499,6 +19543,20 @@ PolygonCollider2D:
       - {x: 2.646677, y: 0.69893754}
       - {x: 2.0971317, y: 1.1068436}
       - {x: 0.971158, y: 1.1328392}
+--- !u!114 &1693003343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693003340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20505486d0434c44a8acbcd9808df1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 1
+  timeToBePassed: 0.25
 --- !u!1 &1693806311
 GameObject:
   m_ObjectHideFlags: 0
@@ -57067,6 +57125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2089912776}
   - component: {fileID: 2089912775}
+  - component: {fileID: 2089912777}
   m_Layer: 9
   m_Name: 'HA2 Hitbox '
   m_TagString: HeavyAttack2
@@ -57119,6 +57178,20 @@ Transform:
   m_Father: {fileID: 938682215}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2089912777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089912774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20505486d0434c44a8acbcd9808df1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 3
+  timeToBePassed: 0
 --- !u!1 &2123826176
 GameObject:
   m_ObjectHideFlags: 0

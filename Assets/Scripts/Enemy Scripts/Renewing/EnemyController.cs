@@ -51,6 +51,11 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         }
 
+        if(CurrentHealth <= 0)
+        {
+           Destroy(gameObject);
+        }
+
         currentState.Update(this);
 
     }
@@ -96,7 +101,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void TakeDamage(float dmg)
     {
 
-
+        CurrentHealth -= dmg;
+        Debug.Log("enemyhp " + CurrentHealth);
 
     }
 
