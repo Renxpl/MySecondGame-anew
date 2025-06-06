@@ -43,7 +43,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
 
             self.IncreaseAttackStep();
             
-            if(self.AttackStep %3 == 0)
+            if(self.AttackStep %3 == 0 || self.AttackStep % 3 == 1)
             {
                 yield return new WaitForSeconds(self.Combo.comboCooldown);
             }

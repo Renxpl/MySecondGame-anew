@@ -21,6 +21,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     public Coroutine Run(IEnumerator routine) => StartCoroutine(routine);
 
 
+
+    bool isDead = false;
+
+    float timeToBePassedBetweenHits;
+
+
     public void Init(EnemyStats stats,IMovementBehaviour mov, AttackCombo combo, IAttackBehaviour attack, float HP)
     {
         Stats = stats;
@@ -28,19 +34,28 @@ public class EnemyController : MonoBehaviour, IDamageable
         Combo = combo;
         AttackBehaviour = attack;
         AttackStep = 0;
-        CurrentHealth = HP;
+        CurrentHealth = HP; 
+        
     }
 
     void Start()
     {
         PlayerTransform = GameObject.FindWithTag("Player").transform;
         ChangeState(new EnemyMovState());
+        timeToBePassedBetweenHits = 0;
         
     }
 
 
     void Update()
     {
+        if (CurrentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+        if (isDead) return;
+
+        timeToBePassedBetweenHits += Time.deltaTime;
 
         if (!IsLockedEnemySprite)
         {
@@ -51,10 +66,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         }
 
-        if(CurrentHealth <= 0)
-        {
-           Destroy(gameObject);
-        }
+        
 
         currentState.Update(this);
 
@@ -100,11 +112,20 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float dmg)
     {
+        if(timeToBePassedBetweenHits >= 0.25f)
+        {
+            CurrentHealth -= dmg;
+            Debug.Log("enemyhp " + CurrentHealth);
+            if (CurrentHealth <= 0) isDead = true;
+            timeToBePassedBetweenHits = 0f;
 
-        CurrentHealth -= dmg;
-        Debug.Log("enemyhp " + CurrentHealth);
+        }
+        
 
     }
+
+
+
 
 
 }

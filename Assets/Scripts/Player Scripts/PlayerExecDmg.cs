@@ -6,24 +6,23 @@ public class PlayerExecDmg : MonoBehaviour
 {
 
     [SerializeField] float dmg;
-    [SerializeField] float timeToBePassed;
-    float timePassed;
-
+    
+    static float timeToPassedBetweenComboIncrement;
+    bool increaseComboCount;
     void Start()
     {
-        timePassed = 0f;    
+        
+        increaseComboCount = false;
+        timeToPassedBetweenComboIncrement= 0f;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (timePassed>timeToBePassed)
-        {
-            other.transform.parent.GetComponent<IDamageable>().TakeDamage(dmg);
-            timePassed = 0f;
-        }
+        other.transform.parent.GetComponent<IDamageable>().TakeDamage(dmg);
+        if (timeToPassedBetweenComboIncrement > 0.5f && PlayerNeededValues.IsLightAttack) increaseComboCount = true;
 
-       
+
 
 
 
@@ -34,7 +33,16 @@ public class PlayerExecDmg : MonoBehaviour
 
     void Update()
     {
-        timePassed += Time.deltaTime;
+        
+        if (increaseComboCount)
+        {
+            GameEvents.gameEvents.OnPlayerComboIncrement();
+            increaseComboCount= false;
+            timeToPassedBetweenComboIncrement= 0f;
+
+        }
+        timeToPassedBetweenComboIncrement += Time.deltaTime;
+
     }
 
 
