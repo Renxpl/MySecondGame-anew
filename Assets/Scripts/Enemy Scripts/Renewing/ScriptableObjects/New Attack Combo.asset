@@ -16,18 +16,21 @@ MonoBehaviour:
   - animation: Attack1
     delayBeforeHit: 0.41
     damage: 1
-    range: 10
+    range: 2
     postDelay: 0.34
+    hitbox: {fileID: 0}
   - animation: Attack2
     delayBeforeHit: 0.41
     damage: 1
     range: 10
     postDelay: 0.34
+    hitbox: {fileID: 0}
   - animation: Attack3
     delayBeforeHit: 0.41
     damage: 1
-    range: 10
+    range: 2
     postDelay: 0.34
+    hitbox: {fileID: 0}
   durations:
   - 0.75
   - 0.75

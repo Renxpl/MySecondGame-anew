@@ -10,5 +10,6 @@ public class AttackStep
     public float damage;
     public float range;
     public float postDelay;
+    public Collider2D hitbox;
 
 }

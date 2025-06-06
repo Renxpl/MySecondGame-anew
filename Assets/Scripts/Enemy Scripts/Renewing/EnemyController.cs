@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
 
     public int AttackStep { get; private set; }
 
+    public bool IsLockedEnemySprite { get; private set; }
     //method which allows child states to run couroutines
     public Coroutine Run(IEnumerator routine) => StartCoroutine(routine);
 
@@ -37,7 +38,16 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-       
+
+        if (!IsLockedEnemySprite)
+        {
+
+            Vector2 dir = new Vector2(PlayerTransform.position.x - transform.position.x, 0).normalized;
+            transform.localScale = new Vector2(dir.x, 1f);//Sprite Adjustment
+
+
+        }
+
         currentState.Update(this);
 
     }
@@ -65,8 +75,20 @@ public class EnemyController : MonoBehaviour
     }
 
 
+    public void LockEnemySprite()
+    {
+
+        IsLockedEnemySprite = true;
 
 
+    }
+    public void UnlockEnemySprite()
+    {
+
+        IsLockedEnemySprite = false;
+
+
+    }
 
 
 

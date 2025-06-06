@@ -11,7 +11,7 @@ public class ChaseMovementBehaviour : IMovementBehaviour
     {
         
         Vector2 dir = new Vector2(target.position.x - self.transform.position.x, 0).normalized;
-        self.transform.localScale = new Vector2 (dir.x,1f);//Sprite Adjustment
+        /*self.transform.localScale = new Vector2 (dir.x,1f);*///Sprite Adjustment
         //range will be next attack range which will be implemented later
         if(Mathf.Abs(target.position.x - self.transform.position.x) > self.Combo.steps[self.AttackStep].range)
         {

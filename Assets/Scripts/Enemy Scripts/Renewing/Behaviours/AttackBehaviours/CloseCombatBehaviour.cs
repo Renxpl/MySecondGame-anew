@@ -26,11 +26,20 @@ public class CloseCombatBehaviour : IAttackBehaviour
        
         while(Mathf.Abs(target.position.x - enemyRB.position.x) < self.Combo.steps[self.AttackStep%3].range)
         {
+
             self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep%3].animation);
+            self.LockEnemySprite();
+            yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 3].delayBeforeHit);
 
-            yield return new WaitForSeconds(self.Combo.durations[self.AttackStep % 3]);
+            
+            self.Combo.steps[self.AttackStep % 3].hitbox.enabled= true;
+            enemyRB.WakeUp();
 
 
+
+
+            yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 3].postDelay);
+            self.Combo.steps[self.AttackStep % 3].hitbox.enabled = false;
 
             self.IncreaseAttackStep();
             
@@ -38,6 +47,9 @@ public class CloseCombatBehaviour : IAttackBehaviour
             {
                 yield return new WaitForSeconds(self.Combo.comboCooldown);
             }
+
+            self.UnlockEnemySprite();
+            yield return new WaitForSeconds(0.01f);
 
         }
 
