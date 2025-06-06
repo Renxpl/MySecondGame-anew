@@ -7,16 +7,16 @@ public class GettingDMG : MonoBehaviour
 {
     // Start is called before the first frame update
     //here will implement event or interface system here
-    [SerializeField] PlayerMovement script;
+    PlayerMovement script;
     public bool isGetMoved = false;
     [SerializeField] int health = 3;
     float timer;
-    public PlayerDMG dmg;
+    
 
 
     void Start()
     {
-        
+        script = GameObject.Find("Player").GetComponent<PlayerMovement>();
 
 
     }
@@ -41,7 +41,7 @@ public class GettingDMG : MonoBehaviour
             timer = 0;
             //Destroy(transform.parent.gameObject);
             StartCoroutine(GetMoved());
-            health-= dmg.playerDmg;
+            health-= 1;
             Debug.Log("Enemy Health" + health);
             GameEvents.gameEvents.OnEnemyHealthDepleted(transform.parent.gameObject,health);
             

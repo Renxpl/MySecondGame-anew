@@ -20,7 +20,7 @@ public class ESpawnManager : MonoBehaviour
         timeCounter += Time.deltaTime;
         if(timeCounter > timeGap)
         {
-            EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), Vector2.zero, testCombo, new CloseCombatBehaviour());
+            EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), Vector2.zero, testCombo, new CloseCombatBehaviour(), 5f);//the last one is HP
 
             timeCounter= 0f;
         }

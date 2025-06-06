@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IDamageable
 {
     public EnemyStats Stats{get; private set;}
     public AttackCombo Combo { get; private set;}
@@ -15,17 +15,20 @@ public class EnemyController : MonoBehaviour
     public int AttackStep { get; private set; }
 
     public bool IsLockedEnemySprite { get; private set; }
+
+    public float CurrentHealth { get; private set; }
     //method which allows child states to run couroutines
     public Coroutine Run(IEnumerator routine) => StartCoroutine(routine);
 
 
-    public void Init(EnemyStats stats,IMovementBehaviour mov, AttackCombo combo, IAttackBehaviour attack)
+    public void Init(EnemyStats stats,IMovementBehaviour mov, AttackCombo combo, IAttackBehaviour attack, float HP)
     {
         Stats = stats;
         ChaseMov= mov;
         Combo = combo;
         AttackBehaviour = attack;
         AttackStep = 0;
+        CurrentHealth = HP;
     }
 
     void Start()
@@ -90,7 +93,12 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    public void TakeDamage(float dmg)
+    {
 
+
+
+    }
 
 
 }
