@@ -14,7 +14,10 @@ public class EnemyMovState : IStateEnemy
     {
         ctrl.ChaseMov.Move(ctrl, ctrl.GetComponent<Rigidbody2D>(), ctrl.PlayerTransform);
 
-
+        if (ctrl.CurrentStance <= 0)
+        {
+            ctrl.ChangeState(new EnemyKnockbackState());
+        }
 
     }
 

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434d21a81328d19428836fc29cec30da, type: 3}
   m_Name: New Enemy Stats
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  enemyType: swordsman
+  maxHealth: 9
+  maxStance: 3
   moveSpeed: 2
   enemyPrefab: {fileID: 4940019118516411275, guid: 7fc4e9aa8769ab249b82ab9389dd8438, type: 3}

@@ -16,6 +16,16 @@ public class EnemyAttackState : IStateEnemy
     {
         //ctrl.AttackBehaviour.Attack(ctrl, ctrl.GetComponent<Rigidbody2D>(), ctrl.PlayerTransform);
 
+        if(ctrl.CurrentStance <= 0)
+        {
+            ctrl.Combo.steps[ctrl.AttackStep % 3].hitbox.enabled = false;
+            ctrl.UnlockEnemySprite();
+            ctrl.ChangeState(new EnemyKnockbackState());
+        }
+
+
+
+
     }
 
 

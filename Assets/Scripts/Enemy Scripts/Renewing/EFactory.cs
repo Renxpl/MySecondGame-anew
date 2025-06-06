@@ -5,7 +5,7 @@ using UnityEngine;
 public static class EFactory
 {
    //will take paramaters Init + position 
-    public static EnemyController SpawnTest(EnemyStats stats, IMovementBehaviour mov, Vector2 pos, AttackCombo combo, IAttackBehaviour attack, float HP)
+    public static EnemyController SpawnTest(EnemyStats stats, IMovementBehaviour mov, Vector2 pos, AttackCombo combo, IAttackBehaviour attack)
     {
         var go = Object.Instantiate(stats.enemyPrefab,pos, Quaternion.identity);
         var ctrl = go.GetComponent<EnemyController>();
@@ -15,7 +15,7 @@ public static class EFactory
 
         }
        
-        ctrl.Init(stats, mov,combo,attack, HP);
+        ctrl.Init(stats, mov,combo,attack);
         return ctrl;
 
         

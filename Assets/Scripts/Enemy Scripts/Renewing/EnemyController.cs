@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
-
+// attack implementations
 public class EnemyController : MonoBehaviour, IDamageable
 {
     public EnemyStats Stats{get; private set;}
@@ -17,25 +17,32 @@ public class EnemyController : MonoBehaviour, IDamageable
     public bool IsLockedEnemySprite { get; private set; }
 
     public float CurrentHealth { get; private set; }
+    public float CurrentStance { get; private set; }
     //method which allows child states to run couroutines
     public Coroutine Run(IEnumerator routine) => StartCoroutine(routine);
 
+   
 
 
     bool isDead = false;
 
     float timeToBePassedBetweenHits;
+    float timeToBePassedForStanceRegen;
+
+    Color baseColor;
+    [SerializeField]Color onDmgColor;
 
 
-    public void Init(EnemyStats stats,IMovementBehaviour mov, AttackCombo combo, IAttackBehaviour attack, float HP)
+    public void Init(EnemyStats stats,IMovementBehaviour mov, AttackCombo combo, IAttackBehaviour attack)
     {
         Stats = stats;
         ChaseMov= mov;
         Combo = combo;
         AttackBehaviour = attack;
         AttackStep = 0;
-        CurrentHealth = HP; 
-        
+        CurrentHealth = stats.maxHealth; // setting HP for first time
+        CurrentStance = stats.maxStance;// setting Stance for first time
+
     }
 
     void Start()
@@ -43,7 +50,11 @@ public class EnemyController : MonoBehaviour, IDamageable
         PlayerTransform = GameObject.FindWithTag("Player").transform;
         ChangeState(new EnemyMovState());
         timeToBePassedBetweenHits = 0;
-        
+        timeToBePassedForStanceRegen = 0;
+        GameEvents.gameEvents.OnRegisteringEnemiesToManager(gameObject, Stats.enemyType, Stats.maxHealth);
+        baseColor = GetComponent<SpriteRenderer>().color;
+       
+
     }
 
 
@@ -51,11 +62,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if (CurrentHealth <= 0)
         {
-            Destroy(gameObject);
+            this.gameObject.SetActive(false);
         }
         if (isDead) return;
 
         timeToBePassedBetweenHits += Time.deltaTime;
+        timeToBePassedForStanceRegen+= Time.deltaTime;
 
         if (!IsLockedEnemySprite)
         {
@@ -66,11 +78,36 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         }
 
-        
+
+        StanceRegen();
+
+
 
         currentState.Update(this);
 
     }
+
+    void StanceRegen()
+    {
+        if (timeToBePassedForStanceRegen > 2.5f && CurrentStance < Stats.maxStance)
+        {
+            CurrentStance += Time.deltaTime;
+
+
+
+        }
+        if(CurrentStance > Stats.maxStance)
+        {
+
+
+            CurrentStance = Stats.maxStance;
+        }
+
+
+
+    }
+
+
 
     public void ChangeState(IStateEnemy newState)
     {
@@ -114,16 +151,45 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if(timeToBePassedBetweenHits >= 0.25f)
         {
-            CurrentHealth -= dmg;
+            if (CurrentStance > 0)
+            {
+                CurrentHealth -= dmg;
+            }
+            else
+            {
+                CurrentHealth -= dmg * 2;
+            }
+            CurrentStance--;
             Debug.Log("enemyhp " + CurrentHealth);
             if (CurrentHealth <= 0) isDead = true;
             timeToBePassedBetweenHits = 0f;
+            timeToBePassedForStanceRegen = 0f;
+            StartCoroutine(DmgedSpriteChange());
+           
+
 
         }
         
 
     }
 
+    IEnumerator DmgedSpriteChange()
+    {
+
+        GetComponent<SpriteRenderer>().color = onDmgColor;
+        yield return new WaitForSeconds(0.15f);
+        GetComponent<SpriteRenderer>().color = baseColor;
+
+
+    }
+
+    public void ReplenishingStance()
+    {
+
+        CurrentStance = Stats.maxStance;
+
+
+    }
 
 
 

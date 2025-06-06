@@ -23,7 +23,7 @@ public class EnemyValuesManager : MonoBehaviour
             pair.Value.transform.position = new Vector2( pair.Key.transform.position.x,pair.Key.transform.position.y+1.8f);
             if (pair.Key.CompareTag("SwordsmanEnemy"))
             {
-                pair.Value.transform.GetChild(2).GetComponent<Image>().fillAmount = pair.Key.GetComponent<SwordsmanBehaviour>().HP / 9f;
+                pair.Value.transform.GetChild(2).GetComponent<Image>().fillAmount = pair.Key.GetComponent<EnemyController>().CurrentHealth / 9f;
             }
             if (!pair.Key.activeSelf)
             {
@@ -41,7 +41,7 @@ public class EnemyValuesManager : MonoBehaviour
             pair.Value.transform.position = new Vector2(pair.Key.transform.position.x, pair.Key.transform.position.y + 1.5f);
             if (pair.Key.CompareTag("SwordsmanEnemy"))
             {
-                pair.Value.transform.GetChild(2).GetComponent<Image>().fillAmount = pair.Key.GetComponent<SwordsmanBehaviour>().stance / 3f;
+                pair.Value.transform.GetChild(2).GetComponent<Image>().fillAmount = pair.Key.GetComponent<EnemyController>().CurrentStance/ 3f;
             }
 
             if (!pair.Key.activeSelf)

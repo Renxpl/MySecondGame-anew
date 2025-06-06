@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 5186880899498420567}
   m_Layer: 7
   m_Name: TestEnemy
-  m_TagString: Untagged
+  m_TagString: SwordsmanEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79b3b906b6b51d641a13fe1bcf5c85d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDmgColor: {r: 1, g: 0.34509805, b: 0.34509805, a: 1}
 --- !u!50 &2272422379596170745
 Rigidbody2D:
   serializedVersion: 4
