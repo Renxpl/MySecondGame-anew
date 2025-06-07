@@ -41,6 +41,7 @@ public class EnemyKbBehaviour
         yield return new WaitForSeconds(1.5f);
 
         self.ReplenishingStance();
+        yield return new WaitForSeconds(0.01f);
         self.ChangeState(new EnemyMovState());
 
 

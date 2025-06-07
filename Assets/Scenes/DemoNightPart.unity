@@ -204,7 +204,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 2
-  timeToBePassed: 0
 --- !u!1 &23354945
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +280,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 0.5
-  timeToBePassed: 0
 --- !u!1 &36343604
 GameObject:
   m_ObjectHideFlags: 0
@@ -11543,7 +11541,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 4
-  timeToBePassed: 0
 --- !u!1 &560720240
 GameObject:
   m_ObjectHideFlags: 0
@@ -19556,7 +19553,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 1
-  timeToBePassed: 0.25
 --- !u!1 &1693806311
 GameObject:
   m_ObjectHideFlags: 0
@@ -57191,7 +57187,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 3
-  timeToBePassed: 0
 --- !u!1 &2123826176
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class ESpawnManager : MonoBehaviour
 {
     public EnemyStats testStat;
     public AttackCombo testCombo;
-    float timeGap=15f;
+    float timeGap=100f;
     float timeCounter = 100f;
 
     void Start()
