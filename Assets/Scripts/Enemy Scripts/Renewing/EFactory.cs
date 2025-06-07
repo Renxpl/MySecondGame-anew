@@ -9,13 +9,14 @@ public static class EFactory
     {
         var go = Object.Instantiate(stats.enemyPrefab,pos, Quaternion.identity);
         var ctrl = go.GetComponent<EnemyController>();
-        for(int i = 0; i < 3; i++)
+        var comboCopy = Object.Instantiate(combo);
+        for (int i = 0; i < 3; i++)
         {
-            combo.steps[i].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + (i+1)).GetComponent<PolygonCollider2D>();
+            comboCopy.steps[i].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + (i+1)).GetComponent<PolygonCollider2D>();
 
         }
        
-        ctrl.Init(stats, mov,combo,attack);
+        ctrl.Init(stats, mov,comboCopy,attack);
         return ctrl;
 
         

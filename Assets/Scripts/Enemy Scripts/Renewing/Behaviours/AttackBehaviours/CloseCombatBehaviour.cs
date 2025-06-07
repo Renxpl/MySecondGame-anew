@@ -32,14 +32,14 @@ public class CloseCombatBehaviour : IAttackBehaviour
     IEnumerator PerformAttack(EnemyController self, Rigidbody2D enemyRB, Transform target)
     {
        
-        while(Mathf.Abs(target.position.x - enemyRB.position.x) < self.Combo.steps[self.AttackStep%3].range)
+        while(Mathf.Abs(target.position.x - enemyRB.position.x) <= self.Combo.steps[self.AttackStep%3].range)
         {
 
             self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep%3].animation);
             self.LockEnemySprite();
             yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 3].delayBeforeHit);
 
-            
+            //enemyRB.WakeUp();
             self.Combo.steps[self.AttackStep % 3].hitbox.enabled= true;
             enemyRB.WakeUp();
 
