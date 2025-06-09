@@ -92,6 +92,7 @@ public class PlayerNeededValues : MonoBehaviour
     [SerializeField] Collider2D HA3Collider;
     [SerializeField] Collider2D SACollider;
     [SerializeField] Collider2D AACollider;
+    Collider2D getDmgCollider;
 
     Coroutine lightAttackCoroutine;
     Coroutine heavyAttackCoroutine;
@@ -164,6 +165,7 @@ public class PlayerNeededValues : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        getDmgCollider = transform.Find("Get Dmg Hitbox").GetComponent<Collider2D>();
         groundLayer = LayerMask.GetMask("Ground");
         player = PlayerController.PlayerRB.gameObject;
         IsLightningAura= false;
@@ -644,8 +646,10 @@ if (!IsRolling && !extraRollingWait)
 IEnumerator RollingCoroutine()
 {
 IsRolling = true;
-yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector); 
-IsRolling= false;
+        getDmgCollider.enabled = false;
+yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+        getDmgCollider.enabled = true;
+        IsRolling = false;
 
 extraRollingWait = true;
 yield return new WaitForSecondsRealtime(0.175f * PlayerController.animatorTimeVector);
