@@ -5,9 +5,12 @@ using UnityEngine;
 public class ESpawnManager : MonoBehaviour
 {
     public EnemyStats testStat;
+    public EnemyStats mageStats;
     public AttackCombo testCombo;
+    public AttackCombo mageCombo;
     float timeGap=100f;
     float timeCounter = 100f;
+    float timeCounterM = 100f;
 
     void Start()
     {
@@ -18,13 +21,20 @@ public class ESpawnManager : MonoBehaviour
     void Update()
     {
         timeCounter += Time.deltaTime;
-        if(timeCounter > timeGap)
+        timeCounterM += Time.deltaTime;
+        if (timeCounter > timeGap && 1<0)
         {
             EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), Vector2.zero, testCombo, new CloseCombatBehaviour());
 
             timeCounter= 0f;
         }
 
+        if (timeCounterM > timeGap)
+        {
+            EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), Vector2.zero, mageCombo, new MageCombatBehaviour());
+
+            timeCounterM = 0f;
+        }
 
 
 

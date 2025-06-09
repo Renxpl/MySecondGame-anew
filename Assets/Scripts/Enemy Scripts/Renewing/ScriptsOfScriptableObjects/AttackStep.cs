@@ -11,5 +11,6 @@ public class AttackStep
     public float range;
     public float postDelay;
     public Collider2D hitbox;
+    public GameObject projectilePrefab;
 
 }

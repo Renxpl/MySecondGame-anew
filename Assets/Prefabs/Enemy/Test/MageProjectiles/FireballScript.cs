@@ -28,7 +28,9 @@ public class FireballScript : MonoBehaviour
     {
 
         rb.velocity = direction.normalized * speed;
+        rb.transform.localScale = new Vector2(direction.x,1f);
         Destroy(gameObject, lifetime);
+        GetComponent<Animator>().Play("Fireball");
 
 
 
