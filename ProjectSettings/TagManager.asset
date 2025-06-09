@@ -18,6 +18,7 @@ TagManager:
   - LeftEdge
   - UpClimb
   - DownClimb
+  - Fireball
   layers:
   - Default
   - TransparentFX

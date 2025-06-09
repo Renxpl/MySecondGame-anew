@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434d21a81328d19428836fc29cec30da, type: 3}
   m_Name: MageStats
   m_EditorClassIdentifier: 
-  enemyType: 
-  maxHealth: 0
-  maxStance: 0
-  moveSpeed: 0
-  enemyPrefab: {fileID: 0}
+  enemyType: swordsman
+  maxHealth: 9
+  maxStance: 3
+  moveSpeed: 2
+  enemyPrefab: {fileID: 4940019118516411275, guid: 4efc658d25c0e04448b83eddae8285e7, type: 3}

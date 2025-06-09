@@ -13340,7 +13340,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938682213}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -94.76, y: -2.05, z: -5}
+  m_LocalPosition: {x: -56.48, y: -1.86, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18931,7 +18931,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testStat: {fileID: 11400000, guid: c1158ff692a59084b9e7117c4077cefb, type: 2}
+  mageStats: {fileID: 11400000, guid: 913ff11d6c98dad41b067b31e2e5e58f, type: 2}
   testCombo: {fileID: 11400000, guid: fe812a14c036fcb4e9a01e1074b941c6, type: 2}
+  mageCombo: {fileID: 11400000, guid: 5f33af32b7dbc9245b00bb1e3ca230f3, type: 2}
 --- !u!4 &1369723949
 Transform:
   m_ObjectHideFlags: 0
