@@ -8,7 +8,7 @@ public class ESpawnManager : MonoBehaviour
     public EnemyStats mageStats;
     public AttackCombo testCombo;
     public AttackCombo mageCombo;
-    float timeGap=100f;
+    float timeGap=10f;
     float timeCounter = 100f;
     float timeCounterM = 100f;
 

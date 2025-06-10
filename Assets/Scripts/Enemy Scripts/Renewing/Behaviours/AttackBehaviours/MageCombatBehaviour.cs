@@ -13,7 +13,7 @@ public class MageCombatBehaviour : IAttackBehaviour
         if (self.CurrentStance <= 0)
         {
             self.StopCo(attack);
-            self.Combo.steps[1].hitbox.enabled = false;
+            //self.Combo.steps[1].hitbox.enabled = false;
             self.UnlockEnemySprite();
             attack = null;
             self.ChangeState(new EnemyKnockbackState());
@@ -43,7 +43,11 @@ public class MageCombatBehaviour : IAttackBehaviour
                 }
                 
             }
-
+            //will delete this part
+            while (self.AttackStep % 2 != 0)
+            {
+                self.IncreaseAttackStep();
+            }
 
 
             self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep % 2].animation);

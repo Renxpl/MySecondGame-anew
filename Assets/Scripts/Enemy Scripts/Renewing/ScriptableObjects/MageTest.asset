@@ -13,20 +13,21 @@ MonoBehaviour:
   m_Name: MageTest
   m_EditorClassIdentifier: 
   steps:
-  - animation: Fireball
+  - animation: Attack1
     delayBeforeHit: 0.5
     damage: 3
     range: 5
     postDelay: 0.5
     hitbox: {fileID: 1164820934245443829, guid: 12b478c0f8ea312418389006fee5c34d, type: 3}
     projectilePrefab: {fileID: 2688208667909790312, guid: 12b478c0f8ea312418389006fee5c34d, type: 3}
-  - animation: Fireball
+  - animation: Attack2
     delayBeforeHit: 0.5
     damage: 3
     range: 0
     postDelay: 0.5
-    hitbox: {fileID: 1164820934245443829, guid: 12b478c0f8ea312418389006fee5c34d, type: 3}
+    hitbox: {fileID: 0}
     projectilePrefab: {fileID: 0}
   durations:
+  - 0.75
   - 0.75
   comboCooldown: 0.5
