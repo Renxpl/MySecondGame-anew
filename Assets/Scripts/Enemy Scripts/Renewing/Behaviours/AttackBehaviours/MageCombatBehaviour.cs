@@ -13,7 +13,7 @@ public class MageCombatBehaviour : IAttackBehaviour
         if (self.CurrentStance <= 0)
         {
             self.StopCo(attack);
-            //self.Combo.steps[1].hitbox.enabled = false;
+            if(self.Combo.steps[1].hitbox!= null) self.Combo.steps[1].hitbox.enabled = false;
             self.UnlockEnemySprite();
             attack = null;
             self.ChangeState(new EnemyKnockbackState());
@@ -56,10 +56,10 @@ public class MageCombatBehaviour : IAttackBehaviour
 
             if (self.AttackStep % 2 == 0)
             {
-
-                var fb = GameObject.Instantiate(self.Combo.steps[self.AttackStep % 2].projectilePrefab,self.transform.position ,Quaternion.identity);
+                Vector2 fbPosition = new Vector2(self.transform.position.x + (Mathf.Sign(self.transform.localScale.x)*1.65f), self.transform.position.y);
+                var fb = GameObject.Instantiate(self.Combo.steps[self.AttackStep % 2].projectilePrefab, fbPosition, Quaternion.identity);
                 fb.GetComponent<FireballScript>().LaunchFireball(new Vector2(self.transform.localScale.x, 0f));
-
+                yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 2].postDelay);
 
 
             }
@@ -83,6 +83,7 @@ public class MageCombatBehaviour : IAttackBehaviour
 
             if (self.AttackStep % 2 == 0 || self.AttackStep % 2 == 1)
             {
+                self.GetComponent<Animator>().Play("Idle");
                 yield return new WaitForSeconds(self.Combo.comboCooldown);
             }
 

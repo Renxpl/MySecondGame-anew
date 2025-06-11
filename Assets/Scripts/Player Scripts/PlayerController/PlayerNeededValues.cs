@@ -350,6 +350,7 @@ public class PlayerNeededValues : MonoBehaviour
 
         FallingOfTheWall();
 
+        if (ComboCounter < 0) ComboCounter = 0;
     }
 
     void FallingOfTheWall()
