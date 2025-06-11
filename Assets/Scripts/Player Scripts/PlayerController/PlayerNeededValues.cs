@@ -1147,6 +1147,7 @@ if (receiver == gameObject)
             {
                 Vector2 newPos = new Vector2(transform.position.x + (-Mathf.Sign(transform.localScale.x)*1.75f), transform.position.y);
                 PlayerController.PlayerRB.MovePosition(newPos);
+                Stance = 0;
 
             }
 
