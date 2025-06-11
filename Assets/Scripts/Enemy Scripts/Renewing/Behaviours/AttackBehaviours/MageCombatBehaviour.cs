@@ -43,12 +43,7 @@ public class MageCombatBehaviour : IAttackBehaviour
                 }
                 
             }
-            //will delete this part
-            while (self.AttackStep % 2 != 0)
-            {
-                self.IncreaseAttackStep();
-            }
-
+            
 
             self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep % 2].animation);
             self.LockEnemySprite();

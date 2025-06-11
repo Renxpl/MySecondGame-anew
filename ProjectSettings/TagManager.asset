@@ -19,6 +19,7 @@ TagManager:
   - UpClimb
   - DownClimb
   - Fireball
+  - MageThrowBackAttack
   layers:
   - Default
   - TransparentFX

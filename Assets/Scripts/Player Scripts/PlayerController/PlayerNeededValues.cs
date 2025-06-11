@@ -1143,6 +1143,12 @@ if (receiver == gameObject)
        ComboCounter -= 5;
    }
    Debug.Log("PlayerHp:"+ HP+"  Player Stance:"+ Stance);
+            if(attakVer == 1)
+            {
+                Vector2 newPos = new Vector2(transform.position.x + (-Mathf.Sign(transform.localScale.x)*1.75f), transform.position.y);
+                PlayerController.PlayerRB.MovePosition(newPos);
+
+            }
 
    if (!IsKnocbacking) 
    {
@@ -1186,8 +1192,12 @@ if (receiver == gameObject)
     } 
 
 
-
 }
+
+       
+
+
+
 }
 
 

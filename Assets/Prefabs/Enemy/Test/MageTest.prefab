@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 5329509033869401693}
   m_Layer: 10
   m_Name: Attack2
-  m_TagString: EnemyDodgeableAttack
+  m_TagString: MageThrowBackAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -385,11 +385,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.17837524, y: 1.0475655}
-      - {x: -4.102271, y: 1.0700641}
-      - {x: -4.0838485, y: -0.7971257}
-      - {x: 2.8709273, y: -0.8922565}
-      - {x: 2.8774557, y: 1.093847}
+    - - {x: 0.26032257, y: 0.49441278}
+      - {x: -1.4594412, y: 0.41447568}
+      - {x: -1.5024657, y: -0.85858715}
+      - {x: 2.215341, y: -0.8717694}
+      - {x: 2.341011, y: -0.05524254}
+      - {x: 2.0374823, y: 0.43825865}
 --- !u!1 &8632222864715289606
 GameObject:
   m_ObjectHideFlags: 0

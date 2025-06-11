@@ -29,6 +29,7 @@ public static class EFactory
         var ctrl = go.GetComponent<EnemyController>();
         
         var comboCopy = Object.Instantiate(combo);
+        comboCopy.steps[1].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + 2).GetComponent<PolygonCollider2D>();
         /*
         for (int i = 0; i < 3; i++)
         {
