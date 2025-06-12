@@ -70,12 +70,12 @@ public class MageCombatBehaviour : IAttackBehaviour
             {
                 self.Combo.steps[self.AttackStep % 2].hitbox.enabled = true;
                 enemyRB.WakeUp();
-
-
-
-
-                yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 2].postDelay);
+                yield return new WaitForSeconds(0.1f);
                 self.Combo.steps[self.AttackStep % 2].hitbox.enabled = false;
+
+
+                yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 2].postDelay-0.1f);
+                
 
 
             }
