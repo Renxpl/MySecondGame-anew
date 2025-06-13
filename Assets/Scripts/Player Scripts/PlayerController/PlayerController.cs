@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     Coroutine timeSlow = null;
     public static float animatorTimeVector;
 
+    public static bool IsInteractable { get; private set; }
+
     void Awake()
     {
         PlayerRB = gameObject.GetComponent<Rigidbody2D>();
@@ -162,6 +164,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnTimeSlow(InputValue input)
     {
+        if (PlayerNeededValues.StopEverythingPlayer) return;
         Debug.Log(input.Get<float>());
         if (PlayerNeededValues.SpecialAttackBar >= 8f && !isTimeSlowStarted)
         {
@@ -194,10 +197,10 @@ public class PlayerController : MonoBehaviour
 
             Vector2 diff = new Vector2(otherCollider.transform.position.x - transform.position.x, 0);
             bool isInteracting = (diff.x > 0 && transform.localScale.x > 0) || (diff.x < 0 && transform.localScale.x < 0);
-            Debug.Log(isInteracting);
+           
             if (isInteracting)
             {
-                
+                IsInteractable= true;
                 pressX.gameObject.SetActive(true);
                 if (transform.localScale.x == -1)
                 {
@@ -208,7 +211,7 @@ public class PlayerController : MonoBehaviour
                     pressX.transform.localScale = new Vector2(1, 1);
                 }
             }
-            else { pressX.gameObject.SetActive(false); }
+            else { pressX.gameObject.SetActive(false); IsInteractable = false; }
 
 
 

@@ -140,6 +140,8 @@ public class PlayerNeededValues : MonoBehaviour
     float timeToGetWalls;
 
     float addToSABAr;
+
+    public static bool StopEverythingPlayer { get; private set; }
     void Awake()
     {
         GroundedStateForPlayer = new PlayerGroundedState();
@@ -251,7 +253,17 @@ public class PlayerNeededValues : MonoBehaviour
             firstTimeGrounded= false;
         }
         
-
+        if (StopEverythingPlayer)
+        {
+            MoveInput = Vector2.zero;
+            Vector2 velocity = PlayerController.PlayerRB.velocity;
+            velocity.x = 0f;
+            PlayerController.PlayerRB.velocity = velocity;
+            CommandHandler.ResetNext();
+            if(!PlayerController.IsInteractable) StopEverythingPlayer= false;
+            return;
+        }
+        
         if(jumpInput != 0 && JumpTime <= 0.5f &&IsSpacePressing)
         {
             if (Time.timeScale < 1)
@@ -593,6 +605,7 @@ comboIncrement = null;
 
 void OnMove(InputValue input)
 {
+        if (StopEverythingPlayer) return;
         MoveInput = input.Get<Vector2>();
        
         
@@ -603,9 +616,9 @@ void OnMove(InputValue input)
 
 void OnRolling()
 {
-//Debug.Log("Rolling");
-
-if(!IsGroundedPlayer) isRollingAirborne= true;
+        //Debug.Log("Rolling");
+        if (StopEverythingPlayer) return;
+        if (!IsGroundedPlayer) isRollingAirborne= true;
 if(!lockDashAirborne) CommandHandler.HandleCommand(rollInput);
 
 
@@ -659,6 +672,22 @@ extraRollingWait= false;
 
 void OnJumping(InputValue input)
 {
+
+        if (PlayerController.IsInteractable)
+        {
+            if(input.Get<float>() == 1f)
+            {
+                if(StopEverythingPlayer)StopEverythingPlayer= false;
+                else StopEverythingPlayer= true;
+
+
+
+
+                //Debug.Log("Interacting");
+            }
+            
+            return;
+        }
 //Debug.Log("Jumping");
 jumpInput = input.Get<float>();
 //Debug.Log(jumpInput);
@@ -681,9 +710,9 @@ if ((IsGroundedPlayer || IsRightWallClimbing ||IsLeftWallClimbing) && jumpInput 
 
 void OnToLightningAura(InputValue input)
 {
-
-//Debug.Log("Aura Input:" + input.Get<float>());
-if (IsLightningAura && input.Get<float>() == 1) { IsLightningAura = false; }
+        if (StopEverythingPlayer) return;
+        //Debug.Log("Aura Input:" + input.Get<float>());
+        if (IsLightningAura && input.Get<float>() == 1) { IsLightningAura = false; }
 else if(!IsLightningAura && input.Get<float>() == 1) { IsLightningAura = true; IsWindAura = false; if (!isLightningCoroutineStarted) StartCoroutine(PlayTransition(2)); }
 Debug.Log("Aura Input:" + IsLightningAura);
 }
@@ -700,9 +729,9 @@ isLightningCoroutineStarted = false;
 
 void OnToWindAura(InputValue input)
 {
-
-//Debug.Log("Aura Input:" + input.Get<float>());
-if (IsWindAura && input.Get<float>() == 1) { IsWindAura = false; }
+        if (StopEverythingPlayer) return;
+        //Debug.Log("Aura Input:" + input.Get<float>());
+        if (IsWindAura && input.Get<float>() == 1) { IsWindAura = false; }
 else if (!IsWindAura && input.Get<float>() == 1) { IsWindAura = true; IsLightningAura = false; if (!isWindCoroutineStarted) StartCoroutine(PlayTransition(1)); }
 Debug.Log("Aura Input:" + IsWindAura);
 }
@@ -710,7 +739,8 @@ Debug.Log("Aura Input:" + IsWindAura);
 
 void OnLightAttack()
 {
-if (IsGroundedPlayer)
+        if (StopEverythingPlayer) return;
+        if (IsGroundedPlayer)
 {
    //Debug.Log("HeavyAttack");
 
@@ -916,8 +946,8 @@ else if (LightAttackNumber >= 5)
 
 void OnHeavyAttack()
 {
-
-if (IsGroundedPlayer && Stamina>=5)
+        if (StopEverythingPlayer) return;
+        if (IsGroundedPlayer && Stamina>=5)
 {
    //Debug.Log("HeavyAttack");
    CommandHandler.HandleCommand(heavyAttackInput);
@@ -1085,7 +1115,8 @@ else if (which == 1)
 
 void OnSpecialAttack()
 {
-if (IsGroundedPlayer && SpecialAttackBar >= 15)
+        if (StopEverythingPlayer) return;
+        if (IsGroundedPlayer && SpecialAttackBar >= 15)
 {
    CommandHandler.HandleCommand(new SpecialAttackInput());
 }
@@ -1128,7 +1159,12 @@ IsSpecialAttack= false;
 }
 protected virtual void TakingDamage(GameObject receiver, GameObject sender, Collider2D otherCollider, int attakVer)
 {
-if (receiver == gameObject)
+        if (StopEverythingPlayer)
+        {
+          
+            return;
+        }
+        if (receiver == gameObject)
 {   
    isTakenDmg= true;
    if(!lockCounter) isTakenDmgCounter = 0f;
