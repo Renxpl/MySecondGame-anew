@@ -1142,10 +1142,13 @@ if (receiver == gameObject)
    {
        ComboCounter -= 5;
    }
-   Debug.Log("PlayerHp:"+ HP+"  Player Stance:"+ Stance);
+   //Debug.Log("PlayerHp:"+ HP+"  Player Stance:"+ Stance);
             if(attakVer == 1)
             {
-                Vector2 newPos = new Vector2(transform.position.x + (-Mathf.Sign(transform.localScale.x)*1.75f), transform.position.y);
+         
+                Debug.Log(Mathf.Sign(transform.position.x - otherCollider.transform.position.x));
+                Vector2 newPos = new Vector2(transform.position.x + (Mathf.Sign(transform.position.x - otherCollider.transform.position.x) *1.75f), transform.position.y);
+                transform.localScale = new Vector2(-Mathf.Sign(transform.position.x - sender.transform.position.x), transform.localScale.y);
                 PlayerController.PlayerRB.MovePosition(newPos);
                 Stance = 0;
 
@@ -1162,16 +1165,20 @@ if (receiver == gameObject)
            if (Stance == 0) 
            {
 
-               StartCoroutine(Knockback());
-               if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)
-               {
-                   transform.localScale = new Vector2(-1f, transform.localScale.y);
-               }
+              StartCoroutine(Knockback());
+                        
 
-               else if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == -1f)
-               {
-                   transform.localScale = new Vector2(1f, transform.localScale.y);
-               }
+
+                            if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)
+                            {
+                                transform.localScale = new Vector2(-1f, transform.localScale.y);
+                            }
+
+                            else if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == -1f)
+                            {
+                                transform.localScale = new Vector2(1f, transform.localScale.y);
+                            }
+                        
 
            }
 

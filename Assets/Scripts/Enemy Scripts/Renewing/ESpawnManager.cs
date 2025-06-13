@@ -8,9 +8,11 @@ public class ESpawnManager : MonoBehaviour
     public EnemyStats mageStats;
     public AttackCombo testCombo;
     public AttackCombo mageCombo;
-    float timeGap=100f;
+    float timeGap=25f;
     float timeCounter = 100f;
     float timeCounterM = 100f;
+    public Vector2 sSpawnLoc;
+    public Vector2 mSpawnLoc;
 
     void Start()
     {
@@ -22,16 +24,17 @@ public class ESpawnManager : MonoBehaviour
     {
         timeCounter += Time.deltaTime;
         timeCounterM += Time.deltaTime;
-        if (timeCounter > timeGap && 1<0)
+        if (timeCounter > timeGap /*&& 1<0*/)
         {
-            EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), Vector2.zero, testCombo, new CloseCombatBehaviour());
+
+            EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), sSpawnLoc, testCombo, new CloseCombatBehaviour());
 
             timeCounter= 0f;
         }
 
         if (timeCounterM > timeGap)
         {
-            EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), Vector2.zero, mageCombo, new MageCombatBehaviour());
+            EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), mSpawnLoc, mageCombo, new MageCombatBehaviour());
 
             timeCounterM = 0f;
         }

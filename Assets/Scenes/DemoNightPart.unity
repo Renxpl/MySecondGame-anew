@@ -18934,6 +18934,8 @@ MonoBehaviour:
   mageStats: {fileID: 11400000, guid: 913ff11d6c98dad41b067b31e2e5e58f, type: 2}
   testCombo: {fileID: 11400000, guid: fe812a14c036fcb4e9a01e1074b941c6, type: 2}
   mageCombo: {fileID: 11400000, guid: 5f33af32b7dbc9245b00bb1e3ca230f3, type: 2}
+  sSpawnLoc: {x: -7.5, y: -1.17}
+  mSpawnLoc: {x: 1.52, y: -1.03}
 --- !u!4 &1369723949
 Transform:
   m_ObjectHideFlags: 0

@@ -19,20 +19,23 @@ MonoBehaviour:
     range: 4
     postDelay: 0.34
     hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
   - animation: Attack2
     delayBeforeHit: 0.3
     damage: 1
     range: 6
     postDelay: 0.34
     hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
   - animation: Attack3
     delayBeforeHit: 0.41
     damage: 1
     range: 3
     postDelay: 0.34
     hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
   durations:
   - 0.75
   - 0.75
   - 0.75
-  comboCooldown: 0.5
+  comboCooldown: 1
