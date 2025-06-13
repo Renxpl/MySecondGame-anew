@@ -20,6 +20,7 @@ TagManager:
   - DownClimb
   - Fireball
   - MageThrowBackAttack
+  - VerballyInteractiveNPC
   layers:
   - Default
   - TransparentFX
