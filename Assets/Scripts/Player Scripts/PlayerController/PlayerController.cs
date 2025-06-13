@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public static string currentAnimation = "";
     public static Animator playerAnimator;
     public static Vector2 forward;
-
+    GameObject pressX;
     [Header("Slowing Time")]
     //slowing time
     public static float slowMotionTimeScale = 1/3f;
@@ -38,12 +38,22 @@ public class PlayerController : MonoBehaviour
         startTimeScale = Time.timeScale;
         startFixedDeltaTime = Time.fixedDeltaTime;
         animatorTimeVector = 1f;
+        pressX = transform.Find("pressx").gameObject;
+        pressX.SetActive(false);
 
     }
 
     void Update()
     {
-        
+        //will relocate this part later on
+        if(transform.localScale.x == -1)
+        {
+            pressX.transform.localScale = new Vector2(-1,1);
+        }
+        else
+        {
+            pressX.transform.localScale = new Vector2(1, 1);
+        }
 
         /*if (PlayerNeededValues.MoveInput.x > 0.75f || 0.75f < PlayerNeededValues.MoveInput.x)
         {
@@ -165,6 +175,57 @@ public class PlayerController : MonoBehaviour
 
     }
 
-   
+
+    private void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+       
+
+
+
+
+
+
+    }
+    private void OnTriggerStay2D(Collider2D otherCollider)
+    {
+        if (otherCollider.CompareTag("VerballyInteractiveNPC"))
+        {
+
+
+            Vector2 diff = new Vector2(otherCollider.transform.position.x - transform.position.x, 0);
+            bool isInteracting = (diff.x > 0 && transform.localScale.x > 0) || (diff.x < 0 && transform.localScale.x < 0);
+            Debug.Log(isInteracting);
+            if (isInteracting)
+            {
+                
+                pressX.gameObject.SetActive(true);
+                if (transform.localScale.x == -1)
+                {
+                    pressX.transform.localScale = new Vector2(-1, 1);
+                }
+                else
+                {
+                    pressX.transform.localScale = new Vector2(1, 1);
+                }
+            }
+            else { pressX.gameObject.SetActive(false); }
+
+
+
+
+        }
+
+
+
+
+    }
+
+    private void OnTriggerExit2D(Collider2D otherCollider)
+    {
+       
+
+
+    }
+
 
 }
