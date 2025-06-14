@@ -75,3 +75,15 @@ public class SpecialAttackInput : ICommand
     }
 
 }
+
+
+public class ParryInput : ICommand
+{
+    public void Execute()
+    {
+        GameObject.FindObjectOfType<PlayerNeededValues>().ParryExecution();
+    }
+
+
+
+}

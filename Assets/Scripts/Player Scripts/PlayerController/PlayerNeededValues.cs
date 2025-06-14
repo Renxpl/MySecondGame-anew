@@ -17,7 +17,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     public static PlayerGrAttackState GrAttackState { get; private set; }
     public static PlayerKnockbackState playerKbState { get; private set; }
-    public static PlayerKnockbackState playerParryState { get; private set; }
+    public static PlayerParryState playerParryState { get; private set; }
     public static PlayerAirborneAttackState playerAAstate { get; private set; }
     public static PlayerWallClimbState playerWCState { get; private set; }
     public static PlayerEdgeClimbState playerECState { get; private set; }
@@ -53,6 +53,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static int ComboCounter { get; private set; }
     public static float AttackSpeed { get; private set; }
     public static bool IsAirborneAttack { get; set; }
+    
 
     public static LayerMask groundLayer;
     public static GameObject player;
@@ -74,6 +75,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     public static HeavyAttackInput heavyAttackInput;
     public static LightAttackInput lightAttackInput;
+    public static ParryInput parryInp;
     public static SpecialAttackInput specialAttackInput;
     public static RollInput rollInput;
     public static AAInput aaInput;
@@ -142,6 +144,10 @@ public class PlayerNeededValues : MonoBehaviour
     float addToSABAr;
     bool firstTimeStopEv;
     public static bool StopEverythingPlayer { get; private set; }
+
+
+
+    Collider2D parryHB;
     void Awake()
     {
         GroundedStateForPlayer = new PlayerGroundedState();
@@ -155,6 +161,7 @@ public class PlayerNeededValues : MonoBehaviour
         GrAttackState = new PlayerGrAttackState();
         heavyAttackInput = new HeavyAttackInput();
         lightAttackInput = new LightAttackInput();
+        parryInp = new ParryInput();
         specialAttackInput = new SpecialAttackInput();
         rollInput = new RollInput();
         playerKbState = new PlayerKnockbackState();
@@ -162,6 +169,7 @@ public class PlayerNeededValues : MonoBehaviour
         aaInput = new AAInput();
         playerWCState = new PlayerWallClimbState();
         playerECState   = new PlayerEdgeClimbState();
+        playerParryState = new PlayerParryState();
     }
 
     // Start is called before the first frame update
@@ -188,6 +196,8 @@ public class PlayerNeededValues : MonoBehaviour
         GameEvents.gameEvents.onComboIncrement += ComboAdjuster;
         SpecialAttackBar = 32;
         AACounter = 0;
+        parryHB = transform.Find("ParryHitbox").GetComponent<Collider2D>();
+        parryHB.enabled = false;
         
     }
 
@@ -1288,6 +1298,69 @@ IsKnocbacking= false;
 
 }
 
+
+    void OnParry(InputValue input)
+    {
+        if (StopEverythingPlayer) return;
+      
+        if(input.Get<float>() == 1f && IsGroundedPlayer)
+        {
+
+            //Debug.Log(input.Get<float>());
+
+            CommandHandler.HandleCommand(parryInp);
+
+
+        }
+
+        else if(input.Get<float>() == 0f)
+        {
+            //Debug.Log(input.Get<float>());
+
+            IsParrying = false;
+            
+        }
+
+
+
+    }
+
+
+
+
+    public void ParryExecution()
+    {
+
+
+        
+        StartCoroutine(Parrying());
+        //Debug.Log("Parrying");
+
+    }
+    IEnumerator Parrying()
+    {
+        IsParrying = true;
+        getDmgCollider.enabled = false;
+        parryHB.enabled = true;
+
+        while (IsParrying && IsGroundedPlayer && IsRolling)
+        {
+
+
+
+
+
+            yield return new WaitForSecondsRealtime(0.015f * PlayerController.animatorTimeVector);
+
+
+
+        }
+
+        getDmgCollider.enabled = true;
+        parryHB.enabled = false;
+        CommandHandler.ResetNext();
+
+    }
 
 
 

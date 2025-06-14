@@ -14,9 +14,16 @@ public static class CommandHandler
             next = command;
 
         }
+        else if (PlayerNeededValues.IsParrying)
+        {
+            if(PlayerNeededValues.IsRolling) command?.Execute();
+            else next = command;
+        }
+
+
         else if (PlayerNeededValues.IsSpecialAttack)
         {
-            if (PlayerNeededValues.IsRolling && !PlayerNeededValues.IsKnocbacking && !PlayerNeededValues.IsDuringAttack)
+            if (PlayerNeededValues.IsRolling && !PlayerNeededValues.IsKnocbacking && !PlayerNeededValues.IsDuringAttack && PlayerNeededValues.IsParrying)
             {
                 command?.Execute();
             }
@@ -24,7 +31,7 @@ public static class CommandHandler
         }
         else if (PlayerNeededValues.IsHeavyAttack)
         {
-            if (PlayerNeededValues.IsRolling && !PlayerNeededValues.IsKnocbacking && !PlayerNeededValues.IsDuringAttack)
+            if (PlayerNeededValues.IsRolling && !PlayerNeededValues.IsKnocbacking && !PlayerNeededValues.IsDuringAttack && PlayerNeededValues.IsParrying)
             {
                 command?.Execute();
             }
@@ -32,7 +39,7 @@ public static class CommandHandler
         }
         else if (PlayerNeededValues.IsLightAttack)
         {
-            if (PlayerNeededValues.IsRolling && !PlayerNeededValues.IsKnocbacking && !PlayerNeededValues.IsDuringAttack)
+            if (PlayerNeededValues.IsRolling && !PlayerNeededValues.IsKnocbacking && !PlayerNeededValues.IsDuringAttack && PlayerNeededValues.IsParrying)
             {
                 command?.Execute();
             }
@@ -75,6 +82,7 @@ public static class CommandHandler
 
     public static void StartNext()
     {
+        if(next != PlayerNeededValues.parryInp)
         next?.Execute();
         next= null;
     }

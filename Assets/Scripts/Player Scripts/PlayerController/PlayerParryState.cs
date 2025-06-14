@@ -12,7 +12,7 @@ public class PlayerParryState : IState
 
     public void Update()
     {
-        if (!PlayerNeededValues.IsParrying)
+        if (!PlayerNeededValues.IsParrying || !PlayerNeededValues.IsGroundedPlayer)
         {
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
           
@@ -25,7 +25,7 @@ public class PlayerParryState : IState
             return;
         }
 
-        PlayerController.ChangeAnimationState("Idle");
+        PlayerController.ChangeAnimationState("Parry");
 
 
     }

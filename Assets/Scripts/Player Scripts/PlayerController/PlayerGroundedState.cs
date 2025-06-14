@@ -42,6 +42,10 @@ public class PlayerGroundedState : IState
             PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.playerKbState);
         }
         
+        else if (PlayerNeededValues.IsParrying)
+        {
+            PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.playerParryState);
+        }
 
         else if (PlayerNeededValues.IsLightAttack || PlayerNeededValues.IsHeavyAttack || PlayerNeededValues.IsSpecialAttack)
         {

@@ -20,7 +20,7 @@ public class PlayerGrAttackState : IState
     public void Update()
     {
 
-        if ((!PlayerNeededValues.IsHeavyAttack && !PlayerNeededValues.IsLightAttack && !PlayerNeededValues.IsSpecialAttack) || (CommandHandler.ShowNext() == PlayerNeededValues.rollInput  && !PlayerNeededValues.IsSpecialAttack && !PlayerNeededValues.IsDuringAttack) || PlayerNeededValues.IsKnocbacking)
+        if ((!PlayerNeededValues.IsHeavyAttack && !PlayerNeededValues.IsLightAttack && !PlayerNeededValues.IsSpecialAttack) || (CommandHandler.ShowNext() == PlayerNeededValues.rollInput  && !PlayerNeededValues.IsSpecialAttack && !PlayerNeededValues.IsDuringAttack) || PlayerNeededValues.IsKnocbacking || PlayerNeededValues.IsParrying)
         {
            
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
