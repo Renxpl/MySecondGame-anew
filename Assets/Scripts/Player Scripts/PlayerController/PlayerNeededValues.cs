@@ -702,12 +702,21 @@ void OnJumping(InputValue input)
                 int convoTurn = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConvoTurn();
                 Conversation convo = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConversation();
                 Debug.Log(convoTurn);
-                if(convo.lines.Length <= convoTurn)
+                
+                if(convo.lines.Length <= convoTurn && !Dialogue.IsWriting)
                 {
                     Debug.Log("Convo Fault");
                     return;
                 }
-                if(convo.lines[convoTurn].speakerName == gameObject.name)
+
+                if (Dialogue.IsWriting)
+                {
+                    Dialogue.instance.FlushOut();
+
+
+
+                }
+                else if(convo.lines[convoTurn].speakerName == gameObject.name)
                 {
 
                     GameEvents.gameEvents.OnDialogueManagement(gameObject, convo.lines[convoTurn].text);

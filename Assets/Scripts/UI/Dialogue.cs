@@ -5,7 +5,7 @@ using TMPro;
 
 public class Dialogue : MonoBehaviour
 {
-
+    public static Dialogue instance;
     public GameObject test;
     public Vector2 offset;
     public static bool IsWriting { get; private set; }
@@ -13,6 +13,17 @@ public class Dialogue : MonoBehaviour
     string currentLine;
     Coroutine writer;
 
+    void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+
+
+    }
     void Start()
     {
         this.transform.position = new Vector2(test.transform.position.x+ offset.x,test.transform.position.y+ offset.y);
@@ -63,6 +74,20 @@ public class Dialogue : MonoBehaviour
         writer = null;
         
     }
+
+
+    public void FlushOut()
+    {
+        StopCoroutine(writer);
+        text.text = "";
+        text.text = currentLine;
+
+
+        
+        IsWriting = false;
+        writer = null;
+    }
+
 
 
 }
