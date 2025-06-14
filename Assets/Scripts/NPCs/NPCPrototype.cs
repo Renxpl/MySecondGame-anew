@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPCPrototype : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public ScriptableObject id;
     void Start()
     {
         

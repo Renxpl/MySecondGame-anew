@@ -4,9 +4,9 @@ using UnityEngine;
 
 public interface VerballyInteractable
 {
-    
 
 
+    void Speak();
 
 
 }
