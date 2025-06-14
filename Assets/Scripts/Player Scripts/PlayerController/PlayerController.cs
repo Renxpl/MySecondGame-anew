@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     
     Coroutine timeSlow = null;
     public static float animatorTimeVector;
+    public static GameObject ConversationCounterpart { get;  set; }
 
     public static bool IsInteractable { get; private set; }
 
@@ -47,6 +48,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!IsInteractable)
+        {
+            ConversationCounterpart = null;
+        }
         //will relocate this part later on
         if(transform.localScale.x == -1)
         {
@@ -200,7 +205,9 @@ public class PlayerController : MonoBehaviour
            
             if (isInteracting)
             {
+                
                 IsInteractable= true;
+                ConversationCounterpart = otherCollider.gameObject;
                 pressX.gameObject.SetActive(true);
                 if (transform.localScale.x == -1)
                 {

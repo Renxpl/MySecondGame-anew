@@ -694,9 +694,11 @@ void OnJumping(InputValue input)
         {
             if(input.Get<float>() == 1f)
             {
-                if(StopEverythingPlayer)StopEverythingPlayer= false;
-                else StopEverythingPlayer= true;
 
+                //if(StopEverythingPlayer)StopEverythingPlayer= false;
+                //else StopEverythingPlayer= true;
+
+                PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().Speak();
 
 
 

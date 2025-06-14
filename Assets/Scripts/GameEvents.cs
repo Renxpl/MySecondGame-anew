@@ -24,6 +24,9 @@ public class GameEvents : MonoBehaviour
     public event PlayerComboIncrement onComboIncrement;
     public delegate void RegisteringEnemiesToManager(GameObject sender, string type, float amount);
     public event RegisteringEnemiesToManager onRegisteringEnemiesToManager;
+
+    public delegate void DialogueManagement(GameObject sender, string line);
+    public event DialogueManagement onDialogueManagement;
     void Awake()
     {
         if(gameEvents == null)
@@ -88,6 +91,17 @@ public class GameEvents : MonoBehaviour
         onRegisteringEnemiesToManager?.Invoke(sender, type, amount);
 
     }
+
+
+    public void OnDialogueManagement(GameObject sender, string line)
+    {
+
+        onDialogueManagement?.Invoke(sender, line);
+
+
+    }
+
+
 
 }
 
