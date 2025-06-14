@@ -140,7 +140,7 @@ public class PlayerNeededValues : MonoBehaviour
     float timeToGetWalls;
 
     float addToSABAr;
-
+    bool firstTimeStopEv;
     public static bool StopEverythingPlayer { get; private set; }
     void Awake()
     {
@@ -256,12 +256,19 @@ public class PlayerNeededValues : MonoBehaviour
         if (StopEverythingPlayer)
         {
             MoveInput = Vector2.zero;
-            Vector2 velocity = PlayerController.PlayerRB.velocity;
-            velocity.x = 0f;
-            PlayerController.PlayerRB.velocity = velocity;
+            if (firstTimeStopEv)
+            {
+                PlayerController.PlayerRB.velocity = Vector2.zero;
+                firstTimeStopEv= false;
+            }
+          
             CommandHandler.ResetNext();
             if(!PlayerController.IsInteractable) StopEverythingPlayer= false;
             return;
+        }
+        else
+        {
+            firstTimeStopEv = true;
         }
         
         if(jumpInput != 0 && JumpTime <= 0.5f &&IsSpacePressing)

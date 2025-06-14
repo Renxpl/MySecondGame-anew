@@ -196,7 +196,7 @@ public class PlayerController : MonoBehaviour
 
 
             Vector2 diff = new Vector2(otherCollider.transform.position.x - transform.position.x, 0);
-            bool isInteracting = (diff.x > 0 && transform.localScale.x > 0) || (diff.x < 0 && transform.localScale.x < 0);
+            bool isInteracting = (diff.x < 3 &&diff.x > 0 && transform.localScale.x > 0) || (diff.x > -3 && diff.x < 0 && transform.localScale.x < 0);
            
             if (isInteracting)
             {
@@ -225,8 +225,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D otherCollider)
     {
-       
 
+        if (otherCollider.CompareTag("VerballyInteractiveNPC"))
+        {
+
+
+           //to make it guarateed
+            pressX.gameObject.SetActive(false); IsInteractable = false; 
+
+
+
+
+        }
 
     }
 
