@@ -692,14 +692,34 @@ void OnJumping(InputValue input)
 
         if (PlayerController.IsInteractable)
         {
-            if(input.Get<float>() == 1f)
+            if (input.Get<float>() == 1f)
             {
 
                 //if(StopEverythingPlayer)StopEverythingPlayer= false;
                 //else StopEverythingPlayer= true;
 
-                PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().Speak();
+                
+                int convoTurn = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConvoTurn();
+                Conversation convo = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConversation();
+                Debug.Log(convoTurn);
+                if(convo.lines.Length <= convoTurn)
+                {
+                    Debug.Log("Convo Fault");
+                    return;
+                }
+                if(convo.lines[convoTurn].speakerName == gameObject.name)
+                {
 
+                    GameEvents.gameEvents.OnDialogueManagement(gameObject, convo.lines[convoTurn].text);
+                    PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().IncreaseTurn();
+
+                }
+
+                else
+                {
+                    PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().Speak();
+
+                }
 
 
                 //Debug.Log("Interacting");

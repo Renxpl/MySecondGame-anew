@@ -6,9 +6,11 @@ public class NPCPrototype : MonoBehaviour, VerballyInteractable
 {
     public IDCard id;
     public NPCLines lines; 
+    public Conversation conversation;
+    public int convoTurn;
     void Start()
     {
-        
+        convoTurn= 0;
         
     }
 
@@ -23,9 +25,10 @@ public class NPCPrototype : MonoBehaviour, VerballyInteractable
 
     public void Speak()
     {
-        
-        
-        StartCoroutine(Speaking());
+
+        GameEvents.gameEvents.OnDialogueManagement(gameObject, conversation.lines[convoTurn].text);
+        IncreaseTurn();
+       // StartCoroutine(Speaking());
 
 
     }
@@ -37,11 +40,15 @@ public class NPCPrototype : MonoBehaviour, VerballyInteractable
         
         while (lineNumber < lines.lines.Length)
         {
-            string currentLine = lines.lines[lineNumber];
+           
             if (!Dialogue.IsWriting)
             {
-                GameEvents.gameEvents.OnDialogueManagement(gameObject, currentLine);
-                lineNumber++;
+                GameEvents.gameEvents.OnDialogueManagement(gameObject, conversation.lines[convoTurn].text);
+                convoTurn++;
+            }
+            else
+            {
+
             }
             yield return new WaitForSecondsRealtime(0.1f);
 
@@ -49,11 +56,14 @@ public class NPCPrototype : MonoBehaviour, VerballyInteractable
         }
 
 
-
+        lines.currentCheckpoint = lines.checkpoints[0];
 
 
     }
 
+    public Conversation GetConversation() => conversation;
+    public int GetConvoTurn() => convoTurn;
 
+    public void IncreaseTurn() => convoTurn++;
 
 }

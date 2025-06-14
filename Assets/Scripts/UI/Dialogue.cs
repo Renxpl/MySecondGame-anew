@@ -58,7 +58,7 @@ public class Dialogue : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.1f);
 
         }
-
+        
         IsWriting= false;
         writer = null;
         

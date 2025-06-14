@@ -19447,6 +19447,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 0d9305725e2fe66468dd13afcaefbbf5, type: 2}
   lines: {fileID: 11400000, guid: da71d9e72794ca4479c37e69faf63451, type: 2}
+  conversation: {fileID: 11400000, guid: 90f7bbb3b9db5cb41a1743bb0fa6d649, type: 2}
+  convoTurn: 0
 --- !u!1 &1537673852
 GameObject:
   m_ObjectHideFlags: 0
