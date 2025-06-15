@@ -93,5 +93,13 @@ public class Dialogue : MonoBehaviour
     }
 
 
+    public void Align(GameObject sender)
+    {
+        this.transform.position = new Vector2(sender.transform.position.x + offset.x, sender.transform.position.y + offset.y);
+
+
+    } 
+
+
 
 }
