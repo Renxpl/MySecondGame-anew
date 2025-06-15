@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerParryState : IState
 {
+    
     public void Enter()
     {
-
+     
     }
 
 
@@ -24,9 +26,7 @@ public class PlayerParryState : IState
 
             return;
         }
-
         PlayerController.ChangeAnimationState("Parry");
-
 
     }
 

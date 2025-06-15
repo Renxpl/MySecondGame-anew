@@ -1480,12 +1480,15 @@ IsKnocbacking= false;
         IsParrying = true;
         getDmgCollider.enabled = false;
         parryHB.enabled = true;
+        PlayerController.PlayerRB.velocity = Vector2.zero;
+        
 
-        while (IsParrying && IsGroundedPlayer && IsRolling)
+
+        while (IsParrying && IsGroundedPlayer &&  !IsRolling)
         {
+            
 
-
-
+           
 
 
             yield return new WaitForSecondsRealtime(0.015f * PlayerController.animatorTimeVector);
@@ -1493,7 +1496,7 @@ IsKnocbacking= false;
 
 
         }
-
+     
         getDmgCollider.enabled = true;
         parryHB.enabled = false;
         CommandHandler.ResetNext();
