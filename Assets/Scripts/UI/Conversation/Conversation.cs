@@ -9,7 +9,7 @@ public class Conversation : ScriptableObject
 {
 
     public Line[] lines;
-
+    public int checkpoint;
 
 
 }

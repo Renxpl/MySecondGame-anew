@@ -19,3 +19,8 @@ MonoBehaviour:
     text: How r u
   - speakerName: Player
     text: shut up
+  - speakerName: James
+    text: How r u again
+  - speakerName: James
+    text: U understand?
+  checkpoint: 3

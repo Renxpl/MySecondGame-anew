@@ -8,7 +8,11 @@ public interface VerballyInteractable
     Conversation GetConversation();
     int GetConvoTurn();
     void IncreaseTurn();
+
+    void SetTurnToCp();
     void Speak();
+
+    void FinishConvo();
 
 
 }

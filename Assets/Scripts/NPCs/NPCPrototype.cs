@@ -5,19 +5,19 @@ using UnityEngine;
 public class NPCPrototype : MonoBehaviour, VerballyInteractable
 {
     public IDCard id;
-    public NPCLines lines; 
+    public NPCLines lines;
     public Conversation conversation;
     public int convoTurn;
     void Start()
     {
-        convoTurn= 0;
-        
+        convoTurn = 0;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
 
 
 
@@ -28,7 +28,8 @@ public class NPCPrototype : MonoBehaviour, VerballyInteractable
 
         GameEvents.gameEvents.OnDialogueManagement(gameObject, conversation.lines[convoTurn].text);
         IncreaseTurn();
-       // StartCoroutine(Speaking());
+
+        // StartCoroutine(Speaking());
 
 
     }
@@ -36,11 +37,11 @@ public class NPCPrototype : MonoBehaviour, VerballyInteractable
     IEnumerator Speaking()
     {
 
-        int lineNumber = lines.currentCheckpoint;
         
-        while (lineNumber < lines.lines.Length)
+
+        while (convoTurn < conversation.lines.Length)
         {
-           
+
             if (!Dialogue.IsWriting)
             {
                 GameEvents.gameEvents.OnDialogueManagement(gameObject, conversation.lines[convoTurn].text);
@@ -56,7 +57,7 @@ public class NPCPrototype : MonoBehaviour, VerballyInteractable
         }
 
 
-        lines.currentCheckpoint = lines.checkpoints[0];
+        
 
 
     }
@@ -65,5 +66,12 @@ public class NPCPrototype : MonoBehaviour, VerballyInteractable
     public int GetConvoTurn() => convoTurn;
 
     public void IncreaseTurn() => convoTurn++;
+    public void SetTurnToCp() => convoTurn = conversation.checkpoint;
+
+
+    public void FinishConvo()
+    {
+        convoTurn = conversation.checkpoint;
+    }
 
 }

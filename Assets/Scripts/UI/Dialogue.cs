@@ -47,11 +47,15 @@ public class Dialogue : MonoBehaviour
 
     void DialogueManagement(GameObject sender, string line)
     {
-        text.text = "";
-        currentLine= line;
-        this.transform.position = new Vector2(sender.transform.position.x + offset.x, sender.transform.position.y + offset.y);
-        
-        if(writer == null)writer = StartCoroutine(Writer());
+        if (gameObject.activeInHierarchy)
+        {
+            text.text = "";
+            currentLine = line;
+            this.transform.position = new Vector2(sender.transform.position.x + offset.x, sender.transform.position.y + offset.y);
+
+            if (writer == null) writer = StartCoroutine(Writer());
+        }
+       
 
 
     }

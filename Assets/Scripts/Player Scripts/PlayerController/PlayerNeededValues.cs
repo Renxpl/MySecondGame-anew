@@ -687,6 +687,7 @@ yield return new WaitForSecondsRealtime(0.175f * PlayerController.animatorTimeVe
 extraRollingWait= false;
 }
 
+    Coroutine intoConv;
 void OnJumping(InputValue input)
 {
 
@@ -694,18 +695,25 @@ void OnJumping(InputValue input)
         {
             if (input.Get<float>() == 1f)
             {
-
+                if(intoConv == null)
+                intoConv= StartCoroutine(IntoConv());
                 //if(StopEverythingPlayer)StopEverythingPlayer= false;
                 //else StopEverythingPlayer= true;
-
-                
+                /*
+                GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(true);
                 int convoTurn = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConvoTurn();
                 Conversation convo = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConversation();
                 Debug.Log(convoTurn);
                 
-                if(convo.lines.Length <= convoTurn && !Dialogue.IsWriting)
+                if((convo.lines.Length <= convoTurn && !Dialogue.IsWriting) ) 
                 {
                     Debug.Log("Convo Fault");
+
+                    if (convo.lines.Length <= convoTurn)
+                    {
+                        PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().SetTurnToCp();
+                        GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(false);
+                    }
                     return;
                 }
 
@@ -721,14 +729,24 @@ void OnJumping(InputValue input)
 
                     GameEvents.gameEvents.OnDialogueManagement(gameObject, convo.lines[convoTurn].text);
                     PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().IncreaseTurn();
+                    if(convoTurn == convo.checkpoint)
+                    {
+                        PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().FinishConvo();
+                        GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(false);
+                    }
 
                 }
 
                 else
                 {
                     PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().Speak();
+                    if(convoTurn == convo.checkpoint)
+                    {
+                        PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().FinishConvo();
+                        GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(false);
+                    }
 
-                }
+                }*/
 
 
                 //Debug.Log("Interacting");
@@ -746,10 +764,76 @@ if (jumpInput != 0)
 
 
 
+
+
 //Debug.Log("Space Value:" + input.Get<float>());
 
 
 }
+
+
+
+    IEnumerator IntoConv()
+    {
+        bool fin = false;
+        GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(0.01f);
+        int convoTurn = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConvoTurn();
+        Conversation convo = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConversation();
+        Debug.Log(convoTurn);
+
+        if ((convo.lines.Length <= convoTurn && !Dialogue.IsWriting))
+        {
+            Debug.Log("Convo Fault");
+
+            if (convo.lines.Length <= convoTurn)
+            {
+                PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().SetTurnToCp();
+                GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(false);
+            }
+            fin = true; 
+        }
+        if (!fin)
+        {
+            if (Dialogue.IsWriting)
+            {
+                Dialogue.instance.FlushOut();
+
+
+
+            }
+            else if (convo.lines[convoTurn].speakerName == gameObject.name)
+            {
+
+                GameEvents.gameEvents.OnDialogueManagement(gameObject, convo.lines[convoTurn].text);
+                PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().IncreaseTurn();
+                if(!(convoTurn+1 == convo.checkpoint)) convoTurn = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConvoTurn();
+                if (convoTurn == convo.checkpoint)
+                {
+                    PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().FinishConvo();
+                    GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(false);
+                }
+
+            }
+
+            else
+            {
+                PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().Speak();
+                if (!(convoTurn + 1 == convo.checkpoint)) convoTurn = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConvoTurn();
+                if (convoTurn == convo.checkpoint)
+                {
+                    PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().FinishConvo();
+                    GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(false);
+                }
+
+            }
+        }
+
+        intoConv = null;
+    }
+
+
+
 public static void JumpExecute()
 {
 
