@@ -8,7 +8,7 @@ public class ESpawnManager : MonoBehaviour
     public EnemyStats mageStats;
     public AttackCombo testCombo;
     public AttackCombo mageCombo;
-    float timeGap=25f;
+    float timeGap=100f;
     float timeCounter = 100f;
     float timeCounterM = 100f;
     public Vector2 sSpawnLoc;
@@ -32,7 +32,7 @@ public class ESpawnManager : MonoBehaviour
             timeCounter= 0f;
         }
 
-        if (timeCounterM > timeGap)
+        if (timeCounterM > timeGap && 0>1)
         {
             EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), mSpawnLoc, mageCombo, new MageCombatBehaviour());
 

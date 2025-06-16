@@ -1330,7 +1330,20 @@ protected virtual void TakingDamage(GameObject receiver, GameObject sender, Coll
           
             return;
         }
-        if (receiver == gameObject)
+        if(attakVer == 3 && receiver == gameObject)
+        {
+
+
+            Stance -= 2;
+
+
+        }
+
+
+
+
+
+           else if (receiver == gameObject)
 {   
    isTakenDmg= true;
    if(!lockCounter) isTakenDmgCounter = 0f;
@@ -1488,7 +1501,8 @@ IsKnocbacking= false;
     }
 
     float timeForParry;
-    public static bool IsPerfectParry { get; private set; } 
+    public static bool IsPerfectParry { get; private set; }
+
     IEnumerator Parrying()
     {
         timeForParry = 0f;
@@ -1502,20 +1516,20 @@ IsKnocbacking= false;
 
         while (IsParrying && IsGroundedPlayer &&  !IsRolling)
         {
-
+           
 
             timeForParry += 0.015f;
 
 
             yield return new WaitForSecondsRealtime(0.015f * PlayerController.animatorTimeVector);
 
-            if (timeForParry > 0.1f)
+            if (timeForParry > 0.33f)
             {
                 IsPerfectParry = false;
             }
 
         }
-     
+       
         //getDmgCollider.enabled = true;
         parryHB.enabled = false;
         CommandHandler.ResetNext();

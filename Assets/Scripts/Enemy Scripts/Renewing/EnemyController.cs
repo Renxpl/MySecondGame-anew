@@ -192,8 +192,24 @@ public class EnemyController : MonoBehaviour, IDamageable
 
 
     }
+    Vector2 lastPos;
+    public Vector2 GetPrePosition() => lastPos;
+    public void SetPrePosition(Vector2 pos)
+    {
+        lastPos = pos;
+    }
 
 
+    public void BeingParried()
+    {
+
+        if (CurrentStance > 0) CurrentStance = 0;
+        timeToBePassedForStanceRegen = 0f;
+
+
+
+
+    }
 
 
 }

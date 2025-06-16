@@ -6,6 +6,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
 {
 
     Coroutine attack;
+    Vector2 position= Vector2.zero;
     
     public void Attack(EnemyController self, Rigidbody2D enemyRB, Transform target)
     {
@@ -38,10 +39,13 @@ public class CloseCombatBehaviour : IAttackBehaviour
 
             self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep%3].animation);
             self.LockEnemySprite();
+            self.SetPrePosition(self.transform.position);
+            
             yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 3].delayBeforeHit);
 
             //enemyRB.WakeUp();
             //need to make first attack slower and more recognizable at the moment of attack1
+            
             if(self.AttackStep % 3 == 0)
             {
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
@@ -89,6 +93,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
         self.ChangeState(new EnemyMovState());
 
     }
+
    
 
     

@@ -5,6 +5,7 @@ using UnityEngine;
 public class MageCombatBehaviour : IAttackBehaviour
 {
     Coroutine attack;
+    Vector2 position = Vector2.zero;
     public void Attack(EnemyController self, Rigidbody2D enemyRB, Transform target)
     {
 
@@ -26,7 +27,6 @@ public class MageCombatBehaviour : IAttackBehaviour
 
 
     }
-   
 
 
     IEnumerator PerformAttack(EnemyController self, Rigidbody2D enemyRB, Transform target)

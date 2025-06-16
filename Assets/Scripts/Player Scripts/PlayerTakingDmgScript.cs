@@ -29,8 +29,39 @@ public class PlayerTakingDmgScript : MonoBehaviour
             if (GameEvents.gameEvents != null)
             {
                 // receiver, sender, otherCollider, AttackVersion
-                GameEvents.gameEvents.OnGettingDmg(player, gameObject, collider, 0);
+                //if((PlayerNeededValues.IsParrying && PlayerController.PlayerRB.transform.localScale.x * collider.transform.parent.localScale.x == 1) || !PlayerNeededValues.IsParrying)
                 
+
+                float difX = collider.transform.parent.transform.parent.GetComponent<EnemyController>().GetPrePosition().x - player.transform.position.x;
+                if(player.transform.localScale.x * difX < 0)
+                {
+                    GameEvents.gameEvents.OnGettingDmg(player, gameObject, collider, 0);
+                }
+                //GameEvents.gameEvents.OnGettingDmg(player, gameObject, collider, 0);
+                else
+                {
+                    if (PlayerNeededValues.IsPerfectParry)
+                    {
+
+                        collider.transform.parent.transform.parent.GetComponent<EnemyController>().BeingParried();
+
+                    } 
+
+                    else if (PlayerNeededValues.IsParrying)
+                    {
+
+                        GameEvents.gameEvents.OnGettingDmg(player, gameObject, collider, 3);
+
+                    }
+
+                    else
+                    {
+                        GameEvents.gameEvents.OnGettingDmg(player, gameObject, collider, 0);
+                    }
+
+
+                }
+
             }
 
         }
