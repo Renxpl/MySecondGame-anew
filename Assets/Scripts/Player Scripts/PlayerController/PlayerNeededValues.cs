@@ -202,6 +202,8 @@ public class PlayerNeededValues : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    public static float CanParry { get; private set; }
     void Update()
     {
 
@@ -378,6 +380,15 @@ public class PlayerNeededValues : MonoBehaviour
         HandleSpriteLock();
 
         FallingOfTheWall();
+
+        if (!IsParrying)
+        {
+            CanParry += Time.deltaTime;
+        }
+        else
+        {
+            CanParry = 0f;
+        }
 
         if (ComboCounter < 0) ComboCounter = 0;
     }
@@ -1441,7 +1452,7 @@ IsKnocbacking= false;
     {
         if (StopEverythingPlayer) return;
       
-        if(input.Get<float>() == 1f && IsGroundedPlayer)
+        if(input.Get<float>() == 1f && IsGroundedPlayer && CanParry >0.33f)
         {
 
             //Debug.Log(input.Get<float>());
@@ -1483,7 +1494,7 @@ IsKnocbacking= false;
         timeForParry = 0f;
         IsParrying = true;
         IsPerfectParry = true;
-        getDmgCollider.enabled = false;
+        //getDmgCollider.enabled = false;
         parryHB.enabled = true;
         PlayerController.PlayerRB.velocity = Vector2.zero;
        
@@ -1505,7 +1516,7 @@ IsKnocbacking= false;
 
         }
      
-        getDmgCollider.enabled = true;
+        //getDmgCollider.enabled = true;
         parryHB.enabled = false;
         CommandHandler.ResetNext();
 
