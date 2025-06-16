@@ -1475,25 +1475,33 @@ IsKnocbacking= false;
         //Debug.Log("Parrying");
 
     }
+
+    float timeForParry;
+    public static bool IsPerfectParry { get; private set; } 
     IEnumerator Parrying()
     {
+        timeForParry = 0f;
         IsParrying = true;
+        IsPerfectParry = true;
         getDmgCollider.enabled = false;
         parryHB.enabled = true;
         PlayerController.PlayerRB.velocity = Vector2.zero;
-        
+       
 
 
         while (IsParrying && IsGroundedPlayer &&  !IsRolling)
         {
-            
 
-           
+
+            timeForParry += 0.015f;
 
 
             yield return new WaitForSecondsRealtime(0.015f * PlayerController.animatorTimeVector);
 
-
+            if (timeForParry > 0.1f)
+            {
+                IsPerfectParry = false;
+            }
 
         }
      
