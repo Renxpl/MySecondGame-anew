@@ -24,7 +24,7 @@ public class ESpawnManager : MonoBehaviour
     {
         timeCounter += Time.deltaTime;
         timeCounterM += Time.deltaTime;
-        if (timeCounter > timeGap /*&& 1<0*/)
+        if (timeCounter > timeGap && 1<0)
         {
 
             EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), sSpawnLoc, testCombo, new CloseCombatBehaviour());
@@ -38,7 +38,12 @@ public class ESpawnManager : MonoBehaviour
 
             timeCounterM = 0f;
         }
+        if (timeCounterM > timeGap && 0 > 1)
+        {
+            EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), mSpawnLoc, mageCombo, new MageCombatBehaviour());
 
+            timeCounterM = 0f;
+        }
 
 
     }
