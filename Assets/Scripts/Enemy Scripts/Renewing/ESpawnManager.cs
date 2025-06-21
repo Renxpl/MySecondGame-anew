@@ -6,11 +6,14 @@ public class ESpawnManager : MonoBehaviour
 {
     public EnemyStats testStat;
     public EnemyStats mageStats;
+    public EnemyStats comStats;
     public AttackCombo testCombo;
     public AttackCombo mageCombo;
+    public EnemyStats comCombo;
     float timeGap=100f;
     float timeCounter = 100f;
     float timeCounterM = 100f;
+    float timeCounterC = 100f;
     public Vector2 sSpawnLoc;
     public Vector2 mSpawnLoc;
 
@@ -38,9 +41,9 @@ public class ESpawnManager : MonoBehaviour
 
             timeCounterM = 0f;
         }
-        if (timeCounterM > timeGap && 0 > 1)
+        if (timeCounterM > timeGap /*&& 0 > 1*/)
         {
-            EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), mSpawnLoc, mageCombo, new MageCombatBehaviour());
+            EFactory.SpawnCom(comStats, new ChaseMovementBehaviour(), sSpawnLoc, testCombo, new CloseCombatBehaviour());
 
             timeCounterM = 0f;
         }

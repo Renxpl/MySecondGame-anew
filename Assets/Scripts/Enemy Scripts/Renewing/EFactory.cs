@@ -42,7 +42,22 @@ public static class EFactory
 
 
     }
+    public static EnemyController SpawnCom(EnemyStats stats, IMovementBehaviour mov, Vector2 pos, AttackCombo combo, IAttackBehaviour attack)
+    {
+        var go = Object.Instantiate(stats.enemyPrefab, pos, Quaternion.identity);
+        var ctrl = go.GetComponent<EnemyController>();
+        var comboCopy = Object.Instantiate(combo);
+        for (int i = 0; i < 3; i++)
+        {
+            comboCopy.steps[i].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + (i + 1)).GetComponent<PolygonCollider2D>();
 
+        }
+
+        ctrl.Init(stats, mov, comboCopy, attack);
+        return ctrl;
+
+
+    }
 
 
 
