@@ -13,7 +13,7 @@ public class ESpawnManager : MonoBehaviour
     public bool sSpawn;
     public bool mSpawn;
     public bool cSpawn;
-    float timeGap=100f;
+    public float timeGap=100f;
     float timeCounter = 100f;
     float timeCounterM = 100f;
     float timeCounterC = 100f;
