@@ -1531,6 +1531,7 @@ IsKnocbacking= false;
         }
        
         //getDmgCollider.enabled = true;
+        IsPerfectParry = false;
         parryHB.enabled = false;
         CommandHandler.ResetNext();
 
