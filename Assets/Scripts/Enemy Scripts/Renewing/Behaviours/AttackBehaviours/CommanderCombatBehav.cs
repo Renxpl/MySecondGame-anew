@@ -45,6 +45,23 @@ public class CommanderCombatBehav : IAttackBehaviour
             //enemyRB.WakeUp();
             //need to make first attack slower and more recognizable at the moment of attack1
 
+            if(self.AttackStep % totalAC > 3)
+            {
+                int rndInt = Random.Range(4, 7);
+
+                while(rndInt != (self.AttackStep % totalAC))
+                {
+
+                    self.IncreaseAttackStep();
+
+
+                }
+
+
+
+            }
+
+
             if (self.AttackStep % totalAC == 0)
             {
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
@@ -67,12 +84,33 @@ public class CommanderCombatBehav : IAttackBehaviour
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
                 enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(4, 0)));
             }
-            else
+            else if (self.AttackStep % totalAC == 3)
             {
 
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
                 enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
             }
+            //Magic Attacks
+            //exp
+
+            else if (self.AttackStep % totalAC == 4)
+            {
+
+            }
+            //falling Ground
+
+            else if (self.AttackStep % totalAC == 5)
+            {
+
+            }
+            //magic chain
+
+            else
+            {
+
+            }
+
+
 
             self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
             enemyRB.WakeUp();
@@ -83,7 +121,20 @@ public class CommanderCombatBehav : IAttackBehaviour
             yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % totalAC].postDelay);
             self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = false;
 
-            self.IncreaseAttackStep();
+
+
+
+            if(self.AttackStep % totalAC <= 3)
+            {
+                self.IncreaseAttackStep();
+            }
+            else
+            {
+                while(self.AttackStep % totalAC != 0)
+                {
+                    self.IncreaseAttackStep();
+                }
+            }
 
             if (self.AttackStep % totalAC == 0 || self.AttackStep % totalAC == 1)
             {
