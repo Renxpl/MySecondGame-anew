@@ -74,8 +74,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (!IsLockedEnemySprite)
         {
 
-            Vector2 dir = new Vector2(PlayerTransform.position.x - transform.position.x, 0).normalized;
-            transform.localScale = new Vector2(dir.x, 1f);//Sprite Adjustment
+            Vector2 dir = new Vector2(Mathf.Sign(PlayerTransform.position.x - transform.position.x), 0).normalized;
+            transform.localScale = new Vector3(dir.x, 1f,1f);//Sprite Adjustment
 
 
         }

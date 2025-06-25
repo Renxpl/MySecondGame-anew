@@ -11344,10 +11344,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.035937503
-    y: 0.22314814
-    width: 0.25
-    height: 0.25
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -19435,9 +19435,9 @@ MonoBehaviour:
   testCombo: {fileID: 11400000, guid: fe812a14c036fcb4e9a01e1074b941c6, type: 2}
   mageCombo: {fileID: 11400000, guid: 5f33af32b7dbc9245b00bb1e3ca230f3, type: 2}
   comCombo: {fileID: 11400000, guid: 6f445fe16e13c6a4c8e146021fa6bb9f, type: 2}
-  sSpawn: 0
+  sSpawn: 1
   mSpawn: 0
-  cSpawn: 1
+  cSpawn: 0
   timeGap: 20
   sSpawnLoc: {x: -7.5, y: -1.17}
   mSpawnLoc: {x: 1.52, y: -1.03}

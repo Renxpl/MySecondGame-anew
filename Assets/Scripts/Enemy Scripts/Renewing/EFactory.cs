@@ -12,7 +12,7 @@ public static class EFactory
         var comboCopy = Object.Instantiate(combo);
         for (int i = 0; i < 3; i++)
         {
-            comboCopy.steps[i].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + (i+1)).GetComponent<PolygonCollider2D>();
+            comboCopy.steps[i].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + (i+1)).GetComponent<Collider2D>();
 
         }
        
@@ -29,7 +29,7 @@ public static class EFactory
         var ctrl = go.GetComponent<EnemyController>();
         
         var comboCopy = Object.Instantiate(combo);
-        comboCopy.steps[1].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + 2).GetComponent<PolygonCollider2D>();
+        comboCopy.steps[1].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + 2).GetComponent<Collider2D>();
         /*
         for (int i = 0; i < 3; i++)
         {
@@ -49,7 +49,7 @@ public static class EFactory
         var comboCopy = Object.Instantiate(combo);
         for (int i = 0; i < 4; i++)
         {
-            comboCopy.steps[i].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + (i + 1)).GetComponent<PolygonCollider2D>();
+            comboCopy.steps[i].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + (i + 1)).GetComponent<Collider2D>();
 
         }
 

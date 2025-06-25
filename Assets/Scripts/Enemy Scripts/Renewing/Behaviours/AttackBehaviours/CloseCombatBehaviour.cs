@@ -48,8 +48,11 @@ public class CloseCombatBehaviour : IAttackBehaviour
             
             if(self.AttackStep % 3 == 0)
             {
+                self.Combo.steps[self.AttackStep % 3].hitbox.enabled = true;
+                enemyRB.WakeUp();
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
-                enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x)*new Vector2(2,0)));
+                enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x)*new Vector2(2,0))); Physics2D.SyncTransforms();
+
 
 
             }
@@ -58,19 +61,29 @@ public class CloseCombatBehaviour : IAttackBehaviour
                 self.UnlockEnemySprite();
                 yield return new WaitForSeconds(0.01f);
                 self.LockEnemySprite();
+
                 yield return new WaitForSeconds(0.1f);
+                self.Combo.steps[self.AttackStep % 3].hitbox.enabled = true;
+                enemyRB.WakeUp();
+
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
-                enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(4, 0)));
+                //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(4, 0)));
+                float targetX = target.position.x + (Mathf.Sign(enemyRB.transform.localScale.x) * 2f);
+                
+             
+
+              
+                
+                enemyRB.MovePosition(new Vector2(targetX ,currentPos.y));
 
             }
             else
             {
-
+                self.Combo.steps[self.AttackStep % 3].hitbox.enabled = true;
+                enemyRB.WakeUp();
             }
 
-            self.Combo.steps[self.AttackStep % 3].hitbox.enabled= true;
-            enemyRB.WakeUp();
-
+         
 
 
 
@@ -79,7 +92,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
 
             self.IncreaseAttackStep();
             
-            if(self.AttackStep %3 == 0 || self.AttackStep % 3 == 1)
+            if(self.AttackStep %3 == 0 || self.AttackStep % 3 == 2)
             {
                 yield return new WaitForSeconds(self.Combo.comboCooldown);
             }
