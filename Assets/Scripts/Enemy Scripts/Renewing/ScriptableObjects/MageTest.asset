@@ -16,7 +16,7 @@ MonoBehaviour:
   - animation: Attack1
     delayBeforeHit: 0.42
     damage: 3
-    range: 7
+    range: 10
     postDelay: 0.33
     hitbox: {fileID: 1164820934245443829, guid: 12b478c0f8ea312418389006fee5c34d, type: 3}
     projectilePrefab: {fileID: 2688208667909790312, guid: 12b478c0f8ea312418389006fee5c34d, type: 3}
@@ -30,4 +30,4 @@ MonoBehaviour:
   durations:
   - 0.75
   - 0.75
-  comboCooldown: 1.5
+  comboCooldown: 1
