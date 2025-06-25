@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 2
+  stanceDmg: 2
 --- !u!1 &23354945
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 0.5
+  stanceDmg: 0.5
 --- !u!1 &36343604
 GameObject:
   m_ObjectHideFlags: 0
@@ -11615,6 +11617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 4
+  stanceDmg: 8
 --- !u!1 &560720240
 GameObject:
   m_ObjectHideFlags: 0
@@ -13899,6 +13902,7 @@ MonoBehaviour:
   SACollider: {fileID: 617683282}
   AACollider: {fileID: 23354947}
   timeForAALock: 0.1
+  staRegenTime: 4
 --- !u!114 &938682225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19438,7 +19442,7 @@ MonoBehaviour:
   sSpawn: 1
   mSpawn: 0
   cSpawn: 0
-  timeGap: 20
+  timeGap: 50
   sSpawnLoc: {x: -7.5, y: -1.17}
   mSpawnLoc: {x: 1.52, y: -1.03}
   cSpawnLoc: {x: -10, y: -1.17}
@@ -20298,6 +20302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 1
+  stanceDmg: 1
 --- !u!1 &1693806311
 GameObject:
   m_ObjectHideFlags: 0
@@ -58256,6 +58261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 3
+  stanceDmg: 4
 --- !u!1 &2097507056
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class EnemyAttackState : IStateEnemy
 {
     public void Enter(EnemyController ctrl)
     {
-        ctrl.ResetAttackStep();
+        ctrl.StopReset();
         
        
     }

@@ -137,6 +137,8 @@ public class PlayerNeededValues : MonoBehaviour
     float timeForSpriteLock = 0f;
     float timeToPassOnwalls = 0.75f;
 
+    public float staRegenTime;
+
 
     public static float TimePassedOnWalls { get; set; }
     float timeToGetWalls;
@@ -588,13 +590,23 @@ if (SpecialAttackBar > 32)
 }
 void StanceControl()
 {
+        float regenTimeLock;
+        if(Stance <= 0)
+        {
+            regenTimeLock = 1f;
+        }
+        else
+        {
+            regenTimeLock = staRegenTime;
+        }
+       
 if (isTakenDmg)
 {
 
    isTakenDmgCounter += Time.deltaTime;
 
 
-   if (isTakenDmgCounter > 1f)
+   if (isTakenDmgCounter > regenTimeLock)
    {
        if (Stance < 5 && !lockCounter) Stance += 0.8f * Time.deltaTime;
        if (Stance < 5 && lockCounter) Stance += 2f * Time.deltaTime;
@@ -689,8 +701,10 @@ IEnumerator RollingCoroutine()
 {
 IsRolling = true;
         getDmgCollider.enabled = false;
-yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
         getDmgCollider.enabled = true;
+        yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+     
         IsRolling = false;
 
 extraRollingWait = true;
@@ -1377,7 +1391,7 @@ protected virtual void TakingDamage(GameObject receiver, GameObject sender, Coll
        {
 
 
-           if (Stance == 0) 
+           if (Stance <= 0) 
            {
 
               StartCoroutine(Knockback());

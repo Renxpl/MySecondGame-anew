@@ -105,6 +105,8 @@ public class EnemyController : MonoBehaviour, IDamageable
             CurrentStance = Stats.maxStance;
         }
 
+        if (CurrentStance < 0) CurrentStance = 0;
+
 
 
     }
@@ -126,12 +128,43 @@ public class EnemyController : MonoBehaviour, IDamageable
 
 
     }
+    Coroutine resettingAttackStep;
+
+    public void StopReset()
+    {
+        if (resettingAttackStep != null)
+        {
+            StopCoroutine(resettingAttackStep);
+
+
+        }
+
+
+    }
+
 
     public void ResetAttackStep()
     {
-        AttackStep= 0;
+        //AttackStep= 0;
+
+        resettingAttackStep = StartCoroutine(ResetAS());
+
+
 
     }
+
+    IEnumerator ResetAS()
+    {
+
+        yield return new WaitForSeconds(2.5f);
+
+        AttackStep = 0;
+
+
+
+    }
+
+
 
 
     public void LockEnemySprite()
@@ -149,7 +182,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     }
 
-    public void TakeDamage(float dmg)
+    public void TakeDamage(float dmg, float staDmg)
     {
         if(timeToBePassedBetweenHits >= 0.25f)
         {
@@ -161,7 +194,8 @@ public class EnemyController : MonoBehaviour, IDamageable
             {
                 CurrentHealth -= dmg * 2;
             }
-            if(CurrentStance>0)CurrentStance--;
+            if (CurrentStance > 0) CurrentStance -= staDmg;
+            
             //Debug.Log("enemyhp " + CurrentHealth);
             if (CurrentHealth <= 0) isDead = true;
             timeToBePassedBetweenHits = 0f;

@@ -6,6 +6,7 @@ public class PlayerExecDmg : MonoBehaviour
 {
 
     [SerializeField] float dmg;
+    [SerializeField] float stanceDmg;
     
     static float timeToPassedBetweenComboIncrement;
     bool increaseComboCount;
@@ -19,7 +20,7 @@ public class PlayerExecDmg : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
 
-        other.transform.parent.GetComponent<IDamageable>().TakeDamage(dmg);
+        if(other.transform.parent.GetComponent<IDamageable>() != null) other.transform.parent.GetComponent<IDamageable>().TakeDamage(dmg, stanceDmg);
         if (timeToPassedBetweenComboIncrement > 0.5f && PlayerNeededValues.IsLightAttack) increaseComboCount = true;
 
 

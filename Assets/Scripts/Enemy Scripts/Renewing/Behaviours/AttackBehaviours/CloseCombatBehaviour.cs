@@ -63,6 +63,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
                 self.LockEnemySprite();
 
                 yield return new WaitForSeconds(0.1f);
+                
                 self.Combo.steps[self.AttackStep % 3].hitbox.enabled = true;
                 enemyRB.WakeUp();
 
@@ -92,7 +93,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
 
             self.IncreaseAttackStep();
             
-            if(self.AttackStep %3 == 0 || self.AttackStep % 3 == 2)
+            if(self.AttackStep %3 == 0 || self.AttackStep % 3 == 1)
             {
                 yield return new WaitForSeconds(self.Combo.comboCooldown);
             }

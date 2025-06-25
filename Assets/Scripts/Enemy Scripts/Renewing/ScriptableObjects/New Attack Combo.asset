@@ -23,8 +23,8 @@ MonoBehaviour:
   - animation: Attack2
     delayBeforeHit: 0.3
     damage: 1
-    range: 15
-    postDelay: 0.34
+    range: 6
+    postDelay: 0.15
     hitbox: {fileID: 0}
     projectilePrefab: {fileID: 0}
   - animation: Attack3
