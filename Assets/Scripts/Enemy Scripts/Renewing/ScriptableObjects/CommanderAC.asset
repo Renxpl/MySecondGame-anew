@@ -34,6 +34,13 @@ MonoBehaviour:
     postDelay: 0.34
     hitbox: {fileID: 0}
     projectilePrefab: {fileID: 0}
+  - animation: Attack4
+    delayBeforeHit: 0.41
+    damage: 1
+    range: 10
+    postDelay: 0.34
+    hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
   - animation: Magic1
     delayBeforeHit: 0.41
     damage: 1
@@ -49,13 +56,6 @@ MonoBehaviour:
     hitbox: {fileID: 0}
     projectilePrefab: {fileID: 0}
   - animation: Magic3
-    delayBeforeHit: 0.41
-    damage: 1
-    range: 10
-    postDelay: 0.34
-    hitbox: {fileID: 0}
-    projectilePrefab: {fileID: 0}
-  - animation: Attack4
     delayBeforeHit: 0.41
     damage: 1
     range: 10

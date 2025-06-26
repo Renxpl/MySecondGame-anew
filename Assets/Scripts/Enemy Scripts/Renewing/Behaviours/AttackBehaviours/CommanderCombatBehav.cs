@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.VolumeComponent;
 
 public class CommanderCombatBehav : IAttackBehaviour
 {
@@ -36,20 +37,11 @@ public class CommanderCombatBehav : IAttackBehaviour
         while (Mathf.Abs(target.position.x - enemyRB.position.x) <= self.Combo.steps[self.AttackStep % self.Combo.steps.Length].range)
         {
             int totalAC= self.Combo.steps.Length;
-            self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep % totalAC].animation);
-            self.LockEnemySprite();
-            self.SetPrePosition(self.transform.position);
-
-            yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % totalAC].delayBeforeHit);
-
-            //enemyRB.WakeUp();
-            //need to make first attack slower and more recognizable at the moment of attack1
-
-            if(self.AttackStep % totalAC > 3)
+            if (self.AttackStep % totalAC > 3)
             {
-                int rndInt = Random.Range(4, 7);
+                int rndInt = UnityEngine.Random.Range(4, 7);
 
-                while(rndInt != (self.AttackStep % totalAC))
+                while (rndInt != (self.AttackStep % totalAC))
                 {
 
                     self.IncreaseAttackStep();
@@ -60,10 +52,22 @@ public class CommanderCombatBehav : IAttackBehaviour
 
 
             }
+            self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep % totalAC].animation);
+            self.LockEnemySprite();
+            self.SetPrePosition(self.transform.position);
+
+            yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % totalAC].delayBeforeHit);
+
+            //enemyRB.WakeUp();
+            //need to make first attack slower and more recognizable at the moment of attack1
+
+            
 
 
             if (self.AttackStep % totalAC == 0)
             {
+                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                enemyRB.WakeUp();
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
                 enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
 
@@ -71,7 +75,8 @@ public class CommanderCombatBehav : IAttackBehaviour
             }
             else if (self.AttackStep % totalAC == 1)
             {
-                
+                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                enemyRB.WakeUp();
 
             }
             else if(self.AttackStep % totalAC == 2)
@@ -81,14 +86,24 @@ public class CommanderCombatBehav : IAttackBehaviour
                 yield return new WaitForSeconds(0.01f);
                 self.LockEnemySprite();
                 yield return new WaitForSeconds(0.1f);
+                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                enemyRB.WakeUp();
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
                 enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(4, 0)));
             }
             else if (self.AttackStep % totalAC == 3)
             {
-
+                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                enemyRB.WakeUp();
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
-                enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
+                //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
+                float targetX = target.position.x + (Mathf.Sign(enemyRB.transform.localScale.x) * 2f);
+
+
+
+
+
+                enemyRB.MovePosition(new Vector2(targetX, currentPos.y));
             }
             //Magic Attacks
             //exp
@@ -112,19 +127,24 @@ public class CommanderCombatBehav : IAttackBehaviour
 
 
 
-            self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
-            enemyRB.WakeUp();
+            //self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+            //enemyRB.WakeUp();
 
 
 
 
             yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % totalAC].postDelay);
-            self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = false;
+            if(self.Combo.steps[self.AttackStep % totalAC].hitbox != null) self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = false;
+
+
+            if (self.AttackStep % totalAC == 0 || self.AttackStep % totalAC == 1)
+            {
+                yield return new WaitForSeconds(self.Combo.comboCooldown);
+            }
 
 
 
-
-            if(self.AttackStep % totalAC <= 3)
+            if (self.AttackStep % totalAC <= 3)
             {
                 self.IncreaseAttackStep();
             }
@@ -135,11 +155,9 @@ public class CommanderCombatBehav : IAttackBehaviour
                     self.IncreaseAttackStep();
                 }
             }
+           
 
-            if (self.AttackStep % totalAC == 0 || self.AttackStep % totalAC == 1)
-            {
-                yield return new WaitForSeconds(self.Combo.comboCooldown);
-            }
+            
 
             self.UnlockEnemySprite();
             yield return new WaitForSeconds(0.01f);
