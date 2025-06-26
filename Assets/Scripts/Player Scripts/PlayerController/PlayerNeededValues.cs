@@ -609,7 +609,7 @@ if (isTakenDmg)
    if (isTakenDmgCounter > regenTimeLock)
    {
        if (Stance < 5 && !lockCounter) Stance += 0.8f * Time.deltaTime;
-       if (Stance < 5 && lockCounter) Stance += 2f * Time.deltaTime;
+       else if (Stance < 5 && lockCounter) Stance += 2f * Time.deltaTime;
 
        if (Stance > 5) Stance = 5;
    }
@@ -1348,7 +1348,7 @@ protected virtual void TakingDamage(GameObject receiver, GameObject sender, Coll
         {
 
 
-            Stance -= 2;
+            if(Stance>0 && !lockCounter) Stance -= 1;
 
 
         }

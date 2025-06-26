@@ -91,7 +91,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     void StanceRegen()
     {
-        if (timeToBePassedForStanceRegen > 2.5f && CurrentStance < Stats.maxStance)
+        if (timeToBePassedForStanceRegen > 5f && CurrentStance < Stats.maxStance)
         {
             CurrentStance += Time.deltaTime;
 
@@ -237,7 +237,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void BeingParried()
     {
 
-        if (CurrentStance > 0) CurrentStance = 0;
+        if (CurrentStance > 0) CurrentStance -= 3;
         timeToBePassedForStanceRegen = 0f;
 
 

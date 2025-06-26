@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MageStats
   m_EditorClassIdentifier: 
   enemyType: swordsman
-  maxHealth: 9
-  maxStance: 3
+  maxHealth: 5
+  maxStance: 2
   moveSpeed: 2
   enemyPrefab: {fileID: 4940019118516411275, guid: 4efc658d25c0e04448b83eddae8285e7, type: 3}

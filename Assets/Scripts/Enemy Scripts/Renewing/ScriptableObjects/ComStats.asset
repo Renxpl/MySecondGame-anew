@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: swordsman
   maxHealth: 9
-  maxStance: 3
-  moveSpeed: 2
+  maxStance: 6
+  moveSpeed: 3
   enemyPrefab: {fileID: 4940019118516411275, guid: 2e5a9e9726bd26b4b8a9bf3123a76f9c, type: 3}

@@ -69,12 +69,24 @@ public class CommanderCombatBehav : IAttackBehaviour
                 self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
                 enemyRB.WakeUp();
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
-                enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
+                enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(4, 0)));
 
 
             }
             else if (self.AttackStep % totalAC == 1)
             {
+
+                //there will be dash here first
+                Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
+                //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
+                float targetX = target.position.x + (Mathf.Sign(enemyRB.transform.localScale.x) * -1f);
+
+
+
+
+
+                enemyRB.MovePosition(new Vector2(targetX, currentPos.y));
+
                 self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
                 enemyRB.WakeUp();
 
@@ -89,13 +101,6 @@ public class CommanderCombatBehav : IAttackBehaviour
                 self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
                 enemyRB.WakeUp();
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
-                enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(4, 0)));
-            }
-            else if (self.AttackStep % totalAC == 3)
-            {
-                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
-                enemyRB.WakeUp();
-                Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
                 //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
                 float targetX = target.position.x + (Mathf.Sign(enemyRB.transform.localScale.x) * 2f);
 
@@ -104,6 +109,15 @@ public class CommanderCombatBehav : IAttackBehaviour
 
 
                 enemyRB.MovePosition(new Vector2(targetX, currentPos.y));
+             
+            }
+            else if (self.AttackStep % totalAC == 3)
+            {
+                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                enemyRB.WakeUp();
+                Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
+                //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
+                enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(0.5f, 0)));
             }
             //Magic Attacks
             //exp
@@ -137,7 +151,7 @@ public class CommanderCombatBehav : IAttackBehaviour
             if(self.Combo.steps[self.AttackStep % totalAC].hitbox != null) self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = false;
 
 
-            if (self.AttackStep % totalAC == 0 || self.AttackStep % totalAC == 1)
+            if (self.AttackStep % totalAC == 3 || self.AttackStep % totalAC == 1)
             {
                 yield return new WaitForSeconds(self.Combo.comboCooldown);
             }

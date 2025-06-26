@@ -19442,7 +19442,7 @@ MonoBehaviour:
   sSpawn: 0
   mSpawn: 0
   cSpawn: 1
-  timeGap: 50
+  timeGap: 100
   sSpawnLoc: {x: -7.5, y: -1.17}
   mSpawnLoc: {x: 1.52, y: -1.03}
   cSpawnLoc: {x: -10, y: -1.17}
