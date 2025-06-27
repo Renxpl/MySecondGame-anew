@@ -9,7 +9,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static PlayerGroundedState GroundedStateForPlayer { get; private set; }
     public static PlayerAirborneState AirborneStateForPlayer { get; private set; }
     public static PlayerIdleState IdleStateForPlayer { get; private set; }
-    public static PlayerWalkState WalkStateForPlayer { get; private set; }  
+    public static PlayerWalkState WalkStateForPlayer { get; private set; }
     public static PlayerRunState RunStateForPlayer { get; private set; }
     public static PlayerRollState RollStateForPlayer { get; private set; }
     public static PlayerAttackModeState AttackModeStateForPlayer { get; private set; }
@@ -26,7 +26,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool IsLeftWallClimbing { get; private set; }
     public static bool IsRightWallClimbing { get; private set; }
 
-  
+
 
     public static bool CanDoActionDuringJump { get; private set; }
     public static bool IsRolling { get; private set; }
@@ -53,7 +53,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static int ComboCounter { get; private set; }
     public static float AttackSpeed { get; private set; }
     public static bool IsAirborneAttack { get; set; }
-    
+
 
     public static LayerMask groundLayer;
     public static GameObject player;
@@ -84,7 +84,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static int LightAttackNumber { get; private set; }
     public static int SpecialAttackNumber { get; private set; }
     public static int Stamina { get; private set; }
-    public static bool IsHitting { get;  set; }
+    public static bool IsHitting { get; set; }
     //next input will be handled by bools
     [SerializeField] float knockbackDuration;
     [Header("Colliders")]
@@ -103,10 +103,10 @@ public class PlayerNeededValues : MonoBehaviour
     Coroutine resettingCombo;
     Coroutine comboIncrement;
     Coroutine aaCombo;
-    
+
     static public float SpecialAttackBar { get; set; }
-    static public int AACounter { get;  set; }
-    static public bool AAInit{ get; set; }
+    static public int AACounter { get; set; }
+    static public bool AAInit { get; set; }
     bool firstTimeGrounded;
     static public float SpecialAttackBarTiming = 0;
     bool isTakenDmg = false;
@@ -123,7 +123,7 @@ public class PlayerNeededValues : MonoBehaviour
     bool lockDashAirborne = false;
 
     bool airborneKnockbackDebug;
-    
+
     bool firstTimeWalled = false;
     bool firstTimeOnEdge = false;
 
@@ -158,7 +158,7 @@ public class PlayerNeededValues : MonoBehaviour
         WalkStateForPlayer = new PlayerWalkState();
         RunStateForPlayer = new PlayerRunState();
         RollStateForPlayer = new PlayerRollState();
-        AttackModeStateForPlayer= new PlayerAttackModeState();
+        AttackModeStateForPlayer = new PlayerAttackModeState();
         JumpStateForPlayer = new PlayerJumpState();
         GrAttackState = new PlayerGrAttackState();
         heavyAttackInput = new HeavyAttackInput();
@@ -170,7 +170,7 @@ public class PlayerNeededValues : MonoBehaviour
         playerAAstate = new PlayerAirborneAttackState();
         aaInput = new AAInput();
         playerWCState = new PlayerWallClimbState();
-        playerECState   = new PlayerEdgeClimbState();
+        playerECState = new PlayerEdgeClimbState();
         playerParryState = new PlayerParryState();
     }
 
@@ -180,7 +180,7 @@ public class PlayerNeededValues : MonoBehaviour
         getDmgCollider = transform.Find("Get Dmg Hitbox").GetComponent<Collider2D>();
         groundLayer = LayerMask.GetMask("Ground");
         player = PlayerController.PlayerRB.gameObject;
-        IsLightningAura= false;
+        IsLightningAura = false;
         AttackNumber = 1;
         LightAttackNumber = 1;
         Stamina = 15;
@@ -200,7 +200,7 @@ public class PlayerNeededValues : MonoBehaviour
         AACounter = 0;
         parryHB = transform.Find("ParryHitbox").GetComponent<Collider2D>();
         parryHB.enabled = false;
-        
+
     }
 
     // Update is called once per frame
@@ -209,50 +209,50 @@ public class PlayerNeededValues : MonoBehaviour
     void Update()
     {
 
-        IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1.1f, groundLayer) || Physics2D.Raycast(player.transform.position + new Vector3(0.25f, 0f, 0f), Vector2.down, 1.1f, groundLayer)|| Physics2D.Raycast(player.transform.position - new Vector3(0.25f, 0f, 0f), Vector2.down, 1.1f, groundLayer);
-        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls <timeToPassOnwalls ;
-        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.65f, groundLayer) && !IsGroundedPlayer&& TimePassedOnWalls < timeToPassOnwalls ;
-        Debug.DrawRay(player.transform.position+new Vector3(0.25f,0f,0f), Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
+        IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1.1f, groundLayer) || Physics2D.Raycast(player.transform.position + new Vector3(0.25f, 0f, 0f), Vector2.down, 1.1f, groundLayer) || Physics2D.Raycast(player.transform.position - new Vector3(0.25f, 0f, 0f), Vector2.down, 1.1f, groundLayer);
+        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls < timeToPassOnwalls;
+        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls < timeToPassOnwalls;
+        Debug.DrawRay(player.transform.position + new Vector3(0.25f, 0f, 0f), Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position - new Vector3(0.25f, 0f, 0f), Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position, Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position, Vector2.right * 0.65f, IsRightWallClimbing ? Color.green : Color.blue);
         Debug.DrawRay(player.transform.position, Vector2.left * 0.65f, IsLeftWallClimbing ? Color.green : Color.cyan);
-      
-        CanDoActionDuringJump = Physics2D.Raycast(player.transform.position, Vector2.down, 2.25f,groundLayer);
+
+        CanDoActionDuringJump = Physics2D.Raycast(player.transform.position, Vector2.down, 2.25f, groundLayer);
 
 
-        
 
 
-        if(!IsRightWallClimbing && !IsLeftWallClimbing)
+
+        if (!IsRightWallClimbing && !IsLeftWallClimbing)
         {
-            firstTimeWalled= true;
+            firstTimeWalled = true;
         }
         else
         {
             lockDashAirborne = false;
         }
-        
-        
-       
+
+
+
 
         if (!IsGroundedPlayer)
         {
-            firstTimeGrounded= true;
+            firstTimeGrounded = true;
 
         }
         else
         {
-            TimePassedOnWalls= 0f;
+            TimePassedOnWalls = 0f;
             AACounter = 0;
             lockDashAirborne = false;
 
         }
         bool canDoWallJump = (IsRightWallClimbing || IsLeftWallClimbing) && firstTimeWalled;
-     
 
 
-      
+
+
         if (canDoWallJump)
         {
             IsJumping = false;
@@ -260,52 +260,60 @@ public class PlayerNeededValues : MonoBehaviour
             firstTimeWalled = false;
         }
 
-        if (IsGroundedPlayer  && firstTimeGrounded)
+        if (IsGroundedPlayer && firstTimeGrounded)
         {
             IsJumping = false;
             JumpTime = 0;
-            firstTimeGrounded= false;
+            firstTimeGrounded = false;
         }
-        
+        if (UIManagement.IsPaused)
+        {
+            StopEverythingPlayer = true;
+        }
         if (StopEverythingPlayer)
         {
+           
+
+
+
             MoveInput = Vector2.zero;
             if (firstTimeStopEv)
             {
                 PlayerController.PlayerRB.velocity = Vector2.zero;
-                firstTimeStopEv= false;
+                firstTimeStopEv = false;
             }
-          
+
             CommandHandler.ResetNext();
-            if(!PlayerController.IsInteractable) StopEverythingPlayer= false;
+            if (UIManagement.IsPaused) return;
+            if (!PlayerController.IsInteractable) StopEverythingPlayer = false;
             return;
         }
         else
         {
             firstTimeStopEv = true;
         }
-        
-        if(jumpInput != 0 && JumpTime <= 0.5f &&IsSpacePressing)
+
+        if (jumpInput != 0 && JumpTime <= 0.5f && IsSpacePressing)
         {
             if (Time.timeScale < 1)
             {
-                JumpTime += (1/Time.timeScale) *Time.deltaTime;
+                JumpTime += (1 / Time.timeScale) * Time.deltaTime;
                 IsSpacePressing = true;
                 JumpSpeed = jumpCurve.Evaluate(JumpTime);
             }
-            else 
+            else
             {
                 JumpTime += Time.deltaTime;
                 IsSpacePressing = true;
                 JumpSpeed = jumpCurve.Evaluate(JumpTime);
             }
 
-            
+
         }
         else
         {
             IsSpacePressing = false;
-            IsJumping= false;
+            IsJumping = false;
         }
 
         IsJumpingUp = IsSpacePressing;
@@ -313,10 +321,10 @@ public class PlayerNeededValues : MonoBehaviour
 
         if (isResettingAttack)
         {
-            if(resettingAttack != null) StopCoroutine(resettingAttack);
+            if (resettingAttack != null) StopCoroutine(resettingAttack);
             resettingAttack = StartCoroutine(ResettingLightAttack(1));
-            
-            isResettingAttack= false;
+
+            isResettingAttack = false;
         }
         if (isResettingCombo)
         {
@@ -328,11 +336,11 @@ public class PlayerNeededValues : MonoBehaviour
 
         if (ComboCounter <= 10)
         {
-            AttackSpeed = 1f+ ComboCounter * 0.010f;
+            AttackSpeed = 1f + ComboCounter * 0.010f;
         }
-        else if(ComboCounter <= 20)
+        else if (ComboCounter <= 20)
         {
-            AttackSpeed = 1f+ ComboCounter * 0.014f;
+            AttackSpeed = 1f + ComboCounter * 0.014f;
         }
         else if (ComboCounter <= 30)
         {
@@ -344,23 +352,23 @@ public class PlayerNeededValues : MonoBehaviour
             AttackSpeed = 1.6f;
         }
 
-       
-            /*
 
-        
+        /*
 
-        if (SwitchAACollider)
+
+
+    if (SwitchAACollider)
+    {
+        if (AACollider.enabled)
         {
-            if (AACollider.enabled)
-            {
-                AACollider.enabled = false;
-            }
-            else
-            {
-                AACollider.enabled = true;
-            }
-            SwitchAACollider= false;
-        }*/
+            AACollider.enabled = false;
+        }
+        else
+        {
+            AACollider.enabled = true;
+        }
+        SwitchAACollider= false;
+    }*/
 
         //if (ComboCounter < 30) ComboCounter++;
 
@@ -410,9 +418,9 @@ public class PlayerNeededValues : MonoBehaviour
             timeToGetWalls = 0f;
         }
 
-        if(timeToGetWalls > 1f)
+        if (timeToGetWalls > 1f)
         {
-            TimePassedOnWalls= 0f;
+            TimePassedOnWalls = 0f;
         }
 
     }
@@ -423,7 +431,7 @@ public class PlayerNeededValues : MonoBehaviour
         if (LockSpriteDirection)
         {
             timeForSpriteLock += Time.deltaTime;
-          
+
 
         }
 
@@ -432,10 +440,10 @@ public class PlayerNeededValues : MonoBehaviour
             timeForSpriteLock = 0f;
         }
 
-        if(timeForSpriteLock > 0.25f)
+        if (timeForSpriteLock > 0.25f)
         {
-            LockSpriteDirection= false;
-            
+            LockSpriteDirection = false;
+
 
         }
 
@@ -444,16 +452,16 @@ public class PlayerNeededValues : MonoBehaviour
 
     void HandlingTimeForWalls()
     {
-        
-        if(!CanJumpFromLWall)
+
+        if (!CanJumpFromLWall)
         {
             timeForLWall += Time.deltaTime;
         }
 
-        if(timeForLWall >= 1f || (!CanJumpFromRWall && timeForLWall > timeForRWall) )
+        if (timeForLWall >= 1f || (!CanJumpFromRWall && timeForLWall > timeForRWall))
         {
             CanJumpFromLWall = true;
-            timeForLWall= 0;
+            timeForLWall = 0;
 
 
         }
@@ -496,7 +504,7 @@ public class PlayerNeededValues : MonoBehaviour
         {
 
             StartCoroutine(Knockback());
-            airborneKnockbackDebug= false;
+            airborneKnockbackDebug = false;
         }
 
 
@@ -514,7 +522,7 @@ public class PlayerNeededValues : MonoBehaviour
     void OpenAA()
     {
 
-       
+
 
         if (LockAA)
         {
@@ -526,21 +534,21 @@ public class PlayerNeededValues : MonoBehaviour
 
         if (timePassedForOpenAA > timeForAALock)
         {
-            
+
 
             LockAA = false;
-            timePassedForOpenAA= 0f;
+            timePassedForOpenAA = 0f;
         }
 
     }
 
     void AAReset()
     {
-        
+
 
         if (ResetAA)
         {
-            timePassedForAA+= Time.deltaTime;
+            timePassedForAA += Time.deltaTime;
 
 
         }
@@ -552,8 +560,8 @@ public class PlayerNeededValues : MonoBehaviour
         if (timePassedForAA > 0.3f)
         {
             AACounter = 0;
-           
-            ResetAA= false;
+
+            ResetAA = false;
         }
 
 
@@ -562,11 +570,11 @@ public class PlayerNeededValues : MonoBehaviour
     }
 
     void SpecialAttackBarControl()
-{
-SpecialAttackBarTiming += Time.deltaTime;
-        if(SpecialAttackBarTiming >= 7.5f)
+    {
+        SpecialAttackBarTiming += Time.deltaTime;
+        if (SpecialAttackBarTiming >= 7.5f)
         {
-            if(SpecialAttackBar < 32f)
+            if (SpecialAttackBar < 32f)
             {
                 addToSABAr += Time.deltaTime;
                 if (addToSABAr >= 0.16f)
@@ -580,18 +588,18 @@ SpecialAttackBarTiming += Time.deltaTime;
         {
             addToSABAr = 0f;
         }
-if (SpecialAttackBar > 32)
-{
-   SpecialAttackBar = 32;
+        if (SpecialAttackBar > 32)
+        {
+            SpecialAttackBar = 32;
 
 
 
-}
-}
-void StanceControl()
-{
+        }
+    }
+    void StanceControl()
+    {
         float regenTimeLock;
-        if(Stance <= 0)
+        if (Stance <= 0)
         {
             regenTimeLock = 1f;
         }
@@ -599,129 +607,129 @@ void StanceControl()
         {
             regenTimeLock = staRegenTime;
         }
-       
-if (isTakenDmg)
-{
 
-   isTakenDmgCounter += Time.deltaTime;
+        if (isTakenDmg)
+        {
 
-
-   if (isTakenDmgCounter > regenTimeLock)
-   {
-       if (Stance < 5 && !lockCounter) Stance += 0.8f * Time.deltaTime;
-       else if (Stance < 5 && lockCounter) Stance += 2f * Time.deltaTime;
-
-       if (Stance > 5) Stance = 5;
-   }
-
-   if (Stance <= 0)
-   {
-       lockCounter = true;
-   }
-
-}
-if (Stance == 5)
-{
-   isTakenDmg = false;
-   lockCounter = false;
-}
-} 
-
-public void ComboAdjuster()
-{
-
-if (comboIncrement == null) comboIncrement = StartCoroutine(ComboIncrement());
-
-}
-
-IEnumerator ComboIncrement()
-{
+            isTakenDmgCounter += Time.deltaTime;
 
 
-if (ComboCounter < 30) ComboCounter++;
-yield return new WaitForSeconds(0.2f);
-comboIncrement = null;
-}
+            if (isTakenDmgCounter > regenTimeLock)
+            {
+                if (Stance < 5 && !lockCounter) Stance += 0.8f * Time.deltaTime;
+                else if (Stance < 5 && lockCounter) Stance += 2f * Time.deltaTime;
 
-void OnMove(InputValue input)
-{
+                if (Stance > 5) Stance = 5;
+            }
+
+            if (Stance <= 0)
+            {
+                lockCounter = true;
+            }
+
+        }
+        if (Stance == 5)
+        {
+            isTakenDmg = false;
+            lockCounter = false;
+        }
+    }
+
+    public void ComboAdjuster()
+    {
+
+        if (comboIncrement == null) comboIncrement = StartCoroutine(ComboIncrement());
+
+    }
+
+    IEnumerator ComboIncrement()
+    {
+
+
+        if (ComboCounter < 30) ComboCounter++;
+        yield return new WaitForSeconds(0.2f);
+        comboIncrement = null;
+    }
+
+    void OnMove(InputValue input)
+    {
         if (StopEverythingPlayer) return;
         MoveInput = input.Get<Vector2>();
-       
-        
-//Debug.Log("MoveInput Debug Display " + MoveInput);
-//Debug.Log("IsGrounded: " + IsGroundedPlayer);
-}
 
 
-void OnRolling()
-{
+        //Debug.Log("MoveInput Debug Display " + MoveInput);
+        //Debug.Log("IsGrounded: " + IsGroundedPlayer);
+    }
+
+
+    void OnRolling()
+    {
         //Debug.Log("Rolling");
         if (StopEverythingPlayer) return;
-        if (!IsGroundedPlayer) isRollingAirborne= true;
-if(!lockDashAirborne) CommandHandler.HandleCommand(rollInput);
+        if (!IsGroundedPlayer) isRollingAirborne = true;
+        if (!lockDashAirborne) CommandHandler.HandleCommand(rollInput);
 
 
 
 
-}
-public void RollExecute()
-{
+    }
+    public void RollExecute()
+    {
 
-if (!IsRolling && !extraRollingWait)
-{
-   if (isRollingAirborne) lockDashAirborne = true;         
+        if (!IsRolling && !extraRollingWait)
+        {
+            if (isRollingAirborne) lockDashAirborne = true;
 
-   RollInput = MoveInput;
-   if (IsLightAttack)
-   {
-       if (lightAttackCoroutine != null) StopCoroutine(lightAttackCoroutine);
-       IsLightAttack = false;
-       lightAttackCollider.enabled = false;
-       IsDuringAttack = false;
-   }
-   if (heavyAttackCoroutine != null) StopCoroutine(heavyAttackCoroutine);
-   IsLightAttack = false;
-   IsHeavyAttack = false;
-   IsSheating= false;
-   IsUnsheating= false;
-   IsDuringAttack=false;
-   PlayerGrAttackState.sw = false;
-   rollingCoroutine =  StartCoroutine(RollingCoroutine());
-
-
-
-}
+            RollInput = MoveInput;
+            if (IsLightAttack)
+            {
+                if (lightAttackCoroutine != null) StopCoroutine(lightAttackCoroutine);
+                IsLightAttack = false;
+                lightAttackCollider.enabled = false;
+                IsDuringAttack = false;
+            }
+            if (heavyAttackCoroutine != null) StopCoroutine(heavyAttackCoroutine);
+            IsLightAttack = false;
+            IsHeavyAttack = false;
+            IsSheating = false;
+            IsUnsheating = false;
+            IsDuringAttack = false;
+            PlayerGrAttackState.sw = false;
+            rollingCoroutine = StartCoroutine(RollingCoroutine());
 
 
-}
+
+        }
 
 
-IEnumerator RollingCoroutine()
-{
-IsRolling = true;
+    }
+
+
+    IEnumerator RollingCoroutine()
+    {
+        IsRolling = true;
         getDmgCollider.enabled = false;
-yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
+        yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
         getDmgCollider.enabled = true;
         yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
-     
+
         IsRolling = false;
 
-extraRollingWait = true;
-yield return new WaitForSecondsRealtime(0.175f * PlayerController.animatorTimeVector);
-extraRollingWait= false;
-}
+        extraRollingWait = true;
+        yield return new WaitForSecondsRealtime(0.175f * PlayerController.animatorTimeVector);
+        extraRollingWait = false;
+    }
 
     Coroutine intoConv;
-void OnJumping(InputValue input)
-{
+    void OnJumping(InputValue input)
+    {
 
         if (PlayerController.IsInteractable)
         {
             if (input.Get<float>() == 1f)
             {
-                if(intoConv == null)
-                intoConv= StartCoroutine(IntoConv());
+                if (intoConv == null)
+                    intoConv = StartCoroutine(IntoConv());
                 //if(StopEverythingPlayer)StopEverythingPlayer= false;
                 //else StopEverythingPlayer= true;
                 /*
@@ -776,25 +784,25 @@ void OnJumping(InputValue input)
 
                 //Debug.Log("Interacting");
             }
-            
+
             return;
         }
-//Debug.Log("Jumping");
-jumpInput = input.Get<float>();
-//Debug.Log(jumpInput);
-if (jumpInput != 0)
-{
-   CommandHandler.HandleCommand(new JumpInput());
-}
+        //Debug.Log("Jumping");
+        jumpInput = input.Get<float>();
+        //Debug.Log(jumpInput);
+        if (jumpInput != 0)
+        {
+            CommandHandler.HandleCommand(new JumpInput());
+        }
 
 
 
 
 
-//Debug.Log("Space Value:" + input.Get<float>());
+        //Debug.Log("Space Value:" + input.Get<float>());
 
 
-}
+    }
     bool cpReached;
 
 
@@ -816,7 +824,7 @@ if (jumpInput != 0)
             {
                 PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().SetTurnToCp();
                 GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(false);
-               
+
                 StopEverythingPlayer = false;
             }
             if (cpReached)
@@ -833,13 +841,13 @@ if (jumpInput != 0)
 
                 }
                 StopEverythingPlayer = false;
-                cpReached= false;
+                cpReached = false;
             }
-           
 
 
 
-             fin = true; 
+
+            fin = true;
         }
         if (!fin)
         {
@@ -859,7 +867,7 @@ if (jumpInput != 0)
 
                 if (convoTurn == convo.checkpoint)
                 {
-                   cpReached= true;
+                    cpReached = true;
                 }
 
             }
@@ -871,7 +879,7 @@ if (jumpInput != 0)
 
                 if (convoTurn == convo.checkpoint)
                 {
-                    cpReached= true; 
+                    cpReached = true;
                 }
 
             }
@@ -882,67 +890,67 @@ if (jumpInput != 0)
 
 
 
-public static void JumpExecute()
-{
+    public static void JumpExecute()
+    {
 
-if ((IsGroundedPlayer || IsRightWallClimbing ||IsLeftWallClimbing) && jumpInput != 0) { Debug.Log("Jumping"); IsJumping = true; IsSpacePressing = true; }
-}
+        if ((IsGroundedPlayer || IsRightWallClimbing || IsLeftWallClimbing) && jumpInput != 0) { Debug.Log("Jumping"); IsJumping = true; IsSpacePressing = true; }
+    }
 
-void OnToLightningAura(InputValue input)
-{
+    void OnToLightningAura(InputValue input)
+    {
         if (StopEverythingPlayer) return;
         //Debug.Log("Aura Input:" + input.Get<float>());
         if (IsLightningAura && input.Get<float>() == 1) { IsLightningAura = false; }
-else if(!IsLightningAura && input.Get<float>() == 1) { IsLightningAura = true; IsWindAura = false; if (!isLightningCoroutineStarted) StartCoroutine(PlayTransition(2)); }
-Debug.Log("Aura Input:" + IsLightningAura);
-}
+        else if (!IsLightningAura && input.Get<float>() == 1) { IsLightningAura = true; IsWindAura = false; if (!isLightningCoroutineStarted) StartCoroutine(PlayTransition(2)); }
+        Debug.Log("Aura Input:" + IsLightningAura);
+    }
 
-IEnumerator PlayTransition(int i)
-{
-isLightningCoroutineStarted = true;
-if (i == 2)AuraTransitionController.AnimatorForAuraTransition.Play("LT for Idle");
-else if(i == 1) AuraTransitionController.AnimatorForAuraTransition.Play("WT for Idle");
-yield return new WaitForSeconds(0.25f);
-AuraTransitionController.AnimatorForAuraTransition.Play("Nothing");
-isLightningCoroutineStarted = false;
-}
+    IEnumerator PlayTransition(int i)
+    {
+        isLightningCoroutineStarted = true;
+        if (i == 2) AuraTransitionController.AnimatorForAuraTransition.Play("LT for Idle");
+        else if (i == 1) AuraTransitionController.AnimatorForAuraTransition.Play("WT for Idle");
+        yield return new WaitForSeconds(0.25f);
+        AuraTransitionController.AnimatorForAuraTransition.Play("Nothing");
+        isLightningCoroutineStarted = false;
+    }
 
-void OnToWindAura(InputValue input)
-{
+    void OnToWindAura(InputValue input)
+    {
         if (StopEverythingPlayer) return;
         //Debug.Log("Aura Input:" + input.Get<float>());
         if (IsWindAura && input.Get<float>() == 1) { IsWindAura = false; }
-else if (!IsWindAura && input.Get<float>() == 1) { IsWindAura = true; IsLightningAura = false; if (!isWindCoroutineStarted) StartCoroutine(PlayTransition(1)); }
-Debug.Log("Aura Input:" + IsWindAura);
-}
+        else if (!IsWindAura && input.Get<float>() == 1) { IsWindAura = true; IsLightningAura = false; if (!isWindCoroutineStarted) StartCoroutine(PlayTransition(1)); }
+        Debug.Log("Aura Input:" + IsWindAura);
+    }
 
 
-void OnLightAttack()
-{
+    void OnLightAttack()
+    {
         if (StopEverythingPlayer) return;
         if (IsGroundedPlayer)
-{
-   //Debug.Log("HeavyAttack");
+        {
+            //Debug.Log("HeavyAttack");
 
-   CommandHandler.HandleCommand(lightAttackInput);
-   //Debug.Log(heavyAttackInput);
+            CommandHandler.HandleCommand(lightAttackInput);
+            //Debug.Log(heavyAttackInput);
 
-}
-else
-{
+        }
+        else
+        {
             if (!LockAA)
             {
                 AAInit = true;
-            CommandHandler.HandleCommand(aaInput);
+                CommandHandler.HandleCommand(aaInput);
 
             }
-            
-   
-
-}
 
 
-}
+
+        }
+
+
+    }
 
     public void AAExecute()
     {
@@ -956,7 +964,7 @@ else
     IEnumerator AACoroutine()
     {
         Gravity0 = true;
-        
+
         if (AACounter % 2 == 0)
         {
             IsAirborneAttack = true;
@@ -965,9 +973,9 @@ else
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            yield return new WaitForSecondsRealtime(0.24f * PlayerController.animatorTimeVector  );
+            yield return new WaitForSecondsRealtime(0.24f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
-            IsAirborneAttack=false;
+            IsAirborneAttack = false;
             AAInit = false;
             AACounter++;
 
@@ -976,379 +984,379 @@ else
         else
         {
             IsAirborneAttack = true;
-            yield return new WaitForSecondsRealtime(0.08f * PlayerController.animatorTimeVector );
+            yield return new WaitForSecondsRealtime(0.08f * PlayerController.animatorTimeVector);
             PlayerController.ChangeAnimationState("AirborneAttack2");
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             lightAttackCollider.enabled = true;
-            yield return new WaitForSecondsRealtime(0.24f * PlayerController.animatorTimeVector );
+            yield return new WaitForSecondsRealtime(0.24f * PlayerController.animatorTimeVector);
             lightAttackCollider.enabled = false;
             AACounter = 0;
             IsAirborneAttack = false;
             AAInit = false;
             LockAA = true;
-            if(CommandHandler.ShowNext() == aaInput)  CommandHandler.ResetNext();
+            if (CommandHandler.ShowNext() == aaInput) CommandHandler.ResetNext();
         }
 
         Gravity0 = false;
 
     }
 
-    
-
-
-public void LightAttackExecution()
-{
-
-lightAttackCoroutine=StartCoroutine(LightAttack(LightAttackNumber));
-
-}
-IEnumerator LightAttack(int count)
-{
-//Debug.Log("In Coroutine");
-PlayerController.PlayerRB.velocity = Vector2.zero;
-if (LightAttackNumber == 1)
-{
-   //Debug.Log("AttackNUmber1");
-
-   IsLightAttack = true;
-   if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
-
-
-   yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector * (1f/AttackSpeed));
-   IsDuringAttack = true;
-   CommandHandler.ResetNext();
-   PlayerController.PlayerRB.WakeUp();
-   lightAttackCollider.enabled = true;
-   if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f, ForceMode2D.Impulse);
-
-   else PlayerController.PlayerRB.AddForce(PlayerController.forward * 42f, ForceMode2D.Impulse);
-   yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
-   lightAttackCollider.enabled = false;
-   yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
-
-   IsDuringAttack = false;
-   LightAttackNumber++;
-   PlayerGrAttackState.sw = false;
-   IsLightAttack = false;
-
-
-}
-else if (LightAttackNumber == 2)
-{
-
-   IsLightAttack = true;
-   if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
-
-   yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
-   IsDuringAttack = true;
-   CommandHandler.ResetNext();
-   PlayerController.PlayerRB.WakeUp();
-   lightAttackCollider.enabled = true;
-   if(Time.timeScale ==1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f, ForceMode2D.Impulse);
-
-   else PlayerController.PlayerRB.AddForce(PlayerController.forward * 42f, ForceMode2D.Impulse);
-
-   yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
-   lightAttackCollider.enabled = false;
-   yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
-   IsDuringAttack = false;
-   LightAttackNumber++;
-   PlayerGrAttackState.sw = false;
-
-   IsLightAttack = false;
-}
-
-else if (LightAttackNumber == 3)
-{
-
-   IsLightAttack = true;
-   if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
-
-   yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
-   IsDuringAttack = true;
-   CommandHandler.ResetNext();
-   PlayerController.PlayerRB.WakeUp();
-   lightAttackCollider.enabled = true;
-   if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 50f, ForceMode2D.Impulse);
-
-   else PlayerController.PlayerRB.AddForce(PlayerController.forward * 84f, ForceMode2D.Impulse);
-   yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
-   lightAttackCollider.enabled = false;
-   yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
-   IsDuringAttack = false;
-   LightAttackNumber = 1;
-   PlayerGrAttackState.sw = false;
-   IsLightAttack = false;
-}
-else if (LightAttackNumber == 4)
-{
-
-   IsLightAttack = true;
-   if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
-   IsDuringAttack = true;
-   yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
-   CommandHandler.ResetNext();
-   lightAttackCollider.enabled = true;
-   yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
-   lightAttackCollider.enabled = false;
-   yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector);
-   IsDuringAttack = false;
-   LightAttackNumber++;
-   PlayerGrAttackState.sw = false;
-   IsLightAttack = false;
-}
-
-else if (LightAttackNumber >= 5)
-{
-
-   IsLightAttack = true;
-   if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
-
-   yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
-   IsDuringAttack = true;
-   CommandHandler.ResetNext();
-   PlayerController.PlayerRB.WakeUp();
-   lightAttackCollider.enabled = true;
-
-   yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
-   lightAttackCollider.enabled = false;
-   yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
-   IsDuringAttack = false;
-   LightAttackNumber = 1;
-   PlayerGrAttackState.sw = false;
-   IsLightAttack = false;
-}
-}
 
 
 
+    public void LightAttackExecution()
+    {
 
-void OnHeavyAttack()
-{
+        lightAttackCoroutine = StartCoroutine(LightAttack(LightAttackNumber));
+
+    }
+    IEnumerator LightAttack(int count)
+    {
+        //Debug.Log("In Coroutine");
+        PlayerController.PlayerRB.velocity = Vector2.zero;
+        if (LightAttackNumber == 1)
+        {
+            //Debug.Log("AttackNUmber1");
+
+            IsLightAttack = true;
+            if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
+
+
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            IsDuringAttack = true;
+            CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
+            lightAttackCollider.enabled = true;
+            if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f, ForceMode2D.Impulse);
+
+            else PlayerController.PlayerRB.AddForce(PlayerController.forward * 42f, ForceMode2D.Impulse);
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            lightAttackCollider.enabled = false;
+            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+
+            IsDuringAttack = false;
+            LightAttackNumber++;
+            PlayerGrAttackState.sw = false;
+            IsLightAttack = false;
+
+
+        }
+        else if (LightAttackNumber == 2)
+        {
+
+            IsLightAttack = true;
+            if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
+
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            IsDuringAttack = true;
+            CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
+            lightAttackCollider.enabled = true;
+            if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 25f, ForceMode2D.Impulse);
+
+            else PlayerController.PlayerRB.AddForce(PlayerController.forward * 42f, ForceMode2D.Impulse);
+
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            lightAttackCollider.enabled = false;
+            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            IsDuringAttack = false;
+            LightAttackNumber++;
+            PlayerGrAttackState.sw = false;
+
+            IsLightAttack = false;
+        }
+
+        else if (LightAttackNumber == 3)
+        {
+
+            IsLightAttack = true;
+            if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
+
+            yield return new WaitForSecondsRealtime(0.167f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            IsDuringAttack = true;
+            CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
+            lightAttackCollider.enabled = true;
+            if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 50f, ForceMode2D.Impulse);
+
+            else PlayerController.PlayerRB.AddForce(PlayerController.forward * 84f, ForceMode2D.Impulse);
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            lightAttackCollider.enabled = false;
+            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
+            IsDuringAttack = false;
+            LightAttackNumber = 1;
+            PlayerGrAttackState.sw = false;
+            IsLightAttack = false;
+        }
+        else if (LightAttackNumber == 4)
+        {
+
+            IsLightAttack = true;
+            if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
+            IsDuringAttack = true;
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+            CommandHandler.ResetNext();
+            lightAttackCollider.enabled = true;
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = false;
+            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector);
+            IsDuringAttack = false;
+            LightAttackNumber++;
+            PlayerGrAttackState.sw = false;
+            IsLightAttack = false;
+        }
+
+        else if (LightAttackNumber >= 5)
+        {
+
+            IsLightAttack = true;
+            if (MoveInput.x != 0) { transform.localScale = new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y); }
+
+            yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector);
+            IsDuringAttack = true;
+            CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
+            lightAttackCollider.enabled = true;
+
+            yield return new WaitForSecondsRealtime(0.15f * PlayerController.animatorTimeVector);
+            lightAttackCollider.enabled = false;
+            yield return new WaitForSecondsRealtime(0.1f * PlayerController.animatorTimeVector);
+            IsDuringAttack = false;
+            LightAttackNumber = 1;
+            PlayerGrAttackState.sw = false;
+            IsLightAttack = false;
+        }
+    }
+
+
+
+
+    void OnHeavyAttack()
+    {
         if (StopEverythingPlayer) return;
-        if (IsGroundedPlayer && Stamina>=5)
-{
-   //Debug.Log("HeavyAttack");
-   CommandHandler.HandleCommand(heavyAttackInput);
-   //Debug.Log(heavyAttackInput);
+        if (IsGroundedPlayer && Stamina >= 5)
+        {
+            //Debug.Log("HeavyAttack");
+            CommandHandler.HandleCommand(heavyAttackInput);
+            //Debug.Log(heavyAttackInput);
 
-}
-
-
-}
-
-public void HeavyAttackExecution()
-{
-
-heavyAttackCoroutine =  StartCoroutine(HeavyAttack(AttackNumber));
-
-}
-IEnumerator HeavyAttack(int count)
-{
-PlayerController.PlayerRB.velocity = Vector2.zero;
-//Debug.Log("In Coroutine");,
-if (ComboCounter < 10)
-{
-   yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector);
-}
-else if (ComboCounter <20)
-{
-   IsHeavyAttack = true;
-   IsDuringAttack = true;
-   AttackNumber = 1;
-   CommandHandler.ResetNext();
-   PlayerController.PlayerRB.WakeUp();
-   HA1Collider.enabled = true;
-   //Debug.Log("AttackNUmber1");
-
-   yield return new WaitForSecondsRealtime(0.583f * PlayerController.animatorTimeVector);
-   HA1Collider.enabled = false;
-   IsDuringAttack = false;
-   PlayerGrAttackState.sw = false;
-
-   IsHeavyAttack = false;
-   ComboCounter -= 10;
-}
-else if (ComboCounter < 30)
-{
-
-   AttackNumber = 2;
-   IsHeavyAttack = true;
-   IsDuringAttack = false;
-   yield return new WaitForSecondsRealtime(0.3335f * PlayerController.animatorTimeVector);
-   IsDuringAttack = true;
-
-   CommandHandler.ResetNext();
-   PlayerController.PlayerRB.WakeUp();
-   HA2Collider.enabled = true;
-   PlayerController.PlayerRB.AddForce(PlayerController.forward * 300f * (1 / Time.timeScale), ForceMode2D.Impulse);
-
-   yield return new WaitForSecondsRealtime(0.3335f * PlayerController.animatorTimeVector);
-   HA2Collider.enabled = false;
-   IsDuringAttack = false;
-   PlayerGrAttackState.sw = false;
-
-   IsHeavyAttack = false;
-   ComboCounter -= 20;
-}
-
-else if (ComboCounter < 40)
-{
-   AttackNumber = 3;
-   IsHeavyAttack = true;
-
-   IsDuringAttack= true;
-   yield return new WaitForSecondsRealtime(0.24f * PlayerController.animatorTimeVector);
-   PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 8, PlayerController.PlayerRB.transform.position.y));
-   CommandHandler.ResetNext();
-   PlayerController.PlayerRB.WakeUp();
-   HA3Collider.enabled = true;
-
-   yield return new WaitForSecondsRealtime(0.34f * PlayerController.animatorTimeVector);
-   HA3Collider.enabled = false;
-   IsDuringAttack = false;
-   PlayerGrAttackState.sw = false;
-
-   IsHeavyAttack = false;
-   ComboCounter = 0;
-}
-
-}
+        }
 
 
-public static void ResetAttackNumber(int which)
-{
-if (which == 0)
-{
-   isResettingCombo = true;
-}
-else if (which == 1)
-{
-   isResettingAttack= true;
-}
-}
-IEnumerator ResettingLightAttack(int resetType)
-{
+    }
 
-if(resetType == 1)
-{
-   yield return new WaitForSecondsRealtime(1f * PlayerController.animatorTimeVector);
+    public void HeavyAttackExecution()
+    {
 
-   if (!IsLightAttack) LightAttackNumber = 1;
-}
-else if(resetType == 0)
-{
-   float counter = 0;
-   float resetTime = 8f;
-   while(counter < resetTime)
-   {
-       if (IsLightAttack)
-       {
-           break;
-       }
-       yield return new WaitForSecondsRealtime(0.25f);
-       counter += 0.25f;
-   }
-   if (counter == resetTime) ComboCounter = 0;
-}
+        heavyAttackCoroutine = StartCoroutine(HeavyAttack(AttackNumber));
 
-}
-public  static void IncreaseAttackNumber(int which)
-{
-if (which == 0)
-{
-   AttackNumber++;
-}
-else if (which == 1)
-{
-   LightAttackNumber++;
-}
-}
-public static void SetLightAttackNumber(int number)
-{
-LightAttackNumber = number;
-}
-public static void ResetStamina()
-{
-Stamina = 15;
-}
-public static void DecreaseStamina(int number)
-{
-Stamina -= number;
-}
-public static void AdjustAttackNumber(int which)
-{
-if (which == 0)
-{
+    }
+    IEnumerator HeavyAttack(int count)
+    {
+        PlayerController.PlayerRB.velocity = Vector2.zero;
+        //Debug.Log("In Coroutine");,
+        if (ComboCounter < 10)
+        {
+            yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector);
+        }
+        else if (ComboCounter < 20)
+        {
+            IsHeavyAttack = true;
+            IsDuringAttack = true;
+            AttackNumber = 1;
+            CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
+            HA1Collider.enabled = true;
+            //Debug.Log("AttackNUmber1");
 
-   AttackNumber += (int)Mathf.Round((LightAttackNumber - 1f) / 2f);
-   //Debug.Log("Light attack Number :" + LightAttackNumber);
-   //Debug.Log((int)Mathf.Round((LightAttackNumber -0.99f) / 2f));
+            yield return new WaitForSecondsRealtime(0.583f * PlayerController.animatorTimeVector);
+            HA1Collider.enabled = false;
+            IsDuringAttack = false;
+            PlayerGrAttackState.sw = false;
 
-}
-else if (which == 1)
-{
-   LightAttackNumber += (AttackNumber - 1) * 2;
-}
-}
+            IsHeavyAttack = false;
+            ComboCounter -= 10;
+        }
+        else if (ComboCounter < 30)
+        {
 
-void OnSpecialAttack()
-{
+            AttackNumber = 2;
+            IsHeavyAttack = true;
+            IsDuringAttack = false;
+            yield return new WaitForSecondsRealtime(0.3335f * PlayerController.animatorTimeVector);
+            IsDuringAttack = true;
+
+            CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
+            HA2Collider.enabled = true;
+            PlayerController.PlayerRB.AddForce(PlayerController.forward * 300f * (1 / Time.timeScale), ForceMode2D.Impulse);
+
+            yield return new WaitForSecondsRealtime(0.3335f * PlayerController.animatorTimeVector);
+            HA2Collider.enabled = false;
+            IsDuringAttack = false;
+            PlayerGrAttackState.sw = false;
+
+            IsHeavyAttack = false;
+            ComboCounter -= 20;
+        }
+
+        else if (ComboCounter < 40)
+        {
+            AttackNumber = 3;
+            IsHeavyAttack = true;
+
+            IsDuringAttack = true;
+            yield return new WaitForSecondsRealtime(0.24f * PlayerController.animatorTimeVector);
+            PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 8, PlayerController.PlayerRB.transform.position.y));
+            CommandHandler.ResetNext();
+            PlayerController.PlayerRB.WakeUp();
+            HA3Collider.enabled = true;
+
+            yield return new WaitForSecondsRealtime(0.34f * PlayerController.animatorTimeVector);
+            HA3Collider.enabled = false;
+            IsDuringAttack = false;
+            PlayerGrAttackState.sw = false;
+
+            IsHeavyAttack = false;
+            ComboCounter = 0;
+        }
+
+    }
+
+
+    public static void ResetAttackNumber(int which)
+    {
+        if (which == 0)
+        {
+            isResettingCombo = true;
+        }
+        else if (which == 1)
+        {
+            isResettingAttack = true;
+        }
+    }
+    IEnumerator ResettingLightAttack(int resetType)
+    {
+
+        if (resetType == 1)
+        {
+            yield return new WaitForSecondsRealtime(1f * PlayerController.animatorTimeVector);
+
+            if (!IsLightAttack) LightAttackNumber = 1;
+        }
+        else if (resetType == 0)
+        {
+            float counter = 0;
+            float resetTime = 8f;
+            while (counter < resetTime)
+            {
+                if (IsLightAttack)
+                {
+                    break;
+                }
+                yield return new WaitForSecondsRealtime(0.25f);
+                counter += 0.25f;
+            }
+            if (counter == resetTime) ComboCounter = 0;
+        }
+
+    }
+    public static void IncreaseAttackNumber(int which)
+    {
+        if (which == 0)
+        {
+            AttackNumber++;
+        }
+        else if (which == 1)
+        {
+            LightAttackNumber++;
+        }
+    }
+    public static void SetLightAttackNumber(int number)
+    {
+        LightAttackNumber = number;
+    }
+    public static void ResetStamina()
+    {
+        Stamina = 15;
+    }
+    public static void DecreaseStamina(int number)
+    {
+        Stamina -= number;
+    }
+    public static void AdjustAttackNumber(int which)
+    {
+        if (which == 0)
+        {
+
+            AttackNumber += (int)Mathf.Round((LightAttackNumber - 1f) / 2f);
+            //Debug.Log("Light attack Number :" + LightAttackNumber);
+            //Debug.Log((int)Mathf.Round((LightAttackNumber -0.99f) / 2f));
+
+        }
+        else if (which == 1)
+        {
+            LightAttackNumber += (AttackNumber - 1) * 2;
+        }
+    }
+
+    void OnSpecialAttack()
+    {
         if (StopEverythingPlayer) return;
         if (IsGroundedPlayer && SpecialAttackBar >= 15)
-{
-   CommandHandler.HandleCommand(new SpecialAttackInput());
-}
-}
+        {
+            CommandHandler.HandleCommand(new SpecialAttackInput());
+        }
+    }
 
-public void SpecialAttackExecution()
-{
-if (PlayerNeededValues.SpecialAttackBar >= 15)
-{
-   StartCoroutine(SpecialAttack(SpecialAttackNumber));
-}
-else 
-{
-   CommandHandler.ResetNext();
-}
-}
+    public void SpecialAttackExecution()
+    {
+        if (PlayerNeededValues.SpecialAttackBar >= 15)
+        {
+            StartCoroutine(SpecialAttack(SpecialAttackNumber));
+        }
+        else
+        {
+            CommandHandler.ResetNext();
+        }
+    }
 
-IEnumerator SpecialAttack(int number)
-{
-PlayerController.PlayerRB.velocity = Vector2.zero;
-SpecialAttackBar -= 15;
-IsSpecialAttack= true;
-IsDuringAttack = true;
+    IEnumerator SpecialAttack(int number)
+    {
+        PlayerController.PlayerRB.velocity = Vector2.zero;
+        SpecialAttackBar -= 15;
+        IsSpecialAttack = true;
+        IsDuringAttack = true;
 
-yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
-CommandHandler.ResetNext();
-PlayerController.PlayerRB.WakeUp();
+        yield return new WaitForSecondsRealtime(0.5f * PlayerController.animatorTimeVector);
+        CommandHandler.ResetNext();
+        PlayerController.PlayerRB.WakeUp();
 
-SACollider.enabled = true;
+        SACollider.enabled = true;
 
-yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
-SACollider.enabled = false;
-IsDuringAttack = false;
-PlayerGrAttackState.sw = false;
-IsSpecialAttack= false;
-
-
+        yield return new WaitForSecondsRealtime(0.75f * PlayerController.animatorTimeVector);
+        SACollider.enabled = false;
+        IsDuringAttack = false;
+        PlayerGrAttackState.sw = false;
+        IsSpecialAttack = false;
 
 
-}
-protected virtual void TakingDamage(GameObject receiver, GameObject sender, Collider2D otherCollider, int attakVer)
-{
+
+
+    }
+    protected virtual void TakingDamage(GameObject receiver, GameObject sender, Collider2D otherCollider, int attakVer)
+    {
         if (StopEverythingPlayer)
         {
-          
+
             return;
         }
-        if(attakVer == 3 && receiver == gameObject)
+        if (attakVer == 3 && receiver == gameObject)
         {
 
 
-            if(Stance>0 && !lockCounter) Stance -= 1;
+            if (Stance > 0 && !lockCounter) Stance -= 1;
 
 
         }
@@ -1357,100 +1365,100 @@ protected virtual void TakingDamage(GameObject receiver, GameObject sender, Coll
 
 
 
-           else if (receiver == gameObject)
-{   
-   isTakenDmg= true;
-   if(!lockCounter) isTakenDmgCounter = 0f;
-   if(HP > 0) HP--;
-   if(Stance>0 && !lockCounter) Stance--;
-   if(ComboCounter <= 5)
-   {
-       ComboCounter = 0;
-   }
-   else
-   {
-       ComboCounter -= 5;
-   }
-   //Debug.Log("PlayerHp:"+ HP+"  Player Stance:"+ Stance);
-            if(attakVer == 1)
+        else if (receiver == gameObject)
+        {
+            isTakenDmg = true;
+            if (!lockCounter) isTakenDmgCounter = 0f;
+            if (HP > 0) HP--;
+            if (Stance > 0 && !lockCounter) Stance--;
+            if (ComboCounter <= 5)
             {
-         
+                ComboCounter = 0;
+            }
+            else
+            {
+                ComboCounter -= 5;
+            }
+            //Debug.Log("PlayerHp:"+ HP+"  Player Stance:"+ Stance);
+            if (attakVer == 1)
+            {
+
                 Debug.Log(Mathf.Sign(transform.position.x - otherCollider.transform.position.x));
-                Vector2 newPos = new Vector2(transform.position.x + (Mathf.Sign(transform.position.x - otherCollider.transform.position.x) *1.75f), transform.position.y);
+                Vector2 newPos = new Vector2(transform.position.x + (Mathf.Sign(transform.position.x - otherCollider.transform.position.x) * 1.75f), transform.position.y);
                 transform.localScale = new Vector2(-Mathf.Sign(transform.position.x - sender.transform.position.x), transform.localScale.y);
                 PlayerController.PlayerRB.MovePosition(newPos);
                 Stance = 0;
 
             }
 
-   if (!IsKnocbacking) 
-   {
+            if (!IsKnocbacking)
+            {
 
-       //Debug.Log("Player Took Dmg");
-       if (!IsDuringAttack) 
-       {
-
-
-           if (Stance <= 0) 
-           {
-
-              StartCoroutine(Knockback());
-                        
+                //Debug.Log("Player Took Dmg");
+                if (!IsDuringAttack)
+                {
 
 
-                            if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)
-                            {
-                                transform.localScale = new Vector2(-1f, transform.localScale.y);
-                            }
+                    if (Stance <= 0)
+                    {
 
-                            else if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == -1f)
-                            {
-                                transform.localScale = new Vector2(1f, transform.localScale.y);
-                            }
-                        
-
-           }
-
-       }
-       else
-       {
-           if(Stance == 0)
-           {
-
-
-           }
+                        StartCoroutine(Knockback());
 
 
 
-       }
+                        if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)
+                        {
+                            transform.localScale = new Vector2(-1f, transform.localScale.y);
+                        }
+
+                        else if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == -1f)
+                        {
+                            transform.localScale = new Vector2(1f, transform.localScale.y);
+                        }
+
+
+                    }
+
+                }
+                else
+                {
+                    if (Stance == 0)
+                    {
+
+
+                    }
 
 
 
-    } 
-
-
-}
-
-       
+                }
 
 
 
-}
+            }
 
 
-IEnumerator Knockback()
-{
+        }
 
-IsKnocbacking = true;
-if (IsLightAttack)
-{
-   if (lightAttackCoroutine != null) StopCoroutine(lightAttackCoroutine);
-   IsLightAttack = false;
-   lightAttackCollider.enabled = false;
-   IsDuringAttack = false;
-   PlayerGrAttackState.sw = false;
+
+
+
+
+    }
+
+
+    IEnumerator Knockback()
+    {
+
+        IsKnocbacking = true;
+        if (IsLightAttack)
+        {
+            if (lightAttackCoroutine != null) StopCoroutine(lightAttackCoroutine);
+            IsLightAttack = false;
+            lightAttackCollider.enabled = false;
+            IsDuringAttack = false;
+            PlayerGrAttackState.sw = false;
             LightAttackNumber = 1;
-}
+        }
         if (IsAirborneAttack)
         {
             if (aaCombo != null) StopCoroutine(aaCombo);
@@ -1461,25 +1469,25 @@ if (IsLightAttack)
             AAInit = false;
             Gravity0 = false;
         }
-if (IsRolling)
-{
-   if (rollingCoroutine != null) StopCoroutine(rollingCoroutine);
-   IsRolling = false;
-   extraRollingWait = false;
-}
-yield return new WaitForSeconds(knockbackDuration);
-IsKnocbacking= false;
-//Stance = 5;
+        if (IsRolling)
+        {
+            if (rollingCoroutine != null) StopCoroutine(rollingCoroutine);
+            IsRolling = false;
+            extraRollingWait = false;
+        }
+        yield return new WaitForSeconds(knockbackDuration);
+        IsKnocbacking = false;
+        //Stance = 5;
 
 
-}
+    }
 
 
     void OnParry(InputValue input)
     {
         if (StopEverythingPlayer) return;
-      
-        if(input.Get<float>() == 1f && IsGroundedPlayer && CanParry >0.33f)
+
+        if (input.Get<float>() == 1f && IsGroundedPlayer && CanParry > 0.33f)
         {
 
             //Debug.Log(input.Get<float>());
@@ -1489,12 +1497,12 @@ IsKnocbacking= false;
 
         }
 
-        else if(input.Get<float>() == 0f)
+        else if (input.Get<float>() == 0f)
         {
             //Debug.Log(input.Get<float>());
 
             IsParrying = false;
-            
+
         }
 
 
@@ -1508,7 +1516,7 @@ IsKnocbacking= false;
     {
 
 
-        
+
         StartCoroutine(Parrying());
         //Debug.Log("Parrying");
 
@@ -1525,12 +1533,12 @@ IsKnocbacking= false;
         //getDmgCollider.enabled = false;
         parryHB.enabled = true;
         PlayerController.PlayerRB.velocity = Vector2.zero;
-       
 
 
-        while (IsParrying && IsGroundedPlayer &&  !IsRolling)
+
+        while (IsParrying && IsGroundedPlayer && !IsRolling)
         {
-           
+
 
             timeForParry += 0.015f;
 
@@ -1543,7 +1551,7 @@ IsKnocbacking= false;
             }
 
         }
-       
+
         //getDmgCollider.enabled = true;
         IsPerfectParry = false;
         parryHB.enabled = false;

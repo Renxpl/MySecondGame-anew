@@ -38,7 +38,7 @@ public class PlayerJumpState : IState
         {
             if (Time.timeScale < 1)
             {
-                PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f);
+              if(Time.timeScale!=0)  PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f);
             }
             else
             {
