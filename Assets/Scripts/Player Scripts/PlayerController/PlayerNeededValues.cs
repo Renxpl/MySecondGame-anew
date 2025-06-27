@@ -972,9 +972,9 @@ public class PlayerNeededValues : MonoBehaviour
             PlayerController.ChangeAnimationState("AirborneAttack1");
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
-            lightAttackCollider.enabled = true;
+            AACollider.enabled = true;
             yield return new WaitForSecondsRealtime(0.24f * PlayerController.animatorTimeVector);
-            lightAttackCollider.enabled = false;
+            AACollider.enabled = false;
             IsAirborneAttack = false;
             AAInit = false;
             AACounter++;

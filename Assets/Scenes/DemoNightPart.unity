@@ -533,11 +533,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.47541618, y: 1.4474527}
-      - {x: -0.6993647, y: 1.175957}
-      - {x: -0.8674407, y: -1.032744}
-      - {x: 0.86744404, y: -1.0886748}
-      - {x: 0.979022, y: 1.1479912}
+    - - {x: 0.59539986, y: 0.9275275}
+      - {x: 0.24050039, y: 0.9159944}
+      - {x: 0.1524148, y: -0.9927498}
+      - {x: 2.127263, y: -0.96869206}
+      - {x: 2.1388578, y: 0.88802856}
 --- !u!114 &23354948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12020,7 +12020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20505486d0434c44a8acbcd9808df1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 4
+  dmg: 6
   stanceDmg: 8
 --- !u!1 &560720240
 GameObject:
@@ -59667,7 +59667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20505486d0434c44a8acbcd9808df1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 3
+  dmg: 4
   stanceDmg: 4
 --- !u!1 &2097507056
 GameObject:
