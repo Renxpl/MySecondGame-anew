@@ -15,5 +15,5 @@ MonoBehaviour:
   enemyType: swordsman
   maxHealth: 5
   maxStance: 2
-  moveSpeed: 2
+  moveSpeed: 1.5
   enemyPrefab: {fileID: 4940019118516411275, guid: 4efc658d25c0e04448b83eddae8285e7, type: 3}
