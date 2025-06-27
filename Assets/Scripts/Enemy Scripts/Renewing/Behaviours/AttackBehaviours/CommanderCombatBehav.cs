@@ -124,19 +124,22 @@ public class CommanderCombatBehav : IAttackBehaviour
 
             else if (self.AttackStep % totalAC == 4)
             {
-
+                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                enemyRB.WakeUp();
             }
             //falling Ground
 
             else if (self.AttackStep % totalAC == 5)
             {
-
+                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                enemyRB.WakeUp();
             }
             //magic chain
 
             else
             {
-
+                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                enemyRB.WakeUp();
             }
 
 

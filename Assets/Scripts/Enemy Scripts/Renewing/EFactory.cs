@@ -47,7 +47,8 @@ public static class EFactory
         var go = Object.Instantiate(stats.enemyPrefab, pos, Quaternion.identity);
         var ctrl = go.GetComponent<EnemyController>();
         var comboCopy = Object.Instantiate(combo);
-        for (int i = 0; i < 4; i++)
+        int childCount = go.transform.Find("AttackHitboxes").childCount;
+        for (int i = 0; i < childCount; i++)
         {
             comboCopy.steps[i].hitbox = go.transform.Find("AttackHitboxes").transform.Find("Attack" + (i + 1)).GetComponent<Collider2D>();
 
