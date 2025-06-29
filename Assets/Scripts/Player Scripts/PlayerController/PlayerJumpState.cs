@@ -53,11 +53,12 @@ public class PlayerJumpState : IState
             {
                 if (PlayerNeededValues.IsRightWallClimbing)
                 {
-                    PlayerController.PlayerRB.velocity = new Vector2(-1f/4f*(PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f), PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f);
+
+                    PlayerController.PlayerRB.velocity = new Vector2(-60f*3f, 25f*3f);
                 }
                 if (PlayerNeededValues.IsLeftWallClimbing)
                 {
-                    PlayerController.PlayerRB.velocity = new Vector2(1f / 4f * (PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f), PlayerNeededValues.JumpSpeed * (1 / Time.timeScale) * 1.25f);
+                    PlayerController.PlayerRB.velocity = new Vector2(60f*3f, 25f*3f);
                 }
 
 
@@ -67,11 +68,11 @@ public class PlayerJumpState : IState
                
                 if (PlayerNeededValues.IsRightWallClimbing)
                 {
-                    PlayerController.PlayerRB.velocity = new Vector2( -50f, 20f);
+                    PlayerController.PlayerRB.velocity = new Vector2( -60f, 25f);
                 }
                 if (PlayerNeededValues.IsLeftWallClimbing)
                 {
-                    PlayerController.PlayerRB.velocity = new Vector2( 50f,20f) ;
+                    PlayerController.PlayerRB.velocity = new Vector2( 60f,25f) ;
                 }
             }
         }

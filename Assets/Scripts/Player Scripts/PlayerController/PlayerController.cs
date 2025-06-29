@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     public static bool IsInteractable { get; private set; }
 
-    GameObject greyVolume;
+    [SerializeField]GameObject greyVolume;
 
     void Awake()
     {
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
         animatorTimeVector = 1f;
         pressX = transform.Find("pressx").gameObject;
         pressX.SetActive(false);
-        greyVolume = GameObject.Find("GreyVolume");
+      
         greyVolume.SetActive(false);
 
     }

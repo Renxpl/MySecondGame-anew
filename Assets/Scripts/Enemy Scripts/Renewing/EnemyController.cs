@@ -184,7 +184,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float dmg, float staDmg)
     {
-        if(timeToBePassedBetweenHits >= 0.25f)
+        if(timeToBePassedBetweenHits >= 0.125f)
         {
             if (CurrentStance > 0)
             {
