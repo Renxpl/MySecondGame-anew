@@ -20392,8 +20392,8 @@ MonoBehaviour:
   mSpawn: 1
   cSpawn: 0
   timeGap: 100
-  sSpawnLoc: {x: -7.5, y: -1.17}
-  mSpawnLoc: {x: 1.52, y: -1.03}
+  sSpawnLoc: {x: -7.5, y: -1.9}
+  mSpawnLoc: {x: 5, y: -1.9}
   cSpawnLoc: {x: -10, y: -1.17}
 --- !u!4 &1369723949
 Transform:

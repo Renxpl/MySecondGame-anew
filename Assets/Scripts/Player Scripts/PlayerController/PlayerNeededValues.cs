@@ -657,7 +657,7 @@ public class PlayerNeededValues : MonoBehaviour
         MoveInput = input.Get<Vector2>();
 
 
-        //Debug.Log("MoveInput Debug Display " + MoveInput);
+        Debug.Log("MoveInput Debug Display " + MoveInput);
         //Debug.Log("IsGrounded: " + IsGroundedPlayer);
     }
 
@@ -1524,7 +1524,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     float timeForParry;
     public static bool IsPerfectParry { get; private set; }
-
+    public static bool ParryLock { get; private set; }
     IEnumerator Parrying()
     {
         timeForParry = 0f;
@@ -1534,7 +1534,7 @@ public class PlayerNeededValues : MonoBehaviour
         parryHB.enabled = true;
         PlayerController.PlayerRB.velocity = Vector2.zero;
 
-
+        int i = 0;
 
         while (IsParrying && IsGroundedPlayer && !IsRolling)
         {
@@ -1544,15 +1544,25 @@ public class PlayerNeededValues : MonoBehaviour
 
 
             yield return new WaitForSecondsRealtime(0.015f * PlayerController.animatorTimeVector);
-
-            if (timeForParry > 0.33f)
+            i++;
+            if (timeForParry > 0.2f)
             {
                 IsPerfectParry = false;
+            }
+            if (i > 6)
+            {
+                ParryLock= true;
+            }
+            else
+            {
+                if(Mathf.Abs(MoveInput.x)>0.25)
+                transform.localScale =new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y);
             }
 
         }
 
         //getDmgCollider.enabled = true;
+        ParryLock =false;
         IsPerfectParry = false;
         parryHB.enabled = false;
         CommandHandler.ResetNext();

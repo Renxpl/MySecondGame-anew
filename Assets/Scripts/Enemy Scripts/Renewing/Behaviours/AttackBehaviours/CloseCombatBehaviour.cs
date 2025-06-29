@@ -64,18 +64,21 @@ public class CloseCombatBehaviour : IAttackBehaviour
             {
 
                 yield return new WaitForSeconds(0.1f);
+                float distanceX = Mathf.Abs(target.position.x - enemyRB.transform.position.x);
 
                 //enemyRB.velocity = new Vector2(enemyRB.transform.localScale.x * 10f, 0f);
-                enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x * 2.5f, 0f), ForceMode2D.Impulse);
+                enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x * (2.5f/6f) * distanceX, 0f), ForceMode2D.Impulse);
                 yield return new WaitForSeconds(0.1f);
-                Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
-                float targetX = target.position.x + (Mathf.Sign(enemyRB.transform.localScale.x) * -2f);
+                enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x * (20f/6f) * distanceX, 0f), ForceMode2D.Impulse);
+                
+                //Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
+                //float targetX = target.position.x + (Mathf.Sign(enemyRB.transform.localScale.x) * -2f);
 
 
 
 
 
-                enemyRB.MovePosition(new Vector2(targetX, currentPos.y));
+                //enemyRB.MovePosition(new Vector2(targetX, currentPos.y));
                 yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 3].delayBeforeHit-0.2f);
                 enemyRB.velocity = Vector2.zero;
                 self.Combo.steps[self.AttackStep % 3].hitbox.enabled = true;
