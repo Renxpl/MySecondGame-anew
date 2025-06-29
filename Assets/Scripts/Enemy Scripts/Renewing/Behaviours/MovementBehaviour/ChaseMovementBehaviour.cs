@@ -28,7 +28,7 @@ public class ChaseMovementBehaviour : IMovementBehaviour
         else
         {
             enemyRB.velocity = 0f * dir;
-            if (Mathf.Abs(target.position.y - self.transform.position.y) < 1)
+            if (Mathf.Abs(target.position.y - self.transform.position.y) < 1.25f)
             {
                 self.ChangeState(new EnemyAttackState());//have to be in state not behaviour
             }

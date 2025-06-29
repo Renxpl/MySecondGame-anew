@@ -7,24 +7,35 @@ public class CloseCombatBehaviour : IAttackBehaviour
 
     Coroutine attack;
     Vector2 position= Vector2.zero;
-    
+    bool isDuringAttack = false;
     public void Attack(EnemyController self, Rigidbody2D enemyRB, Transform target)
     {
 
-
+        float distanceY = Mathf.Abs(target.transform.position.y - enemyRB.transform.position.y);
+        bool isTooHigh = distanceY >= 1.25f;
+        
         if (attack == null) attack = self.Run(PerformAttack(self,enemyRB,target));
         if(self.CurrentStance <= 0)
         {
             self.StopCo(attack);
             self.Combo.steps[self.AttackStep % 3].hitbox.enabled = false;
             self.UnlockEnemySprite();
+            isDuringAttack = false;
             attack= null;
             self.ChangeState(new EnemyKnockbackState());
 
         }
+        if (isTooHigh && !isDuringAttack)
+        {
+            self.StopCo(attack);
+            self.Combo.steps[self.AttackStep % 3].hitbox.enabled = false;
+            self.UnlockEnemySprite();
+            attack = null;
+            self.ChangeState(new EnemyMovState());
+        }
 
 
-        
+
 
 
 
@@ -33,6 +44,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
 
     IEnumerator PerformAttack(EnemyController self, Rigidbody2D enemyRB, Transform target)
     {
+        
        
         while(Mathf.Abs(target.position.x - enemyRB.position.x) <= self.Combo.steps[self.AttackStep%3].range)
         {
@@ -45,6 +57,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
 
             //enemyRB.WakeUp();
             //need to make first attack slower and more recognizable at the moment of attack1
+
             
 
             if(self.AttackStep % 3 == 0)
@@ -66,6 +79,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
                 yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 3].delayBeforeHit-0.2f);
                 enemyRB.velocity = Vector2.zero;
                 self.Combo.steps[self.AttackStep % 3].hitbox.enabled = true;
+                isDuringAttack= true;
                 enemyRB.WakeUp();
                 //Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
                 //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x)*new Vector2(2,0))); Physics2D.SyncTransforms();
@@ -86,6 +100,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
                 yield return new WaitForSeconds(0.1f);
                 
                 self.Combo.steps[self.AttackStep % 3].hitbox.enabled = true;
+                isDuringAttack = true;
                 enemyRB.WakeUp();
 
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
@@ -106,24 +121,27 @@ public class CloseCombatBehaviour : IAttackBehaviour
                 yield return new WaitForSeconds(0.1f);
                 enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x* 2f,0f), ForceMode2D.Impulse);
                 self.Combo.steps[self.AttackStep % 3].hitbox.enabled = true;
+                isDuringAttack = true;
                 enemyRB.WakeUp();
             }
 
-         
-
+            
 
 
             yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 3].postDelay);
+
             self.Combo.steps[self.AttackStep % 3].hitbox.enabled = false;
+           
 
             self.IncreaseAttackStep();
-            
-            if(self.AttackStep %3 == 0 || self.AttackStep % 3 == 1)
+
+            if (self.AttackStep %3 == 0 || self.AttackStep % 3 == 1)
             {
                 yield return new WaitForSeconds(self.Combo.comboCooldown);
             }
 
             self.UnlockEnemySprite();
+            isDuringAttack = false;
             yield return new WaitForSeconds(0.01f);
 
         }
