@@ -18,9 +18,10 @@ public class Parallax : MonoBehaviour
     public GameObject[] parallaxes;
     public float[] movementFactor;
     public int[] parallaxWidths;
+   
 
     [Header("Parallax Settings")]
-    public float yXMovementRatio;
+    public float[] yXMovementRatio;
 
 
     Vector2 cameraTransform;
@@ -109,7 +110,8 @@ public class Parallax : MonoBehaviour
             for (int j = 0; j< 3; j++)
             {
                 Vector2 currentPosition = parallaxMain[i, j].transform.position;
-                parallaxMain[i, j].transform.position = new Vector2(currentPosition.x + distance.x * movementInfos[i, 1], currentPosition.y + distance.y * (movementInfos[i, 1]* yXMovementRatio));
+
+                parallaxMain[i, j].transform.position = new Vector2(currentPosition.x + distance.x * movementInfos[i, 1], currentPosition.y + distance.y * (movementInfos[i, 1]* yXMovementRatio[i]));
           
             }
            

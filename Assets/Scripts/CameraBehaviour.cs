@@ -79,9 +79,9 @@ public class CameraBehaviour : MonoBehaviour
         }
         
         else
-        targetPosition = new Vector3(toFollow.transform.position.x, transform.position.y, this.transform.position.z);
+            //targetPosition = new Vector3(toFollow.transform.position.x, transform.position.y, this.transform.position.z);
 
-
+            targetPosition = new Vector3(toFollow.transform.position.x, toFollow.transform.position.y + 3, this.transform.position.z);
         transform.position = targetPosition;
         
 
