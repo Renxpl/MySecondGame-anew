@@ -22,7 +22,10 @@ public class Parallax : MonoBehaviour
 
     [Header("Parallax Settings")]
     public float[] yXMovementRatio;
-
+    public bool[] isLocked;
+    public Transform[] point1;
+    public Transform[] point2;
+        
 
     Vector2 cameraTransform;
     int totalLength;
@@ -63,6 +66,9 @@ public class Parallax : MonoBehaviour
 
             parallaxMain[i,0] = Instantiate(parallaxes[i]);
             parallaxMain[i, 2] = Instantiate(parallaxes[i]);
+
+            
+            //Arraying Parallaxes
             for (int j = 0; j< 3; j += 2)
             {
                 parallaxMain[i, j].transform.position = new Vector2(parallaxMain[i, 1].transform.position.x - 2f*(movementInfos[i, 0]-(j* movementInfos[i, 0])), parallaxMain[i, 1].transform.position.y);
@@ -101,6 +107,14 @@ public class Parallax : MonoBehaviour
         Vector2 distance = new Vector2(transform.position.x-cameraTransform.x,transform.position.y - cameraTransform.y);
         for (int i = 0; i < totalLength; i++)
         {
+            if (isLocked[i])
+            {
+                if (transform.position.x < point1[i].position.x || transform.position.x > point2[i].position.x)
+                {
+                    continue;
+                }
+
+            }
             if (movementInfos[i, 1] == 1)
             {
                 Vector2 currentPosition = parallaxMain[i, 1].transform.position;
@@ -129,6 +143,14 @@ public class Parallax : MonoBehaviour
         for(int i = 0; i < totalLength; i++)
         {
             // if movement factor is 1 then do not adjust it
+            if (isLocked[i])
+            {
+                if (transform.position.x < point1[i].position.x || transform.position.x > point2[i].position.x)
+                {
+                    continue;
+                }
+
+            }
             if (movementInfos[i, 1] == 1) continue;
 
             if (transform.position.x < parallaxMain[i, 0].transform.position.x + movementInfos[i,0])

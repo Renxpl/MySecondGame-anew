@@ -9,6 +9,7 @@ public class PlayerAirborneState :IState
 
     public static bool isAirborne = false;
     float jumpSpeed = 7.5f;
+    float slowedJumpSpeed = 22.5f;
     public void Enter()
     {
 
@@ -79,17 +80,20 @@ public class PlayerAirborneState :IState
         }
         
         isAirborne = true;
-        
+
+        float speed = Time.timeScale<1 ? slowedJumpSpeed : jumpSpeed;
+
+
         if (PlayerNeededValues.IsJumpingUp)
         {
             if (PlayerNeededValues.LockSpriteDirection)
             {
-                PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerNeededValues.JumpSpeed);
+                PlayerController.PlayerRB.velocity = new Vector2(speed* Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerNeededValues.JumpSpeed);
                 PlayerController.ChangeAnimationState("JumpingUp");
             }
             else
             {
-                PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerNeededValues.JumpSpeed);
+                PlayerController.PlayerRB.velocity = new Vector2(speed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerNeededValues.JumpSpeed);
                 PlayerController.ChangeAnimationState("JumpingUp");
             }
            
@@ -100,11 +104,11 @@ public class PlayerAirborneState :IState
         {
             if (PlayerNeededValues.LockSpriteDirection)
             {
-                PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerController.PlayerRB.velocity.y);
+                PlayerController.PlayerRB.velocity = new Vector2(speed* Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerController.PlayerRB.velocity.y);
             }
             else
             {
-                PlayerController.PlayerRB.velocity = new Vector2(jumpSpeed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
+                PlayerController.PlayerRB.velocity = new Vector2(speed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
                 PlayerController.ChangeAnimationState("JumpingDown");
             }
             
