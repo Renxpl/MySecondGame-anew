@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speakerName: James
-    text: Hey hello
+    text: You go there,
   - speakerName: James
-    text: How r u
+    text: and deliver my massage with an utmost secret.
   - speakerName: Player
-    text: shut up
+    text: As you command, sir!
   - speakerName: James
-    text: How r u again
+    text: Why are you still here?
   - speakerName: James
-    text: U understand?
+    text: Go and do what I ORDERED.
   checkpoint: 3
