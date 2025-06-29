@@ -657,7 +657,7 @@ public class PlayerNeededValues : MonoBehaviour
         MoveInput = input.Get<Vector2>();
 
 
-        Debug.Log("MoveInput Debug Display " + MoveInput);
+        //Debug.Log("MoveInput Debug Display " + MoveInput);
         //Debug.Log("IsGrounded: " + IsGroundedPlayer);
     }
 

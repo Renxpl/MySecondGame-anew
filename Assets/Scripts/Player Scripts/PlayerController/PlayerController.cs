@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
 
     public static bool IsInteractable { get; private set; }
 
+    GameObject greyVolume;
+
     void Awake()
     {
         PlayerRB = gameObject.GetComponent<Rigidbody2D>();
@@ -43,6 +45,8 @@ public class PlayerController : MonoBehaviour
         animatorTimeVector = 1f;
         pressX = transform.Find("pressx").gameObject;
         pressX.SetActive(false);
+        greyVolume = GameObject.Find("GreyVolume");
+        greyVolume.SetActive(false);
 
     }
 
@@ -152,7 +156,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator TimeSlow()
     {
-
+        greyVolume.SetActive(true);
         PlayerNeededValues.SpecialAttackBar -= 8f;
         Time.timeScale = slowMotionTimeScale;
         Time.fixedDeltaTime = startFixedDeltaTime * slowMotionTimeScale;
@@ -165,6 +169,7 @@ public class PlayerController : MonoBehaviour
         
         timeSlow = null;
         isTimeSlowStarted= false;
+        greyVolume.SetActive(false);
 
     }
     void OnTimeSlow(InputValue input)

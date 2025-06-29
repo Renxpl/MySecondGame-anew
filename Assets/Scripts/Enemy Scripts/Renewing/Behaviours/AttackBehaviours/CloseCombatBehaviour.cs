@@ -106,8 +106,9 @@ public class CloseCombatBehaviour : IAttackBehaviour
                 isDuringAttack = true;
                 enemyRB.WakeUp();
 
-                Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
+               
                 //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(4, 0)));
+                Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
                 float targetX = target.position.x + (Mathf.Sign(enemyRB.transform.localScale.x) * 2f);
                 
              
