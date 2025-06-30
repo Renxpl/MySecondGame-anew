@@ -27,6 +27,8 @@ public class GameEvents : MonoBehaviour
 
     public delegate void DialogueManagement(GameObject sender, string line);
     public event DialogueManagement onDialogueManagement;
+    public delegate void SpawnNotify(GameObject sender);
+    public event SpawnNotify onSpawnNotify;
     void Awake()
     {
         if(gameEvents == null)
@@ -97,6 +99,13 @@ public class GameEvents : MonoBehaviour
     {
 
         onDialogueManagement?.Invoke(sender, line);
+
+
+    }
+    public void OnSpawnNotify(GameObject sender)
+    {
+
+        onSpawnNotify?.Invoke(sender);
 
 
     }

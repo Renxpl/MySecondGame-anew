@@ -64,7 +64,9 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if (CurrentHealth <= 0)
         {
+            GameEvents.gameEvents.OnSpawnNotify(gameObject);
             this.gameObject.SetActive(false);
+
         }
         if (isDead) return;
 
