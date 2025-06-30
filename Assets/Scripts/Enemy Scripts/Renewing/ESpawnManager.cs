@@ -21,6 +21,9 @@ public class ESpawnManager : MonoBehaviour
     public Vector2 mSpawnLoc;
     public Vector2 cSpawnLoc;
 
+    public int concurrentEnemyCount;
+    int realtimeEnemyCount;
+    int rndInt;
     void Start()
     {
         
@@ -29,6 +32,28 @@ public class ESpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (concurrentEnemyCount > realtimeEnemyCount)
+        {
+            rndInt = UnityEngine.Random.Range(1, 2);
+            if (rndInt == 1)
+            {
+
+            }
+            else if(rndInt == 2)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+       
+
+
+
+
+
         timeCounter += Time.deltaTime;
         timeCounterM += Time.deltaTime;
         timeCounterC += Time.deltaTime;

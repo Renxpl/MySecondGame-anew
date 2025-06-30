@@ -20,10 +20,18 @@ public class ChaseMovementBehaviour : IMovementBehaviour
         //range will be next attack range which will be implemented later
         if(Mathf.Abs(target.position.x - self.transform.position.x) > self.Combo.steps[self.AttackStep % self.Combo.steps.Length].range)
         {
-            enemyRB.velocity = self.Stats.moveSpeed * dir;
-           
-            self.GetComponent<Animator>().Play("Walking");
-          
+            
+            if (Mathf.Abs(target.position.y - self.transform.position.y) < 1.25f)
+            {
+                enemyRB.velocity = self.Stats.moveSpeed * dir;
+                self.GetComponent<Animator>().Play("Walking");
+            }
+            else
+            {
+
+                self.GetComponent<Animator>().Play("Idle");//have to be more flexible thing
+            }
+
         }
         else
         {
