@@ -471,6 +471,17 @@
                 },
                 {
                     "name": "",
+                    "id": "78afe294-553f-479e-9007-039c1a891b4c",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TimeSlow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3badbe4b-fe1d-4c0f-b5bc-705324062d26",
                     "path": "<Keyboard>/0",
                     "interactions": "",
