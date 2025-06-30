@@ -41,6 +41,11 @@ public class ESpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(player.transform.position.y < 0)
+        {
+            startSpawn= true;
+        }
+
         if (concurrentEnemyCount > enemyList.Count && totalEnemyCount < 50 && startSpawn)
         {
             rndInt = UnityEngine.Random.Range(1, 3);
