@@ -29,6 +29,8 @@ public class ESpawnManager : MonoBehaviour
     int realtimeEnemyCount;
     int rndInt;
     int totalEnemyCount;
+    public int randomDownLim;
+    public int randomUpLim;
     void Start()
     {
         totalEnemyCount = 0;
@@ -48,7 +50,7 @@ public class ESpawnManager : MonoBehaviour
 
         if (concurrentEnemyCount > enemyList.Count && totalEnemyCount < 50 && startSpawn)
         {
-            rndInt = UnityEngine.Random.Range(1, 3);
+            rndInt = UnityEngine.Random.Range(randomDownLim, randomUpLim);
             float rndX = UnityEngine.Random.Range(-90f, 60f);
             float locY = -2f;
             if (rndX < player.transform.position.x+15 && rndX > player.transform.position.x - 15)

@@ -1487,7 +1487,7 @@ public class PlayerNeededValues : MonoBehaviour
     {
         if (StopEverythingPlayer) return;
 
-        if (input.Get<float>() == 1f && IsGroundedPlayer && CanParry > 0.33f)
+        if (input.Get<float>() == 1f && IsGroundedPlayer && CanParry > 0.15f)
         {
 
             //Debug.Log(input.Get<float>());
