@@ -24,6 +24,7 @@ TagManager:
   - CommanderExp
   - PlayerGetDmgLayer
   - A4P
+  - FG
   layers:
   - Default
   - TransparentFX

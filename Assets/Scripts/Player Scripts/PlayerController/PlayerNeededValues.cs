@@ -1398,6 +1398,12 @@ public class PlayerNeededValues : MonoBehaviour
 
             }
 
+            else if (attakVer == 4)
+            {
+                //if (HP > 0) HP -= 2;
+                if (Stance > 0 && !lockCounter) Stance--;
+
+            }
             if (!IsKnocbacking)
             {
 

@@ -41,7 +41,8 @@ public class CommanderCombatBehav : IAttackBehaviour
             {
                 int rndInt = UnityEngine.Random.Range(4, 7);
 
-                rndInt = 4;
+                // only for testing purposes
+                rndInt = 5;
 
                 while (rndInt != (self.AttackStep % totalAC))
                 {
@@ -54,7 +55,7 @@ public class CommanderCombatBehav : IAttackBehaviour
 
 
             }
-            if(self.AttackStep % totalAC < 4)
+            if(self.AttackStep % totalAC != 4)
                 self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep % totalAC].animation);
             self.LockEnemySprite();
             self.SetPrePosition(self.transform.position);
@@ -144,7 +145,10 @@ public class CommanderCombatBehav : IAttackBehaviour
 
             else if (self.AttackStep % totalAC == 5)
             {
-                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                //self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                Vector2 fbPosition = new Vector2(self.transform.position.x , self.transform.position.y + 2f);
+                var fb = GameObject.Instantiate(self.Combo.steps[self.AttackStep % totalAC].projectilePrefab, fbPosition, Quaternion.identity);
+                fb.GetComponent<FallingGround>().LaunchProjectile(new Vector2(self.transform.localScale.x, -0.3f));
                 enemyRB.WakeUp();
             }
             //magic chain

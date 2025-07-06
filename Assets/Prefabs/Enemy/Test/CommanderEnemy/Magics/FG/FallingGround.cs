@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class A4PScript : MonoBehaviour
+public class FallingGround : MonoBehaviour
 {
     public float speed = 5f;
     public float lifetime = 5f;
@@ -26,13 +26,22 @@ public class A4PScript : MonoBehaviour
 
     public void LaunchProjectile(Vector2 direction)
     {
-
+        StartCoroutine(Starting(direction));
         rb.velocity = direction.normalized * speed;
         rb.transform.localScale = new Vector2(direction.x, 1f);
         Destroy(gameObject, lifetime);
-        GetComponent<Animator>().Play("P");
+        GetComponent<Animator>().Play("FG");
 
 
+
+    }
+
+    IEnumerator Starting(Vector2 direction)
+    {
+
+
+        yield return new WaitForSeconds(0.2f);
+        rb.velocity = direction.normalized * speed;
 
     }
 
@@ -45,11 +54,6 @@ public class A4PScript : MonoBehaviour
 
 
     }
-
-
-
-
-
 
 
 
