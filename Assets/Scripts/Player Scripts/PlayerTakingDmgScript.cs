@@ -75,12 +75,24 @@ public class PlayerTakingDmgScript : MonoBehaviour
             }
 
         }
+
+       
         if (collider.gameObject.tag == "MageThrowBackAttack")
         {
             if (GameEvents.gameEvents != null)
             {
                 // receiver, sender, otherCollider, AttackVersion
                 GameEvents.gameEvents.OnGettingDmg(player, gameObject, collider, 1);
+
+            }
+
+        }
+        if (collider.gameObject.tag == "CommanderExp")
+        {
+            if (GameEvents.gameEvents != null)
+            {
+                // receiver, sender, otherCollider, AttackVersion
+                GameEvents.gameEvents.OnGettingDmg(player, gameObject, collider, 2);
 
             }
 

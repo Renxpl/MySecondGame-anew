@@ -46,8 +46,8 @@ MonoBehaviour:
     damage: 1
     range: 10
     postDelay: 0.34
-    hitbox: {fileID: 0}
-    projectilePrefab: {fileID: 0}
+    hitbox: {fileID: 4550313239140782271, guid: 8115fed8b520c75499131ee415c4cc96, type: 3}
+    projectilePrefab: {fileID: 2688208667909790312, guid: 8115fed8b520c75499131ee415c4cc96, type: 3}
   - animation: Magic2
     delayBeforeHit: 0.41
     damage: 1

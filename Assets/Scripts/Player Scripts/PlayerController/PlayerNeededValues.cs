@@ -1371,7 +1371,7 @@ public class PlayerNeededValues : MonoBehaviour
             if (!lockCounter) isTakenDmgCounter = 0f;
             if (HP > 0) HP--;
             if (Stance > 0 && !lockCounter) Stance--;
-            if (ComboCounter <= 5)
+            if (ComboCounter <= 0)
             {
                 ComboCounter = 0;
             }
@@ -1383,11 +1383,18 @@ public class PlayerNeededValues : MonoBehaviour
             if (attakVer == 1)
             {
 
-                Debug.Log(Mathf.Sign(transform.position.x - otherCollider.transform.position.x));
+                //Debug.Log(Mathf.Sign(transform.position.x - otherCollider.transform.position.x));
                 Vector2 newPos = new Vector2(transform.position.x + (Mathf.Sign(transform.position.x - otherCollider.transform.position.x) * 1.75f), transform.position.y);
                 transform.localScale = new Vector2(-Mathf.Sign(transform.position.x - sender.transform.position.x), transform.localScale.y);
                 PlayerController.PlayerRB.MovePosition(newPos);
                 Stance = 0;
+
+            }
+
+            else if (attakVer == 2)
+            {
+                if (HP > 0) HP-= 2;
+                //if (Stance > 0 && !lockCounter) Stance--;
 
             }
 
