@@ -21,6 +21,7 @@ TagManager:
   - Fireball
   - MageThrowBackAttack
   - VerballyInteractiveNPC
+  - CommanderExp
   layers:
   - Default
   - TransparentFX

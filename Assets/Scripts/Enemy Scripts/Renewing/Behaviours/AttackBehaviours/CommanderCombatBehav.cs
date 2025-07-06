@@ -41,6 +41,8 @@ public class CommanderCombatBehav : IAttackBehaviour
             {
                 int rndInt = UnityEngine.Random.Range(4, 7);
 
+                rndInt = 4;
+
                 while (rndInt != (self.AttackStep % totalAC))
                 {
 
@@ -52,7 +54,8 @@ public class CommanderCombatBehav : IAttackBehaviour
 
 
             }
-            self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep % totalAC].animation);
+            if(self.AttackStep % totalAC < 4)
+                self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep % totalAC].animation);
             self.LockEnemySprite();
             self.SetPrePosition(self.transform.position);
 
@@ -124,7 +127,10 @@ public class CommanderCombatBehav : IAttackBehaviour
 
             else if (self.AttackStep % totalAC == 4)
             {
-                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
+                Vector2 expPosition = new Vector2(self.transform.position.x , self.transform.position.y);
+                var exp = GameObject.Instantiate(self.Combo.steps[self.AttackStep % totalAC].projectilePrefab, expPosition, Quaternion.identity);
+                exp.GetComponent<ExpCommander>().LaunchExp(new Vector2(self.transform.localScale.x, 1f));
+                yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % totalAC].postDelay);
                 enemyRB.WakeUp();
             }
             //falling Ground
