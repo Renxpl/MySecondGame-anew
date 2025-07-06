@@ -121,6 +121,13 @@ public class CommanderCombatBehav : IAttackBehaviour
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
                 //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
                 enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(0.5f, 0)));
+
+                Vector2 fbPosition = new Vector2(self.transform.position.x + (Mathf.Sign(self.transform.localScale.x) * 1.65f), self.transform.position.y);
+                var fb = GameObject.Instantiate(self.Combo.steps[self.AttackStep % totalAC].projectilePrefab, fbPosition, Quaternion.identity);
+                fb.GetComponent<A4PScript>().LaunchProjectile(new Vector2(self.transform.localScale.x, 0f));
+
+
+
             }
             //Magic Attacks
             //exp

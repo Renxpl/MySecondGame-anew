@@ -23,6 +23,7 @@ TagManager:
   - VerballyInteractiveNPC
   - CommanderExp
   - PlayerGetDmgLayer
+  - A4P
   layers:
   - Default
   - TransparentFX
