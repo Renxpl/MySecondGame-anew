@@ -118,6 +118,16 @@ public class PlayerTakingDmgScript : MonoBehaviour
             }
 
         }
+        if (collider.gameObject.tag == "MC")
+        {
+            if (GameEvents.gameEvents != null)
+            {
+                // receiver, sender, otherCollider, AttackVersion
+                GameEvents.gameEvents.OnGettingDmg(player, gameObject, collider, 5);
+
+            }
+
+        }
         takeDmg = true;
     }
 

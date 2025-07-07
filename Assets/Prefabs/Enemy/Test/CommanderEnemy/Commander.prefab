@@ -1,5 +1,89 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2472640015376219939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6430742243287549696}
+  - component: {fileID: 891187948320095839}
+  m_Layer: 10
+  m_Name: ChainTip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6430742243287549696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2472640015376219939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4622122067131940578}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &891187948320095839
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2472640015376219939}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 722697965
+  m_SortingLayer: 8
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 02931cc5a60046f46adaf7300b496770, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 16, y: 8}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &3173999964213964358
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +429,7 @@ GameObject:
   - component: {fileID: 1520119924163841492}
   m_Layer: 10
   m_Name: Attack5
-  m_TagString: EnemyDodgeableAttack
+  m_TagString: MC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -390,11 +474,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 6.63958, y: 2.1374366}
-      - {x: 0.62421507, y: 2.386274}
-      - {x: 0.37448746, y: -0.92352164}
-      - {x: 6.4777923, y: -0.6954453}
-      - {x: 6.434623, y: 0.5608764}
+    - - {x: 2.5, y: 0.86957216}
+      - {x: 1.0261612, y: 0.9360273}
+      - {x: -0.020842612, y: 0.9627069}
+      - {x: 0.06307846, y: -0.70108926}
+      - {x: 2.5, y: -0.7399318}
+      - {x: 2.5, y: 0.8277952}
 --- !u!1 &6452433348118113859
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +492,7 @@ GameObject:
   - component: {fileID: 7729349876666123551}
   m_Layer: 10
   m_Name: Attack7
-  m_TagString: EnemyDodgeableAttack
+  m_TagString: MC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -423,7 +508,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6430742243287549696}
   m_Father: {fileID: 9045074112064573709}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -457,7 +543,7 @@ PolygonCollider2D:
       - {x: -0.12923568, y: -0.6910361}
       - {x: 7.020265, y: -0.8891833}
       - {x: 7.1044617, y: -0.2726376}
-      - {x: 7.538932, y: 0.6771191}
+      - {x: 7.37, y: 0.6771191}
 --- !u!1 &6684076516243754904
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,7 +822,7 @@ GameObject:
   - component: {fileID: 755343277009100554}
   m_Layer: 10
   m_Name: Attack6
-  m_TagString: EnemyDodgeableAttack
+  m_TagString: MC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -781,10 +867,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 7.3103714, y: 0.94263196}
-      - {x: 2.9779358, y: 2.931762}
-      - {x: 0.12049955, y: 3.044983}
-      - {x: -0.09048599, y: 1.4982024}
-      - {x: 3.1842513, y: 0.97070134}
-      - {x: 6.57959, y: -0.8500886}
-      - {x: 7.907035, y: -0.83403677}
+    - - {x: 5, y: 1.0760914}
+      - {x: 2.733261, y: 1.152303}
+      - {x: -0.4800635, y: 0.84290266}
+      - {x: -0.46862167, y: -1.0597695}
+      - {x: 2.3612533, y: -0.58632517}
+      - {x: 3.3098373, y: -0.78335905}
+      - {x: 5, y: -0.8117935}

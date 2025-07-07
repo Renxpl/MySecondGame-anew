@@ -285,7 +285,7 @@ public class PlayerNeededValues : MonoBehaviour
 
             CommandHandler.ResetNext();
             if (UIManagement.IsPaused) return;
-            if (!PlayerController.IsInteractable) StopEverythingPlayer = false;
+            if (!PlayerController.IsInteractable && !stopForChain) StopEverythingPlayer = false;
             return;
         }
         else
@@ -1345,9 +1345,23 @@ public class PlayerNeededValues : MonoBehaviour
 
 
     }
+    bool stopForChain = false;
+    IEnumerator StopForMC(Collider2D other)
+    {
+        StopEverythingPlayer = true;
+        stopForChain = true;
+        Vector2 target = new Vector2(other.transform.parent.position.x + Mathf.Sign(other.transform.parent.parent.localScale.x)*1.5f, other.transform.parent.position.y);
+        yield return new WaitForSeconds(0.09f);
+        PlayerController.PlayerRB.MovePosition(target);
+        yield return new WaitForSeconds(1.5f);
+        StopEverythingPlayer = false;
+        stopForChain = false;
+    }
+
+
     protected virtual void TakingDamage(GameObject receiver, GameObject sender, Collider2D otherCollider, int attakVer)
     {
-        if (StopEverythingPlayer)
+        if (StopEverythingPlayer && !stopForChain)
         {
 
             return;
@@ -1355,13 +1369,22 @@ public class PlayerNeededValues : MonoBehaviour
         if (attakVer == 3 && receiver == gameObject)
         {
 
-
+            isTakenDmg = true;
             if (Stance > 0 && !lockCounter) Stance -= 1;
 
 
         }
 
+        else if (attakVer == 5 && receiver == gameObject)
+        {
 
+            isTakenDmg = true;
+            if (Stance > 0 && !lockCounter) Stance = 0;
+            StartCoroutine(StopForMC(otherCollider));
+
+
+
+        }
 
 
 
@@ -1404,43 +1427,45 @@ public class PlayerNeededValues : MonoBehaviour
                 if (Stance > 0 && !lockCounter) Stance--;
 
             }
-            if (!IsKnocbacking)
+            
+
+
+        }
+
+
+        if (!IsKnocbacking)
+        {
+
+            //Debug.Log("Player Took Dmg");
+            if (!IsDuringAttack)
             {
 
-                //Debug.Log("Player Took Dmg");
-                if (!IsDuringAttack)
+
+                if (Stance <= 0)
                 {
 
+                    StartCoroutine(Knockback());
 
-                    if (Stance <= 0)
+
+
+                    if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)
                     {
-
-                        StartCoroutine(Knockback());
-
-
-
-                        if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == 1f)
-                        {
-                            transform.localScale = new Vector2(-1f, transform.localScale.y);
-                        }
-
-                        else if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == -1f)
-                        {
-                            transform.localScale = new Vector2(1f, transform.localScale.y);
-                        }
-
-
+                        transform.localScale = new Vector2(-1f, transform.localScale.y);
                     }
+
+                    else if (otherCollider.GetComponentInParent<Rigidbody2D>().transform.localScale.x == -1f)
+                    {
+                        transform.localScale = new Vector2(1f, transform.localScale.y);
+                    }
+
 
                 }
-                else
+
+            }
+            else
+            {
+                if (Stance == 0)
                 {
-                    if (Stance == 0)
-                    {
-
-
-                    }
-
 
 
                 }
@@ -1450,10 +1475,8 @@ public class PlayerNeededValues : MonoBehaviour
             }
 
 
+
         }
-
-
-
 
 
     }

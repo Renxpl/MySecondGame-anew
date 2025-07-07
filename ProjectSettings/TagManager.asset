@@ -25,6 +25,7 @@ TagManager:
   - PlayerGetDmgLayer
   - A4P
   - FG
+  - MC
   layers:
   - Default
   - TransparentFX

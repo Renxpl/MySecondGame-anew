@@ -42,7 +42,7 @@ public class CommanderCombatBehav : IAttackBehaviour
                 int rndInt = UnityEngine.Random.Range(4, 7);
 
                 // only for testing purposes
-                rndInt = 5;
+                rndInt = 6;
 
                 while (rndInt != (self.AttackStep % totalAC))
                 {
@@ -55,7 +55,7 @@ public class CommanderCombatBehav : IAttackBehaviour
 
 
             }
-            if(self.AttackStep % totalAC != 4)
+            if(self.AttackStep % totalAC != 4 && self.AttackStep % totalAC != 6)
                 self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep % totalAC].animation);
             self.LockEnemySprite();
             self.SetPrePosition(self.transform.position);
@@ -155,8 +155,80 @@ public class CommanderCombatBehav : IAttackBehaviour
 
             else
             {
-                self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
-                enemyRB.WakeUp();
+                bool isPlayerCaptured = false;
+                self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep % totalAC].animation);
+                if (Mathf.Abs(target.position.y - self.transform.position.y) < 0.5f && self.transform.localScale.x * (target.position.x - self.transform.position.x) > 2.5f)
+                {
+                    self.Combo.steps[4].hitbox.enabled = true;
+                    enemyRB.WakeUp();
+
+                    yield return new WaitForSeconds(0.09f);
+
+                }
+                else if (Mathf.Abs(target.position.y - self.transform.position.y) < 0.5f && self.transform.localScale.x * (target.position.x - self.transform.position.x) < 2.5f && self.transform.localScale.x * (target.position.x - self.transform.position.x) > 0f)
+                {
+                    isPlayerCaptured = true;
+                    self.Combo.steps[4].hitbox.enabled = true;
+                    enemyRB.WakeUp();
+                    self.Combo.steps[6].hitbox.gameObject.transform.Find("ChainTip").transform.position = target.position;
+                    self.Combo.steps[6].hitbox.gameObject.transform.Find("ChainTip").gameObject.SetActive(true);
+
+                    yield return new WaitForSeconds(0.09f);
+                    self.Combo.steps[6].hitbox.gameObject.transform.Find("ChainTip").gameObject.SetActive(false);
+                    self.GetComponent<Animator>().Play("Magic3_2");
+                }
+              
+
+                if(Mathf.Abs(target.position.y - self.transform.position.y) < 0.5f && self.transform.localScale.x * (target.position.x-self.transform.position.x) > 5f && !isPlayerCaptured)
+                {
+                    self.Combo.steps[5].hitbox.enabled = true;
+                    self.Combo.steps[4].hitbox.enabled = false;
+                    enemyRB.WakeUp();
+
+                    yield return new WaitForSeconds(0.09f);
+
+                }
+                else if (Mathf.Abs(target.position.y - self.transform.position.y) < 0.5f && self.transform.localScale.x * (target.position.x - self.transform.position.x) < 5f && self.transform.localScale.x * (target.position.x - self.transform.position.x) > 0f && !isPlayerCaptured)
+                {
+                    isPlayerCaptured = true;
+                    self.Combo.steps[5].hitbox.enabled = true;
+                    self.Combo.steps[4].hitbox.enabled = false;
+                    enemyRB.WakeUp();
+                    self.Combo.steps[6].hitbox.gameObject.transform.Find("ChainTip").transform.position = target.position;
+                    self.Combo.steps[6].hitbox.gameObject.transform.Find("ChainTip").gameObject.SetActive(true);
+
+                    yield return new WaitForSeconds(0.09f);
+                    self.Combo.steps[6].hitbox.gameObject.transform.Find("ChainTip").gameObject.SetActive(false);
+                    self.GetComponent<Animator>().Play("Magic3_2");
+                }
+
+                if (Mathf.Abs(target.position.y - self.transform.position.y) < 0.5f && self.transform.localScale.x * (target.position.x - self.transform.position.x) > 7.5f && !isPlayerCaptured)
+                {
+                   
+                    self.Combo.steps[6].hitbox.enabled = true;
+                    self.Combo.steps[5].hitbox.enabled = false;
+                    enemyRB.WakeUp();
+                    yield return new WaitForSeconds(0.3f);
+
+                }
+
+                else if (Mathf.Abs(target.position.y - self.transform.position.y) < 0.5f && self.transform.localScale.x * (target.position.x - self.transform.position.x) < 7.5f && self.transform.localScale.x * (target.position.x - self.transform.position.x) > 0f && !isPlayerCaptured)
+                {
+                    isPlayerCaptured = true;
+                    self.Combo.steps[6].hitbox.enabled = true;
+                    self.Combo.steps[5].hitbox.enabled = false;
+                    enemyRB.WakeUp();
+                    self.Combo.steps[6].hitbox.gameObject.transform.Find("ChainTip").transform.position = target.position;
+                    self.Combo.steps[6].hitbox.gameObject.transform.Find("ChainTip").gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.3f);
+                    self.Combo.steps[6].hitbox.gameObject.transform.Find("ChainTip").gameObject.SetActive(false);
+                    self.GetComponent<Animator>().Play("Magic3_2");
+                }
+
+
+
+
+
             }
 
 
@@ -169,6 +241,12 @@ public class CommanderCombatBehav : IAttackBehaviour
 
             yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % totalAC].postDelay);
             if(self.Combo.steps[self.AttackStep % totalAC].hitbox != null) self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = false;
+            if (self.AttackStep % totalAC == 6)
+            {
+                self.Combo.steps[4].hitbox.enabled = false;
+                self.Combo.steps[5].hitbox.enabled = false;
+                self.Combo.steps[6].hitbox.enabled = false;
+            }
 
 
             if (self.AttackStep % totalAC == 3 || self.AttackStep % totalAC == 1)
