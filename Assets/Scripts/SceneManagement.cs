@@ -29,7 +29,7 @@ public class SceneManagement : MonoBehaviour
     void Update()
     {
        
-        if(player.transform.position.x < endOfTheWay.position.x && !justOnce)
+        if(player.transform.position.x < endOfTheWay.position.x && !justOnce && PlayerNeededValues.StopForTheWay)
         {
             justOnce= true;
             player.GetComponent<PlayerNeededValues>().StopTheWay();

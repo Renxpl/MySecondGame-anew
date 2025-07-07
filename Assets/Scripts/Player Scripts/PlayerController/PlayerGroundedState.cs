@@ -69,7 +69,7 @@ public class PlayerGroundedState : IState
 
         }
 
-        else if ((PlayerNeededValues.MoveInput.x > 0.15f || -0.15f > PlayerNeededValues.MoveInput.x) && !PlayerNeededValues.StopEverythingPlayer)
+        else if ((PlayerNeededValues.MoveInput.x > 0.15f || -0.15f > PlayerNeededValues.MoveInput.x) && (!PlayerNeededValues.StopEverythingPlayer || PlayerNeededValues.DigginScene))
         {
            
             PlayerController.playerSM.ChangeState( CurrentState = PlayerNeededValues.WalkStateForPlayer);

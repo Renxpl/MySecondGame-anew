@@ -15,7 +15,7 @@ public class PlayerWalkState : IState
 
     public void Update()
     {
-        if (!(PlayerNeededValues.MoveInput.x > 0.15f || -0.15f > PlayerNeededValues.MoveInput.x)|| ((PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)) || !PlayerNeededValues.IsGroundedPlayer ||PlayerNeededValues.StopEverythingPlayer)
+        if (!(PlayerNeededValues.MoveInput.x > 0.15f || -0.15f > PlayerNeededValues.MoveInput.x)|| ((PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x) && !PlayerNeededValues.DigginScene) || !PlayerNeededValues.IsGroundedPlayer || (PlayerNeededValues.StopEverythingPlayer && !PlayerNeededValues.StopForTheWay && !PlayerNeededValues.DigginScene))
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);

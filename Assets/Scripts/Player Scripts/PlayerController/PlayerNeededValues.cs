@@ -147,6 +147,8 @@ public class PlayerNeededValues : MonoBehaviour
     bool firstTimeStopEv;
     public static bool StopEverythingPlayer { get; private set; }
     public static bool StopForTheWay { get;  set; }
+    public static bool DigginScene { get;  set; }
+    public static bool StartDiggin { get; set; }
 
 
     Collider2D parryHB;
@@ -234,10 +236,10 @@ public class PlayerNeededValues : MonoBehaviour
 
 
 
-
-        if(isInTheWay)StopForTheWay= true;
+        if (DigginScene) StopEverythingPlayer = true;
+        if (isInTheWay)StopForTheWay= true;
         if (StopForTheWay) StopEverythingPlayer = true;
-
+        
 
         if (!IsRightWallClimbing && !IsLeftWallClimbing)
         {
@@ -292,26 +294,26 @@ public class PlayerNeededValues : MonoBehaviour
 
 
 
-            if((!stopForChain && !StopForTheWay) || UIManagement.IsPaused) MoveInput = Vector2.zero;
-            if(StopForTheWay && !UIManagement.IsPaused) MoveInput = new Vector2(-1, 0);
+            if((!stopForChain && !StopForTheWay && !DigginScene) || UIManagement.IsPaused) MoveInput = Vector2.zero;
+            if(StopForTheWay && !DigginScene && !UIManagement.IsPaused) MoveInput = new Vector2(-1, 0);
             
             if (firstTimeStopEv)
             {
-                if(!StopForTheWay)PlayerController.PlayerRB.velocity = Vector2.zero;
+                if(!StopForTheWay && !DigginScene)PlayerController.PlayerRB.velocity = Vector2.zero;
                 firstTimeStopEv = false;
             }
 
-            if (!StopForTheWay || UIManagement.IsPaused) CommandHandler.ResetNext();
-            if (UIManagement.IsPaused && !StopForTheWay) return;
-            if (!PlayerController.IsInteractable && !stopForChain && !StopForTheWay) StopEverythingPlayer = false;
-           if(!StopForTheWay) return;
+            if ((!StopForTheWay && !DigginScene) || UIManagement.IsPaused) CommandHandler.ResetNext();
+            if (UIManagement.IsPaused && !StopForTheWay && !DigginScene) return;
+            if (!PlayerController.IsInteractable && !stopForChain && !StopForTheWay && !DigginScene) StopEverythingPlayer = false;
+           if(!StopForTheWay && !DigginScene) return;
         }
         else
         {
             firstTimeStopEv = true;
         }
 
-        if (jumpInput != 0 && JumpTime <= 0.5f && IsSpacePressing && !StopForTheWay)
+        if (jumpInput != 0 && JumpTime <= 0.5f && IsSpacePressing && !StopForTheWay && !DigginScene)
         {
             if (Time.timeScale < 1)
             {
@@ -945,7 +947,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnLightAttack()
     {
-        if (StopEverythingPlayer && !StopForTheWay) return;
+        if (StopEverythingPlayer && !StopForTheWay && !DigginScene) return;
         if (IsGroundedPlayer)
         {
             //Debug.Log("HeavyAttack");

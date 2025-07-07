@@ -17,7 +17,7 @@ public class PlayerRunState : IState
     public void Update()
     {
 
-        if (!(PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)|| !PlayerNeededValues.IsGroundedPlayer || (PlayerNeededValues.StopEverythingPlayer && !PlayerNeededValues.StopForTheWay))
+        if (!(PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)|| !PlayerNeededValues.IsGroundedPlayer || (PlayerNeededValues.StopEverythingPlayer && !PlayerNeededValues.StopForTheWay && !PlayerNeededValues.DigginScene))
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
