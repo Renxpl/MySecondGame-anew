@@ -17,7 +17,7 @@ public class PlayerRunState : IState
     public void Update()
     {
 
-        if (!(PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)|| !PlayerNeededValues.IsGroundedPlayer || PlayerNeededValues.StopEverythingPlayer)
+        if (!(PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)|| !PlayerNeededValues.IsGroundedPlayer || (PlayerNeededValues.StopEverythingPlayer && !PlayerNeededValues.StopForTheWay))
         {
 
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
@@ -34,16 +34,31 @@ public class PlayerRunState : IState
 
 
         }
-        if(Time.timeScale < 1)
+        if (!PlayerNeededValues.StopForTheWay)
         {
-            playerRb.velocity = new Vector2(speed* 3f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+
+
+            if (Time.timeScale < 1)
+            {
+                playerRb.velocity = new Vector2(speed * 3f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+            }
+            else
+            {
+                playerRb.velocity = new Vector2(speed * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+            }
+
+            PlayerController.ChangeAnimationState("Running");
         }
+
         else
         {
-            playerRb.velocity = new Vector2(speed * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+            playerRb.velocity = new Vector2(speed * 2f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
+            PlayerController.ChangeAnimationState("Speedy Run");
         }
-       
-        PlayerController.ChangeAnimationState("Running");
+
+
+
+
     }
 
    

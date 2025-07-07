@@ -8,20 +8,34 @@ public class SceneManagement : MonoBehaviour
     [SerializeField] bool transitionHandle;
 
     public GameObject Panel;
-    
+    GameObject player;
+    [SerializeField] Transform endOfTheWay;
+
+
+
+
+    bool justOnce;
+
 
     void Start()
     {
 
        if(transitionHandle) StartCoroutine(Waiting());
-
-
+        player = GameObject.Find("Player");
+        justOnce= false;
 
     }
 
     void Update()
     {
-        
+       
+        if(player.transform.position.x < endOfTheWay.position.x && !justOnce)
+        {
+            justOnce= true;
+            player.GetComponent<PlayerNeededValues>().StopTheWay();
+        }
+
+
     }
 
 

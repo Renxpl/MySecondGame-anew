@@ -146,7 +146,7 @@ public class PlayerNeededValues : MonoBehaviour
     float addToSABAr;
     bool firstTimeStopEv;
     public static bool StopEverythingPlayer { get; private set; }
-
+    public static bool StopForTheWay { get;  set; }
 
 
     Collider2D parryHB;
@@ -204,8 +204,20 @@ public class PlayerNeededValues : MonoBehaviour
     }
 
     // Update is called once per frame
-
+    public bool isInTheWay;
     public static float CanParry { get; private set; }
+
+    public void StopTheWay()
+    {
+
+        StopForTheWay = false;
+        StopEverythingPlayer = false;
+        MoveInput= Vector2.zero;
+        PlayerController.PlayerRB.velocity = Vector2.zero;
+
+
+    }
+
     void Update()
     {
 
@@ -222,6 +234,10 @@ public class PlayerNeededValues : MonoBehaviour
 
 
 
+
+        if(isInTheWay)StopForTheWay= true;
+        if (StopForTheWay) StopEverythingPlayer = true;
+       
 
 
         if (!IsRightWallClimbing && !IsLeftWallClimbing)
@@ -276,24 +292,25 @@ public class PlayerNeededValues : MonoBehaviour
 
 
 
-            if(!stopForChain)MoveInput = Vector2.zero;
+            if(!stopForChain && !StopForTheWay)MoveInput = Vector2.zero;
+            if(StopForTheWay)MoveInput = new Vector2(-1, 0);
             if (firstTimeStopEv)
             {
-                PlayerController.PlayerRB.velocity = Vector2.zero;
+                if(!StopForTheWay)PlayerController.PlayerRB.velocity = Vector2.zero;
                 firstTimeStopEv = false;
             }
 
-            CommandHandler.ResetNext();
+            if (!StopForTheWay) CommandHandler.ResetNext();
             if (UIManagement.IsPaused) return;
-            if (!PlayerController.IsInteractable && !stopForChain) StopEverythingPlayer = false;
-            return;
+            if (!PlayerController.IsInteractable && !stopForChain && !StopForTheWay) StopEverythingPlayer = false;
+           if(!StopForTheWay) return;
         }
         else
         {
             firstTimeStopEv = true;
         }
 
-        if (jumpInput != 0 && JumpTime <= 0.5f && IsSpacePressing)
+        if (jumpInput != 0 && JumpTime <= 0.5f && IsSpacePressing && !StopForTheWay)
         {
             if (Time.timeScale < 1)
             {
@@ -654,7 +671,7 @@ public class PlayerNeededValues : MonoBehaviour
     void OnMove(InputValue input)
     {
         //if (StopEverythingPlayer) return;
-        MoveInput = input.Get<Vector2>();
+        if(!StopForTheWay) MoveInput = input.Get<Vector2>();
 
 
         //Debug.Log("MoveInput Debug Display " + MoveInput);
@@ -927,7 +944,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnLightAttack()
     {
-        if (StopEverythingPlayer) return;
+        if (StopEverythingPlayer && !StopForTheWay) return;
         if (IsGroundedPlayer)
         {
             //Debug.Log("HeavyAttack");
@@ -1014,7 +1031,10 @@ public class PlayerNeededValues : MonoBehaviour
     IEnumerator LightAttack(int count)
     {
         //Debug.Log("In Coroutine");
-        PlayerController.PlayerRB.velocity = Vector2.zero;
+        if(!StopForTheWay)PlayerController.PlayerRB.velocity = Vector2.zero;
+        
+
+
         if (LightAttackNumber == 1)
         {
             //Debug.Log("AttackNUmber1");
@@ -1027,12 +1047,18 @@ public class PlayerNeededValues : MonoBehaviour
             IsDuringAttack = true;
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
-            lightAttackCollider.enabled = true;
-            if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 17f, ForceMode2D.Impulse);
+            if(!StopForTheWay)lightAttackCollider.enabled = true;
+            else HA1Collider.enabled = true;
+            if (!StopForTheWay)
+            {
+                if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 17f, ForceMode2D.Impulse);
 
-            else PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f, ForceMode2D.Impulse);
+                else PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f, ForceMode2D.Impulse);
+            }
+            else PlayerController.PlayerRB.AddForce(PlayerController.forward * 200f, ForceMode2D.Impulse);
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             lightAttackCollider.enabled = false;
+            HA1Collider.enabled = false;
             yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
 
             IsDuringAttack = false;
@@ -1052,16 +1078,23 @@ public class PlayerNeededValues : MonoBehaviour
             IsDuringAttack = true;
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
-            lightAttackCollider.enabled = true;
-            if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 17f, ForceMode2D.Impulse);
+            if(!StopForTheWay)lightAttackCollider.enabled = true;
+            else HA1Collider.enabled = true;
+            if (!StopForTheWay)
+            {
+                if (Time.timeScale == 1) PlayerController.PlayerRB.AddForce(PlayerController.forward * 17f, ForceMode2D.Impulse);
 
-            else PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f, ForceMode2D.Impulse);
+                else PlayerController.PlayerRB.AddForce(PlayerController.forward * 30f, ForceMode2D.Impulse);
+            }
+            else PlayerController.PlayerRB.AddForce(PlayerController.forward * 200f, ForceMode2D.Impulse);
 
             yield return new WaitForSecondsRealtime(0.25f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             lightAttackCollider.enabled = false;
+            HA1Collider.enabled = false;
             yield return new WaitForSecondsRealtime(0f * PlayerController.animatorTimeVector * (1f / AttackSpeed));
             IsDuringAttack = false;
             LightAttackNumber++;
+            if (StopForTheWay) LightAttackNumber = 1;
             PlayerGrAttackState.sw = false;
 
             IsLightAttack = false;
