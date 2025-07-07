@@ -186,11 +186,23 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float dmg, float staDmg)
     {
+
+       
+
+
+
+
+
+
         if(timeToBePassedBetweenHits >= 0.05f)
         {
             if (CurrentStance > 0)
             {
                 CurrentHealth -= dmg;
+                if (PlayerNeededValues.StopForTheWay)
+                {
+                    CurrentHealth = 0;
+                }
             }
             else
             {

@@ -24,6 +24,7 @@ public class ESpawnManager : MonoBehaviour
     Vector2 spawnLocR;
     GameObject player;
     List<GameObject> enemyList;
+    
 
     public int concurrentEnemyCount;
     int realtimeEnemyCount;
@@ -31,8 +32,15 @@ public class ESpawnManager : MonoBehaviour
     int totalEnemyCount;
     public int randomDownLim;
     public int randomUpLim;
+
+    public Transform[] wayOfEnemySpawnLocs;
+    bool isSpawnedForWay;
+
+
+
     void Start()
     {
+        isSpawnedForWay = false;
         totalEnemyCount = 0;
         realtimeEnemyCount= 0;
         player = GameObject.Find("Player");
@@ -74,7 +82,7 @@ public class ESpawnManager : MonoBehaviour
             totalEnemyCount++;
             
         }
-       
+
 
 
 
@@ -106,6 +114,34 @@ public class ESpawnManager : MonoBehaviour
         }
 
         */
+
+
+        if (PlayerNeededValues.StopForTheWay && !isSpawnedForWay)
+        {
+            isSpawnedForWay= true;
+            for(int i = 0; i < wayOfEnemySpawnLocs.Length; i++)
+            {
+                if(i % 2 == 0)
+                {
+                    enemyList.Add(EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), wayOfEnemySpawnLocs[i].position, testCombo, new CloseCombatBehaviour()).gameObject);
+                }
+               
+                else
+                {
+                    enemyList.Add(EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), wayOfEnemySpawnLocs[i].position, mageCombo, new MageCombatBehaviour()).gameObject);
+                }
+
+
+            }
+
+
+
+        }
+
+
+
+
+
     }
 
 
