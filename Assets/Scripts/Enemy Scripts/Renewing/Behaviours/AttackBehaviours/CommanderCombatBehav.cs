@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.VolumeComponent;
 
@@ -42,7 +43,7 @@ public class CommanderCombatBehav : IAttackBehaviour
                 int rndInt = UnityEngine.Random.Range(4, 7);
 
                 // only for testing purposes
-                rndInt = 6;
+                //rndInt = 6;
 
                 while (rndInt != (self.AttackStep % totalAC))
                 {
@@ -59,7 +60,7 @@ public class CommanderCombatBehav : IAttackBehaviour
                 self.GetComponent<Animator>().Play(self.Combo.steps[self.AttackStep % totalAC].animation);
             self.LockEnemySprite();
             self.SetPrePosition(self.transform.position);
-
+            if(self.AttackStep % totalAC != 0 && self.AttackStep % totalAC != 3 )
             yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % totalAC].delayBeforeHit);
 
             //enemyRB.WakeUp();
@@ -70,11 +71,20 @@ public class CommanderCombatBehav : IAttackBehaviour
 
             if (self.AttackStep % totalAC == 0)
             {
+                yield return new WaitForSeconds(0.1f);
+               
+              
+                Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
+                // enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(4, 0)));
+                float distanceX = Mathf.Abs(target.position.x - enemyRB.transform.position.x);
+                enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x * (2.5f / 6f) * distanceX, 0f), ForceMode2D.Impulse);
+                yield return new WaitForSeconds(0.15f);
+                enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x * (30f / 6f) * distanceX, 0f), ForceMode2D.Impulse);
+                yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % totalAC].delayBeforeHit - 0.3f);
+
+                enemyRB.velocity = Vector2.zero;
                 self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
                 enemyRB.WakeUp();
-                Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
-                enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(4, 0)));
-
 
             }
             else if (self.AttackStep % totalAC == 1)
@@ -117,11 +127,15 @@ public class CommanderCombatBehav : IAttackBehaviour
             }
             else if (self.AttackStep % totalAC == 3)
             {
+                yield return new WaitForSeconds(0.2f);
+                enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x * 2f, 0f), ForceMode2D.Impulse);
+                yield return new WaitForSeconds(0.2f);
+                enemyRB.velocity = Vector2.zero;
                 self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
                 enemyRB.WakeUp();
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
                 //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
-                enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(0.5f, 0)));
+                //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(0.5f, 0)));
 
                 Vector2 fbPosition = new Vector2(self.transform.position.x + (Mathf.Sign(self.transform.localScale.x) * 1.65f), self.transform.position.y);
                 var fb = GameObject.Instantiate(self.Combo.steps[self.AttackStep % totalAC].projectilePrefab, fbPosition, Quaternion.identity);
