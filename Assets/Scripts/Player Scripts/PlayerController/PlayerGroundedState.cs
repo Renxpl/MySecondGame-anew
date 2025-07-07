@@ -68,6 +68,12 @@ public class PlayerGroundedState : IState
 
 
         }
+        else if (PlayerNeededValues.IsDigging)
+        {
+
+            PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.playerDig);
+
+        }
 
         else if ((PlayerNeededValues.MoveInput.x > 0.15f || -0.15f > PlayerNeededValues.MoveInput.x) && (!PlayerNeededValues.StopEverythingPlayer || PlayerNeededValues.DigginScene))
         {
@@ -76,6 +82,7 @@ public class PlayerGroundedState : IState
            
 
         }
+        
 
         else
         {

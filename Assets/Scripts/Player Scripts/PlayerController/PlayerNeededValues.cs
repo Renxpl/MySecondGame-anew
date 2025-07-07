@@ -21,6 +21,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static PlayerAirborneAttackState playerAAstate { get; private set; }
     public static PlayerWallClimbState playerWCState { get; private set; }
     public static PlayerEdgeClimbState playerECState { get; private set; }
+    public static PlayerDigginState playerDig { get; private set; }
 
     public static bool IsGroundedPlayer { get; private set; }
     public static bool IsLeftWallClimbing { get; private set; }
@@ -174,6 +175,7 @@ public class PlayerNeededValues : MonoBehaviour
         playerWCState = new PlayerWallClimbState();
         playerECState = new PlayerEdgeClimbState();
         playerParryState = new PlayerParryState();
+        playerDig = new PlayerDigginState();
     }
 
     // Start is called before the first frame update
@@ -945,9 +947,40 @@ public class PlayerNeededValues : MonoBehaviour
     }
 
 
+
+
+    public static bool IsDigging { get; private set; }
+    Coroutine diggin;
+
+
+    IEnumerator Dig()
+    {
+
+        IsDigging = true;
+        GraveScene1.Digged();
+        yield return new WaitForSeconds(1.3f);
+        diggin = null;
+        IsDigging= false;
+
+
+    }
     void OnLightAttack()
     {
         if (StopEverythingPlayer && !StopForTheWay && !DigginScene) return;
+        if (DigginScene)
+        {
+            if (GraveScene1.CanDig)
+            {
+                if(diggin==null)
+               diggin = StartCoroutine(Dig());
+
+
+
+            }
+
+
+            return;
+        }
         if (IsGroundedPlayer)
         {
             //Debug.Log("HeavyAttack");
@@ -969,6 +1002,8 @@ public class PlayerNeededValues : MonoBehaviour
 
         }
 
+
+       
 
     }
 
