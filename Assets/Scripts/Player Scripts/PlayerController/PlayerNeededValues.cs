@@ -237,7 +237,6 @@ public class PlayerNeededValues : MonoBehaviour
 
         if(isInTheWay)StopForTheWay= true;
         if (StopForTheWay) StopEverythingPlayer = true;
-       
 
 
         if (!IsRightWallClimbing && !IsLeftWallClimbing)
@@ -284,6 +283,7 @@ public class PlayerNeededValues : MonoBehaviour
         }
         if (UIManagement.IsPaused)
         {
+            
             StopEverythingPlayer = true;
         }
         if (StopEverythingPlayer)
@@ -292,16 +292,17 @@ public class PlayerNeededValues : MonoBehaviour
 
 
 
-            if(!stopForChain && !StopForTheWay)MoveInput = Vector2.zero;
-            if(StopForTheWay)MoveInput = new Vector2(-1, 0);
+            if((!stopForChain && !StopForTheWay) || UIManagement.IsPaused) MoveInput = Vector2.zero;
+            if(StopForTheWay && !UIManagement.IsPaused) MoveInput = new Vector2(-1, 0);
+            
             if (firstTimeStopEv)
             {
                 if(!StopForTheWay)PlayerController.PlayerRB.velocity = Vector2.zero;
                 firstTimeStopEv = false;
             }
 
-            if (!StopForTheWay) CommandHandler.ResetNext();
-            if (UIManagement.IsPaused) return;
+            if (!StopForTheWay || UIManagement.IsPaused) CommandHandler.ResetNext();
+            if (UIManagement.IsPaused && !StopForTheWay) return;
             if (!PlayerController.IsInteractable && !stopForChain && !StopForTheWay) StopEverythingPlayer = false;
            if(!StopForTheWay) return;
         }

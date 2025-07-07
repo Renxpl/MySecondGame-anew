@@ -34,6 +34,7 @@ public class ESpawnManager : MonoBehaviour
     public int randomUpLim;
 
     public Transform[] wayOfEnemySpawnLocs;
+    public List<GameObject> enemiesOnTheWay;
     bool isSpawnedForWay;
 
 
@@ -46,6 +47,7 @@ public class ESpawnManager : MonoBehaviour
         player = GameObject.Find("Player");
         GameEvents.gameEvents.onSpawnNotify += BeingNotified;
         enemyList = new List<GameObject>();
+        enemiesOnTheWay = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -119,16 +121,17 @@ public class ESpawnManager : MonoBehaviour
         if (PlayerNeededValues.StopForTheWay && !isSpawnedForWay)
         {
             isSpawnedForWay= true;
+
             for(int i = 0; i < wayOfEnemySpawnLocs.Length; i++)
             {
                 if(i % 2 == 0)
                 {
-                    enemyList.Add(EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), wayOfEnemySpawnLocs[i].position, testCombo, new CloseCombatBehaviour()).gameObject);
+                   enemiesOnTheWay.Add(EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), wayOfEnemySpawnLocs[i].position, testCombo, new CloseCombatBehaviour()).gameObject);
                 }
                
                 else
                 {
-                    enemyList.Add(EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), wayOfEnemySpawnLocs[i].position, mageCombo, new MageCombatBehaviour()).gameObject);
+                    enemiesOnTheWay.Add(EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), wayOfEnemySpawnLocs[i].position, mageCombo, new MageCombatBehaviour()).gameObject);
                 }
 
 
@@ -138,6 +141,20 @@ public class ESpawnManager : MonoBehaviour
 
         }
 
+
+        else if(!PlayerNeededValues.StopForTheWay && isSpawnedForWay)
+        {
+
+
+            for (int i = 0; i < enemiesOnTheWay.Count; i++)
+            {
+                enemiesOnTheWay[i].SetActive(false);
+
+
+            }
+
+
+        }
 
 
 

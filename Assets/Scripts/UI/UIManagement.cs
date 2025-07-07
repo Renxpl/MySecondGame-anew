@@ -26,13 +26,16 @@ public class UIManagement : MonoBehaviour
 
     void TogglePause()
     {
+
         IsPaused = !IsPaused;
 
         // Canvas göster/gizle
-        pauseCanvas.SetActive(IsPaused);
+        if(!IsPaused) StartCoroutine(ExitPause());
+        else pauseCanvas.SetActive(IsPaused);
 
         // Zaman ölçeklendirmesini deðiþtir (0 = duraklat, 1 = normal hýz)
         Time.timeScale = IsPaused ? 0f : 1f;
+        
         /*
         // Ýstersen fare imlecini serbest/kilitli yap
         Cursor.visible = isPaused;
@@ -40,6 +43,18 @@ public class UIManagement : MonoBehaviour
             ? CursorLockMode.None
             : CursorLockMode.Locked;*/
     }
+
+
+    IEnumerator ExitPause()
+    {
+
+
+        yield return new WaitForSeconds(0.1f);
+        pauseCanvas.SetActive(IsPaused);
+
+
+    }
+
 
     // Eðer “Resume” butonuna baðlamak istersen:
     public void OnResumeButton()
