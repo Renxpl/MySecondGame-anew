@@ -20,7 +20,7 @@ public class PlayerParryState : IState
           
             return;
         }
-       if(PlayerNeededValues.IsRolling || PlayerNeededValues.IsKnocbacking)
+       if(PlayerNeededValues.IsRolling || PlayerNeededValues.IsKnocbacking )
         {
             PlayerController.playerSM.ChangeState(PlayerNeededValues.GroundedStateForPlayer);
 

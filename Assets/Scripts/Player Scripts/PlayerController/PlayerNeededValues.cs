@@ -276,7 +276,7 @@ public class PlayerNeededValues : MonoBehaviour
 
 
 
-            MoveInput = Vector2.zero;
+            if(!stopForChain)MoveInput = Vector2.zero;
             if (firstTimeStopEv)
             {
                 PlayerController.PlayerRB.velocity = Vector2.zero;
@@ -653,7 +653,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnMove(InputValue input)
     {
-        if (StopEverythingPlayer) return;
+        //if (StopEverythingPlayer) return;
         MoveInput = input.Get<Vector2>();
 
 
@@ -1350,6 +1350,8 @@ public class PlayerNeededValues : MonoBehaviour
     {
         StopEverythingPlayer = true;
         stopForChain = true;
+        IsParrying= false;
+        CommandHandler.ResetNext();
         Vector2 target = new Vector2(other.transform.parent.position.x + Mathf.Sign(other.transform.parent.parent.localScale.x)*1.5f, other.transform.parent.position.y);
         yield return new WaitForSeconds(0.09f);
         PlayerController.PlayerRB.MovePosition(target);
@@ -1377,10 +1379,11 @@ public class PlayerNeededValues : MonoBehaviour
 
         else if (attakVer == 5 && receiver == gameObject)
         {
-
-            isTakenDmg = true;
-            if (Stance > 0 && !lockCounter) Stance = 0;
+           
             StartCoroutine(StopForMC(otherCollider));
+            isTakenDmg = true;
+            
+            
 
 
 
@@ -1511,6 +1514,13 @@ public class PlayerNeededValues : MonoBehaviour
             IsRolling = false;
             extraRollingWait = false;
         }
+        if (IsParrying)
+        {
+            
+            IsParrying = false;
+          
+        }
+        
         yield return new WaitForSeconds(knockbackDuration);
         IsKnocbacking = false;
         //Stance = 5;
@@ -1547,13 +1557,13 @@ public class PlayerNeededValues : MonoBehaviour
 
 
 
-
+    Coroutine parryCo;
     public void ParryExecution()
     {
 
 
 
-        StartCoroutine(Parrying());
+        parryCo = StartCoroutine(Parrying());
         //Debug.Log("Parrying");
 
     }
