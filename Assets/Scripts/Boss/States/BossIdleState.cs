@@ -5,20 +5,32 @@ using UnityEngine;
 public class BossIdleState : IState
 {
 
-    float timeToPassed;
+    float timePassed;
     float timeToBePassed = 1f;
 
 
     public void Enter()
     {
-        timeToPassed = 0f;
+        timePassed = 0f;
 
     }
 
     public void Update()
     {
-        timeToPassed += Time.deltaTime;
-        if (timeToPassed < timeToBePassed)
+
+
+
+
+        timePassed += Time.deltaTime;
+
+
+
+
+        BossTest.bossRb.velocity = Vector2.zero;
+
+
+
+        if (timePassed < timeToBePassed)
         {
             BossTest.ChangeAnimation(BossTest.idleAnim);
 
@@ -28,11 +40,11 @@ public class BossIdleState : IState
         else
         {
 
-            BossTest.ChangeAnimation(BossTest.idleAnim);
+            BossTest.ChangeAnimation(BossTest.idleAnim1);
 
-            if(timeToPassed >= timeToBePassed + 0.83f)
+            if(timePassed >= timeToBePassed + 0.83f)
             {
-                timeToPassed = 0f;
+                timePassed = 0f;
 
 
             }

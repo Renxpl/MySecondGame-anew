@@ -13,7 +13,7 @@ public class BossTest : MonoBehaviour
     public static BossGroundedState bossGroundedState;
     public static BossIdleState bossIdleState;
     public static BossRunningState bossRunningState;
-    
+    static Animator animator;
 
 
 
@@ -25,6 +25,7 @@ public class BossTest : MonoBehaviour
         bossIdleState= new BossIdleState();
         bossSM = new StateMachine();
         bossRb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         
 
     }
@@ -38,7 +39,7 @@ public class BossTest : MonoBehaviour
 
 
 
-
+        
 
     }
  
@@ -47,11 +48,15 @@ public class BossTest : MonoBehaviour
     {
         bossSM?.Update();
 
+
+
+
        
     }
 
     static string currentAnim;
     public static string idleAnim = "Idle";
+    public static string idleAnim1 = "IdleAnim";
     public static string runningAnim = "Running";
 
 
@@ -63,6 +68,8 @@ public class BossTest : MonoBehaviour
     {
         if (currentAnim == newAnim) return;
 
+
+        animator.Play(newAnim);
 
     }
 

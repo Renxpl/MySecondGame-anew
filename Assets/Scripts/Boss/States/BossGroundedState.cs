@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BossGroundedState : IState
 {
+    StateMachine bossGroundedSm = new StateMachine();
+    IState currentState;
+
     public void Enter()
     {
 
@@ -12,12 +15,12 @@ public class BossGroundedState : IState
 
     public void Update()
     {
+        
 
-
-        if (Mathf.Abs(PlayerController.PlayerRB.transform.position.x - BossTest.bossRb.position.x)> 2f)
+        if (Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x)> 2f)
         {
-
-            BossTest.bossSM.ChangeState(BossTest.bossRunningState);
+            if(currentState != BossTest.bossRunningState)
+            bossGroundedSm.ChangeState(currentState = BossTest.bossRunningState);
 
 
         }
@@ -25,12 +28,12 @@ public class BossGroundedState : IState
 
         else
         {
-
-            BossTest.bossSM.ChangeState(BossTest.bossIdleState);
+            if (currentState != BossTest.bossIdleState)
+                bossGroundedSm.ChangeState(currentState = BossTest.bossIdleState);
 
         }
 
-
+        bossGroundedSm.Update();
 
     }
 
