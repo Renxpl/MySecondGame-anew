@@ -5,8 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DemoNightPart.unity
     guid: d324703fbe4b09646a58fbf6d622a5a8
+  - enabled: 1
+    path: Assets/Scenes/BossFight.unity
+    guid: 1ba22a3439869e8419fea3df878f0c0f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: fc1ed73c6c05ad84a8248bdfb3da856d, type: 2}
