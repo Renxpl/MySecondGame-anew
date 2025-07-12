@@ -6,14 +6,18 @@ public class BossTest : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    GameObject player;
-    float speed = 9f;
+    
     public static StateMachine bossSM;
     public static Rigidbody2D bossRb;
     public static BossGroundedState bossGroundedState;
     public static BossIdleState bossIdleState;
     public static BossRunningState bossRunningState;
+    public static BossAirborneState bossAirborneState;
+    public static BossJumpState bossJumpState;
+    public static BossFirstJump bossFirstJumpState;
     static Animator animator;
+
+    public static Collider2D groundCollider;
 
     
 
@@ -23,10 +27,14 @@ public class BossTest : MonoBehaviour
         bossGroundedState= new BossGroundedState();
         bossRunningState= new BossRunningState();    
         bossIdleState= new BossIdleState();
+        bossJumpState= new BossJumpState();
+        bossAirborneState= new BossAirborneState();
+        bossFirstJumpState = new BossFirstJump();
         bossSM = new StateMachine();
+
         bossRb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        
+        groundCollider = GetComponent<BoxCollider2D>();
 
     }
     void Start()
@@ -34,7 +42,7 @@ public class BossTest : MonoBehaviour
        
         //transform.localScale = new Vector2(-1, 1);
         
-        player = GameObject.Find("Player");
+    
         bossSM?.ChangeState(bossGroundedState);
 
 
@@ -58,6 +66,8 @@ public class BossTest : MonoBehaviour
     public static string idleAnim = "Idle";
     public static string idleAnim1 = "IdleAnim";
     public static string runningAnim = "Running";
+    public static string ju = "JU";
+    public static string jd = "JD";
 
 
 

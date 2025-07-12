@@ -16,14 +16,30 @@ public class BossGroundedState : IState
     public void Update()
     {
         
+        if (!BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            BossTest.bossSM.ChangeState(BossTest.bossAirborneState);
+            currentState = null;
+            return;
 
 
+        }
+
+      
 
 
         if (Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x)> 2f)
         {
             if(currentState != BossTest.bossRunningState)
             bossGroundedSm.ChangeState(currentState = BossTest.bossRunningState);
+
+
+        }
+        else if (PlayerController.PlayerRB.position.y - BossTest.bossRb.position.y > 2f)
+        {
+            BossTest.bossSM.ChangeState(currentState = BossTest.bossFirstJumpState);
+            currentState = null;
+            
 
 
         }
