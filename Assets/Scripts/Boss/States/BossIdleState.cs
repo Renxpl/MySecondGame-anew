@@ -32,6 +32,7 @@ public class BossIdleState : IState
 
         if (timePassed < timeToBePassed)
         {
+
             BossTest.ChangeAnimation(BossTest.idleAnim);
 
 

@@ -15,13 +15,13 @@ public class BossTest : MonoBehaviour
     public static BossRunningState bossRunningState;
     static Animator animator;
 
-
+    
 
 
     void Awake()
     {
         bossGroundedState= new BossGroundedState();
-        bossRunningState= new BossRunningState();
+        bossRunningState= new BossRunningState();    
         bossIdleState= new BossIdleState();
         bossSM = new StateMachine();
         bossRb = GetComponent<Rigidbody2D>();

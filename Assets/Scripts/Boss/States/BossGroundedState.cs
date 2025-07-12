@@ -17,6 +17,9 @@ public class BossGroundedState : IState
     {
         
 
+
+
+
         if (Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x)> 2f)
         {
             if(currentState != BossTest.bossRunningState)
@@ -32,6 +35,10 @@ public class BossGroundedState : IState
                 bossGroundedSm.ChangeState(currentState = BossTest.bossIdleState);
 
         }
+        
+
+        
+
 
         bossGroundedSm.Update();
 
