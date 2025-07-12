@@ -37,7 +37,7 @@ public class BossGroundedState : IState
 
 
         }
-        else if (PlayerController.PlayerRB.position.y - BossTest.bossRb.position.y > 2f)
+        else if (PlayerController.PlayerRB.position.y - BossTest.bossRb.position.y > 1.5f)
         {
             if(currentState != BossTest.bossFirstJumpState)
             bossGroundedSm.ChangeState(currentState = BossTest.bossFirstJumpState);

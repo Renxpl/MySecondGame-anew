@@ -19,7 +19,15 @@ public class BossTest : MonoBehaviour
 
     public static Collider2D groundCollider;
 
+    public float hp;
+    public int potions;
     
+
+    //moving horizontal in airborne,, following player character with a adapting speed
+    //general ai implementation, deciding what to do
+    //
+
+
 
 
     void Awake()
@@ -39,7 +47,8 @@ public class BossTest : MonoBehaviour
     }
     void Start()
     {
-       
+        hp = 9;
+        potions = 3;
         //transform.localScale = new Vector2(-1, 1);
         
     
@@ -91,3 +100,6 @@ public class BossTest : MonoBehaviour
 
 
 }
+
+
+
