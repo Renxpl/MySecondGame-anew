@@ -18,6 +18,8 @@ public class BossGroundedState : IState
         
         if (!BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
+
+            Debug.Log("Transitioning to Airborne State for Boss");
             BossTest.bossSM.ChangeState(BossTest.bossAirborneState);
             currentState = null;
             return;
@@ -37,8 +39,9 @@ public class BossGroundedState : IState
         }
         else if (PlayerController.PlayerRB.position.y - BossTest.bossRb.position.y > 2f)
         {
-            BossTest.bossSM.ChangeState(currentState = BossTest.bossFirstJumpState);
-            currentState = null;
+            if(currentState != BossTest.bossFirstJumpState)
+            bossGroundedSm.ChangeState(currentState = BossTest.bossFirstJumpState);
+            
             
 
 
