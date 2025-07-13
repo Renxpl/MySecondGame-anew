@@ -23,6 +23,7 @@ public class BossAirborneState : IState
         if (BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             BossTest.bossSM.ChangeState(BossTest.bossGroundedState);
+            currentState.Exit();
             currentState = null;
             return;
 

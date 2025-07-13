@@ -21,6 +21,7 @@ public class BossGroundedState : IState
 
             Debug.Log("Transitioning to Airborne State for Boss");
             BossTest.bossSM.ChangeState(BossTest.bossAirborneState);
+            currentState.Exit();
             currentState = null;
             return;
 
