@@ -10,12 +10,12 @@ public class StateDecisionMaker : MonoBehaviour
 
     void Awake()
     {
-        mainScript = GetComponent<BossTest>();
-        bb = GetComponent<BlackboardForBoss>();
+       
     }
     void Start()
     {
-        
+        mainScript = GetComponent<BossTest>();
+        bb = GetComponent<BlackboardForBoss>();
     }
 
     // Update is called once per frame
@@ -30,10 +30,10 @@ public class StateDecisionMaker : MonoBehaviour
 
 
 
-        switch (bb.mode)
+        switch (BlackboardForBoss.mode)
         {
             case BossMode.Idle:
-                bb.state = BossState.Idle;
+                BlackboardForBoss.state = BossState.Idle;
                 break;
             case BossMode.Heal:
                 HealState();

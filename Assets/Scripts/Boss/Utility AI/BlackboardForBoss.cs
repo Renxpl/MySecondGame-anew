@@ -5,9 +5,9 @@ using UnityEngine;
 public class BlackboardForBoss : MonoBehaviour
 {
 
-    public BossPurpose purpose;
-    public BossMode mode;
-    public BossState state;
+    public static BossPurpose purpose;
+    public static BossMode mode;
+    public static BossState state;
 
 
 

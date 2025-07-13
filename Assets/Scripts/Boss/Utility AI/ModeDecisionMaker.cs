@@ -45,10 +45,10 @@ public class ModeDecisionMaker : MonoBehaviour
 
         
 
-        switch (bb.purpose)
+        switch (BlackboardForBoss.purpose)
         {
             case BossPurpose.Idle:
-                bb.mode = BossMode.Idle;
+                BlackboardForBoss.mode = BossMode.Idle;
                 break;
             case BossPurpose.Heal:
                 HealMode();

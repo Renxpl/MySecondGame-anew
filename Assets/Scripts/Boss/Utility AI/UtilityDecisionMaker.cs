@@ -52,19 +52,19 @@ public class UtilityDecisionMaker : MonoBehaviour
 
         if (keys[0] == "Idle")
         {
-            bb.purpose = BossPurpose.Idle;
+            BlackboardForBoss.purpose = BossPurpose.Idle;
         }
         else if(keys[0] == "Heal")
         {
-            bb.purpose = BossPurpose.Heal;
+            BlackboardForBoss.purpose = BossPurpose.Heal;
         }
         else if(keys[0] == "Attack")
         {
-            bb.purpose = BossPurpose.Attack;
+            BlackboardForBoss.purpose = BossPurpose.Attack;
         }
         else
         {
-            bb.purpose = BossPurpose.SpecialAttack;
+            BlackboardForBoss.purpose = BossPurpose.SpecialAttack;
         }
 
 
