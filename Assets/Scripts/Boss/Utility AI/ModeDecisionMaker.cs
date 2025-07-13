@@ -68,7 +68,7 @@ public class ModeDecisionMaker : MonoBehaviour
         }
 
 
-
+        sD.DecisionUpdate();
 
 
 
@@ -86,6 +86,16 @@ public class ModeDecisionMaker : MonoBehaviour
 
     void AttackMode()
     {
+        if(Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x) < 3f && Mathf.Abs(PlayerController.PlayerRB.position.y - BossTest.bossRb.position.y) < 1.5f)
+        {
+            BlackboardForBoss.mode = BossMode.Attack;
+        }
+        else
+        {
+            BlackboardForBoss.mode = BossMode.Chase;
+        }
+
+
 
 
     }

@@ -77,12 +77,26 @@ public class StateDecisionMaker : MonoBehaviour
 
     void ChaseState()
     {
+        if (Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x) > 3f)
+        {
+            BlackboardForBoss.state = BossState.Running;
+        }
+        else if (Mathf.Abs(PlayerController.PlayerRB.position.y - BossTest.bossRb.position.y) > 1.5f)
+        {
+            BlackboardForBoss.state = BossState.Jump;
+        }
+        
+
+
+
+
+
 
     }
 
     void AttackState()
     {
-
+        BlackboardForBoss.state = BossState.Idle;
     }
 
     void SpecialAttackState()

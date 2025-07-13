@@ -20,7 +20,7 @@ public class BossRunningState : IState
 
         BossTest.bossRb.velocity = new Vector2(Mathf.Sign(distanceX) * speed, 0);
       
-        BossTest.bossRb.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
+        //BossTest.bossRb.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
       
 
 

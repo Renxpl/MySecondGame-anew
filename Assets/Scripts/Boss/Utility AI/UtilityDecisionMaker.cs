@@ -104,9 +104,10 @@ public class UtilityDecisionMaker : MonoBehaviour
     {
 
         float dist = Vector2.Distance(selfPos, playerPos);
-      
 
-        float value = (maxRange / dist)* 0.8f + hp * 0.2f / maxHp;
+
+        //float value = (maxRange / dist)* 0.8f + hp * 0.2f / maxHp;
+        float value = 1f;
         return Mathf.Clamp01(value);
 
     }

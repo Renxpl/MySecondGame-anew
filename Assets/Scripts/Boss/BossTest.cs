@@ -65,11 +65,32 @@ public class BossTest : MonoBehaviour
     {
         bossSM?.Update();
 
-
+        ChangeSprite();
 
 
        
     }
+
+    public static bool isSpriteLocked = false;
+    void ChangeSprite()
+    {
+        if (isSpriteLocked) return;
+
+        if(bossRb.velocity.x > 0)
+        {
+            transform.localScale = new Vector2(1f,1f);
+        }
+
+        else if (bossRb.velocity.x < 0)
+        {
+            transform.localScale = new Vector2(-1f, 1f);
+        }
+
+
+    }
+
+
+
 
     static string currentAnim;
     public static string idleAnim = "Idle";
