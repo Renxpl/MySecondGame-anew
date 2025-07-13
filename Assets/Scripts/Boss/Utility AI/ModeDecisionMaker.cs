@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,15 +8,29 @@ public class ModeDecisionMaker : MonoBehaviour
 
     BossTest mainScript;
     BlackboardForBoss bb;
-
+    StateDecisionMaker sD;
+    /* will use here later on
+    var modeTransitions = new Dictionary<(BossMode, BossMode), Func<bool>> {
+  { (BossMode.Chase, BossMode.Idle), () => distanceToTarget < attackRange },
+  { (BossMode.Idle, BossMode.Chase), () => distanceToTarget > attackRange },
+  // … diðer geçiþler
+};*/
+    Dictionary<(BossMode, BossMode), Func<bool>> modeTransitions = new Dictionary<(BossMode, BossMode), Func<bool>> {
+  { (BossMode.Chase, BossMode.Idle), () => 5 < 3 },
+  { (BossMode.Idle, BossMode.Chase), () => 3 > 5},
+  // … diðer geçiþler
+};
     void Awake()
     {
-        mainScript = GetComponent<BossTest>();
-        bb = GetComponent<BlackboardForBoss>();
+        
+        
     }
     // Start is called before the first frame update
     void Start()
     {
+        mainScript = GetComponent<BossTest>();
+        bb = GetComponent<BlackboardForBoss>();
+        sD = GetComponent<StateDecisionMaker>();
         
     }
 
@@ -24,4 +39,67 @@ public class ModeDecisionMaker : MonoBehaviour
     {
         
     }
+
+    public void DecisionUpdate()
+    {
+
+        
+
+        switch (bb.purpose)
+        {
+            case BossPurpose.Idle:
+                bb.mode = BossMode.Idle;
+                break;
+            case BossPurpose.Heal:
+                HealMode();
+                break;
+            case BossPurpose.Attack:
+                AttackMode();
+                break;
+
+            case BossPurpose.SpecialAttack:
+                SpecialAttackMode();
+                break;
+
+            default:
+                Debug.Log("ModeDecisionError");
+                break;
+
+        }
+
+
+
+
+
+
+    }
+
+    
+    void HealMode()
+    {
+
+
+
+
+
+    }
+
+    void AttackMode()
+    {
+
+
+    }
+
+    void SpecialAttackMode()
+    {
+
+
+    }
+
+
+
+
+
+
+
 }

@@ -23,4 +23,75 @@ public class StateDecisionMaker : MonoBehaviour
     {
         
     }
+
+
+    public void DecisionUpdate()
+    {
+
+
+
+        switch (bb.mode)
+        {
+            case BossMode.Idle:
+                bb.state = BossState.Idle;
+                break;
+            case BossMode.Heal:
+                HealState();
+                break;
+            case BossMode.Flee:
+                FleeState();
+                break;
+
+            case BossMode.Chase:
+                ChaseState();
+                break;
+            case BossMode.Attack:
+                AttackState();
+                break;
+            case BossMode.SpecialAttack:
+                SpecialAttackState();
+                break;
+
+            default:
+                Debug.Log("StateDecisionError");
+                break;
+
+        }
+
+
+
+
+
+
+    }
+
+    void HealState()
+    {
+
+    }
+
+    void FleeState()
+    {
+
+    }
+
+    void ChaseState()
+    {
+
+    }
+
+    void AttackState()
+    {
+
+    }
+
+    void SpecialAttackState()
+    {
+
+    }
+
+
+
+
+
 }
