@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerNeededValues : MonoBehaviour
 {
@@ -743,6 +744,21 @@ public class PlayerNeededValues : MonoBehaviour
     }
 
     Coroutine intoConv;
+    GameObject dialogueToOff;
+    public void ForceDialogue(GameObject dialogue)
+    {
+        dialogueToOff = dialogue;
+        if (intoConv == null)
+        {
+            PlayerController.ConversationCounterpart = dialogue;
+            intoConv = StartCoroutine(IntoConv());
+        }
+           
+
+
+
+
+    }
     void OnJumping(InputValue input)
     {
 
@@ -832,6 +848,7 @@ public class PlayerNeededValues : MonoBehaviour
     {
         StopEverythingPlayer = true;
         bool fin = false;
+        GameObject.Find("CanvasForWorld").transform.Find("Dialogue").transform.Find("test").GetComponent<TextMeshProUGUI>().text = "";
         GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(0.01f);
         int convoTurn = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConvoTurn();
@@ -906,7 +923,11 @@ public class PlayerNeededValues : MonoBehaviour
 
             }
         }
-
+        if(dialogueToOff!= null)
+        {
+            dialogueToOff.SetActive(false);
+            dialogueToOff = null;
+        }
         intoConv = null;
     }
 
