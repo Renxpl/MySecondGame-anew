@@ -52,8 +52,10 @@ public class PlayerRunState : IState
 
         else
         {
+
             playerRb.velocity = new Vector2(speed * 2f * Mathf.Sign(PlayerNeededValues.MoveInput.x), playerRb.velocity.y);
             PlayerController.ChangeAnimationState("Speedy Run");
+
         }
 
 

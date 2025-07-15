@@ -227,11 +227,11 @@ public class PlayerNeededValues : MonoBehaviour
     {
 
         yield return new WaitForSeconds(0.05f);
-        PlayerController.PlayerRB.AddForce(new Vector2(1500f, 400f), ForceMode2D.Impulse);
+        PlayerController.PlayerRB.AddForce(new Vector2(800f, 250f), ForceMode2D.Impulse);
         BossScene.beingThrown = false;
         StopEverythingPlayer= false;
         thrownCo = null;
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.5f);
         BossTest.ForceDialogue = true;
 
 
@@ -315,7 +315,6 @@ public class PlayerNeededValues : MonoBehaviour
         if (StopEverythingPlayer)
         {
            
-
 
 
             if((!stopForChain && !StopForTheWay && !DigginScene && !BossScene.beingThrown) || UIManagement.IsPaused) MoveInput = Vector2.zero;

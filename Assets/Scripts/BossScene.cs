@@ -25,6 +25,9 @@ public class BossScene : MonoBehaviour
         justOnce = false;
         PlayerNeededValues.StopForTheWay = true;
         BossTest.IsInDialogue = true;
+        PlayerController.ChangeAnimationState("Idle");
+        PlayerController.ChangeAnimationState("Speedy Run");
+      
 
     }
     public static bool beingThrown = false;
@@ -35,6 +38,7 @@ public class BossScene : MonoBehaviour
         {
             justOnce = true;
             player.GetComponent<PlayerNeededValues>().StopTheWay();
+           
         }
 
 

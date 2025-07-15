@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,14 +36,16 @@ public class SceneManagement : MonoBehaviour
        
         if(player.transform.position.x < endOfTheWay.position.x && !justOnce && PlayerNeededValues.StopForTheWay)
         {
-            justOnce= true;
+            
+            SceneManager.LoadScene(1);
+            justOnce = true;
             player.GetComponent<PlayerNeededValues>().StopTheWay();
         }
 
 
     }
 
-
+    
     IEnumerator Waiting()
     {
         if (SceneManager.GetActiveScene().buildIndex == 0) 

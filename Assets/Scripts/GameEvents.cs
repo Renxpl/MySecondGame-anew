@@ -31,6 +31,8 @@ public class GameEvents : MonoBehaviour
     public event SpawnNotify onSpawnNotify;
     void Awake()
     {
+        gameEvents = this;
+        /*
         if(gameEvents == null)
         {
             gameEvents = this;
@@ -40,7 +42,7 @@ public class GameEvents : MonoBehaviour
         {
             Debug.Log("gameEvents already exists, destroying object!");
             Destroy(this);
-        }
+        }*/
 
 
     }
