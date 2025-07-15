@@ -15,6 +15,9 @@ public class SpawningAtCertainLocs : MonoBehaviour
     List<GameObject> enemies2 = new List<GameObject>();
     public GameObject dialogueObj1;
     public GameObject dialogueObj2;
+    public GameObject dialogueObj3;
+    public float floatXForD3;
+    public float floatYForD3;
     GameObject player;
     // Start is called before the first frame update
     void Start()
@@ -38,10 +41,12 @@ public class SpawningAtCertainLocs : MonoBehaviour
 
         dialogueObj1.SetActive(false);
         dialogueObj2.SetActive(false);
+        dialogueObj3.SetActive(false);
 
     }
     bool justOnce1 = false;
     bool justOnce2 = false;
+    bool justOnce3 = false;
 
     // Update is called once per frame
     void Update()
@@ -68,8 +73,19 @@ public class SpawningAtCertainLocs : MonoBehaviour
 
 
 
+        if(player.transform.position.x > floatXForD3 && player.transform.position.y < floatYForD3 && !justOnce3)
+        {
+            PlayerController.PlayerRB.WakeUp();
+            PlayerController.ConversationCounterpart = dialogueObj3;
+            player.GetComponent<PlayerNeededValues>().ForceDialogue(dialogueObj3);
+            
+            justOnce3 = true;
+        }
 
-
+        if(justOnce3 && !dialogueObj3.activeSelf)
+        {
+            GetComponent<ESpawnManager>().startSpawn = true;
+        }
 
 
     }
