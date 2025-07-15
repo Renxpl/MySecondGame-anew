@@ -17,4 +17,6 @@ MonoBehaviour:
     text: How could they be here?
   - speakerName: Player
     text: I must make haste.
-  checkpoint: 1
+  - speakerName: Player
+    text: null
+  checkpoint: 2

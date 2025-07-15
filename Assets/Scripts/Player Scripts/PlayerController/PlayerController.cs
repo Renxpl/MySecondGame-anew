@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!IsInteractable)
+        if (!IsInteractable && !PlayerNeededValues.IsBeingForced)
         {
             ConversationCounterpart = null;
         }
@@ -230,30 +230,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (otherCollider.CompareTag("Monologue"))
-        {
-
-
-
-
-                
-                ConversationCounterpart = otherCollider.gameObject;
-               
-                if (transform.localScale.x == -1)
-                {
-                    pressX.transform.localScale = new Vector2(-1, 1);
-                }
-                else
-                {
-                    pressX.transform.localScale = new Vector2(1, 1);
-                }
-           
        
-
-
-
-
-        }
 
 
 
@@ -273,23 +250,17 @@ public class PlayerController : MonoBehaviour
 
 
         }
-        if (otherCollider.CompareTag("Monologue"))
-        {
-
-
-            //to make it guarateed
-            pressX.gameObject.SetActive(false); IsInteractable = false;
-            otherCollider.gameObject.SetActive(false);
-
-
-
-
-        }
+      
 
     }
 
 
 
-   
+   public static void ForceInteraction()
+    {
+        IsInteractable = !IsInteractable;
+
+
+    }
 
 }

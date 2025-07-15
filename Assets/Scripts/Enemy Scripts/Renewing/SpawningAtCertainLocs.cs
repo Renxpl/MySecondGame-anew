@@ -28,8 +28,8 @@ public class SpawningAtCertainLocs : MonoBehaviour
         mageCombo = spawnManager.mageCombo;
 
 
-      // enemies.Add(EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), sPos[0].position, testCombo, new CloseCombatBehaviour()).gameObject);
-       //enemies.Add(EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), sPos[1].position, mageCombo, new MageCombatBehaviour()).gameObject);
+       enemies.Add(EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), sPos[0].position, testCombo, new CloseCombatBehaviour()).gameObject);
+       enemies.Add(EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), sPos[1].position, mageCombo, new MageCombatBehaviour()).gameObject);
 
         enemies2.Add(EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), sPos[2].position, testCombo, new CloseCombatBehaviour()).gameObject);
         enemies2.Add(EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), sPos[3].position, mageCombo, new MageCombatBehaviour()).gameObject);
@@ -40,26 +40,29 @@ public class SpawningAtCertainLocs : MonoBehaviour
         dialogueObj2.SetActive(false);
 
     }
+    bool justOnce1 = false;
+    bool justOnce2 = false;
 
     // Update is called once per frame
     void Update()
     {
-        if(enemies.Count == 0)
+        if(enemies.Count == 0 && !justOnce1)
         {
             PlayerController.PlayerRB.WakeUp();
             PlayerController.ConversationCounterpart = dialogueObj1;
             player.GetComponent<PlayerNeededValues>().ForceDialogue(dialogueObj1);
-            dialogueObj1.SetActive(true);
+           
+            justOnce1 = true;
 
 
 
         }
-        if (enemies2.Count == 0)
+        if (enemies2.Count == 0 && !justOnce2)
         {
             PlayerController.PlayerRB.WakeUp();
             PlayerController.ConversationCounterpart = dialogueObj2;
             player.GetComponent<PlayerNeededValues>().ForceDialogue(dialogueObj2);
-            dialogueObj2.SetActive(true);
+            justOnce2= true;
 
         }
 

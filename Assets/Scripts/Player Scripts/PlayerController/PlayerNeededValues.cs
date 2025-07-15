@@ -745,11 +745,14 @@ public class PlayerNeededValues : MonoBehaviour
 
     Coroutine intoConv;
     GameObject dialogueToOff;
+    public static bool IsBeingForced { get; private set; }
     public void ForceDialogue(GameObject dialogue)
     {
         dialogueToOff = dialogue;
+        PlayerController.ForceInteraction();
         if (intoConv == null)
         {
+            IsBeingForced = true;
             PlayerController.ConversationCounterpart = dialogue;
             intoConv = StartCoroutine(IntoConv());
         }
@@ -762,7 +765,7 @@ public class PlayerNeededValues : MonoBehaviour
     void OnJumping(InputValue input)
     {
 
-        if (PlayerController.IsInteractable)
+        if (PlayerController.IsInteractable || IsBeingForced)
         {
             if (input.Get<float>() == 1f)
             {
@@ -851,9 +854,14 @@ public class PlayerNeededValues : MonoBehaviour
         GameObject.Find("CanvasForWorld").transform.Find("Dialogue").transform.Find("test").GetComponent<TextMeshProUGUI>().text = "";
         GameObject.Find("CanvasForWorld").transform.Find("Dialogue").gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(0.01f);
-        int convoTurn = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConvoTurn();
-        Conversation convo = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConversation();
-        Debug.Log(convoTurn);
+        int convoTurn; Conversation convo;
+        
+       
+            convoTurn = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConvoTurn();
+            convo = PlayerController.ConversationCounterpart.GetComponent<VerballyInteractable>().GetConversation();
+            Debug.Log(convoTurn);
+        
+        
 
         if ((convo.lines.Length <= convoTurn && !Dialogue.IsWriting) || (cpReached && !Dialogue.IsWriting))
         {
@@ -885,7 +893,15 @@ public class PlayerNeededValues : MonoBehaviour
 
 
 
+            if (dialogueToOff != null)
+            {
+                dialogueToOff.SetActive(false);
+                dialogueToOff = null;
+                IsBeingForced = false;
+                PlayerController.ForceInteraction();
 
+
+            }
             fin = true;
         }
         if (!fin)
@@ -923,11 +939,7 @@ public class PlayerNeededValues : MonoBehaviour
 
             }
         }
-        if(dialogueToOff!= null)
-        {
-            dialogueToOff.SetActive(false);
-            dialogueToOff = null;
-        }
+       
         intoConv = null;
     }
 

@@ -17,4 +17,6 @@ MonoBehaviour:
     text: "This doesn\u2019t bode well. I must report this\u2026"
   - speakerName: Player
     text: No. Focus. Finish the mission, then report.
-  checkpoint: 1
+  - speakerName: Player
+    text: null
+  checkpoint: 2
