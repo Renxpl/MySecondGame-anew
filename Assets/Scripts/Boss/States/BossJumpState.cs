@@ -23,7 +23,7 @@ public class BossJumpState : IState
             firstTimeStop= true;
         }
         float distanceX = PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x;
-        if (Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x) > 1f)
+        if (Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x) > 2f)
         {
             
             if (BossTest.bossRb.velocity.y < 0)

@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: coverstest
   m_EditorClassIdentifier: 
   lines:
-  - speakerName: James
-    text: You go there,
-  - speakerName: James
-    text: and deliver my massage with an utmost secret.
   - speakerName: Player
-    text: As you command, sir!
-  - speakerName: James
-    text: Why are you still here?
-  - speakerName: James
-    text: Go and do what I ORDERED.
+    text: You summoned me, sir.
+  - speakerName: General
+    text: 'I have an urgent mission for you. Take this message and deliver to the
+      next outpost. This is a matter of utmost importance; thus, be careful and swift. '
+  - speakerName: Player
+    text: As you command.
+  - speakerName: General
+    text: Why are you still standing here?
+  - speakerName: General
+    text: Did I not make myself clear? Go. Now.
   checkpoint: 3
