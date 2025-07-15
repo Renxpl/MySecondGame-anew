@@ -6,7 +6,7 @@ public class BossTest : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    
+    public BoxCollider2D speechColl;
     public static StateMachine bossSM;
     public static Rigidbody2D bossRb;
     public static BossGroundedState bossGroundedState;
@@ -15,13 +15,17 @@ public class BossTest : MonoBehaviour
     public static BossAirborneState bossAirborneState;
     public static BossJumpState bossJumpState;
     public static BossFirstJump bossFirstJumpState;
+    public static ScriptedState scriptedState;
     static Animator animator;
+    public Conversation convo2;
 
     public static Collider2D groundCollider;
 
     public float hp;
     public int potions;
-    
+    public static bool IsInDialogue { get; set; }
+    public static bool ForceDialogue { get; set; }
+    public static bool ChangeDialogue { get; set; }
 
     //moving horizontal in airborne,, following player character with a adapting speed
     //general ai implementation, deciding what to do
@@ -38,7 +42,9 @@ public class BossTest : MonoBehaviour
         bossJumpState= new BossJumpState();
         bossAirborneState= new BossAirborneState();
         bossFirstJumpState = new BossFirstJump();
+        scriptedState = new ScriptedState();
         bossSM = new StateMachine();
+
 
         bossRb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -59,7 +65,7 @@ public class BossTest : MonoBehaviour
         
 
     }
- 
+    bool justOnceEnd = false;
     // Update is called once per frame
     void Update()
     {
@@ -67,6 +73,30 @@ public class BossTest : MonoBehaviour
 
         ChangeSprite();
 
+
+        if (ForceDialogue)
+        {
+
+            GameObject.Find("Player").GetComponent<PlayerNeededValues>().ForceDialogue(gameObject);
+            ForceDialogue= false;
+
+
+        }
+
+        if (ChangeDialogue)
+        {
+
+            GetComponent<NPCPrototype>().conversation = convo2;
+            ChangeDialogue= false;
+        }
+
+        if(hp <= 0 && !justOnceEnd)
+        {
+            GetComponent<NPCPrototype>().convoTurn = 0;
+            GameObject.Find("Player").GetComponent<PlayerNeededValues>().ForceDialogue(gameObject);
+            justOnceEnd= true;
+
+        }
 
        
     }

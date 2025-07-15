@@ -16,7 +16,10 @@ public class SceneManagement : MonoBehaviour
 
     bool justOnce;
 
-
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
 

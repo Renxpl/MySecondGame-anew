@@ -28,10 +28,16 @@ public class BossGroundedState : IState
 
         }
 
-      
+
+        if (BossTest.IsInDialogue)
+        {
+            if (currentState != BossTest.scriptedState)
+                bossGroundedSm.ChangeState(currentState = BossTest.scriptedState);
 
 
-        if (BlackboardForBoss.state == BossState.Running)
+        }
+
+        else if (BlackboardForBoss.state == BossState.Running)
         {
             if(currentState != BossTest.bossRunningState)
             bossGroundedSm.ChangeState(currentState = BossTest.bossRunningState);

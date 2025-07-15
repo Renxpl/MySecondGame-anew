@@ -36,7 +36,7 @@ public class UtilityDecisionMaker : MonoBehaviour
     void Update()
     {
         keys[0] = "Idle";
-        values[0] = ScoreForDialogue(false);
+        values[0] = ScoreForDialogue(BossTest.IsInDialogue);
         keys[1] = "Heal";
         values[1] = ScoreFromHp(transform.position, PlayerController.PlayerRB.position, 9f, 9f);
         keys[2] = "Attack";
@@ -45,9 +45,26 @@ public class UtilityDecisionMaker : MonoBehaviour
         values[3] = ScoreForSpecialAttack(transform.position, PlayerController.PlayerRB.position, 9f, 9f);
 
 
+        for(int i = 0; i< values.Length; i++)
+        {
+
+            for(int j = 0; j< values.Length; j++)
+            {
+
+
+
+            }
+
+
+
+        }
+
+
         Array.Sort(values, keys);
         Array.Reverse(values);
         Array.Reverse(keys);
+
+
 
 
         if (keys[0] == "Idle")
@@ -89,7 +106,9 @@ public class UtilityDecisionMaker : MonoBehaviour
     {
        
         // 1 – (dist / maxRange) ile 0–1 aralýðýna indirgeriz, sonra clamp
-        return Mathf.Clamp01( isInDialogue ? 1 : 0);
+        //return Mathf.Clamp01( isInDialogue ? 1 : 0);
+        if (isInDialogue) return 1.01f;
+        else return Mathf.Clamp01(isInDialogue ? 1 : 0);
     }
 
     float ScoreFromHp(Vector2 selfPos, Vector2 playerPos, float hp, float maxHp)

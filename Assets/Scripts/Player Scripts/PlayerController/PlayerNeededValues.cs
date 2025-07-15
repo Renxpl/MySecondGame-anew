@@ -211,19 +211,31 @@ public class PlayerNeededValues : MonoBehaviour
     // Update is called once per frame
     public bool isInTheWay;
     public static float CanParry { get; private set; }
-
+    Coroutine thrownCo;
     public void StopTheWay()
     {
 
         StopForTheWay = false;
-        StopEverythingPlayer = false;
+        if(!BossScene.beingThrown) StopEverythingPlayer = false;
         MoveInput= Vector2.zero;
         PlayerController.PlayerRB.velocity = Vector2.zero;
-
+        if (BossScene.beingThrown) { if (thrownCo == null) thrownCo = StartCoroutine(BeingThrown()); }
 
     }
 
-   
+   IEnumerator BeingThrown()
+    {
+
+        yield return new WaitForSeconds(0.05f);
+        PlayerController.PlayerRB.AddForce(new Vector2(1500f, 400f), ForceMode2D.Impulse);
+        BossScene.beingThrown = false;
+        StopEverythingPlayer= false;
+        thrownCo = null;
+        yield return new WaitForSeconds(0.15f);
+        BossTest.ForceDialogue = true;
+
+
+    }
 
     void Update()
     {
@@ -243,7 +255,7 @@ public class PlayerNeededValues : MonoBehaviour
 
 
         if (DigginScene) StopEverythingPlayer = true;
-        if (isInTheWay)StopForTheWay= true;
+        if (isInTheWay) StopForTheWay= true;
         if (StopForTheWay) StopEverythingPlayer = true;
         
 
@@ -289,6 +301,12 @@ public class PlayerNeededValues : MonoBehaviour
             JumpTime = 0;
             firstTimeGrounded = false;
         }
+        
+        if (BossScene.beingThrown)
+        {
+            StopEverythingPlayer = true;
+        }
+
         if (UIManagement.IsPaused)
         {
             
@@ -300,19 +318,19 @@ public class PlayerNeededValues : MonoBehaviour
 
 
 
-            if((!stopForChain && !StopForTheWay && !DigginScene) || UIManagement.IsPaused) MoveInput = Vector2.zero;
+            if((!stopForChain && !StopForTheWay && !DigginScene && !BossScene.beingThrown) || UIManagement.IsPaused) MoveInput = Vector2.zero;
             if(StopForTheWay && !DigginScene && !UIManagement.IsPaused) MoveInput = new Vector2(-1, 0);
             
             if (firstTimeStopEv)
             {
-                if(!StopForTheWay && !DigginScene)PlayerController.PlayerRB.velocity = Vector2.zero;
+                if(!StopForTheWay && !DigginScene && !BossScene.beingThrown)PlayerController.PlayerRB.velocity = Vector2.zero;
                 firstTimeStopEv = false;
             }
 
             if ((!StopForTheWay && !DigginScene) || UIManagement.IsPaused) CommandHandler.ResetNext();
             if (UIManagement.IsPaused && !StopForTheWay && !DigginScene) return;
-            if (!PlayerController.IsInteractable && !stopForChain && !StopForTheWay && !DigginScene) StopEverythingPlayer = false;
-           if(!StopForTheWay && !DigginScene) return;
+            if (!PlayerController.IsInteractable && !stopForChain && !StopForTheWay && !DigginScene && !BossScene.beingThrown) StopEverythingPlayer = false;
+           if(!StopForTheWay && !DigginScene && BossScene.beingThrown) return;
         }
         else
         {
@@ -898,7 +916,13 @@ public class PlayerNeededValues : MonoBehaviour
 
             if (dialogueToOff != null)
             {
-                dialogueToOff.SetActive(false);
+               if(dialogueToOff.gameObject.name != "Boss") dialogueToOff.SetActive(false);
+                else
+                {
+
+                    BossTest.IsInDialogue = false;
+                    BossTest.ChangeDialogue = true;
+                }
                 dialogueToOff = null;
                 IsBeingForced = false;
                 PlayerController.ForceInteraction();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ESpawnManager : MonoBehaviour
 {
@@ -135,46 +136,47 @@ public class ESpawnManager : MonoBehaviour
         }
 
         */
-
-
-        if (PlayerNeededValues.StopForTheWay && !isSpawnedForWay)
+        if (SceneManager.GetActiveScene().name != "BossFight")
         {
-            isSpawnedForWay= true;
 
-            for(int i = 0; i < wayOfEnemySpawnLocs.Length; i++)
+            if (PlayerNeededValues.StopForTheWay && !isSpawnedForWay)
             {
-                if(i % 2 == 0)
+                isSpawnedForWay = true;
+
+                for (int i = 0; i < wayOfEnemySpawnLocs.Length; i++)
                 {
-                   enemiesOnTheWay.Add(EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), wayOfEnemySpawnLocs[i].position, testCombo, new CloseCombatBehaviour()).gameObject);
+                    if (i % 2 == 0)
+                    {
+                        enemiesOnTheWay.Add(EFactory.SpawnTest(testStat, new ChaseMovementBehaviour(), wayOfEnemySpawnLocs[i].position, testCombo, new CloseCombatBehaviour()).gameObject);
+                    }
+
+                    else
+                    {
+                        enemiesOnTheWay.Add(EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), wayOfEnemySpawnLocs[i].position, mageCombo, new MageCombatBehaviour()).gameObject);
+                    }
+
+
                 }
-               
-                else
-                {
-                    enemiesOnTheWay.Add(EFactory.SpawnMage(mageStats, new ChaseMovementBehaviour(), wayOfEnemySpawnLocs[i].position, mageCombo, new MageCombatBehaviour()).gameObject);
-                }
+
 
 
             }
 
 
-
-        }
-
-
-        else if(!PlayerNeededValues.StopForTheWay && isSpawnedForWay)
-        {
-
-
-            for (int i = 0; i < enemiesOnTheWay.Count; i++)
+            else if (!PlayerNeededValues.StopForTheWay && isSpawnedForWay)
             {
-                enemiesOnTheWay[i].SetActive(false);
+
+
+                for (int i = 0; i < enemiesOnTheWay.Count; i++)
+                {
+                    enemiesOnTheWay[i].SetActive(false);
+
+
+                }
 
 
             }
-
-
         }
-
 
 
 
