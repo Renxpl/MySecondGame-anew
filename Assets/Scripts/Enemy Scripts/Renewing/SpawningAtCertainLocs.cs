@@ -16,6 +16,9 @@ public class SpawningAtCertainLocs : MonoBehaviour
     public GameObject dialogueObj1;
     public GameObject dialogueObj2;
     public GameObject dialogueObj3;
+    public GameObject dialogueObj4;
+    public GameObject dialogueObj5;
+    public GameObject dialogueObj0;
     public float floatXForD3;
     public float floatYForD3;
     GameObject player;
@@ -42,11 +45,16 @@ public class SpawningAtCertainLocs : MonoBehaviour
         dialogueObj1.SetActive(false);
         dialogueObj2.SetActive(false);
         dialogueObj3.SetActive(false);
-
+        dialogueObj4.SetActive(false);
+        dialogueObj5.SetActive(false);
+        //
+        //dialogueObj5.SetActive(true);
+        //dialogueObj0.SetActive(false);
     }
     bool justOnce1 = false;
     bool justOnce2 = false;
     bool justOnce3 = false;
+    bool justOnce4 = false;
 
     // Update is called once per frame
     void Update()
@@ -87,10 +95,24 @@ public class SpawningAtCertainLocs : MonoBehaviour
             GetComponent<ESpawnManager>().startSpawn = true;
         }
 
+        if(dialogueObj5.GetComponent<VerballyInteractable>().GetConvoTurn() == dialogueObj5.GetComponent<VerballyInteractable>().GetConversation().checkpoint && !PlayerNeededValues.StopEverythingPlayer && !justOnce4)
+        {
+            dialogueObj5.GetComponent<BoxCollider2D>().enabled= false;
+            PlayerNeededValues.StopForTheWay = true;
+            justOnce4= true;
+        }
 
     }
 
+    public void Dialogue4()
+    {
+        dialogueObj5.SetActive(true);
+        dialogueObj0.SetActive(false);
+        PlayerController.PlayerRB.WakeUp();
+        PlayerController.ConversationCounterpart = dialogueObj4;
+        player.GetComponent<PlayerNeededValues>().ForceDialogue(dialogueObj4);
 
+    }
 
     public void BeingNotified(GameObject sender)
     {

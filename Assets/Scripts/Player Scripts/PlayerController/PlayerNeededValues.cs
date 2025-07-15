@@ -223,8 +223,11 @@ public class PlayerNeededValues : MonoBehaviour
 
     }
 
+   
+
     void Update()
     {
+
 
         IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1.1f, groundLayer) || Physics2D.Raycast(player.transform.position + new Vector3(0.25f, 0f, 0f), Vector2.down, 1.1f, groundLayer) || Physics2D.Raycast(player.transform.position - new Vector3(0.25f, 0f, 0f), Vector2.down, 1.1f, groundLayer);
         IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls < timeToPassOnwalls;
