@@ -128,6 +128,15 @@ public class BossTest : MonoBehaviour
     public static string runningAnim = "Running";
     public static string ju = "JU";
     public static string jd = "JD";
+    public static string ss = "SS";
+    public static string sa1 = "SA1";
+    public static string sa2 = "SA2";
+    public static string ga1 = "GA1";
+    public static string ga2 = "GA2";
+    public static string ga3 = "GA3";
+    public static string ga4 = "GA4";
+    public static string aa1 = "AA1";
+    public static string aa2 = "AA2";
 
 
 

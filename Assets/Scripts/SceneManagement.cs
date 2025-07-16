@@ -28,7 +28,7 @@ public class SceneManagement : MonoBehaviour
        if(transitionHandle) StartCoroutine(Waiting());
         player = GameObject.Find("Player");
         justOnce= false;
-
+       
     }
 
     void Update()
@@ -36,10 +36,10 @@ public class SceneManagement : MonoBehaviour
        
         if(player.transform.position.x < endOfTheWay.position.x && !justOnce && PlayerNeededValues.StopForTheWay)
         {
+            StartCoroutine(Waiting());
             
-            SceneManager.LoadScene(1);
             justOnce = true;
-            player.GetComponent<PlayerNeededValues>().StopTheWay();
+            
         }
 
 
@@ -50,9 +50,11 @@ public class SceneManagement : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0) 
         {
-            yield return new WaitForSecondsRealtime(3f);
+            Panel.SetActive(true);
+            yield return new WaitForSecondsRealtime(1f);
             Panel.SetActive(true);
             SceneManager.LoadScene(1);
+            player.GetComponent<PlayerNeededValues>().StopTheWay();
         }
 
         if (SceneManager.GetActiveScene().buildIndex == 1)
