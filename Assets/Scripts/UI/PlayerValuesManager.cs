@@ -10,6 +10,7 @@ public class PlayerValuesManager : MonoBehaviour
     public Image stanceBar;
     public Image sABar1;
     public Image sABar2;
+    
     void Start()
     {
         

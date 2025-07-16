@@ -84,8 +84,18 @@ public class CameraBehaviour : MonoBehaviour
             targetPosition = new Vector3(toFollow.transform.position.x, toFollow.transform.position.y + 3, this.transform.position.z);
         transform.position = targetPosition;
         
+        if(GetComponent<MovementLimiter>() != null)
+        {
+            if (PlayerNeededValues.BossFightStarted)
+            {
+                GetComponent<MovementLimiter>().LimiterUpdate();
+            }
+            
 
+
+        }
         GameEvents.gameEvents.OnUpdateCamera();
+
 
 
     }

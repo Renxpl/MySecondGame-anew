@@ -218,19 +218,19 @@ public class PlayerNeededValues : MonoBehaviour
         StopForTheWay = false;
         if(!BossScene.beingThrown) StopEverythingPlayer = false;
         MoveInput= Vector2.zero;
-        PlayerController.PlayerRB.velocity = Vector2.zero;
-        if (BossScene.beingThrown) { if (thrownCo == null) thrownCo = StartCoroutine(BeingThrown()); }
-
+        
+        if (BossScene.beingThrown) { if (thrownCo == null) { thrownCo = StartCoroutine(BeingThrown()); PlayerController.PlayerRB.velocity = Vector2.zero; } }
+        else { PlayerController.PlayerRB.velocity = Vector2.zero; }
     }
 
    IEnumerator BeingThrown()
     {
-
+        
         yield return new WaitForSeconds(0.05f);
         PlayerController.PlayerRB.AddForce(new Vector2(800f, 250f), ForceMode2D.Impulse);
         cannotAttack= false;
         BossScene.beingThrown = false;
-        StopEverythingPlayer= false;
+        StopEverythingPlayer = false;
         thrownCo = null;
         yield return new WaitForSeconds(0.5f);
         BossTest.ForceDialogue = true;
@@ -445,8 +445,11 @@ public class PlayerNeededValues : MonoBehaviour
         }
 
         if (ComboCounter < 0) ComboCounter = 0;
-    }
 
+        if (GetComponent<MovementLimiter>() != null && BossFightStarted) GetComponent<MovementLimiter>().LimiterUpdate();
+      
+    }
+    public static bool BossFightStarted {  get; set; }
     void FallingOfTheWall()
     {
         if (TimePassedOnWalls >= timeToPassOnwalls)
@@ -705,11 +708,12 @@ public class PlayerNeededValues : MonoBehaviour
         //Debug.Log("IsGrounded: " + IsGroundedPlayer);
     }
 
-
+    
     void OnRolling()
     {
         //Debug.Log("Rolling");
         if (StopEverythingPlayer) return;
+        if (GetComponent<MovementLimiter>() != null) { if (GetComponent<MovementLimiter>().dontRoll) return; }
         if (!IsGroundedPlayer) isRollingAirborne = true;
         if (!lockDashAirborne) CommandHandler.HandleCommand(rollInput);
 
@@ -926,9 +930,10 @@ public class PlayerNeededValues : MonoBehaviour
                 dialogueToOff = null;
                 IsBeingForced = false;
                 PlayerController.ForceInteraction();
+                BossFightStarted = true;
+                
 
-
-            }
+             }
             fin = true;
         }
         if (!fin)

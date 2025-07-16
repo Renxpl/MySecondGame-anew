@@ -48,8 +48,8 @@ public class SpawningAtCertainLocs : MonoBehaviour
         dialogueObj4.SetActive(false);
         dialogueObj5.SetActive(false);
         //
-        //dialogueObj5.SetActive(true);
-        //dialogueObj0.SetActive(false);
+        dialogueObj5.SetActive(true);
+        dialogueObj0.SetActive(false);
     }
     bool justOnce1 = false;
     bool justOnce2 = false;

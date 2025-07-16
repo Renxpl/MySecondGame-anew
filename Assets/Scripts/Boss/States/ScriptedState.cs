@@ -12,16 +12,20 @@ public class ScriptedState : IState
         BossTest.isSpriteLocked = true;
 
     }
-
+    bool justOnce = false;
     public void Update()
     {
 
         BossTest.ChangeAnimation(BossTest.runningAnim);
         if(Mathf.Abs(BossTest.bossRb.position.x - player.transform.position.x) < 1f)
         {
-           
+
             //player.GetComponent<PlayerNeededValues>().StopTheWay();
-            BossScene.beingThrown = true;
+            if (!justOnce)
+            {
+                BossScene.beingThrown = true;
+                justOnce = true;
+            }
             
            
         }
