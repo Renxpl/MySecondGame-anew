@@ -27,6 +27,7 @@ public class BossScene : MonoBehaviour
         BossTest.IsInDialogue = true;
         PlayerController.ChangeAnimationState("Idle");
         PlayerController.ChangeAnimationState("Speedy Run");
+        PlayerNeededValues.cannotAttack = true;
       
 
     }

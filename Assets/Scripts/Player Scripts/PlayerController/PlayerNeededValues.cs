@@ -228,6 +228,7 @@ public class PlayerNeededValues : MonoBehaviour
 
         yield return new WaitForSeconds(0.05f);
         PlayerController.PlayerRB.AddForce(new Vector2(800f, 250f), ForceMode2D.Impulse);
+        cannotAttack= false;
         BossScene.beingThrown = false;
         StopEverythingPlayer= false;
         thrownCo = null;
@@ -1023,9 +1024,11 @@ public class PlayerNeededValues : MonoBehaviour
 
 
     }
+    public static bool cannotAttack;
     void OnLightAttack()
     {
-        if (StopEverythingPlayer && !StopForTheWay && !DigginScene) return;
+        if (StopEverythingPlayer && !StopForTheWay && !DigginScene)  return;
+        if (cannotAttack) return;
         if (DigginScene)
         {
             if (GraveScene1.CanDig)

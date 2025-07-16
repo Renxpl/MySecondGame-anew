@@ -23,6 +23,7 @@ public class BossTest : MonoBehaviour
 
     public float hp;
     public int potions;
+    public AttackCombo bossCombo;
     public static bool IsInDialogue { get; set; }
     public static bool ForceDialogue { get; set; }
     public static bool ChangeDialogue { get; set; }
