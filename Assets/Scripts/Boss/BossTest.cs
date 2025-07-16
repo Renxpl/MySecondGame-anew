@@ -27,6 +27,8 @@ public class BossTest : MonoBehaviour
     public static bool IsInDialogue { get; set; }
     public static bool ForceDialogue { get; set; }
     public static bool ChangeDialogue { get; set; }
+    public static bool IsSAStarted { get; set; }
+    public static bool ISAStarted { get; set; }
 
     //moving horizontal in airborne,, following player character with a adapting speed
     //general ai implementation, deciding what to do

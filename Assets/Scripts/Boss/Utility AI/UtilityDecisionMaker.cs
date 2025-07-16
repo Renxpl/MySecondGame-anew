@@ -116,7 +116,9 @@ public class UtilityDecisionMaker : MonoBehaviour
         float dist = Vector2.Distance(selfPos, playerPos);
         // 1 – (dist / maxRange) ile 0–1 aralýðýna indirgeriz, sonra clamp
         float value = (0.8f - (dist) * hp / maxHp) + 0.2f * (dist < 5 ? 0 : 1);
-        return Mathf.Clamp01(value);
+        value = 0f;
+        //return Mathf.Clamp01(value);
+        return -1f;
     }
 
     float ScoreForAttack(Vector2 selfPos, Vector2 playerPos, float maxRange, float hp, float maxHp)
@@ -125,20 +127,49 @@ public class UtilityDecisionMaker : MonoBehaviour
         float dist = Vector2.Distance(selfPos, playerPos);
 
 
-        //float value = (maxRange / dist)* 0.8f + hp * 0.2f / maxHp;
-        float value = 1f;
+        float value = (maxRange / dist)* 0.8f + hp * 0.2f / maxHp;
+
+        if (BossTest.ISAStarted) return 1.01f;
+        
         return Mathf.Clamp01(value);
 
     }
-
+    bool firstOneThird = false;
+    bool firstTwoThird = false;
     float ScoreForSpecialAttack(Vector2 selfPos, Vector2 playerPos, float hp, float maxHp)
     {
 
         float dist = Vector2.Distance(selfPos, playerPos);
 
 
-        float value = 1f - hp/maxHp;
-        return Mathf.Clamp01(value);
+        float value = 0f;
+        if (BossTest.IsSAStarted)
+        {
+            value = 1.01f;
+        }
+        if (hp < maxHp * 2f / 3)
+        {
+            if (!firstOneThird)
+            {
+                value = 1.01f;
+                if(BossTest.IsSAStarted)
+                firstOneThird = true;
+            }
+
+            
+        }
+        if(hp < maxHp * 1f / 3)
+        {
+            if (!firstTwoThird)
+            {
+                value = 1.01f;
+                if (BossTest.IsSAStarted)
+                    firstTwoThird = true;
+            }
+        }
+
+
+            return value;
 
 
     }

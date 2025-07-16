@@ -12,6 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c8938c5f4dcf24dbb1c74f6f19c329, type: 3}
   m_Name: BossCombo
   m_EditorClassIdentifier: 
-  steps: []
-  durations: []
-  comboCooldown: 0
+  steps:
+  - animation: GA1
+    delayBeforeHit: 0
+    damage: 0
+    range: 4
+    postDelay: 0
+    hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
+  - animation: GA2
+    delayBeforeHit: 0
+    damage: 0
+    range: 4
+    postDelay: 0
+    hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
+  - animation: GA3
+    delayBeforeHit: 0
+    damage: 0
+    range: 4
+    postDelay: 0
+    hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
+  - animation: GA4
+    delayBeforeHit: 0
+    damage: 0
+    range: 4
+    postDelay: 0
+    hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
+  - animation: AA1
+    delayBeforeHit: 0
+    damage: 0
+    range: 4
+    postDelay: 0
+    hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
+  - animation: AA2
+    delayBeforeHit: 0
+    damage: 0
+    range: 4
+    postDelay: 0
+    hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
+  - animation: SA1
+    delayBeforeHit: 0
+    damage: 0
+    range: 100
+    postDelay: 0
+    hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
+  - animation: SA2
+    delayBeforeHit: 0
+    damage: 0
+    range: 100
+    postDelay: 0
+    hitbox: {fileID: 0}
+    projectilePrefab: {fileID: 0}
+  durations:
+  - 0.667
+  - 0.667
+  - 0.667
+  - 0.667
+  - 0.667
+  - 0.667
+  - 0.83
+  - 0.75
+  comboCooldown: 1
