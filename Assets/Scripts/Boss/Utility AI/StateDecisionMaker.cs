@@ -73,7 +73,21 @@ public class StateDecisionMaker : MonoBehaviour
 
     void FleeState()
     {
+        Transform currentP;
+        if (BossTest.CurrentHealth / mainScript.hp > 1 / 3f)
+            currentP = mainScript.sA1P;
+        else
+            currentP = mainScript.sA2P;
 
+
+        if (Mathf.Abs(currentP.position.x - BossTest.bossRb.position.x) > 5f)
+        {
+            BlackboardForBoss.state = BossState.Running;
+        }
+        else if (Mathf.Abs(currentP.position.y - BossTest.bossRb.position.y) > 1.5f)
+        {
+            BlackboardForBoss.state = BossState.Jump;
+        }
     }
 
     void ChaseState()
@@ -107,7 +121,7 @@ public class StateDecisionMaker : MonoBehaviour
             timeForSS = 0;
             
         }
-        Debug.Log(BossTest.alreadyStepped);
+        //Debug.Log(BossTest.alreadyStepped);
 
        // float distanceX =PlayerController.PlayerRB.transform.position.x - BossTest.bossRb.transform.position.x;
        // float distanceY = PlayerController.PlayerRB.transform.position.y - BossTest.bossRb.transform.position.y;
@@ -126,6 +140,9 @@ public class StateDecisionMaker : MonoBehaviour
 
     void SpecialAttackState()
     {
+        BlackboardForBoss.state = BossState.SpecialAttack;
+
+
 
     }
 

@@ -42,7 +42,7 @@ public class UtilityDecisionMaker : MonoBehaviour
         keys[2] = "Attack";
         values[2] = ScoreForAttack(transform.position, PlayerController.PlayerRB.position,5f ,9f, 9f);
         keys[3] = "SpecialAttack";
-        values[3] = ScoreForSpecialAttack(transform.position, PlayerController.PlayerRB.position, 9f, 9f);
+        values[3] = ScoreForSpecialAttack(transform.position, PlayerController.PlayerRB.position, BossTest.CurrentHealth, mainScript.hp);
 
 
         for(int i = 0; i< values.Length; i++)

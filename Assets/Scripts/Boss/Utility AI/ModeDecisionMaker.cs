@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class ModeDecisionMaker : MonoBehaviour
@@ -102,6 +103,23 @@ public class ModeDecisionMaker : MonoBehaviour
 
     void SpecialAttackMode()
     {
+        Transform currentP;
+        if (BossTest.CurrentHealth / mainScript.hp > 1 / 3f)
+            currentP = mainScript.sA1P;
+        else
+            currentP = mainScript.sA2P;
+
+        if (Mathf.Abs(currentP.position.x - BossTest.bossRb.position.x) > 0.05f)
+        {
+            BlackboardForBoss.mode = BossMode.Flee;
+        }
+        else if (BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            BlackboardForBoss.mode = BossMode.SpecialAttack;
+        }
+
+
+
 
 
     }
