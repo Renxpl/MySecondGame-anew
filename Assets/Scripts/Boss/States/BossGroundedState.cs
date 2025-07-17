@@ -39,8 +39,8 @@ public class BossGroundedState : IState
 
         else if (BlackboardForBoss.state == BossState.Attack)
         {
-            if (currentState != BossTest.bossRunningState)
-                bossGroundedSm.ChangeState(currentState = BossTest.bossRunningState);
+            if (currentState != BossTest.grAttackState)
+                bossGroundedSm.ChangeState(currentState = BossTest.grAttackState);
 
 
         }

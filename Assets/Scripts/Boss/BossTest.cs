@@ -16,6 +16,7 @@ public class BossTest : MonoBehaviour
     public static BossJumpState bossJumpState;
     public static BossFirstJump bossFirstJumpState;
     public static ScriptedState scriptedState;
+    public static GrAttackState grAttackState;
     static Animator animator;
     public Conversation convo2;
 
@@ -48,7 +49,9 @@ public class BossTest : MonoBehaviour
         bossAirborneState= new BossAirborneState();
         bossFirstJumpState = new BossFirstJump();
         scriptedState = new ScriptedState();
+        grAttackState = new GrAttackState();
         bossSM = new StateMachine();
+        
 
 
         bossRb = GetComponent<Rigidbody2D>();
@@ -161,9 +164,10 @@ public class BossTest : MonoBehaviour
     }
 
 
-    
 
 
+    public Coroutine Run(IEnumerator routine) => StartCoroutine(routine);
+    public void StopCo(Coroutine routine) => StopCoroutine(routine);
 
 
 
