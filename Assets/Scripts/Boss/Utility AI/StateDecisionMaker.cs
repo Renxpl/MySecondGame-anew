@@ -96,7 +96,7 @@ public class StateDecisionMaker : MonoBehaviour
 
     void AttackState()
     {
-        BlackboardForBoss.state = BossState.Idle;
+        BlackboardForBoss.state = BossState.Attack;
     }
 
     void SpecialAttackState()

@@ -24,6 +24,8 @@ public class BossTest : MonoBehaviour
     public float hp;
     public int potions;
     public AttackCombo bossCombo;
+    public static AttackCombo bossComboo;
+    public static int AttackStep;
     public static bool IsInDialogue { get; set; }
     public static bool ForceDialogue { get; set; }
     public static bool ChangeDialogue { get; set; }
@@ -52,6 +54,9 @@ public class BossTest : MonoBehaviour
         bossRb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         groundCollider = GetComponent<BoxCollider2D>();
+        AttackStep = 0;
+        bossComboo = bossCombo;
+        
 
     }
     void Start()
