@@ -20,6 +20,7 @@ public class BossTest : MonoBehaviour, IDamageable
     public static GrAttackState grAttackState;
     public static BossAirborneAttack aAState;
     public static BossShadowStep sSState;
+    public static SAState sSAState;
     static Animator animator;
     public Conversation convo2;
 
@@ -49,6 +50,8 @@ public class BossTest : MonoBehaviour, IDamageable
     public static bool AttackOnceAirborne {  get; set; }
     float timeToBePassedForStanceRegen;
 
+    public Transform sA1P;
+    public Transform sA2P;
     public void TakeDamage(float dmg, float staDmg)
     {
 
@@ -118,6 +121,7 @@ public class BossTest : MonoBehaviour, IDamageable
         grAttackState = new GrAttackState();
         aAState = new BossAirborneAttack();
         sSState = new BossShadowStep();
+        sSAState = new SAState();
         bossSM = new StateMachine();
         
 

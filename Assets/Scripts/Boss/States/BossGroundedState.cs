@@ -36,6 +36,11 @@ public class BossGroundedState : IState
 
 
         }
+        else if (BlackboardForBoss.state == BossState.SpecialAttack)
+        {
+            if (currentState != BossTest.sSAState)
+                bossGroundedSm.ChangeState(currentState = BossTest.sSAState);
+        }
         else if (BlackboardForBoss.state == BossState.ShadowStep)
         {
             if (currentState != BossTest.sSState)

@@ -107,7 +107,7 @@ public class UtilityDecisionMaker : MonoBehaviour
        
         // 1 – (dist / maxRange) ile 0–1 aralýðýna indirgeriz, sonra clamp
         //return Mathf.Clamp01( isInDialogue ? 1 : 0);
-        if (isInDialogue) return 1.02f;
+        if (isInDialogue) return 1.03f;
         else return Mathf.Clamp01(isInDialogue ? 1 : 0);
     }
 
@@ -145,13 +145,13 @@ public class UtilityDecisionMaker : MonoBehaviour
         float value = 0f;
         if (BossTest.IsSAStarted)
         {
-            value = 1.01f;
+            value = 1.02f;
         }
         if (hp < maxHp * 2f / 3)
         {
             if (!firstOneThird)
             {
-                value = 1.01f;
+                value = 1.02f;
                 if(BossTest.IsSAStarted)
                 firstOneThird = true;
             }
@@ -162,7 +162,7 @@ public class UtilityDecisionMaker : MonoBehaviour
         {
             if (!firstTwoThird)
             {
-                value = 1.01f;
+                value = 1.02f;
                 if (BossTest.IsSAStarted)
                     firstTwoThird = true;
             }
