@@ -43,7 +43,7 @@ public class BossTest : MonoBehaviour, IDamageable
     public static float CurrentStance;
     public static float CurrentHealth;
     float timeToBePassedBetweenHits;
-
+    public static bool alreadyStepped;
     public static bool AttackOnceAirborne {  get; set; }
     public void TakeDamage(float dmg, float staDmg)
     {
@@ -161,6 +161,12 @@ public class BossTest : MonoBehaviour, IDamageable
             justOnceEnd= true;
 
         }
+
+
+
+        
+
+
 
        
     }

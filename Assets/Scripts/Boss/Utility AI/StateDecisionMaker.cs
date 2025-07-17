@@ -105,6 +105,7 @@ public class StateDecisionMaker : MonoBehaviour
         {
             rnd = UnityEngine.Random.Range(1, 4);
             timeForSS = 0;
+            
         }
 
 
@@ -113,7 +114,7 @@ public class StateDecisionMaker : MonoBehaviour
 
 
 
-        if (!BossTest.ISAStarted && PlayerNeededValues.IsLightAttack && rnd == 1 && BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (!BossTest.ISAStarted && PlayerNeededValues.IsLightAttack && rnd == 1 && BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && !BossTest.alreadyStepped)
         {
             BlackboardForBoss.state = BossState.ShadowStep;
         }

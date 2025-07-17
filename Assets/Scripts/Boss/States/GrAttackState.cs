@@ -20,8 +20,13 @@ public class GrAttackState : IState
 
     IEnumerator Attack1()
     {
-        BossTest.bossRb.velocity = Vector2.zero;
+        BossTest.ChangeAnimation(BossTest.idleAnim1);
+        BossTest.ISAStarted = true;
+        yield return new WaitForSeconds(3f);
         float distanceX = player.transform.position.x - bossMainScript.transform.position.x;
+        if (distanceX != 0f) bossMainScript.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
+        BossTest.bossRb.velocity = Vector2.zero;
+        distanceX = player.transform.position.x - bossMainScript.transform.position.x;
         BossTest.ChangeAnimation(BossTest.ga1);
         float forceFactor = 2f * distanceX;
         Vector2 force = new Vector2(bossMainScript.transform.localScale.x * forceFactor , 0f);
@@ -45,6 +50,8 @@ public class GrAttackState : IState
     }
     IEnumerator Attack2()
     {
+        float distanceX = player.transform.position.x - bossMainScript.transform.position.x;
+        if (distanceX != 0f) bossMainScript.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
         BossTest.ChangeAnimation(BossTest.ga2);
         float forceFactor = 10f;
         Vector2 force = new Vector2(bossMainScript.transform.localScale.x * forceFactor, 0f);
@@ -69,6 +76,8 @@ public class GrAttackState : IState
     }
     IEnumerator Attack3()
     {
+        float distanceX = player.transform.position.x - bossMainScript.transform.position.x;
+        if (distanceX != 0f) bossMainScript.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
         BossTest.ChangeAnimation(BossTest.ga3);
         float forceFactor = 10f;
         Vector2 force = new Vector2(bossMainScript.transform.localScale.x * forceFactor, 0f);
@@ -93,6 +102,8 @@ public class GrAttackState : IState
     }
     IEnumerator Attack4()
     {
+        float distanceX = player.transform.position.x - bossMainScript.transform.position.x;
+        if (distanceX != 0f) bossMainScript.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
         BossTest.ChangeAnimation(BossTest.ga4);
         float forceFactor = 10f;
         Vector2 force = new Vector2(bossMainScript.transform.localScale.x * forceFactor, 0f);
@@ -123,16 +134,11 @@ public class GrAttackState : IState
         timePassed += Time.deltaTime;
         if(BossTest.AttackStep == 0)
         {
-            if (!BossTest.ISAStarted)
-            {
-                float distanceX = player.transform.position.x - bossMainScript.transform.position.x;
-                if (distanceX != 0f) bossMainScript.transform.localScale = new Vector2(Mathf.Sign(distanceX),1f);
-
-            }
+            
 
             if(attackCo == null)
             {
-                attackCo = bossMainScript.StartCoroutine(Attack1());
+                attackCo = bossMainScript.Run(Attack1());
             }
             
             
@@ -142,39 +148,26 @@ public class GrAttackState : IState
 
         else if(BossTest.AttackStep == 1)
         {
-            if (!BossTest.ISAStarted)
-            {
-                float distanceX = player.transform.position.x - bossMainScript.transform.position.x;
-                if (distanceX != 0f) bossMainScript.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
-
-            }
+            
+          
             if (attackCo == null)
-                attackCo = bossMainScript.StartCoroutine(Attack2());
+                attackCo = bossMainScript.Run(Attack2());
 
         }
 
         else if(BossTest.AttackStep == 2)
         {
-            if (!BossTest.ISAStarted)
-            {
-                float distanceX = player.transform.position.x - bossMainScript.transform.position.x;
-                if (distanceX != 0f) bossMainScript.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
-
-            }
+            
+           
             if (attackCo == null)
-                attackCo = bossMainScript.StartCoroutine(Attack3());
+                attackCo = bossMainScript.Run(Attack3());
 
         }
         else if(BossTest.AttackStep == 3)
         {
-            if (!BossTest.ISAStarted)
-            {
-                float distanceX = player.transform.position.x - bossMainScript.transform.position.x;
-                if (distanceX != 0f) bossMainScript.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
-
-            }
+           
             if (attackCo == null)
-                attackCo = bossMainScript.StartCoroutine(Attack4());
+                attackCo = bossMainScript.Run(Attack4());
 
 
 
