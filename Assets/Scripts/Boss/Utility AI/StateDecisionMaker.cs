@@ -24,10 +24,11 @@ public class StateDecisionMaker : MonoBehaviour
         
     }
 
-
+    float timeForSS = 0;
     public void DecisionUpdate()
     {
-
+        
+        timeForSS += Time.deltaTime;
 
 
         switch (BlackboardForBoss.mode)
@@ -77,7 +78,7 @@ public class StateDecisionMaker : MonoBehaviour
 
     void ChaseState()
     {
-        if (Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x) > 3f)
+        if (Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x) > 5f)
         {
             BlackboardForBoss.state = BossState.Running;
         }
@@ -93,16 +94,22 @@ public class StateDecisionMaker : MonoBehaviour
 
 
     }
-
+    int rnd = 0;
     void AttackState()
     {
 
+        
+       BlackboardForBoss.state = BossState.Attack;
 
-        BlackboardForBoss.state = BossState.Attack;
+        if (timeForSS > 1f)
+        {
+            rnd = UnityEngine.Random.Range(1, 4);
+            timeForSS = 0;
+        }
 
-        int rnd = UnityEngine.Random.Range(1,4);
-        float distanceX =PlayerController.PlayerRB.transform.position.x - BossTest.bossRb.transform.position.x;
-        float distanceY = PlayerController.PlayerRB.transform.position.y - BossTest.bossRb.transform.position.y;
+
+       // float distanceX =PlayerController.PlayerRB.transform.position.x - BossTest.bossRb.transform.position.x;
+       // float distanceY = PlayerController.PlayerRB.transform.position.y - BossTest.bossRb.transform.position.y;
 
 
 
@@ -110,6 +117,7 @@ public class StateDecisionMaker : MonoBehaviour
         {
             BlackboardForBoss.state = BossState.ShadowStep;
         }
+        
         
 
     }

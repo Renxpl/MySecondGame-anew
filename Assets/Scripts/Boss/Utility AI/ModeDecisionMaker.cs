@@ -86,7 +86,7 @@ public class ModeDecisionMaker : MonoBehaviour
 
     void AttackMode()
     {
-        if(Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x) < 5f && Mathf.Abs(PlayerController.PlayerRB.position.y - BossTest.bossRb.position.y) < 1.5f)
+        if((Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x) < 5f && Mathf.Abs(PlayerController.PlayerRB.position.y - BossTest.bossRb.position.y) < 1.5f) || BossTest.ISAStarted)
         {
             BlackboardForBoss.mode = BossMode.Attack;
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossTest : MonoBehaviour
+public class BossTest : MonoBehaviour, IDamageable
 {
     // Start is called before the first frame update
 
@@ -17,6 +17,8 @@ public class BossTest : MonoBehaviour
     public static BossFirstJump bossFirstJumpState;
     public static ScriptedState scriptedState;
     public static GrAttackState grAttackState;
+    public static BossAirborneAttack aAState;
+    public static BossShadowStep sSState;
     static Animator animator;
     public Conversation convo2;
 
@@ -38,8 +40,49 @@ public class BossTest : MonoBehaviour
     //moving horizontal in airborne,, following player character with a adapting speed
     //general ai implementation, deciding what to do
     //
+    public static float CurrentStance;
+    public static float CurrentHealth;
+    float timeToBePassedBetweenHits;
+
+    public static bool AttackOnceAirborne {  get; set; }
+    public void TakeDamage(float dmg, float staDmg)
+    {
 
 
+
+
+
+
+        /*
+
+        if (timeToBePassedBetweenHits >= 0.05f)
+        {
+            if (CurrentStance > 0)
+            {
+                CurrentHealth -= dmg;
+                if (PlayerNeededValues.StopForTheWay)
+                {
+                    CurrentHealth = 0;
+                }
+            }
+            else
+            {
+                CurrentHealth -= dmg * 2;
+            }
+            if (CurrentStance > 0) CurrentStance -= staDmg;
+
+            //Debug.Log("enemyhp " + CurrentHealth);
+            if (CurrentHealth <= 0) isDead = true;
+            timeToBePassedBetweenHits = 0f;
+            timeToBePassedForStanceRegen = 0f;
+            StartCoroutine(DmgedSpriteChange());
+
+
+
+        }
+
+        */
+    }
 
 
     void Awake()
@@ -52,6 +95,8 @@ public class BossTest : MonoBehaviour
         bossFirstJumpState = new BossFirstJump();
         scriptedState = new ScriptedState();
         grAttackState = new GrAttackState();
+        aAState = new BossAirborneAttack();
+        sSState = new BossShadowStep();
         bossSM = new StateMachine();
         
 
@@ -89,7 +134,7 @@ public class BossTest : MonoBehaviour
     void Update()
     {
         bossSM?.Update();
-
+        timeToBePassedBetweenHits += Time.deltaTime;
         ChangeSprite();
 
 

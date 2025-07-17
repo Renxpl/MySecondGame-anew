@@ -27,7 +27,7 @@ public class BossGroundedState : IState
 
 
         }
-
+        BossTest.AttackOnceAirborne = false;
 
         if (BossTest.IsInDialogue)
         {
@@ -36,7 +36,11 @@ public class BossGroundedState : IState
 
 
         }
-
+        else if (BlackboardForBoss.state == BossState.ShadowStep)
+        {
+            if (currentState != BossTest.sSState)
+                bossGroundedSm.ChangeState(currentState = BossTest.sSState);
+        }
         else if (BlackboardForBoss.state == BossState.Attack)
         {
             if (currentState != BossTest.grAttackState)
@@ -47,17 +51,17 @@ public class BossGroundedState : IState
 
         else if (BlackboardForBoss.state == BossState.Running)
         {
-            if(currentState != BossTest.bossRunningState)
-            bossGroundedSm.ChangeState(currentState = BossTest.bossRunningState);
+            if (currentState != BossTest.bossRunningState)
+                bossGroundedSm.ChangeState(currentState = BossTest.bossRunningState);
 
 
         }
         else if (BlackboardForBoss.state == BossState.Jump)
         {
-            if(currentState != BossTest.bossFirstJumpState)
-            bossGroundedSm.ChangeState(currentState = BossTest.bossFirstJumpState);
-            
-            
+            if (currentState != BossTest.bossFirstJumpState)
+                bossGroundedSm.ChangeState(currentState = BossTest.bossFirstJumpState);
+
+
 
 
         }

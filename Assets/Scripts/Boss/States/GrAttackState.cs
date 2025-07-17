@@ -13,7 +13,8 @@ public class GrAttackState : IState
     {
         timePassed = 0f;
         BossTest.bossRb.velocity = Vector2.zero;
-        BossTest.isSpriteLocked = true;  
+        BossTest.isSpriteLocked = true;
+        
     }
 
 
@@ -191,6 +192,12 @@ public class GrAttackState : IState
     public void Exit()
     {
         BossTest.isSpriteLocked = false;
+        if(attackCo != null)
+        {
+            bossMainScript.StopCo(attackCo);
+            attackCo = null;
+
+        }
 
     }
 
