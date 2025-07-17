@@ -33,6 +33,8 @@ public class BossTest : MonoBehaviour
     public static bool IsSAStarted { get; set; }
     public static bool ISAStarted { get; set; }
 
+    public static Collider2D[] attackHitboxes = new Collider2D[8];
+
     //moving horizontal in airborne,, following player character with a adapting speed
     //general ai implementation, deciding what to do
     //
@@ -70,8 +72,14 @@ public class BossTest : MonoBehaviour
         
     
         bossSM?.ChangeState(bossGroundedState);
+        GameObject aH = transform.Find("AttackHitboxes").gameObject;
+        for(int i = 0; i < 4; i++)
+        {
+            int a = i + 1;
+            attackHitboxes[i] = aH.transform.Find(a.ToString()).GetComponent<Collider2D>();
+            attackHitboxes[i].enabled = false;
 
-
+        }
 
         
 

@@ -96,7 +96,22 @@ public class StateDecisionMaker : MonoBehaviour
 
     void AttackState()
     {
+
+
         BlackboardForBoss.state = BossState.Attack;
+
+        int rnd = UnityEngine.Random.Range(1,4);
+        float distanceX =PlayerController.PlayerRB.transform.position.x - BossTest.bossRb.transform.position.x;
+        float distanceY = PlayerController.PlayerRB.transform.position.y - BossTest.bossRb.transform.position.y;
+
+
+
+        if (!BossTest.ISAStarted && PlayerNeededValues.IsLightAttack && rnd == 1 && BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            BlackboardForBoss.state = BossState.ShadowStep;
+        }
+        
+
     }
 
     void SpecialAttackState()

@@ -128,6 +128,18 @@ public class PlayerTakingDmgScript : MonoBehaviour
             }
 
         }
+
+
+        if (collider.gameObject.tag == "BossGrA")
+        {
+            if (GameEvents.gameEvents != null)
+            {
+                // receiver, sender, otherCollider, AttackVersion
+                GameEvents.gameEvents.OnGettingDmg(player, gameObject, collider, 0);
+
+            }
+
+        }
         takeDmg = true;
     }
 

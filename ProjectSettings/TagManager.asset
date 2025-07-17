@@ -27,6 +27,7 @@ TagManager:
   - FG
   - MC
   - Monologue
+  - BossGrA
   layers:
   - Default
   - TransparentFX

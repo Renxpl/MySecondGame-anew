@@ -19,14 +19,18 @@ public class GrAttackState : IState
 
     IEnumerator Attack1()
     {
+        BossTest.bossRb.velocity = Vector2.zero;
+        float distanceX = player.transform.position.x - bossMainScript.transform.position.x;
         BossTest.ChangeAnimation(BossTest.ga1);
-        float forceFactor = 10f;
+        float forceFactor = 2f * distanceX;
         Vector2 force = new Vector2(bossMainScript.transform.localScale.x * forceFactor , 0f);
         BossTest.bossRb.AddForce(force, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.35f);
+        BossTest.attackHitboxes[0].enabled = true;
         BossTest.bossRb.velocity = Vector2.zero;
         BossTest.ISAStarted = true;
         yield return new WaitForSeconds(0.32f);
+        BossTest.attackHitboxes[0].enabled = false;
         BossTest.AttackStep++;
         BossTest.ISAStarted = false;
         attackCo = null;
@@ -45,10 +49,12 @@ public class GrAttackState : IState
         Vector2 force = new Vector2(bossMainScript.transform.localScale.x * forceFactor, 0f);
         BossTest.bossRb.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.35f);
+        BossTest.attackHitboxes[1].enabled = true;
         BossTest.bossRb.AddForce(force, ForceMode2D.Impulse);
 
         BossTest.ISAStarted = true;
         yield return new WaitForSeconds(0.32f);
+        BossTest.attackHitboxes[1].enabled = false;
         BossTest.AttackStep++;
         BossTest.ISAStarted = false;
         attackCo = null;
@@ -67,10 +73,12 @@ public class GrAttackState : IState
         Vector2 force = new Vector2(bossMainScript.transform.localScale.x * forceFactor, 0f);
         BossTest.bossRb.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.35f);
+        BossTest.attackHitboxes[2].enabled = true;
         BossTest.bossRb.AddForce(force, ForceMode2D.Impulse);
        
         BossTest.ISAStarted = true;
         yield return new WaitForSeconds(0.32f);
+        BossTest.attackHitboxes[2].enabled = false;
         BossTest.AttackStep++;
         BossTest.ISAStarted = false;
         attackCo = null;
@@ -89,10 +97,15 @@ public class GrAttackState : IState
         Vector2 force = new Vector2(bossMainScript.transform.localScale.x * forceFactor, 0f);
         BossTest.bossRb.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.35f);
+        BossTest.attackHitboxes[3].enabled = true;
         BossTest.bossRb.AddForce(force, ForceMode2D.Impulse);
         
         BossTest.ISAStarted = true;
         yield return new WaitForSeconds(0.32f);
+        BossTest.bossRb.velocity = Vector2.zero;
+        BossTest.ChangeAnimation(BossTest.idleAnim);
+        BossTest.attackHitboxes[3].enabled = false;
+        yield return new WaitForSeconds(1f);
         BossTest.AttackStep = 0;
         BossTest.ISAStarted = false;
         attackCo = null;
