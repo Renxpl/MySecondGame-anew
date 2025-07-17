@@ -927,6 +927,10 @@ public class PlayerNeededValues : MonoBehaviour
                     BossTest.IsInDialogue = false;
                     BossTest.ChangeDialogue = true;
                     BossFightStarted = !BossFightStarted;
+                    if (BossTest.justOnceEnd)
+                    {
+                        dialogueToOff.SetActive(false);
+                    }
                 }
                 dialogueToOff = null;
                 IsBeingForced = false;

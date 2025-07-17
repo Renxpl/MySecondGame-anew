@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class BossTest : MonoBehaviour, IDamageable
@@ -25,6 +26,7 @@ public class BossTest : MonoBehaviour, IDamageable
     public static Collider2D groundCollider;
 
     public float hp;
+    public float stance;
     public int potions;
     public AttackCombo bossCombo;
     public static AttackCombo bossComboo;
@@ -45,6 +47,8 @@ public class BossTest : MonoBehaviour, IDamageable
     float timeToBePassedBetweenHits;
     public static bool alreadyStepped;
     public static bool AttackOnceAirborne {  get; set; }
+    float timeToBePassedForStanceRegen;
+
     public void TakeDamage(float dmg, float staDmg)
     {
 
@@ -53,17 +57,14 @@ public class BossTest : MonoBehaviour, IDamageable
 
 
 
-        /*
+        
 
         if (timeToBePassedBetweenHits >= 0.05f)
         {
             if (CurrentStance > 0)
             {
                 CurrentHealth -= dmg;
-                if (PlayerNeededValues.StopForTheWay)
-                {
-                    CurrentHealth = 0;
-                }
+                
             }
             else
             {
@@ -72,19 +73,39 @@ public class BossTest : MonoBehaviour, IDamageable
             if (CurrentStance > 0) CurrentStance -= staDmg;
 
             //Debug.Log("enemyhp " + CurrentHealth);
-            if (CurrentHealth <= 0) isDead = true;
+         
             timeToBePassedBetweenHits = 0f;
             timeToBePassedForStanceRegen = 0f;
-            StartCoroutine(DmgedSpriteChange());
+           // StartCoroutine(DmgedSpriteChange());
 
 
 
         }
 
-        */
+        
     }
 
+    void StanceRegen()
+    {
+        if (timeToBePassedForStanceRegen > 15f && CurrentStance < stance)
+        {
+            CurrentStance += Time.deltaTime;
 
+
+
+        }
+        if (CurrentStance > stance)
+        {
+
+
+            CurrentStance = stance;
+        }
+
+        if (CurrentStance < 0) CurrentStance = 0;
+
+
+
+    }
     void Awake()
     {
         bossGroundedState= new BossGroundedState();
@@ -111,8 +132,9 @@ public class BossTest : MonoBehaviour, IDamageable
     }
     void Start()
     {
-        hp = 9;
-        potions = 3;
+        CurrentHealth = hp;
+        CurrentStance = stance;
+       // potions = 3;
         //transform.localScale = new Vector2(-1, 1);
         
     
@@ -129,12 +151,14 @@ public class BossTest : MonoBehaviour, IDamageable
         
 
     }
-    bool justOnceEnd = false;
+    public static bool justOnceEnd = false;
     // Update is called once per frame
     void Update()
     {
+
         bossSM?.Update();
         timeToBePassedBetweenHits += Time.deltaTime;
+        timeToBePassedForStanceRegen += Time.deltaTime;
         ChangeSprite();
 
 
@@ -154,21 +178,23 @@ public class BossTest : MonoBehaviour, IDamageable
             ChangeDialogue= false;
         }
 
-        if(hp <= 0 && !justOnceEnd)
+        if(CurrentHealth <= 0 && !justOnceEnd)
         {
             GetComponent<NPCPrototype>().convoTurn = 0;
+            IsInDialogue = true;
             GameObject.Find("Player").GetComponent<PlayerNeededValues>().ForceDialogue(gameObject);
             justOnceEnd= true;
 
         }
 
+        StanceRegen();
 
 
-        
 
 
 
-       
+
+
     }
 
     public static bool isSpriteLocked = false;

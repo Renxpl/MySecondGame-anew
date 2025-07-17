@@ -63,7 +63,7 @@ public class BossAirborneAttack : IState
         if (distanceX != 0f) bossMainScript.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
         BossTest.ISAStarted = true;
         BossTest.ChangeAnimation(BossTest.aa2);
-        float forceFactor = 10f;
+        float forceFactor = 20f;
         Vector2 force = new Vector2(bossMainScript.transform.localScale.x * forceFactor, 0f);
         BossTest.bossRb.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.35f);

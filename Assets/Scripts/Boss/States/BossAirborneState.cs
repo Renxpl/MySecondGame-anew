@@ -22,7 +22,7 @@ public class BossAirborneState : IState
 
         if (BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            BossTest.AttackStep = 0;
+            BossTest.AttackStep = 1;
             BossTest.bossSM.ChangeState(BossTest.bossGroundedState);
             currentState.Exit();
             currentState = null;
@@ -34,8 +34,6 @@ public class BossAirborneState : IState
 
 
 
-        if (currentState != BossTest.bossJumpState)
-            bossAirborneSm.ChangeState(currentState = BossTest.bossJumpState);
 
         if (BlackboardForBoss.state == BossState.Attack && !BossTest.AttackOnceAirborne)
         {

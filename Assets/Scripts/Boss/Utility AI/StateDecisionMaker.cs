@@ -101,13 +101,13 @@ public class StateDecisionMaker : MonoBehaviour
         
        BlackboardForBoss.state = BossState.Attack;
 
-        if (timeForSS > 1f)
+        if (timeForSS > 1f && !BossTest.alreadyStepped)
         {
             rnd = UnityEngine.Random.Range(1, 4);
             timeForSS = 0;
             
         }
-
+        Debug.Log(BossTest.alreadyStepped);
 
        // float distanceX =PlayerController.PlayerRB.transform.position.x - BossTest.bossRb.transform.position.x;
        // float distanceY = PlayerController.PlayerRB.transform.position.y - BossTest.bossRb.transform.position.y;
@@ -117,6 +117,7 @@ public class StateDecisionMaker : MonoBehaviour
         if (!BossTest.ISAStarted && PlayerNeededValues.IsLightAttack && rnd == 1 && BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && !BossTest.alreadyStepped)
         {
             BlackboardForBoss.state = BossState.ShadowStep;
+           
         }
         
         

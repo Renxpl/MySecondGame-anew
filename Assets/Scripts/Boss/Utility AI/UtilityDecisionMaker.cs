@@ -107,7 +107,7 @@ public class UtilityDecisionMaker : MonoBehaviour
        
         // 1 – (dist / maxRange) ile 0–1 aralýðýna indirgeriz, sonra clamp
         //return Mathf.Clamp01( isInDialogue ? 1 : 0);
-        if (isInDialogue) return 1.01f;
+        if (isInDialogue) return 1.02f;
         else return Mathf.Clamp01(isInDialogue ? 1 : 0);
     }
 
