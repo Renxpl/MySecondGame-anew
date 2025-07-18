@@ -35,7 +35,7 @@ public class BossAirborneState : IState
 
 
 
-        if (BlackboardForBoss.state == BossState.Attack && !BossTest.AttackOnceAirborne)
+        if ((BlackboardForBoss.state == BossState.Attack && !BossTest.AttackOnceAirborne)|| BossTest.ISAStarted)
         {
             if (currentState != BossTest.aAState)
                 bossAirborneSm.ChangeState(currentState = BossTest.aAState);
