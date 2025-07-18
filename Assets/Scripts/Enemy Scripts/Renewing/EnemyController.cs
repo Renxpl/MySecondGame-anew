@@ -33,7 +33,28 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     Color baseColor;
     [SerializeField]Color onDmgColor;
+    public bool doNothing;
 
+
+    public void PlayCutscene()
+    {
+        StartCoroutine(Cutscene());
+
+
+    }
+
+
+    IEnumerator Cutscene()
+    {
+        doNothing = true;
+        transform.localScale = new Vector2(-1f,1f);
+        GetComponent<Animator>().Play("Attack1");
+        yield return new WaitForSeconds(1.5f);
+        GetComponent<Animator>().Play("Idle");
+        transform.localScale = new Vector2(1f, 1f);
+        yield return new WaitForSeconds(1.5f);
+       
+    }
 
     public void Init(EnemyStats stats,IMovementBehaviour mov, AttackCombo combo, IAttackBehaviour attack)
     {
@@ -62,6 +83,12 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     void Update()
     {
+        if (doNothing)
+        {
+
+
+            return;
+        }
         if (CurrentHealth <= 0)
         {
             GameEvents.gameEvents.OnSpawnNotify(gameObject);
