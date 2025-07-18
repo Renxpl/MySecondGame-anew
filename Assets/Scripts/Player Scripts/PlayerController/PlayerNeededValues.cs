@@ -800,7 +800,7 @@ public class PlayerNeededValues : MonoBehaviour
     void OnJumping(InputValue input)
     {
 
-        if (PlayerController.IsInteractable || IsBeingForced)
+        if (PlayerController.IsInteractable || IsBeingForced && !IsDigging)
         {
             if (input.Get<float>() == 1f)
             {

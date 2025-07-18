@@ -76,6 +76,16 @@ public class BossScene : MonoBehaviour
             player.GetComponent<PlayerNeededValues>().StopTheWay();
 
         }
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            Panel.SetActive(true);
+            yield return new WaitForSecondsRealtime(1f);
+            Panel.SetActive(true);
+            SceneManager.LoadScene(3);
+            player.GetComponent<PlayerNeededValues>().StopTheWay();
+
+        }
+
 
     }
 }

@@ -37,7 +37,7 @@ public class ESM2 : MonoBehaviour
     public Transform[] wayOfEnemySpawnLocs;
     public List<GameObject> enemiesOnTheWay;
     bool isSpawnedForWay;
-
+    public int totalEnemy;
 
 
     void Start()
@@ -56,11 +56,11 @@ public class ESM2 : MonoBehaviour
     {
 
 
-        if (concurrentEnemyCount > enemyList.Count && totalEnemyCount < 40 && startSpawn)
+        if (concurrentEnemyCount > enemyList.Count && totalEnemyCount < totalEnemy && startSpawn)
         {
             rndInt = UnityEngine.Random.Range(randomDownLim, randomUpLim);
-            float rndX = UnityEngine.Random.Range(-650f, -400f);
-            float locY = 27.5f;
+            float rndX = UnityEngine.Random.Range(-650f, -500f);
+            float locY = 28f;
             if (rndX < player.transform.position.x + 15 && rndX > player.transform.position.x - 15)
             {
                 return;
@@ -83,10 +83,10 @@ public class ESM2 : MonoBehaviour
 
         }
 
-        else if (totalEnemyCount == 40 && enemyList.Count == 0 && startSpawn && !isCommanderSpawned)
+        else if (totalEnemyCount == totalEnemy && enemyList.Count == 0 && startSpawn && !isCommanderSpawned)
         {
-            float rndX = UnityEngine.Random.Range(-90f, 60f);
-            float locY = -2f;
+            float rndX = UnityEngine.Random.Range(-650f, -500f);
+            float locY = 28f;
             spawnLocR = new Vector2(rndX, locY);
             if (rndX < player.transform.position.x + 15 && rndX > player.transform.position.x - 15)
             {
@@ -98,10 +98,10 @@ public class ESM2 : MonoBehaviour
             totalEnemyCount++;
         }
 
-        else if (totalEnemyCount == 41 && enemyList.Count == 0 && isCommanderSpawned)
+        else if (totalEnemyCount == totalEnemy+1 && enemyList.Count == 0 && isCommanderSpawned)
         {
-            float rndX = UnityEngine.Random.Range(-90f, 60f);
-            float locY = -2f;
+            float rndX = UnityEngine.Random.Range(-650f, -500f);
+            float locY = 28f;
 
             spawnLocR = new Vector2(rndX, locY);
             enemyList.Add(EFactory.SpawnCom(comStats, new ChaseMovementBehaviour(), spawnLocR, comCombo, new CommanderCombatBehav()).gameObject);
@@ -111,7 +111,7 @@ public class ESM2 : MonoBehaviour
             
 
         }
-        else if(totalEnemyCount > 41 && enemyList.Count == 0 && isCommanderSpawned)
+        else if(totalEnemyCount > totalEnemy+1 && enemyList.Count == 0 && isCommanderSpawned)
         {
             GetComponent<SACL2>().Dialogue3();
             isCommanderSpawned = false;

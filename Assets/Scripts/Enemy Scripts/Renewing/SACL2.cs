@@ -119,9 +119,19 @@ public class SACL2 : MonoBehaviour
             PlayerController.ConversationCounterpart = dialogueObj4;
             player.GetComponent<PlayerNeededValues>().ForceDialogue(dialogueObj4);
             justOnce5 = true;
-
+            
 
         }
+
+        if (!dialogueObj4.activeSelf && justOnce5)
+        {
+            VillageSM.sceneTransition = true;
+        }
+
+
+
+
+
 
     }
 
