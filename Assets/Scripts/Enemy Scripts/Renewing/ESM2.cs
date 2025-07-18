@@ -24,7 +24,7 @@ public class ESM2 : MonoBehaviour
     public Vector2 cSpawnLoc;
     Vector2 spawnLocR;
     GameObject player;
-    List<GameObject> enemyList;
+    public List<GameObject> enemyList;
 
 
     public int concurrentEnemyCount;
@@ -60,7 +60,7 @@ public class ESM2 : MonoBehaviour
         {
             rndInt = UnityEngine.Random.Range(randomDownLim, randomUpLim);
             float rndX = UnityEngine.Random.Range(-650f, -400f);
-            float locY = 29f;
+            float locY = 27.5f;
             if (rndX < player.transform.position.x + 15 && rndX > player.transform.position.x - 15)
             {
                 return;

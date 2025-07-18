@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossScene : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class BossScene : MonoBehaviour
 
     }
     public static bool beingThrown = false;
+    bool justOnce1 = false;
     void Update()
     {
 
@@ -42,7 +44,38 @@ public class BossScene : MonoBehaviour
            
         }
 
+        if (player.transform.position.x < -500f && !justOnce1)
+        {
+            StartCoroutine(Waiting());
+            justOnce1 = true;
+
+           
+
+        }
+
+
 
     }
+    IEnumerator Waiting()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            Panel.SetActive(true);
+            yield return new WaitForSecondsRealtime(1f);
+            Panel.SetActive(true);
+            SceneManager.LoadScene(1);
+            player.GetComponent<PlayerNeededValues>().StopTheWay();
+        }
 
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Panel.SetActive(true);
+            yield return new WaitForSecondsRealtime(1f);
+            Panel.SetActive(true);
+            SceneManager.LoadScene(2);
+            player.GetComponent<PlayerNeededValues>().StopTheWay();
+
+        }
+
+    }
 }

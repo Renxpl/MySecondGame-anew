@@ -94,6 +94,16 @@ public class CameraBehaviour : MonoBehaviour
 
 
         }
+        if (GetComponent<MovementLimiter2>() != null)
+        {
+            if (GameObject.Find("EFacTest").GetComponent<ESM2>().enemyList.Count != 0 || GameObject.Find("EFacTest").GetComponent<SACL2>().enemies.Count != 0)
+            {
+                GetComponent<MovementLimiter2>().LimiterUpdate();
+            }
+
+
+
+        }
         GameEvents.gameEvents.OnUpdateCamera();
 
 

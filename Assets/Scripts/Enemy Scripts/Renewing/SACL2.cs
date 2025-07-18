@@ -11,7 +11,7 @@ public class SACL2 : MonoBehaviour
     ESM2 spawnManager;
     public Transform[] sPos;
     public Transform[] decisionPoints;
-    List<GameObject> enemies = new List<GameObject>();
+    public List<GameObject> enemies = new List<GameObject>();
     public GameObject dialogueObj1;
     public GameObject dialogueObj2;
     public GameObject dialogueObj3;
@@ -83,7 +83,7 @@ public class SACL2 : MonoBehaviour
             }
         }
 
-        if (justOnce1 && !dialogueObj1.activeSelf && count >= 1.5f && !justOnce2)
+        if (justOnce1 && !dialogueObj1.activeSelf && count >= 1.5f && !justOnce2 && !PlayerController.IsInteractable)
         {
 
             dialogueObj1.transform.position = enemies[0].transform.position;
@@ -97,7 +97,7 @@ public class SACL2 : MonoBehaviour
         }
 
 
-        if (justOnce2 && !dialogueObj2.activeSelf && count >= 1.5f && !justOnce3)
+        if (justOnce2 && !dialogueObj2.activeSelf && count >= 1.5f && !justOnce3 && !PlayerController.IsInteractable)
         {
             enemies[0].GetComponent<EnemyController>().doNothing = false;
             enemies[1].GetComponent<EnemyController>().doNothing = false;
