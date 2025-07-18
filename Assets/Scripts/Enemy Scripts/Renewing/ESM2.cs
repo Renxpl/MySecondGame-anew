@@ -59,8 +59,8 @@ public class ESM2 : MonoBehaviour
         if (concurrentEnemyCount > enemyList.Count && totalEnemyCount < 40 && startSpawn)
         {
             rndInt = UnityEngine.Random.Range(randomDownLim, randomUpLim);
-            float rndX = UnityEngine.Random.Range(-400f, -60f);
-            float locY = 27f;
+            float rndX = UnityEngine.Random.Range(-650f, -400f);
+            float locY = 29f;
             if (rndX < player.transform.position.x + 15 && rndX > player.transform.position.x - 15)
             {
                 return;

@@ -113,7 +113,7 @@ public class SACL2 : MonoBehaviour
         }
 
 
-        if(player.transform.position.x < -550f && !justOnce5)
+        if(player.transform.position.x < -750f && !justOnce5)
         {
             PlayerController.PlayerRB.WakeUp();
             PlayerController.ConversationCounterpart = dialogueObj4;
