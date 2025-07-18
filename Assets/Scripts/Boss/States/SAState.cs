@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class SAState : IState
 {
-    float timePassed;
+   
     Coroutine attackCo;
     BossTest bossMainScript = GameObject.Find("Boss").GetComponent<BossTest>();
-    GameObject player = GameObject.Find("Player");
+    
+    int attackType;
     public void Enter()
     {
-        timePassed = 0f;
+       
         BossTest.bossRb.velocity = Vector2.zero;
         BossTest.isSpriteLocked = true;
+        BossTest.IsSAStarted = true;
+        if (BossTest.CurrentHealth / bossMainScript.hp > 1 / 3f)
+            attackType = 0;
+        else
+            attackType = 1;
+
+        Debug.Log(attackType);
 
     }
 
@@ -20,26 +28,37 @@ public class SAState : IState
     IEnumerator Attack1()
     {
 
-
-        yield return null;
-
-
-
+        BossTest.ChangeAnimation(BossTest.sa1);
+        yield return new WaitForSeconds(0.3f);
+        BossTest.attackHitboxes[4].enabled = true;
+        yield return new WaitForSeconds(0.6f);
+        BossTest.attackHitboxes[4].enabled = false;
+        attackCo = null;
+        BossTest.IsSAStarted = false;
+        
 
 
     }
     IEnumerator Attack2()
     {
-      yield return null;
+        BossTest.bossRb.transform.localScale = new Vector2(1f,1f);
+        BossTest.ChangeAnimation(BossTest.sa2);
+        yield return new WaitForSeconds(0.3f);
+        BossTest.attackHitboxes[5].enabled = true;
+        yield return new WaitForSeconds(0.6f);
 
-
+        BossTest.attackHitboxes[5].enabled = false;
+        attackCo = null;
+        BossTest.IsSAStarted = false;
     }
    
     public void Update()
     {
-        timePassed += Time.deltaTime;
-        if (BossTest.AttackStep == 0)
+      
+        if (attackType== 0)
         {
+           
+
 
 
             if (attackCo == null)
@@ -52,7 +71,7 @@ public class SAState : IState
 
         }
 
-        else if (BossTest.AttackStep == 1)
+        else if (attackType == 1)
         {
 
 
@@ -74,7 +93,7 @@ public class SAState : IState
     public void Exit()
     {
         BossTest.isSpriteLocked = false;
-        
+        BossTest.IsSAStarted = false;
 
     }
 }

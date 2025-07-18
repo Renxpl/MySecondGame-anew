@@ -113,12 +113,15 @@ public class ModeDecisionMaker : MonoBehaviour
         {
             BlackboardForBoss.mode = BossMode.Flee;
         }
-        else if (BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && Mathf.Abs(currentP.position.x - BossTest.bossRb.position.x) < 0.1f)
         {
             BlackboardForBoss.mode = BossMode.SpecialAttack;
         }
 
-
+        if (BossTest.IsSAStarted)
+        {
+            BlackboardForBoss.mode = BossMode.SpecialAttack;
+        }
 
 
 

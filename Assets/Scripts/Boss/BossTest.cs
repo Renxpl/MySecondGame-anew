@@ -144,7 +144,7 @@ public class BossTest : MonoBehaviour, IDamageable
     
         bossSM?.ChangeState(bossGroundedState);
         GameObject aH = transform.Find("AttackHitboxes").gameObject;
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 6; i++)
         {
             int a = i + 1;
             attackHitboxes[i] = aH.transform.Find(a.ToString()).GetComponent<Collider2D>();

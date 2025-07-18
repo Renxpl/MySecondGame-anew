@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossRunningState : IState
 {
     float speed = 9.5f;
+    BossTest mainScript = GameObject.Find("Boss").GetComponent<BossTest>();
     public void Enter()
     {
 
@@ -13,8 +14,23 @@ public class BossRunningState : IState
 
     public void Update()
     {
-
-        float distanceX = PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x;
+        Transform currentP;
+        if (BossTest.CurrentHealth / mainScript.hp > 1 / 3f)
+            currentP = mainScript.sA1P;
+        else
+            currentP = mainScript.sA2P;
+        
+        float distanceX;
+        
+        if(BlackboardForBoss.purpose == BossPurpose.SpecialAttack)
+        {
+            distanceX = currentP.position.x - BossTest.bossRb.position.x;
+        }
+        else
+        {
+            distanceX = PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x;
+        }
+            
 
 
 

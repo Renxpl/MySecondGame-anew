@@ -85,7 +85,7 @@ public class GrAttackState : IState
         yield return new WaitForSeconds(0.35f);
         BossTest.attackHitboxes[2].enabled = true;
         BossTest.bossRb.AddForce(force, ForceMode2D.Impulse);
-       
+      
         BossTest.ISAStarted = true;
         yield return new WaitForSeconds(0.32f);
         BossTest.attackHitboxes[2].enabled = false;
@@ -187,8 +187,15 @@ public class GrAttackState : IState
         BossTest.isSpriteLocked = false;
         if(attackCo != null)
         {
+            BossTest.attackHitboxes[0].enabled = false;
+            BossTest.attackHitboxes[1].enabled = false;
+            BossTest.attackHitboxes[2].enabled = false;
+            BossTest.attackHitboxes[3].enabled = false;
+
+            BossTest.ISAStarted = false;
             bossMainScript.StopCo(attackCo);
             attackCo = null;
+           
 
         }
 

@@ -80,7 +80,7 @@ public class StateDecisionMaker : MonoBehaviour
             currentP = mainScript.sA2P;
 
 
-        if (Mathf.Abs(currentP.position.x - BossTest.bossRb.position.x) > 5f)
+        if (Mathf.Abs(currentP.position.x - BossTest.bossRb.position.x) > 0.05f)
         {
             BlackboardForBoss.state = BossState.Running;
         }

@@ -6,7 +6,7 @@ public class BossJumpState : IState
 {
 
     bool firstTimeStop;
-
+    BossTest mainScript = GameObject.Find("Boss").GetComponent<BossTest>();
     public void Enter()
     {
         firstTimeStop = false;
@@ -22,7 +22,22 @@ public class BossJumpState : IState
             BossTest.bossRb.velocity = Vector2.zero;
             firstTimeStop= true;
         }
-        float distanceX = PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x;
+        Transform currentP;
+        if (BossTest.CurrentHealth / mainScript.hp > 1 / 3f)
+            currentP = mainScript.sA1P;
+        else
+            currentP = mainScript.sA2P;
+
+        float distanceX;
+
+        if (BlackboardForBoss.purpose == BossPurpose.SpecialAttack)
+        {
+            distanceX = currentP.position.x - BossTest.bossRb.position.x;
+        }
+        else
+        {
+            distanceX = PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x;
+        }
         if (Mathf.Abs(PlayerController.PlayerRB.position.x - BossTest.bossRb.position.x) > 2f)
         {
             
