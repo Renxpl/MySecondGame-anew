@@ -254,7 +254,7 @@ public class PlayerNeededValues : MonoBehaviour
         CanDoActionDuringJump = Physics2D.Raycast(player.transform.position, Vector2.down, 2.25f, groundLayer);
 
 
-
+        if (beSad) StopEverythingPlayer = true;
         if (DigginScene) StopEverythingPlayer = true;
         if (isInTheWay) StopForTheWay= true;
         if (StopForTheWay) StopEverythingPlayer = true;
@@ -329,7 +329,7 @@ public class PlayerNeededValues : MonoBehaviour
 
             if ((!StopForTheWay && !DigginScene) || UIManagement.IsPaused) CommandHandler.ResetNext();
             if (UIManagement.IsPaused && !StopForTheWay && !DigginScene) return;
-            if (!PlayerController.IsInteractable && !stopForChain && !StopForTheWay && !DigginScene && !BossScene.beingThrown) StopEverythingPlayer = false;
+            if (!PlayerController.IsInteractable && !stopForChain && !StopForTheWay && !DigginScene && !BossScene.beingThrown && !beSad) StopEverythingPlayer = false;
            if(!StopForTheWay && !DigginScene && BossScene.beingThrown) return;
         }
         else
@@ -797,10 +797,12 @@ public class PlayerNeededValues : MonoBehaviour
 
 
     }
+
+    public static bool beSad;
     void OnJumping(InputValue input)
     {
-
-        if (PlayerController.IsInteractable || IsBeingForced && !IsDigging)
+        if (IsDigging) return;
+        if (PlayerController.IsInteractable || IsBeingForced)
         {
             if (input.Get<float>() == 1f)
             {

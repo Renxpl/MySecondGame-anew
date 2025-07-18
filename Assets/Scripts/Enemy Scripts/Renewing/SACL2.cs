@@ -119,12 +119,14 @@ public class SACL2 : MonoBehaviour
             PlayerController.ConversationCounterpart = dialogueObj4;
             player.GetComponent<PlayerNeededValues>().ForceDialogue(dialogueObj4);
             justOnce5 = true;
-            
+            count = 0;
+            PlayerNeededValues.beSad = true;
 
         }
 
-        if (!dialogueObj4.activeSelf && justOnce5)
+        if (!dialogueObj4.activeSelf && justOnce5 && count > 10f)
         {
+          
             VillageSM.sceneTransition = true;
         }
 

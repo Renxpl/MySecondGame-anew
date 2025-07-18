@@ -39,7 +39,12 @@ public class PlayerIdleState : IState
         timePassed += Time.deltaTime;
 
         PlayerController.PlayerRB.velocity = new Vector2(0f, 0f);
-
+        if (PlayerNeededValues.beSad)
+        {
+            PlayerController.ChangeAnimationState("Walking");
+            timePassed = 0f;
+            return;
+        }
         if (timePassed < timeToBePassed)
         {
             PlayerController.ChangeAnimationState("Idle");

@@ -44,7 +44,7 @@ public class BossScene : MonoBehaviour
            
         }
 
-        if (player.transform.position.x < -500f && !justOnce1)
+        if (player.transform.position.x < -550f && !justOnce1)
         {
             StartCoroutine(Waiting());
             justOnce1 = true;

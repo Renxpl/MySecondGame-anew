@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class VillageSM : MonoBehaviour
 {
@@ -36,13 +35,14 @@ public class VillageSM : MonoBehaviour
             StartCoroutine(Waiting());
             sceneTransition = false;
         }
-       
+        
 
     }
 
 
     IEnumerator Waiting()
     {
+       
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             Panel.SetActive(true);
@@ -65,6 +65,7 @@ public class VillageSM : MonoBehaviour
         {
             Panel.SetActive(true);
             yield return new WaitForSecondsRealtime(1f);
+            
             Panel.SetActive(true);
             SceneManager.LoadScene(3);
             player.GetComponent<PlayerNeededValues>().StopTheWay();
