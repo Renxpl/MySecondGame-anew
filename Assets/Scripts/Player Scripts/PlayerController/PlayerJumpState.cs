@@ -16,7 +16,7 @@ public class PlayerJumpState : IState
 
     public void Update()
     {
-        if (!(PlayerNeededValues.IsGroundedPlayer) && !PlayerNeededValues.IsRightWallClimbing && !PlayerNeededValues.IsLeftWallClimbing)
+        if (!(PlayerNeededValues.IsGroundedPlayer) && (!PlayerNeededValues.IsRightWallClimbing && !PlayerNeededValues.IsLeftWallClimbing || PlayerNeededValues.TimePassedOnWalls <= 0.1f))
         {
             //Debug.Log("Entered into Airborne State");
 
@@ -34,7 +34,8 @@ public class PlayerJumpState : IState
 
             return;
         }
-        if (PlayerNeededValues.IsGroundedPlayer)
+       // Debug.Log("debg");
+        if (PlayerNeededValues.IsGroundedPlayer || PlayerNeededValues.IsGroundedPlayerDebug)
         {
             if (Time.timeScale < 1)
             {
@@ -51,13 +52,14 @@ public class PlayerJumpState : IState
             PlayerNeededValues.LockSpriteDirection = true;
             if (Time.timeScale < 1)
             {
-                if (PlayerNeededValues.IsRightWallClimbing)
+                if (PlayerNeededValues.IsRightWallClimbing && PlayerNeededValues.TimePassedOnWalls> 0.1f)
                 {
-
+                    //Debug.Log("Entered, RWJ");
                     PlayerController.PlayerRB.velocity = new Vector2(-60f*3f, 25f*3f);
                 }
-                if (PlayerNeededValues.IsLeftWallClimbing)
+                if (PlayerNeededValues.IsLeftWallClimbing && PlayerNeededValues.TimePassedOnWalls > 0.1f)
                 {
+                    //Debug.Log("Entered, LWJ");
                     PlayerController.PlayerRB.velocity = new Vector2(60f*3f, 25f*3f);
                 }
 
@@ -66,13 +68,15 @@ public class PlayerJumpState : IState
             else
             {
                
-                if (PlayerNeededValues.IsRightWallClimbing)
+                if (PlayerNeededValues.IsRightWallClimbing && PlayerNeededValues.TimePassedOnWalls > 0.1f)
                 {
+                    //Debug.Log("Entered, RWJ");
                     PlayerController.PlayerRB.velocity = new Vector2( -60f, 25f);
                 }
-                if (PlayerNeededValues.IsLeftWallClimbing)
+                if (PlayerNeededValues.IsLeftWallClimbing && PlayerNeededValues.TimePassedOnWalls > 0.1f)
                 {
-                    PlayerController.PlayerRB.velocity = new Vector2( 60f,25f) ;
+                    //Debug.Log("Entered, LWJ");
+                    PlayerController.PlayerRB.velocity = new Vector2(60f,25f) ;
                 }
             }
         }

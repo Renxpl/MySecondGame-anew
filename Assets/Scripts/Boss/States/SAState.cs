@@ -31,8 +31,9 @@ public class SAState : IState
         BossTest.ChangeAnimation(BossTest.sa1);
         yield return new WaitForSeconds(0.3f);
         BossTest.attackHitboxes[4].enabled = true;
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.25f);
         BossTest.attackHitboxes[4].enabled = false;
+        yield return new WaitForSeconds(0.35f);
         attackCo = null;
         BossTest.IsSAStarted = false;
         
@@ -45,9 +46,10 @@ public class SAState : IState
         BossTest.ChangeAnimation(BossTest.sa2);
         yield return new WaitForSeconds(0.3f);
         BossTest.attackHitboxes[5].enabled = true;
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.25f);
 
         BossTest.attackHitboxes[5].enabled = false;
+        yield return new WaitForSeconds(0.35f);
         attackCo = null;
         BossTest.IsSAStarted = false;
     }

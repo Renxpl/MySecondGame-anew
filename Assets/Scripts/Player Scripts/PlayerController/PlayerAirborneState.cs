@@ -28,9 +28,9 @@ public class PlayerAirborneState :IState
             return;
 
         }
-       
 
 
+       // Debug.Log("debg");
 
 
         if (PlayerNeededValues.IsRolling)
@@ -86,33 +86,54 @@ public class PlayerAirborneState :IState
 
         if (PlayerNeededValues.IsJumpingUp)
         {
-            if (PlayerNeededValues.LockSpriteDirection)
+            //Debug.Log("debg");
+            if (PlayerNeededValues.isAtRightWall && PlayerNeededValues.MoveInput.x > 0)
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerController.PlayerRB.velocity.y);
+            }
+            else if (PlayerNeededValues.isAtLeftWall && PlayerNeededValues.MoveInput.x < 0)
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerController.PlayerRB.velocity.y);
+            }
+
+            else if (PlayerNeededValues.LockSpriteDirection)
             {
                 PlayerController.PlayerRB.velocity = new Vector2(speed* Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerNeededValues.JumpSpeed);
-                PlayerController.ChangeAnimationState("JumpingUp");
+                //PlayerController.ChangeAnimationState("JumpingUp");
             }
             else
             {
                 PlayerController.PlayerRB.velocity = new Vector2(speed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerNeededValues.JumpSpeed);
-                PlayerController.ChangeAnimationState("JumpingUp");
+                //PlayerController.ChangeAnimationState("JumpingUp");
             }
-           
-           if (a % 2 == 0 ) { a++;  }
+            PlayerController.ChangeAnimationState("JumpingUp");
+            if (a % 2 == 0 ) { a++;  }
 
         }
         else
         {
-            if (PlayerNeededValues.LockSpriteDirection)
+            //Debug.Log("debg");
+            if (PlayerNeededValues.isAtRightWall && PlayerNeededValues.MoveInput.x>0)
             {
-                PlayerController.PlayerRB.velocity = new Vector2(speed* Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerController.PlayerRB.velocity.y);
+                PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerController.PlayerRB.velocity.y);
+            }
+            else if(PlayerNeededValues.isAtLeftWall && PlayerNeededValues.MoveInput.x < 0)
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerController.PlayerRB.velocity.y);
+            }
+
+            else if (PlayerNeededValues.LockSpriteDirection)
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(speed * Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerController.PlayerRB.velocity.y);
             }
             else
             {
                 PlayerController.PlayerRB.velocity = new Vector2(speed * Math.Sign(PlayerNeededValues.MoveInput.x), PlayerController.PlayerRB.velocity.y);
-                PlayerController.ChangeAnimationState("JumpingDown");
+                //PlayerController.ChangeAnimationState("JumpingDown");
             }
-            
-           if (a % 2 == 1 && !PlayerNeededValues.isRollingAirborne) { a++; CommandHandler.ResetNext(); }
+            PlayerController.ChangeAnimationState("JumpingDown");
+
+            if (a % 2 == 1 && !PlayerNeededValues.isRollingAirborne) { a++; CommandHandler.ResetNext(); }
             
 
         }

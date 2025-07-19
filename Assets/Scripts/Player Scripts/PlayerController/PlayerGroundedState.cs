@@ -29,7 +29,7 @@ public class PlayerGroundedState : IState
             return;
         }
         PlayerAirborneState.isAirborne = false;
-
+       // Debug.Log("debg");
         if (PlayerNeededValues.IsRolling)
         {
            

@@ -237,20 +237,24 @@ public class PlayerNeededValues : MonoBehaviour
 
 
     }
-
+    public static bool IsGroundedPlayerDebug {  get; private set; }
+    public static bool isAtRightWall;
+    public static bool isAtLeftWall;  
     void Update()
     {
 
 
         IsGroundedPlayer = Physics2D.Raycast(player.transform.position, Vector2.down, 1.1f, groundLayer) || Physics2D.Raycast(player.transform.position + new Vector3(0.25f, 0f, 0f), Vector2.down, 1.1f, groundLayer) || Physics2D.Raycast(player.transform.position - new Vector3(0.25f, 0f, 0f), Vector2.down, 1.1f, groundLayer);
-        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls < timeToPassOnwalls;
-        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.65f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls < timeToPassOnwalls;
+        IsRightWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.right, 0.6f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls < timeToPassOnwalls;
+        isAtRightWall =Physics2D.Raycast(player.transform.position, Vector2.right, 0.6f, groundLayer) && !IsGroundedPlayer;
+        IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.6f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls < timeToPassOnwalls;
+        isAtLeftWall = Physics2D.Raycast(player.transform.position, Vector2.left, 0.6f, groundLayer) && !IsGroundedPlayer;
         Debug.DrawRay(player.transform.position + new Vector3(0.25f, 0f, 0f), Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position - new Vector3(0.25f, 0f, 0f), Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position, Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position, Vector2.right * 0.65f, IsRightWallClimbing ? Color.green : Color.blue);
         Debug.DrawRay(player.transform.position, Vector2.left * 0.65f, IsLeftWallClimbing ? Color.green : Color.cyan);
-
+        IsGroundedPlayerDebug = Physics2D.Raycast(player.transform.position, Vector2.down, 2.5f, groundLayer);
         CanDoActionDuringJump = Physics2D.Raycast(player.transform.position, Vector2.down, 2.25f, groundLayer);
 
 
@@ -711,7 +715,9 @@ public class PlayerNeededValues : MonoBehaviour
     void OnMove(InputValue input)
     {
         //if (StopEverythingPlayer) return;
-        if(!StopForTheWay) MoveInput = input.Get<Vector2>();
+        
+
+        if (!StopForTheWay) MoveInput = input.Get<Vector2>();
 
 
         //Debug.Log("MoveInput Debug Display " + MoveInput);

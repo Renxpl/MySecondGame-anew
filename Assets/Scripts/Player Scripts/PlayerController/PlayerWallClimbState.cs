@@ -36,17 +36,22 @@ public class PlayerWallClimbState : IState
 
         if (PlayerNeededValues.IsJumping)
         {
-            if (PlayerNeededValues.IsRightWallClimbing && PlayerNeededValues.CanJumpFromRWall)
+         
+            if (PlayerNeededValues.IsRightWallClimbing && PlayerNeededValues.CanJumpFromRWall && PlayerNeededValues.TimePassedOnWalls >0.1f)
             {
+                //Debug.Log("Entered, WCState");
                 PlayerNeededValues.CanJumpFromRWall = false;
                 PlayerController.playerSM.ChangeState(PlayerNeededValues.JumpStateForPlayer);
                 PlayerController.PlayerRB.transform.localScale = new Vector2(-1f,1f);
+               // PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, -0.5f);
             }
-            else if (PlayerNeededValues.IsLeftWallClimbing && PlayerNeededValues.CanJumpFromLWall)
+            else if (PlayerNeededValues.IsLeftWallClimbing && PlayerNeededValues.CanJumpFromLWall && PlayerNeededValues.TimePassedOnWalls > 0.1f)
             {
+                //Debug.Log("Entered, WCState");
                 PlayerNeededValues.CanJumpFromLWall= false;
                 PlayerController.playerSM.ChangeState(PlayerNeededValues.JumpStateForPlayer);
                 PlayerController.PlayerRB.transform.localScale = new Vector2(1f, 1f);
+               // PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, -0.5f);
             }
 
 
@@ -55,8 +60,8 @@ public class PlayerWallClimbState : IState
         {
             Debug.Log("Error, WCState");
         }
-        
-        PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, -0.5f);
+        //  Debug.Log("Entered, WCState");
+        PlayerController.PlayerRB.velocity = new Vector2(0f, -0.5f);
 
         //PlayerController.PlayerRB.AddForce(PlayerNeededValues.JumpSpeed * Vector2.up, ForceMode2D.Impulse);
 
