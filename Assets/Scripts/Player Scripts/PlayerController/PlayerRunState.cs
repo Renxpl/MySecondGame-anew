@@ -34,6 +34,7 @@ public class PlayerRunState : IState
 
 
         }
+        
         if (!PlayerNeededValues.StopForTheWay)
         {
 

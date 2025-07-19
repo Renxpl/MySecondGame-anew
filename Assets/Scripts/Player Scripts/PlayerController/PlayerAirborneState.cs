@@ -95,10 +95,14 @@ public class PlayerAirborneState :IState
             {
                 PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerController.PlayerRB.velocity.y);
             }
+            else if (BossScene.beingThrown)
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerController.PlayerRB.velocity.y);
+            }
 
             else if (PlayerNeededValues.LockSpriteDirection)
             {
-                PlayerController.PlayerRB.velocity = new Vector2(speed* Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerNeededValues.JumpSpeed);
+                PlayerController.PlayerRB.velocity = new Vector2(speed * Math.Sign(PlayerController.PlayerRB.transform.localScale.x), PlayerNeededValues.JumpSpeed);
                 //PlayerController.ChangeAnimationState("JumpingUp");
             }
             else
@@ -120,6 +124,10 @@ public class PlayerAirborneState :IState
             else if(PlayerNeededValues.isAtLeftWall && PlayerNeededValues.MoveInput.x < 0)
             {
                 PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerController.PlayerRB.velocity.y);
+            }
+            else if (BossScene.beingThrown)
+            {
+                PlayerController.PlayerRB.velocity = new Vector2(PlayerController.PlayerRB.velocity.x, PlayerController.PlayerRB.velocity.y);
             }
 
             else if (PlayerNeededValues.LockSpriteDirection)

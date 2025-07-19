@@ -174,6 +174,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnTimeSlow(InputValue input)
     {
+        if (BossScene.beingThrown) return;
         if (PlayerNeededValues.StopEverythingPlayer) return;
         Debug.Log(input.Get<float>());
         if (PlayerNeededValues.SpecialAttackBar >= 8f && !isTimeSlowStarted)

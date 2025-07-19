@@ -216,10 +216,10 @@ public class PlayerNeededValues : MonoBehaviour
     {
 
         StopForTheWay = false;
-        if(!BossScene.beingThrown) StopEverythingPlayer = false;
-        MoveInput= Vector2.zero;
-        
-        if (BossScene.beingThrown) { if (thrownCo == null) { thrownCo = StartCoroutine(BeingThrown()); PlayerController.PlayerRB.velocity = Vector2.zero; } }
+        StopEverythingPlayer = false;
+        MoveInput = Vector2.zero;
+        PlayerController.PlayerRB.velocity = Vector2.zero;
+        if (BossScene.beingThrown) { if (thrownCo == null) {  thrownCo = StartCoroutine(BeingThrown()); } }
         else { PlayerController.PlayerRB.velocity = Vector2.zero; }
     }
 
@@ -227,12 +227,21 @@ public class PlayerNeededValues : MonoBehaviour
     {
         
         yield return new WaitForSeconds(0.05f);
-        PlayerController.PlayerRB.AddForce(new Vector2(800f, 250f), ForceMode2D.Impulse);
+        // PlayerController.PlayerRB.AddForce(new Vector2(800f, 250f), ForceMode2D.Impulse);
+        PlayerController.PlayerRB.MovePosition(new Vector2(transform.position.x + 1, transform.position.y));
+        yield return new WaitForSeconds(0.05f);
+        PlayerController.PlayerRB.MovePosition(new Vector2(transform.position.x + 1, transform.position.y));
+        yield return new WaitForSeconds(0.05f);
+        PlayerController.PlayerRB.MovePosition(new Vector2(transform.position.x + 1, transform.position.y));
+        yield return new WaitForSeconds(0.05f);
+        PlayerController.PlayerRB.MovePosition(new Vector2(transform.position.x + 1, transform.position.y));
+        yield return new WaitForSeconds(1f);
         cannotAttack= false;
         BossScene.beingThrown = false;
-        StopEverythingPlayer = false;
+       
+        //StopEverythingPlayer = false;
         thrownCo = null;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.05f);
         BossTest.ForceDialogue = true;
 
 
@@ -309,7 +318,7 @@ public class PlayerNeededValues : MonoBehaviour
         
         if (BossScene.beingThrown)
         {
-            StopEverythingPlayer = true;
+            return;
         }
 
         if (UIManagement.IsPaused)
@@ -323,11 +332,11 @@ public class PlayerNeededValues : MonoBehaviour
 
 
             if((!stopForChain && !StopForTheWay && !DigginScene && !BossScene.beingThrown) || UIManagement.IsPaused) MoveInput = Vector2.zero;
-            if(StopForTheWay && !DigginScene && !UIManagement.IsPaused) MoveInput = new Vector2(-1, 0);
+            if(StopForTheWay && !DigginScene && !UIManagement.IsPaused && !BossScene.beingThrown) MoveInput = new Vector2(-1, 0);
             
             if (firstTimeStopEv)
             {
-                if(!StopForTheWay && !DigginScene && !BossScene.beingThrown)PlayerController.PlayerRB.velocity = Vector2.zero;
+                if(!StopForTheWay && !DigginScene && !BossScene.beingThrown) PlayerController.PlayerRB.velocity = Vector2.zero;
                 firstTimeStopEv = false;
             }
 
@@ -715,8 +724,8 @@ public class PlayerNeededValues : MonoBehaviour
     void OnMove(InputValue input)
     {
         //if (StopEverythingPlayer) return;
-        
 
+        if (BossScene.beingThrown) return;
         if (!StopForTheWay) MoveInput = input.Get<Vector2>();
 
 
@@ -807,6 +816,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool beSad;
     void OnJumping(InputValue input)
     {
+        if (BossScene.beingThrown) return;
         if (IsDigging) return;
         if (PlayerController.IsInteractable || IsBeingForced)
         {
@@ -1010,6 +1020,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnToLightningAura(InputValue input)
     {
+
         if (StopEverythingPlayer) return;
         //Debug.Log("Aura Input:" + input.Get<float>());
         if (IsLightningAura && input.Get<float>() == 1) { IsLightningAura = false; }
@@ -1057,6 +1068,7 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool cannotAttack;
     void OnLightAttack()
     {
+        if (BossScene.beingThrown) return;
         if (StopEverythingPlayer && !StopForTheWay && !DigginScene)  return;
         if (cannotAttack) return;
         if (DigginScene)
@@ -1297,6 +1309,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnHeavyAttack()
     {
+        if (BossScene.beingThrown) return;
         if (StopEverythingPlayer) return;
         if (IsGroundedPlayer && Stamina >= 5)
         {
@@ -1466,6 +1479,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnSpecialAttack()
     {
+        if (BossScene.beingThrown) return;
         if (StopEverythingPlayer) return;
         if (IsGroundedPlayer && SpecialAttackBar >= 15)
         {
@@ -1694,6 +1708,7 @@ public class PlayerNeededValues : MonoBehaviour
 
     void OnParry(InputValue input)
     {
+        if (BossScene.beingThrown) return;
         if (StopEverythingPlayer) return;
 
         if (input.Get<float>() == 1f && IsGroundedPlayer && CanParry > 0.15f)

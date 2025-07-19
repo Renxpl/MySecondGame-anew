@@ -61,7 +61,7 @@ public class PlayerGroundedState : IState
         }
 
 
-        else if ((PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)&& (!PlayerNeededValues.StopEverythingPlayer || PlayerNeededValues.StopForTheWay))
+        else if ((PlayerNeededValues.MoveInput.x > 0.75f || -0.75f > PlayerNeededValues.MoveInput.x)&& (!PlayerNeededValues.StopEverythingPlayer || PlayerNeededValues.StopForTheWay) && !BossScene.beingThrown)
         {
             PlayerController.playerSM.ChangeState(CurrentState = PlayerNeededValues.RunStateForPlayer);
 
@@ -75,7 +75,7 @@ public class PlayerGroundedState : IState
 
         }
 
-        else if ((PlayerNeededValues.MoveInput.x > 0.15f || -0.15f > PlayerNeededValues.MoveInput.x) && (!PlayerNeededValues.StopEverythingPlayer || PlayerNeededValues.DigginScene))
+        else if ((PlayerNeededValues.MoveInput.x > 0.15f || -0.15f > PlayerNeededValues.MoveInput.x) && (!PlayerNeededValues.StopEverythingPlayer || PlayerNeededValues.DigginScene) && !BossScene.beingThrown)
         {
            
             PlayerController.playerSM.ChangeState( CurrentState = PlayerNeededValues.WalkStateForPlayer);
