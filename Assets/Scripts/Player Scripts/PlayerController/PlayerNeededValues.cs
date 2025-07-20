@@ -883,6 +883,7 @@ public class PlayerNeededValues : MonoBehaviour
         }
         //Debug.Log("Jumping");
         jumpInput = input.Get<float>();
+        if (beSad) return;
         //Debug.Log(jumpInput);
         if (jumpInput != 0)
         {
