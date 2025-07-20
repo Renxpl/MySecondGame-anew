@@ -10,17 +10,17 @@ public class PlayerValuesManager : MonoBehaviour
     public Image stanceBar;
     public Image sABar1;
     public Image sABar2;
-    
+    PlayerNeededValues values;
     void Start()
     {
-        
+        values = GetComponent<PlayerNeededValues>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthBar.fillAmount = PlayerNeededValues.HP / 10f;
-        stanceBar.fillAmount = PlayerNeededValues.Stance / 5f;
+        healthBar.fillAmount = (float)PlayerNeededValues.HP / values.hp;
+        stanceBar.fillAmount = PlayerNeededValues.Stance / values.stance;
         if (PlayerNeededValues.SpecialAttackBar > 16)
         {
             sABar2.fillAmount = (PlayerNeededValues.SpecialAttackBar-16f) / 16f;

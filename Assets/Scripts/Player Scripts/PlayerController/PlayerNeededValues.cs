@@ -151,6 +151,8 @@ public class PlayerNeededValues : MonoBehaviour
     public static bool StopForTheWay { get;  set; }
     public static bool DigginScene { get;  set; }
     public static bool StartDiggin { get; set; }
+    public int hp;
+    public float stance;
 
 
     Collider2D parryHB;
@@ -198,8 +200,8 @@ public class PlayerNeededValues : MonoBehaviour
         HA3Collider.enabled = false;
         SACollider.enabled = false;
         AACollider.enabled = false;
-        HP = 10;
-        Stance = 5;
+        HP = hp;
+        Stance = stance;
         GameEvents.gameEvents.onComboIncrement += ComboAdjuster;
         SpecialAttackBar = 32;
         AACounter = 0;
@@ -476,6 +478,7 @@ public class PlayerNeededValues : MonoBehaviour
 
 
         }
+        //if(ComboCounter < 30) ComboCounter = 30;
 
     }
     public static bool BossFightStarted {  get; set; }
@@ -692,10 +695,10 @@ public class PlayerNeededValues : MonoBehaviour
 
             if (isTakenDmgCounter > regenTimeLock)
             {
-                if (Stance < 5 && !lockCounter) Stance += 0.8f * Time.deltaTime;
-                else if (Stance < 5 && lockCounter) Stance += 2f * Time.deltaTime;
+                if (Stance < stance && !lockCounter) Stance += 0.8f * Time.deltaTime;
+                else if (Stance < stance && lockCounter) Stance += 2f * Time.deltaTime;
 
-                if (Stance > 5) Stance = 5;
+                if (Stance > stance) Stance = stance;
             }
 
             if (Stance <= 0)
@@ -704,7 +707,7 @@ public class PlayerNeededValues : MonoBehaviour
             }
 
         }
-        if (Stance == 5)
+        if (Stance == stance)
         {
             isTakenDmg = false;
             lockCounter = false;
@@ -1391,7 +1394,7 @@ public class PlayerNeededValues : MonoBehaviour
 
             IsDuringAttack = true;
             yield return new WaitForSecondsRealtime(0.24f * PlayerController.animatorTimeVector);
-            PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 8, PlayerController.PlayerRB.transform.position.y));
+            PlayerController.PlayerRB.MovePosition(new Vector2(PlayerController.PlayerRB.transform.position.x + Mathf.Sign(PlayerController.forward.x) * 6.2f, PlayerController.PlayerRB.transform.position.y));
             CommandHandler.ResetNext();
             PlayerController.PlayerRB.WakeUp();
             HA3Collider.enabled = true;
