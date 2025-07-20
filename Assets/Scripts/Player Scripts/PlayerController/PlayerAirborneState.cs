@@ -87,10 +87,11 @@ public class PlayerAirborneState :IState
         if (PlayerNeededValues.IsJumpingUp)
         {
             //Debug.Log("debg");
-            if ((PlayerNeededValues.isAtRightWall || PlayerNeededValues.RightBlindPointDebug) && PlayerNeededValues.MoveInput.x > 0)
+            if ((PlayerNeededValues.isAtRightWall || (PlayerNeededValues.RightBlindPointDebug)) && PlayerNeededValues.MoveInput.x > 0)
             {
                 PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerNeededValues.JumpSpeed);
             }
+
             else if ((PlayerNeededValues.isAtLeftWall || PlayerNeededValues.LeftBlindPointDebug) && PlayerNeededValues.MoveInput.x < 0)
             {
                 PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerNeededValues.JumpSpeed);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CloseCombatBehaviour : IAttackBehaviour
@@ -99,23 +100,27 @@ public class CloseCombatBehaviour : IAttackBehaviour
                 self.UnlockEnemySprite();
                 yield return new WaitForSeconds(0.01f);
                 self.LockEnemySprite();
-
+                float distanceX = Mathf.Abs(target.position.x + Mathf.Sign(enemyRB.transform.localScale.x) * 2f - enemyRB.transform.position.x);
+                enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x * (3f / 6f) * distanceX, 0f), ForceMode2D.Impulse);
                 yield return new WaitForSeconds(0.1f);
+                enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x * (75f / 6f) * distanceX, 0f), ForceMode2D.Impulse);
                 
                 self.Combo.steps[self.AttackStep % 3].hitbox.enabled = true;
                 isDuringAttack = true;
                 enemyRB.WakeUp();
+                yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 3].postDelay-0.1f);
+                enemyRB.velocity = Vector2.zero;
 
-               
+
                 //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(4, 0)));
-                Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
-                float targetX = target.position.x + (Mathf.Sign(enemyRB.transform.localScale.x) * 2f);
-                
-             
+                //Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
+                //float targetX = target.position.x + (Mathf.Sign(enemyRB.transform.localScale.x) * 2f);
 
-              
-                
-                enemyRB.MovePosition(new Vector2(targetX ,currentPos.y));
+
+
+
+
+                // enemyRB.MovePosition(new Vector2(targetX ,currentPos.y));
 
             }
             else
@@ -131,7 +136,7 @@ public class CloseCombatBehaviour : IAttackBehaviour
 
             
 
-
+            if(self.AttackStep % 3 != 1)
             yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % 3].postDelay);
 
             self.Combo.steps[self.AttackStep % 3].hitbox.enabled = false;

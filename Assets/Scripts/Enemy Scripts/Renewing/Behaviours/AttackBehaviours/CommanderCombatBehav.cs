@@ -111,19 +111,24 @@ public class CommanderCombatBehav : IAttackBehaviour
                 self.UnlockEnemySprite();
                 yield return new WaitForSeconds(0.01f);
                 self.LockEnemySprite();
+                float distanceX = Mathf.Abs(target.position.x + Mathf.Sign(enemyRB.transform.localScale.x) * 2f - enemyRB.transform.position.x);
+                enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x * (3f / 6f) * distanceX, 0f), ForceMode2D.Impulse);
                 yield return new WaitForSeconds(0.1f);
+                enemyRB.AddForce(new Vector2(enemyRB.transform.localScale.x * (50f / 6f) * distanceX, 0f), ForceMode2D.Impulse);
+                yield return new WaitForSeconds(0.1f);
+                enemyRB.velocity = Vector2.zero;
                 self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = true;
                 enemyRB.WakeUp();
                 Vector2 currentPos = new Vector2(enemyRB.transform.position.x, enemyRB.transform.position.y);
                 //enemyRB.MovePosition(currentPos + (Mathf.Sign(enemyRB.transform.localScale.x) * new Vector2(2, 0)));
                 float targetX = target.position.x + (Mathf.Sign(enemyRB.transform.localScale.x) * 2f);
 
+                yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % totalAC].postDelay-0.1f);
+              
 
 
+                //enemyRB.MovePosition(new Vector2(targetX, currentPos.y));
 
-
-                enemyRB.MovePosition(new Vector2(targetX, currentPos.y));
-             
             }
             else if (self.AttackStep % totalAC == 3)
             {
@@ -252,7 +257,7 @@ public class CommanderCombatBehav : IAttackBehaviour
 
 
 
-
+            if(self.AttackStep % totalAC != 2)
             yield return new WaitForSeconds(self.Combo.steps[self.AttackStep % totalAC].postDelay);
             if(self.Combo.steps[self.AttackStep % totalAC].hitbox != null) self.Combo.steps[self.AttackStep % totalAC].hitbox.enabled = false;
             if (self.AttackStep % totalAC == 6)

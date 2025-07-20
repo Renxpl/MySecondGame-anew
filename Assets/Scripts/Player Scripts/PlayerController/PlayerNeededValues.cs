@@ -260,8 +260,8 @@ public class PlayerNeededValues : MonoBehaviour
         isAtRightWall =Physics2D.Raycast(player.transform.position, Vector2.right, 0.6f, groundLayer) && !IsGroundedPlayer;
         IsLeftWallClimbing = Physics2D.Raycast(player.transform.position, Vector2.left, 0.6f, groundLayer) && !IsGroundedPlayer && TimePassedOnWalls < timeToPassOnwalls;
         isAtLeftWall = Physics2D.Raycast(player.transform.position, Vector2.left, 0.6f, groundLayer) && !IsGroundedPlayer;
-        RightBlindPointDebug = Physics2D.Raycast(player.transform.position, new Vector2(1f,-1f), 1.5f, groundLayer) && !IsGroundedPlayer && !IsRightWallClimbing;
-        LeftBlindPointDebug = Physics2D.Raycast(player.transform.position, new Vector2(-1f, -1f), 1.5f, groundLayer) && !IsGroundedPlayer && !IsLeftWallClimbing;
+        RightBlindPointDebug = Physics2D.Raycast(player.transform.position, new Vector2(0.59f,-1.09f), 1.22f, groundLayer) && !IsGroundedPlayer && !IsRightWallClimbing;
+        LeftBlindPointDebug = Physics2D.Raycast(player.transform.position, new Vector2(-0.59f, -1.09f), 1.22f, groundLayer) && !IsGroundedPlayer && !IsLeftWallClimbing;
         //Debug.Log(RightBlindPointDebug);
         Debug.DrawRay(player.transform.position + new Vector3(0.5f, 0f, 0f), Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);
         Debug.DrawRay(player.transform.position + new Vector3(0.25f, 0f, 0f), Vector2.down * 1.1f, IsGroundedPlayer ? Color.green : Color.red);

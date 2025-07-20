@@ -31,6 +31,7 @@ public class EnemyKbBehaviour
 
     IEnumerator KBCoroutine()
     {
+        enemyRb.velocity = Vector2.zero;
         self.LockEnemySprite();
         self.GetComponent<Animator>().Play("Knockback");
         enemyRb.AddForce(PlayerController.forward * 5f / 3f, ForceMode2D.Impulse);
