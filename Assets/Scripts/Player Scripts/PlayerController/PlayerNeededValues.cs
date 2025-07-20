@@ -1769,9 +1769,10 @@ public class PlayerNeededValues : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(0.015f * PlayerController.animatorTimeVector);
             i++;
-            if (timeForParry > 0.2f)
+            if (timeForParry > 0.25f)
             {
                 IsPerfectParry = false;
+                IsParrying = false;
             }
             if (i > 6)
             {
@@ -1779,7 +1780,7 @@ public class PlayerNeededValues : MonoBehaviour
             }
             else
             {
-                if(Mathf.Abs(MoveInput.x)>0.25)
+                if(Mathf.Abs(MoveInput.x)>0.15)
                 transform.localScale =new Vector2(Mathf.Sign(MoveInput.x), transform.localScale.y);
             }
 

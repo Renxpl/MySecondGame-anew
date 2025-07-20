@@ -16,7 +16,7 @@ public class BossGroundedState : IState
     public void Update()
     {
         
-        if (!BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (!BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && !BossTest.knockback)
         {
 
             Debug.Log("Transitioning to Airborne State for Boss");
@@ -36,10 +36,16 @@ public class BossGroundedState : IState
 
 
         }
+       
         else if (BlackboardForBoss.state == BossState.SpecialAttack)
         {
             if (currentState != BossTest.sSAState)
                 bossGroundedSm.ChangeState(currentState = BossTest.sSAState);
+        }
+        else if (BossTest.knockback)
+        {
+            if (currentState != BossTest.bossIdleState)
+                bossGroundedSm.ChangeState(currentState = BossTest.bossIdleState);
         }
         else if (BlackboardForBoss.state == BossState.ShadowStep)
         {

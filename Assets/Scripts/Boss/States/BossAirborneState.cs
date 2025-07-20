@@ -17,10 +17,10 @@ public class BossAirborneState : IState
     public void Update()
     {
 
-        Debug.Log(BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")));
+        Debug.Log(BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) );
 
 
-        if (BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) || BossTest.knockback)
         {
             BossTest.AttackStep = 1;
             BossTest.bossSM.ChangeState(BossTest.bossGroundedState);

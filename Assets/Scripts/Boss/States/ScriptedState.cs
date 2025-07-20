@@ -15,7 +15,7 @@ public class ScriptedState : IState
     bool justOnce = false;
     public void Update()
     {
-
+        BossTest.bossRb.velocity = Vector2.zero;
         BossTest.ChangeAnimation(BossTest.runningAnim);
         if(Mathf.Abs(BossTest.bossRb.position.x - player.transform.position.x) < 1f)
         {

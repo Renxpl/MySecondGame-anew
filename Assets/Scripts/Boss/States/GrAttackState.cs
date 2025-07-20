@@ -22,7 +22,7 @@ public class GrAttackState : IState
     {
         BossTest.ChangeAnimation(BossTest.idleAnim1);
         BossTest.ISAStarted = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         float distanceX = player.transform.position.x - bossMainScript.transform.position.x;
         if (distanceX != 0f) bossMainScript.transform.localScale = new Vector2(Mathf.Sign(distanceX), 1f);
         BossTest.bossRb.velocity = Vector2.zero;

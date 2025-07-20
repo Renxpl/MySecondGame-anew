@@ -18,7 +18,7 @@ public class BossIdleState : IState
     public void Update()
     {
 
-
+        if (BossTest.knockback) return;
 
 
         timePassed += Time.deltaTime;
