@@ -22,6 +22,8 @@ public class SpawningAtCertainLocs : MonoBehaviour
     public float floatXForD3;
     public float floatYForD3;
     GameObject player;
+
+    [SerializeField] GameObject[] deadBodies;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +50,13 @@ public class SpawningAtCertainLocs : MonoBehaviour
         dialogueObj3.SetActive(false);
         dialogueObj4.SetActive(false);
         dialogueObj5.SetActive(false);
+        
+        for(int i = 0; i < deadBodies.Length; i++)
+        {
+            deadBodies[i].SetActive(false);
+        }
+
+
         //
         //dialogueObj5.SetActive(true);
         //dialogueObj0.SetActive(false);
@@ -112,6 +121,10 @@ public class SpawningAtCertainLocs : MonoBehaviour
         PlayerController.PlayerRB.WakeUp();
         PlayerController.ConversationCounterpart = dialogueObj4;
         player.GetComponent<PlayerNeededValues>().ForceDialogue(dialogueObj4);
+        for (int i = 0; i < deadBodies.Length; i++)
+        {
+            deadBodies[i].SetActive(true);
+        }
 
     }
 
