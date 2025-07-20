@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 using UnityEngine.Experimental.Rendering.Universal;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class CameraBehaviour : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class CameraBehaviour : MonoBehaviour
     Camera cam;
     PixelPerfectCamera pixelPerfectCamera;
     int a = 0;
-
+    SpawningAtCertainLocs spawn1;
     // Start is called before the first frame update
 
     void Awake()
@@ -25,6 +26,8 @@ public class CameraBehaviour : MonoBehaviour
     }
     void Start()
     {
+        if (GameObject.Find("EFacTest").GetComponent<SpawningAtCertainLocs>() != null)
+            spawn1 = GameObject.Find("EFacTest").GetComponent<SpawningAtCertainLocs>();
         Application.targetFrameRate = targetFps;
         cam = GetComponent<Camera>();
         float aspectRatio= (float)Screen.width / Screen.height;
@@ -104,6 +107,7 @@ public class CameraBehaviour : MonoBehaviour
 
 
         }
+        if (GetComponent<MovementLimiter3>() != null && !spawn1.dialogueObj5.activeSelf) GetComponent<MovementLimiter3>().LimiterUpdate();
         GameEvents.gameEvents.OnUpdateCamera();
 
 

@@ -184,6 +184,8 @@ public class PlayerNeededValues : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(GameObject.Find("EFacTest").GetComponent<SpawningAtCertainLocs>() != null)
+        spawn1 = GameObject.Find("EFacTest").GetComponent<SpawningAtCertainLocs>();
         getDmgCollider = transform.Find("Get Dmg Hitbox").GetComponent<Collider2D>();
         groundLayer = LayerMask.GetMask("Ground");
         player = PlayerController.PlayerRB.gameObject;
@@ -478,9 +480,13 @@ public class PlayerNeededValues : MonoBehaviour
 
 
         }
+        if (GetComponent<MovementLimiter3>() != null && !spawn1.dialogueObj5.activeSelf) GetComponent<MovementLimiter3>().LimiterUpdate();
         //if(ComboCounter < 30) ComboCounter = 30;
 
     }
+    SpawningAtCertainLocs spawn1;
+
+
     public static bool BossFightStarted {  get; set; }
     void FallingOfTheWall()
     {

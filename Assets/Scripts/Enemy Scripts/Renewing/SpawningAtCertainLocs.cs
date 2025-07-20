@@ -25,6 +25,7 @@ public class SpawningAtCertainLocs : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         player = GameObject.Find("Player");
         GameEvents.gameEvents.onSpawnNotify += BeingNotified;
         spawnManager = GetComponent<ESpawnManager>();
