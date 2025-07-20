@@ -87,13 +87,13 @@ public class PlayerAirborneState :IState
         if (PlayerNeededValues.IsJumpingUp)
         {
             //Debug.Log("debg");
-            if (PlayerNeededValues.isAtRightWall && PlayerNeededValues.MoveInput.x > 0)
+            if ((PlayerNeededValues.isAtRightWall || PlayerNeededValues.RightBlindPointDebug) && PlayerNeededValues.MoveInput.x > 0)
             {
-                PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerController.PlayerRB.velocity.y);
+                PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerNeededValues.JumpSpeed);
             }
-            else if (PlayerNeededValues.isAtLeftWall && PlayerNeededValues.MoveInput.x < 0)
+            else if ((PlayerNeededValues.isAtLeftWall || PlayerNeededValues.LeftBlindPointDebug) && PlayerNeededValues.MoveInput.x < 0)
             {
-                PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerController.PlayerRB.velocity.y);
+                PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerNeededValues.JumpSpeed);
             }
             else if (BossScene.beingThrown)
             {
@@ -117,11 +117,11 @@ public class PlayerAirborneState :IState
         else
         {
             //Debug.Log("debg");
-            if (PlayerNeededValues.isAtRightWall && PlayerNeededValues.MoveInput.x>0)
+            if ((PlayerNeededValues.isAtRightWall || PlayerNeededValues.RightBlindPointDebug) && PlayerNeededValues.MoveInput.x > 0)
             {
                 PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerController.PlayerRB.velocity.y);
             }
-            else if(PlayerNeededValues.isAtLeftWall && PlayerNeededValues.MoveInput.x < 0)
+            else if ((PlayerNeededValues.isAtLeftWall || PlayerNeededValues.LeftBlindPointDebug) && PlayerNeededValues.MoveInput.x < 0)
             {
                 PlayerController.PlayerRB.velocity = new Vector2(0f, PlayerController.PlayerRB.velocity.y);
             }

@@ -35,7 +35,7 @@ public class PlayerIdleState : IState
 
 
         }
-        Debug.Log("debg");
+        //Debug.Log("debg");
         timePassed += Time.deltaTime;
 
         PlayerController.PlayerRB.velocity = new Vector2(0f, 0f);
