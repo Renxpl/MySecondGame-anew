@@ -28,12 +28,24 @@ public class SAState : IState
     IEnumerator Attack1()
     {
 
-        BossTest.ChangeAnimation(BossTest.sa1);
-        yield return new WaitForSeconds(0.3f);
+        BossTest.ChangeAnimation(BossTest.sa1_1);
+        yield return new WaitForSeconds(0.15f);
         BossTest.attackHitboxes[4].enabled = true;
         yield return new WaitForSeconds(0.25f);
         BossTest.attackHitboxes[4].enabled = false;
-        yield return new WaitForSeconds(0.35f);
+
+        BossTest.ChangeAnimation(BossTest.sa1_2);
+        yield return new WaitForSeconds(0.15f);
+        BossTest.attackHitboxes[5].enabled = true;
+        yield return new WaitForSeconds(0.25f);
+        BossTest.attackHitboxes[5].enabled = false;
+
+        BossTest.ChangeAnimation(BossTest.sa1_3);
+        yield return new WaitForSeconds(0.15f);
+        BossTest.attackHitboxes[6].enabled = true;
+        yield return new WaitForSeconds(0.25f);
+        BossTest.attackHitboxes[6].enabled = false;
+
         attackCo = null;
         BossTest.IsSAStarted = false;
         
@@ -42,14 +54,27 @@ public class SAState : IState
     }
     IEnumerator Attack2()
     {
+        BossTest.attackHitboxes[7].offset = new Vector2(-32f, -3.5f);
         BossTest.bossRb.transform.localScale = new Vector2(1f,1f);
         BossTest.ChangeAnimation(BossTest.sa2);
-        yield return new WaitForSeconds(0.3f);
-        BossTest.attackHitboxes[5].enabled = true;
         yield return new WaitForSeconds(0.25f);
+        Vector2 target = new Vector2(BossTest.bossRb.gameObject.transform.position.x+30f, BossTest.bossRb.gameObject.transform.position.y + 8f);
+        BossTest.bossRb.MovePosition(target);
+        BossTest.attackHitboxes[7].enabled = true;
+        float counter = 0;
+        while (counter <= 1f)
+        {
+            
 
-        BossTest.attackHitboxes[5].enabled = false;
-        yield return new WaitForSeconds(0.35f);
+            yield return new WaitForSeconds(0.084f);
+            counter += 0.084f;
+            BossTest.attackHitboxes[7].offset = new Vector2(BossTest.attackHitboxes[7].offset.x + 2.2f, BossTest.attackHitboxes[7].offset.y);
+
+        }
+        
+
+        BossTest.attackHitboxes[7].enabled = false;
+        yield return new WaitForSeconds(0.25f);
         attackCo = null;
         BossTest.IsSAStarted = false;
     }

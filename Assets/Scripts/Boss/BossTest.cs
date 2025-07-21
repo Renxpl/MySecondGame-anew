@@ -157,7 +157,7 @@ public class BossTest : MonoBehaviour, IDamageable
 
         bossSM?.ChangeState(bossGroundedState);
         GameObject aH = transform.Find("AttackHitboxes").gameObject;
-        for(int i = 0; i < 6; i++)
+        for(int i = 0; i < 8; i++)
         {
             int a = i + 1;
             attackHitboxes[i] = aH.transform.Find(a.ToString()).GetComponent<Collider2D>();
@@ -285,7 +285,9 @@ public class BossTest : MonoBehaviour, IDamageable
     public static string ju = "JU";
     public static string jd = "JD";
     public static string ss = "SS";
-    public static string sa1 = "SA1";
+    public static string sa1_1 = "SA1_1";
+    public static string sa1_2 = "SA1_2";
+    public static string sa1_3 = "SA1_3";
     public static string sa2 = "SA2";
     public static string ga1 = "GA1";
     public static string ga2 = "GA2";
