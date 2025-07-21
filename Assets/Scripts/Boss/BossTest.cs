@@ -228,6 +228,7 @@ public class BossTest : MonoBehaviour, IDamageable
             GetComponent<NPCPrototype>().convoTurn = 0;
             IsInDialogue = true;
             GameObject.Find("Player").GetComponent<PlayerNeededValues>().ForceDialogue(gameObject);
+            VillageExp.WorkItOut = true;
             justOnceEnd= true;
 
         }
