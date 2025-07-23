@@ -18,3 +18,10 @@ MonoBehaviour:
     isGreater: 1
     isShown: 1
     finishLocation: {x: -290, y: 60}
+    justOnce: 1
+  - location: {x: -310, y: 25}
+    text: In minimap, green is player, red is enemy and white is showing quest.
+    isGreater: 1
+    isShown: 1
+    finishLocation: {x: -300, y: 32}
+    justOnce: 1

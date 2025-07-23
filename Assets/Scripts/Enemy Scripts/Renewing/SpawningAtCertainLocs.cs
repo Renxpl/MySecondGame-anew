@@ -23,7 +23,10 @@ public class SpawningAtCertainLocs : MonoBehaviour
     public float floatYForD3;
     GameObject player;
 
+
     [SerializeField] GameObject[] deadBodies;
+
+    public GameObject quests;
     // Start is called before the first frame update
     void Start()
     {
@@ -116,6 +119,7 @@ public class SpawningAtCertainLocs : MonoBehaviour
 
     public void Dialogue4()
     {
+        quests.SetActive(false);
         dialogueObj5.SetActive(true);
         dialogueObj0.SetActive(false);
         PlayerController.PlayerRB.WakeUp();

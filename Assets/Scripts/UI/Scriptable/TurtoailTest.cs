@@ -10,7 +10,7 @@ public class TutorialTest
     public bool isGreater;
     public bool isShown;
     public Vector2 finishLocation;
-
+    public bool justOnce;
 
 
 

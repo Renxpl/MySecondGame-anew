@@ -19,11 +19,11 @@ public class TutorialManager : MonoBehaviour
     void Update()
     {
         child.transform.position = transform.position;
-        Debug.Log(new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y));
+        //Debug.Log(new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y));
         for (int i = 0; i < notify.tutorials.Length; i++)
         {
             Vector2 targetPos = notify.tutorials[i].location;
-            if (!notify.tutorials[i].isShown)
+            if (!notify.tutorials[i].isShown && !notify.tutorials[i].justOnce)
             {
 
 
@@ -35,8 +35,7 @@ public class TutorialManager : MonoBehaviour
                         child.transform.position = transform.position;
                         child.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = notify.tutorials[i].text;
                         child.SetActive(true);
-                        notify.tutorials[i].isShown = true;
-
+                        notify.tutorials[i].justOnce = true;
 
                     }
 
@@ -51,7 +50,7 @@ public class TutorialManager : MonoBehaviour
                         child.transform.position = transform.position;
                         child.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = notify.tutorials[i].text;
                         child.SetActive(true);
-                        notify.tutorials[i].isShown = true;
+                        notify.tutorials[i].justOnce = true;
                     }
 
 
@@ -65,7 +64,7 @@ public class TutorialManager : MonoBehaviour
         {
             Vector2 targetPos = notify.tutorials[i].finishLocation;
             
-            if (notify.tutorials[i].isShown && child.activeSelf)
+            if (!notify.tutorials[i].isShown && child.activeSelf)
             {
 
 
@@ -74,7 +73,7 @@ public class TutorialManager : MonoBehaviour
 
                     if (Camera.main.transform.position.x > targetPos.x && Camera.main.transform.position.y > targetPos.y)
                     {
-
+                        notify.tutorials[i].isShown = true;
                         //child.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = notify.tutorials[i].text;
                         child.SetActive(false);
                         //notify.tutorials[i].isShown = true;
@@ -90,7 +89,7 @@ public class TutorialManager : MonoBehaviour
 
                     if (Camera.main.transform.position.x < targetPos.x && Camera.main.transform.position.y < targetPos.y)
                     {
-
+                        notify.tutorials[i].isShown = true;
                         //child.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = notify.tutorials[i].text;
                         child.SetActive(false);
                         //notify.tutorials[i].isShown = true;
