@@ -108,20 +108,17 @@ public class ModeDecisionMaker : MonoBehaviour
         else
             currentP = mainScript.sA2P;
 
+        
         if (Mathf.Abs(currentP.position.x - BossTest.bossRb.position.x) > 0.05f)
         {
             BlackboardForBoss.mode = BossMode.Flee;
         }
-        if (BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && Mathf.Abs(currentP.position.x - BossTest.bossRb.position.x) < 0.1f)
+        if (BossTest.groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && Mathf.Abs(currentP.position.x - BossTest.bossRb.position.x) < 0.1f || BossTest.IsSAStarted)
         {
             BlackboardForBoss.mode = BossMode.SpecialAttack;
         }
 
-        if (BossTest.IsSAStarted)
-        {
-            BlackboardForBoss.mode = BossMode.SpecialAttack;
-        }
-
+        
 
 
     }

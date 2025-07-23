@@ -483,7 +483,10 @@ public class PlayerNeededValues : MonoBehaviour
         if (GetComponent<MovementLimiter3>() != null && !spawn1.dialogueObj5.activeSelf) GetComponent<MovementLimiter3>().LimiterUpdate();
         //if(ComboCounter < 30) ComboCounter = 30;
 
+
+
     }
+
     SpawningAtCertainLocs spawn1;
 
 

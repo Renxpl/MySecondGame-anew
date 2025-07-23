@@ -167,6 +167,8 @@ public class UtilityDecisionMaker : MonoBehaviour
                     firstTwoThird = true;
             }
         }
+        //Debug
+        //BossTest.IsSAStarted = true ;
 
 
             return value;
