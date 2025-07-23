@@ -82,23 +82,49 @@ public class PlayerGrAttackState : IState
             if (PlayerNeededValues.LightAttackNumber == 1)
             {
                 //Debug.Log("Playing Light Attack 1");
-                if(!PlayerNeededValues.StopForTheWay)PlayerController.ChangeAnimationState("LightAttack1");
+                if (!PlayerNeededValues.StopForTheWay)
+                {
+
+                    if (PlayerNeededValues.ComboCounter < 10)
+                        PlayerController.ChangeAnimationState("LightAttack1_1");
+                    else if (PlayerNeededValues.ComboCounter < 20)
+                        PlayerController.ChangeAnimationState("LightAttack1_2");
+                    else
+                        PlayerController.ChangeAnimationState("LightAttack1_3");
+
+
+                }
                 else PlayerController.ChangeAnimationState("RA1");
                 //PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * (1/Time.timeScale)* factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 2)
             {
-                if (!PlayerNeededValues.StopForTheWay) PlayerController.ChangeAnimationState("LightAttack2");
+                if (!PlayerNeededValues.StopForTheWay)
+                {
+                    if(PlayerNeededValues.ComboCounter < 10)
+                    PlayerController.ChangeAnimationState("LightAttack2_1");
+
+                    else if (PlayerNeededValues.ComboCounter < 20)
+                        PlayerController.ChangeAnimationState("LightAttack2_2");
+                    else
+                        PlayerController.ChangeAnimationState("LightAttack2_3");
+
+                }
                 else
                 {
                     PlayerController.ChangeAnimationState("RA2");
-                  
+
                 }
                 //PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * (1 / Time.timeScale) * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 3)
             {
-                PlayerController.ChangeAnimationState("LightAttack3");
+                if (PlayerNeededValues.ComboCounter < 10)
+                    PlayerController.ChangeAnimationState("LightAttack3_1");
+                else if (PlayerNeededValues.ComboCounter < 20)
+                    PlayerController.ChangeAnimationState("LightAttack3_2");
+                else
+                    PlayerController.ChangeAnimationState("LightAttack3_3");
                 //PlayerController.PlayerRB.AddForce(PlayerController.forward * 15f * (1 / Time.timeScale) * factor, ForceMode2D.Impulse);
             }
             else if (PlayerNeededValues.LightAttackNumber == 4)
