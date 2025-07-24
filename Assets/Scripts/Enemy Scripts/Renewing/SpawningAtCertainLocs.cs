@@ -72,7 +72,7 @@ public class SpawningAtCertainLocs : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(enemies.Count == 0 && !justOnce1)
+        if(enemies.Count == 0 && !justOnce1 && quests.activeSelf)
         {
             PlayerController.PlayerRB.WakeUp();
             PlayerController.ConversationCounterpart = dialogueObj1;
@@ -83,7 +83,7 @@ public class SpawningAtCertainLocs : MonoBehaviour
 
 
         }
-        if (enemies2.Count == 0 && !justOnce2)
+        if (enemies2.Count == 0 && !justOnce2 && quests.activeSelf)
         {
             PlayerController.PlayerRB.WakeUp();
             PlayerController.ConversationCounterpart = dialogueObj2;
@@ -96,6 +96,7 @@ public class SpawningAtCertainLocs : MonoBehaviour
 
         if(player.transform.position.x > floatXForD3 && player.transform.position.y < floatYForD3 && !justOnce3)
         {
+            MovementLimiter3.spawning = true;
             PlayerController.PlayerRB.WakeUp();
             PlayerController.ConversationCounterpart = dialogueObj3;
             player.GetComponent<PlayerNeededValues>().ForceDialogue(dialogueObj3);
@@ -119,6 +120,7 @@ public class SpawningAtCertainLocs : MonoBehaviour
 
     public void Dialogue4()
     {
+        MovementLimiter3.spawning = false;
         quests.SetActive(false);
         dialogueObj5.SetActive(true);
         dialogueObj0.SetActive(false);

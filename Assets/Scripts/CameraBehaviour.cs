@@ -107,7 +107,7 @@ public class CameraBehaviour : MonoBehaviour
 
 
         }
-        if (GetComponent<MovementLimiter3>() != null && !spawn1.dialogueObj5.activeSelf) GetComponent<MovementLimiter3>().LimiterUpdate();
+        if (GetComponent<MovementLimiter3>() != null && (!spawn1.dialogueObj5.activeSelf || MovementLimiter3.spawning)) GetComponent<MovementLimiter3>().LimiterUpdate();
         GameEvents.gameEvents.OnUpdateCamera();
 
 
