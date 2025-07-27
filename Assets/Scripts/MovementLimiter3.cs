@@ -7,6 +7,7 @@ public class MovementLimiter3 : MonoBehaviour
     public Transform p1;
     public Transform p2;
     public static bool spawning = false;
+    public static bool deactivateLimiter = false;
     public bool dontRoll;
     // Start is called before the first frame update
     void Start()

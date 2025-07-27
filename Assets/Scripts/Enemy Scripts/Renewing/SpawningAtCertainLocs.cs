@@ -111,6 +111,7 @@ public class SpawningAtCertainLocs : MonoBehaviour
 
         if(dialogueObj5.GetComponent<VerballyInteractable>().GetConvoTurn() == dialogueObj5.GetComponent<VerballyInteractable>().GetConversation().checkpoint && !PlayerNeededValues.StopEverythingPlayer && !justOnce4)
         {
+            MovementLimiter3.deactivateLimiter = true;
             dialogueObj5.GetComponent<BoxCollider2D>().enabled= false;
             PlayerNeededValues.StopForTheWay = true;
             justOnce4= true;
