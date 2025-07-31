@@ -85,27 +85,12 @@ public class ESpawnManager : MonoBehaviour
 
         else if(totalEnemyCount == 30 && enemyList.Count == 0 && startSpawn && !isCommanderSpawned)
         {
-            float rndX = UnityEngine.Random.Range(-90f, 60f);
-            float locY = -2f;
-            spawnLocR = new Vector2(rndX, locY);
-            if (rndX < player.transform.position.x + 15 && rndX > player.transform.position.x - 15)
-            {
-                return;
-            }
-            enemyList.Add(EFactory.SpawnCom(comStats, new ChaseMovementBehaviour(), spawnLocR, comCombo, new CommanderCombatBehav()).gameObject);
-            isCommanderSpawned= true;
-            totalEnemyCount++;
-        }
-
-        else if (totalEnemyCount > 30 && enemyList.Count == 0 && isCommanderSpawned)
-        {
-
-
             GetComponent<SpawningAtCertainLocs>().Dialogue4();
-            isCommanderSpawned = false;
+            isCommanderSpawned = true;
 
         }
 
+       
 
 
 
